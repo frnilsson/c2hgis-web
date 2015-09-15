@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connectivity & Health</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700|Lato:500" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">    
+    <link href="css/jcarousel.responsive.css" rel="stylesheet" />
+    <link href="css/icon-styles.css" rel="stylesheet">
+    <link href="css/app-theme.css" rel="stylesheet">
+	<link href="css/mapbox.css" rel="stylesheet">
+	<link href="css/jquery-ui.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page row-offcanvas row-offcanvas-right">
+        <header class="site-header">
+<div class="jumpLinks"> <a href="index.html#skiptarget1" class="sr-only focusable">Skip to main content</a> <a href="index.html#skiptarget3" class="sr-only focusable">Skip to footer and contact information</a> </div>
+    <nav role="navigation">
+        <div class="navbar navbar-default navbar-primary">
+            <div class="container">
+                <div class="navbar-header">
+                    <h1 class="navbar-brand">
+                  <a title="Home" href="http://fcc.gov" class="navbar-logo">
+                    <span class="sr-only">Federal Communications Commission</span>
+                  </a>
+                </h1>
+                </div>
+                <ul aria-hidden="true" id="menu-primary" class="nav navbar-nav nav-offcanvas-right">
+                    <li class="active">
+                        <a aria-controls="browse-by-category" data-toggle="tab" href="index.html">
+                            <div class="text-prefix">&nbsp;</div>
+                            <strong class="title-emphasis">Connect2Health</strong>
+                        </a>
+                    </li>
+                </ul>                
+            </div>
+        </div>
+		
+        <div aria-hidden="true" class="navbar-secondary navbar-default yamm nav-offcanvas nav-offcanvas-right">
+            <div id="menu-secondary" class="tab-content">
+                <div class="container tab-pane active" id="browse-by-category">
+                    <ul class="nav nav-tabs menu-secondary">
+                        <li class="dropdown dropdown-left yamm-fw" role="presentation">
+                            <a href="index.html" class="dropdown-toggle active">
+                                <span class="link-title dropdown-link-title">Home</span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-left yamm-fw" role="presentation">
+                            <a href="about.html" class="dropdown-toggle">
+                                <span class="link-title dropdown-link-title">About</span>
+                            </a>
+                        </li>                                                
+                        <li class="dropdown dropdown-left yamm-fw" role="presentation">
+                            <a href="faq.html" class="dropdown-toggle">
+                                <span class="link-title dropdown-link-title">FAQ</span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="public-help.html" class="dropdown-toggle">
+                                <span class="dropdown-link-title link-title">Help</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--.nav-tabs -->
+                </div>
+            </div>
+        </div>
+        <!-- .secondary-menu -->
+    </nav>
+</header>
+<div class="clearfix"></div>
+<a class="visuallyhidden" id="skiptarget1" tabindex="-1"></a>
+        <main class="container" role="main">
+		    <div class="row">
+		        <div class="col-md-7 col-lg-8 col-full">
+					<!--
+		            <form id="form-map" action="/">                
+					</form>
+					-->
+					<div class="search-input" >
+						<div class="input-group">					
+							<input id="input-geo-location" class="form-control" type="search" placeholder="Enter Location" aria-label="Enter Geographic Location/Address" style="display: block">
+							<span class="input-group-btn" style="display: table-cell">                        
+								<button class="btn-search btn btn-default" type="submit" id="input-geo-search"  data-toggle="tooltip" data-placement="top" title="Location Search" aria-label="Submit Location Search"><span><i class="fa fa-search"></i></span></button>
+							</span>
+							<span></span>							
+						</div>
+					</div>
+								
+		            <div class="map-container">
+		                <button class="btn-geo btn-geo-current btn btn-default st" type="button" id="btn-geo-current" data-toggle="tooltip" data-placement="right" title="Current Location"><i class="fa fa-location-arrow"></i><span class="sr-only">Current Location</span></button>
+		                <button class="btn-geo btn-geo-nation btn btn-default st" type="button" id="btn-geo-nation" data-toggle="tooltip" data-placement="right" title="Nationwide"><i class="fa fa-globe"></i><span class="sr-only">Nationwide</span></button>
+		                <button  class="btn-geo btn-geo-legend btn btn-default st" type="button" id="btn-geo-legend" data-toggle="tooltip" data-placement="right" title="Map Legend" ><i class="fa fa-list"></i><span class="sr-only">Map Legend</span></button>   
+						<div class="map-legend" style="">
+							<div class="legend" style="display: none;">
+								<div class="map-legend-hd">
+									<i class="fa fa-list"></i> <span class="map-legend-name">Map Legend</span>
+									<button class="btn-geo-legend-close btn btn-xs pull-right">
+										<i class="fa fa-times-circle"></i>
+									</button>
+								</div>								
+							</div>						
+						</div>				
+						<div id="map"></div>              
+		            </div>
+		        </div>
+		        <div class="col-md-5 col-lg-4">
+		            <div class="panel panel-default">
+						<div id="text-div-national" class="text-div" >
+							<ul class="layer-switch nav nav-pills">
+		                        <li class="active"><a id="score" href="#void" class="active" role="presentation">Score</a></li>
+		                        <li><a id="health" href="#void" role="presentation">Health</a></li>
+		                        <li><a id="broadband" href="#void" role="presentation">Broadband</a></li>
+		                        <li><a id="demo" href="#void" role="presentation">Population</a></li>
+		                    </ul>
+						</div>
+						<div class="row">
+		                    <div>
+		                        <div id="controlButtons" style="margin-left:25px; margin-top:10px;">
+		                            <ul class="list-scoreMaps list-unstyled">		                            	
+		                                <li>
+		                                    <input type="radio" onclick="PopLayer_LC_LC()" name="connectMaps" id="sel-map1">
+		                                    <label class="controlButton" id="score1" for="sel-map1">Fair/Poor Health and Broadband Speed</label>
+		                                </li>
+		                                <li>
+		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps" id="sel-map2">
+		                                    <label class="controlButton" id="score2" for="sel-map2">Doctor to number of providers available</label>
+		                                </li>		                               	                                
+		                            </ul>
+		                            <ul class="list-healthMaps list-unstyled hide">
+		                                <li>
+		                                    <input type="radio" onclick="PopLayer_LC_LC()" name="connectMaps">
+		                                    <label class="controlButton" id="health1">Doctors</label>
+		                                </li>
+		                                <li>
+		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
+		                                    <label class="controlButton" id="health2">Poor Health</label>
+		                                </li>
+		                                <li>
+		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
+		                                    <label class="controlButton" id="health3">Obesity</label>
+		                                </li>
+		                            </ul>
+		                            <ul class="list-broadbandMaps list-unstyled hide">		                            	
+		                                 <li>
+		                                    <input type="radio" onclick="PopLayer_LC_LC()" name="connectMaps">
+		                                    <label class="controlButton" id="broadband1">Speed</label>
+		                                </li>
+		                                <li>
+		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
+		                                    <label class="controlButton" id="broadband2">Provider Number availability</label>
+		                                </li>
+		                                <li>
+		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
+		                                    <label class="controlButton" id="broadband3">Wireline</label>
+		                                </li>		                               
+		                                <li>
+		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
+		                                    <label class="controlButton" id="broadband4">Wireless</label>
+		                                </li>		                               
+		                            </ul>
+		                            <ul class="list-demoMaps list-unstyled hide">
+		                                 <li>
+		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
+		                                    <label class="controlButton" id="demo1">Population</label>
+		                                </li>	                               
+		                            </ul>
+		                        </div>
+		                    </div>
+		                </div>
+
+						<div align="center">
+							<img width="250px;" src="img/chart.png">
+						</div>
+						<div class="download-data">
+							<span id="download-data"><i class="fa fa-download"></i><a href="#"> Download Data</a></span>
+							<span id="download-links" style="display: none;">:&nbsp;&nbsp;
+								<a href="/api/search.json" target="_blank" id="download-json-link">JSON</a>&nbsp;&nbsp;-&nbsp;&nbsp;
+								<a href="/api/search.xml" target="_blank" id="download-xml-link">XML</a>&nbsp;&nbsp;-&nbsp;&nbsp;
+								<a href="/api/search.csv" target="_blank" id="download-csv-link">CSV</a>
+							</span>
+						</div>						
+		            </div>
+		        </div>
+		    </div>
+		</main>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-6">
+                                <a tabindex="-1" name="skiptarget3" id="skiptarget3" class="sr-only"></a>
+                                    <address class="contact-info">
+                                        Federal Communications Commission
+                                        <br> 445 12th Street SW, Washington, DC 20554
+                                        <br>
+                                    </address>
+                                    <ul class="contact-info contact-phone">
+                                        <li>
+                                            <a href="tel:+18882255322" class="phone-link">Phone: 1-888-225-5322</a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:+18888355322" class="phone-link">TTY: 1-888-835-5322</a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:+18444322275" class="phone-link">Videophone: 1-844-432-2275</a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:+18884185322" class="phone-link">Fax: 1-866-418-0232</a>
+                                        </li>
+                                    </ul>
+                                    <a href="index.html#" class="contact-link btn-mobile">
+                                        Contact Us
+                                    </a>
+                                    <ul class="footer-links social-media-links">
+                                        <li>
+                                            <a title="" href="index.html#" class="social-media twitter">Twitter    </a>
+                                        </li>
+                                        <li>
+                                            <a title="" href="index.html#" class="social-media facebook">
+                Facebook
+            </a>
+                                        </li>
+                                        <li>
+                                            <a title="" href="index.html#" class="social-media youtube">
+                Youtube
+            </a>
+                                        </li>
+                                        <li>
+                                            <a title="" href="index.html#" class="social-media flickr">
+                Flickr
+            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12 col-sm-6">
+                                    <span class="fcc-seal hide-text">
+                                        Federal Communications Commission
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 visible-md-block visible-lg-block">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <ul class="footer-links footer-links-sitemap">
+                                        <li>
+                                            <a href="index.html#">Website Policies &amp; Notices</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">FOIA</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">No Fear Act Data</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">FCC Digital Strategy</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Open Government Directive</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Plain Writing Act</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">RSS Feeds &amp; Email Updates</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Disability Rights</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-4">
+                                    <h4 class="footer-heading">Categories</h4>
+                                    <ul class="footer-links footer-links-categories">
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/about.php">About the FCC</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/proceedings.php">Proceedings &amp; Actions</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/licensing.php">Licensing &amp; Databases</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Reports &amp; Research</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/news-events.php">News &amp; Events</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/consumer-landing.php">For Consumers</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-4">
+                                    <h4 class="footer-heading">Bureaus &amp; Offices</h4>
+                                    <ul class="footer-links footer-links-bureaus-offices">
+                                        <li>
+                                            <a href="index.html#">Consumer</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Enforcement</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">International</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/media-bureau.php">Media</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Public Safety</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Wireless</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Wireline</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Offices</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+  
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="./js/bootstrap-toolkit.min.js"></script>
+	<script src="http://api.tiles.mapbox.com/mapbox.js/v1.6.5/mapbox.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+	<script src="./js/jquery.jcarousel.min.js"></script>
+	<script src="./js/jcarousel.responsive.js"></script>
+	<script src="http://cdn.jsdelivr.net/jquery.color-animation/1/mainfile"></script>
+	
+	<script src="./js/menus.js"></script>
+	<script src="./js/theme.js"></script>	
+	<script src="./js/app.js"></script>	
+	<script src="./js/ui.js"></script>
+
+
+    <!-- CODE FOR DEMO ONLY! DO NOT USE! -->
+    <script>
+    $('.menu-secondary').find('a').eq(0).addClass('active');
+    $('.license').addClass('active');
+    </script>
+    <!-- END CODE FOR DEMO ONLY! DO NOT USE! -->
+
+
+
+</body></html>

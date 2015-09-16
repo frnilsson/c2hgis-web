@@ -11,8 +11,10 @@
     <link href="css/icon-styles.css" rel="stylesheet">
     <link href="css/app-theme.css" rel="stylesheet">
 	<link href="css/mapbox.css" rel="stylesheet">
-	<link href="css/jquery-ui.css" rel="stylesheet">
+	<link href="css/jquery-ui.css" rel="stylesheet"> 
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" />
+    
     <!--[if lt IE 9]>
       <script src="js/vendor/html5shiv.min.js"></script>
       <script src="js/vendor/respond.min.js"></script>
@@ -36,7 +38,7 @@
                 <ul aria-hidden="true" id="menu-primary" class="nav navbar-nav nav-offcanvas-right">
                     <li class="active">
                         <a aria-controls="browse-by-category" data-toggle="tab" href="index.html">
-                            <div class="text-prefix">&nbsp;</div>
+                            <div class="text-prefix">Reports &amp; Research</div>
                             <strong class="title-emphasis">Connect2Health</strong>
                         </a>
                     </li>
@@ -97,97 +99,39 @@
 								
 		            <div class="map-container">
 		                <button class="btn-geo btn-geo-current btn btn-default st" type="button" id="btn-geo-current" data-toggle="tooltip" data-placement="right" title="Current Location"><i class="fa fa-location-arrow"></i><span class="sr-only">Current Location</span></button>
-		                <button class="btn-geo btn-geo-nation btn btn-default st" type="button" id="btn-geo-nation" data-toggle="tooltip" data-placement="right" title="Nationwide"><i class="fa fa-globe"></i><span class="sr-only">Nationwide</span></button>
-		                <button  class="btn-geo btn-geo-legend btn btn-default st" type="button" id="btn-geo-legend" data-toggle="tooltip" data-placement="right" title="Map Legend" ><i class="fa fa-list"></i><span class="sr-only">Map Legend</span></button>   
-						<div class="map-legend" style="">
-							<div class="legend" style="display: none;">
-								<div class="map-legend-hd">
-									<i class="fa fa-list"></i> <span class="map-legend-name">Map Legend</span>
-									<button class="btn-geo-legend-close btn btn-xs pull-right">
-										<i class="fa fa-times-circle"></i>
-									</button>
-								</div>								
-							</div>						
-						</div>				
-						<div id="map"></div>              
+		                <button class="btn-geo btn-geo-nation btn btn-default st" type="button" id="btn-geo-nation" data-toggle="tooltip" data-placement="right" title="Nationwide"><i class="fa fa-globe"></i><span class="sr-only">Nationwide</span></button>		                
+					   <div id="map"></div>	           
 		            </div>
 		        </div>
 		        <div class="col-md-5 col-lg-4">
-		            <div class="panel panel-default">
-						<div id="text-div-national" class="text-div" >
-							<ul class="layer-switch nav nav-pills">
-		                        <li class="active"><a id="score" href="#void" class="active" role="presentation">Score</a></li>
-		                        <li><a id="health" href="#void" role="presentation">Health</a></li>
-		                        <li><a id="broadband" href="#void" role="presentation">Broadband</a></li>
-		                        <li><a id="demo" href="#void" role="presentation">Population</a></li>
-		                    </ul>
-						</div>
-						<div class="row">
-		                    <div>
-		                        <div id="controlButtons" style="margin-left:25px; margin-top:10px;">
-		                            <ul class="list-scoreMaps list-unstyled">		                            	
-		                                <li>
-		                                    <input type="radio" onclick="PopLayer_LC_LC()" name="connectMaps" id="sel-map1">
-		                                    <label class="controlButton" id="score1" for="sel-map1">Fair/Poor Health and Broadband Speed</label>
-		                                </li>
-		                                <li>
-		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps" id="sel-map2">
-		                                    <label class="controlButton" id="score2" for="sel-map2">Doctor to number of providers available</label>
-		                                </li>		                               	                                
-		                            </ul>
-		                            <ul class="list-healthMaps list-unstyled hide">
-		                                <li>
-		                                    <input type="radio" onclick="PopLayer_LC_LC()" name="connectMaps">
-		                                    <label class="controlButton" id="health1">Doctors</label>
-		                                </li>
-		                                <li>
-		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
-		                                    <label class="controlButton" id="health2">Poor Health</label>
-		                                </li>
-		                                <li>
-		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
-		                                    <label class="controlButton" id="health3">Obesity</label>
-		                                </li>
-		                            </ul>
-		                            <ul class="list-broadbandMaps list-unstyled hide">		                            	
-		                                 <li>
-		                                    <input type="radio" onclick="PopLayer_LC_LC()" name="connectMaps">
-		                                    <label class="controlButton" id="broadband1">Speed</label>
-		                                </li>
-		                                <li>
-		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
-		                                    <label class="controlButton" id="broadband2">Provider Number availability</label>
-		                                </li>
-		                                <li>
-		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
-		                                    <label class="controlButton" id="broadband3">Wireline</label>
-		                                </li>		                               
-		                                <li>
-		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
-		                                    <label class="controlButton" id="broadband4">Wireless</label>
-		                                </li>		                               
-		                            </ul>
-		                            <ul class="list-demoMaps list-unstyled hide">
-		                                 <li>
-		                                    <input type="radio" onclick="BBSLayer_LC_LC()" name="connectMaps">
-		                                    <label class="controlButton" id="demo1">Population</label>
-		                                </li>	                               
-		                            </ul>
-		                        </div>
-		                    </div>
-		                </div>
+		            <div class="panel panel-default">	
+                        <form id="bootstrapSelectForm" method="post" class="form-horizontal">					
+                            <div class="container">
+                              <h4>Health</h4>
+                              <select id="healthCombo" class="selectpicker">
+                                <option value="">-Choose One-</option>
+                                <option value="doc">Doctors</option>
+                                <option value="ph">Poor Health</option>
+                                <option value="obes">Obesity</option>                                
+                              </select>
 
-						<div align="center">
-							<img width="250px;" src="img/chart.png">
-						</div>
-						<div class="download-data">
-							<span id="download-data"><i class="fa fa-download"></i><a href="#"> Download Data</a></span>
-							<span id="download-links" style="display: none;">:&nbsp;&nbsp;
-								<a href="/api/search.json" target="_blank" id="download-json-link">JSON</a>&nbsp;&nbsp;-&nbsp;&nbsp;
-								<a href="/api/search.xml" target="_blank" id="download-xml-link">XML</a>&nbsp;&nbsp;-&nbsp;&nbsp;
-								<a href="/api/search.csv" target="_blank" id="download-csv-link">CSV</a>
-							</span>
-						</div>						
+                              <h4>Broadband</h4>
+                              <select id="broadbandCombo" class="selectpicker">
+                                <option value="">-Choose One-</option>
+                                <option value="speed">Speed</option>
+                                <option value="providers">Provider Number Availability</option>
+                                <option value="wireline">Wireline</option>
+                                <option value="wireless">Wireless</option>                                
+                              </select>
+
+                              <h4>Population</h4>
+                              <select id="popCombo" class="selectpicker">
+                                <option value="">-Choose One-</option>
+                                <option value="population">Population</option>                                
+                              </select>
+                            </div>
+		                    <br/>  
+                        </form>
 		            </div>
 		        </div>
 		    </div>
@@ -346,21 +290,38 @@
 	<script src="http://api.tiles.mapbox.com/mapbox.js/v1.6.5/mapbox.js"></script>
 	<script src="http://code.highcharts.com/highcharts.js"></script>
 	<script src="http://code.highcharts.com/modules/exporting.js"></script>
-
+    <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>-->
+    <script src="http://www.bootply.com/plugins/bootstrap-select.min.js"></script>
 	<script src="./js/jquery.jcarousel.min.js"></script>
 	<script src="./js/jcarousel.responsive.js"></script>
 	<script src="http://cdn.jsdelivr.net/jquery.color-animation/1/mainfile"></script>
 	
 	<script src="./js/menus.js"></script>
 	<script src="./js/theme.js"></script>	
+    <script>
+    $("#healthCombo").selectpicker({});
+    $("#broadbandCombo").selectpicker({});
+    $("#popCombo").selectpicker({});
+    </script>
+
 	<script src="./js/app.js"></script>	
-	<script src="./js/ui.js"></script>
+	<!--<script src="./js/ui.js"></script>-->
 
 
     <!-- CODE FOR DEMO ONLY! DO NOT USE! -->
     <script>
     $('.menu-secondary').find('a').eq(0).addClass('active');
     $('.license').addClass('active');
+
+    $('.btn-toggle').click(function() {
+        $(this).find('.btn').toggleClass('btn-primary active');  
+        
+        //if ($(this).find('.btn-primary').size()>0) {
+         //   $(this).find('.btn').toggleClass('btn-primary');
+        //}
+        $(this).find('.btn').toggleClass('btn-default');           
+    });
+
     </script>
     <!-- END CODE FOR DEMO ONLY! DO NOT USE! -->
 

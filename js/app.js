@@ -46,7 +46,7 @@
     if ($('[data-toggle="floatThead"]:visible').length > 0) { 
     	$('[data-toggle="floatThead"]:visible').floatThead();
     }
-        $('.nav-tablist').tabdrop();
+        //$('.nav-tablist').tabdrop();
 
     if($('.nav-tablist').length > 0){
         $('.nav-tablist').stickyTabs({

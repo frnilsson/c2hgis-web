@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Connectivity & Health</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700|Lato:500" rel="stylesheet" type="text/css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/jcarousel.responsive.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">    
+    <link href="css/jcarousel.responsive.css" rel="stylesheet" />
     <link href="css/icon-styles.css" rel="stylesheet">
     <link href="css/app-theme.css" rel="stylesheet">
-	<!--<link href="css/mapbox.css" rel="stylesheet">-->
-
-	<link rel="stylesheet" href="http://api.tiles.mapbox.com/mapbox.js/v1.6.5/mapbox.css" />
-	<!--<link href="css/app.css" rel="stylesheet"> -->
-	<link href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+	<link href="css/mapbox.css" rel="stylesheet">
+	<link href="css/jquery-ui.css" rel="stylesheet"> 
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
     <!--[if lt IE 9]>
       <script src="js/vendor/html5shiv.min.js"></script>
       <script src="js/vendor/respond.min.js"></script>
@@ -38,7 +35,7 @@
                 </div>
                 <ul aria-hidden="true" id="menu-primary" class="nav navbar-nav nav-offcanvas-right">
                     <li class="active">
-                        <a aria-controls="browse-by-category" data-toggle="tab" href="index.html#browse-by-category">
+                        <a aria-controls="browse-by-category" data-toggle="tab" href="index.html">
                             <div class="text-prefix">&nbsp;</div>
                             <strong class="title-emphasis">Connect2Health</strong>
                         </a>
@@ -93,7 +90,8 @@
 							<input id="input-geo-location" class="form-control" type="search" placeholder="Enter Location" aria-label="Enter Geographic Location/Address" style="display: block">
 							<span class="input-group-btn" style="display: table-cell">                        
 								<button class="btn-search btn btn-default" type="submit" id="input-geo-search"  data-toggle="tooltip" data-placement="top" title="Location Search" aria-label="Submit Location Search"><span><i class="fa fa-search"></i></span></button>
-							</span>							
+							</span>
+							<span></span>							
 						</div>
 					</div>
 								
@@ -108,41 +106,7 @@
 									<button class="btn-geo-legend-close btn btn-xs pull-right">
 										<i class="fa fa-times-circle"></i>
 									</button>
-								</div>
-								<div class="legend-table-div">						
-									<table class="legend-table">
-										<tr>
-											<td colspan="2" class="map-legend-type-sub">Status: </td>
-										</tr>
-										<tr data-toggle="tooltip" data-placement="right" data-container="body" title="Ongoing - product recall is currently in progress">
-											<td><img src="/image/circle-stroked-18.png" alt="Ongoing" /></td>
-											<td>Ongoing</td>
-										</tr>
-										<tr data-toggle="tooltip" data-placement="right" data-container="body" title="Completed - violative products have been retrieved/impounded">
-											<td><img src="/image/circle-18.png" alt="Completed" /></td>
-											<td>Completed</td>
-										</tr>
-										<tr data-toggle="tooltip" data-placement="right" data-container="body" title="Terminated - reasonable efforts have been made to remove/correct the product">
-											<td><img src="/image/cross-18.png" alt="Terminated" /></td>
-											<td>Terminated</td>
-										</tr>
-										<tr>
-											<td colspan="2" class="map-legend-type-sub">Severity: </td>
-										</tr>
-										<tr data-toggle="tooltip" data-placement="right" data-container="body" title="Class I - dangerous product that could cause serious health problems or death">
-											<td><div style="width: 16px; height: 16px; background: #00539B; border: solid 0px #000;" title="Class I"></div></td>
-											<td>Class I</td>
-										</tr>
-										<tr data-toggle="tooltip" data-placement="right" data-container="body" title="Class II - defective product that could cause temporary health problems">
-											<td><div style="width: 16px; height: 16px; background: #A3C658; border: solid 0px #000;" title="Class II"></div></td>
-											<td>Class II</td>
-										</tr>
-										<tr data-toggle="tooltip" data-placement="right" data-container="body" title="Class III - unlikely to cause health problems but that violates labeling manufacturing standards">
-											<td><div style="width: 16px; height: 16px; background: #E2C752; border: solid 0px #000;" title="Class III"></div></td>
-											<td>Class III</td>
-										</tr>
-									</table>
-								</div>
+								</div>								
 							</div>						
 						</div>				
 						<div id="map"></div>              
@@ -155,7 +119,7 @@
 		                        <li class="active"><a id="score" href="#void" class="active" role="presentation">Score</a></li>
 		                        <li><a id="health" href="#void" role="presentation">Health</a></li>
 		                        <li><a id="broadband" href="#void" role="presentation">Broadband</a></li>
-		                        <li><a id="demo" href="#void" role="presentation">Demographics</a></li>
+		                        <li><a id="demo" href="#void" role="presentation">Population</a></li>
 		                    </ul>
 						</div>
 						<div class="row">

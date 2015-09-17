@@ -1,9 +1,9 @@
 {
   "name": "Connect2Health",
   "version": "0.0.1",
-  "description": "FCC Maps - Connect2Health",
+  "description": "Connect2Health GIS",
   "author": "FCC.",
-  "license": "ISC",
+  "license": "",
   "main": "app.js",
   "private": true,
   "scripts": {

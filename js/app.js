@@ -27,6 +27,7 @@ var click_feature_option = {
 var click_data = [];
 
 var ctx;
+var genderChart;
 
 function createMap() { 
 	
@@ -286,19 +287,32 @@ function processData(data) {
 											
 				var genderData = [
 				   {
-					  value: female_total,
-					  label: 'Female',
-					  color: '#5384e0'
-				   },
-				   {
 					  value: male_total,
 					  label: 'Male',
 					  color: '#56e053'
-				   }
+				   },
+				   {
+					  value: female_total,
+					  label: 'Female',
+					  color: '#5384e0'
+				   }				   
 				];
+				var genderOptions = {
+					animationEasing: 'easeOutQuart',
+					tooltipTemplate: '<%=label%>: <%= value.toLocaleString() %> (<%= Math.round(circumference / 6.283 * 1000) / 10 %>%)',
+					legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
+				};
 
 				ctx = document.getElementById('chart_js').getContext('2d');
-				var genderChart = new Chart(ctx).Doughnut(genderData);				
+				if (genderChart) {
+					genderChart.destroy();
+				}
+				genderChart = new Chart(ctx).Doughnut(genderData, genderOptions);		
+				
+				 $('#chart_legend').html( genderChart.generateLegend() );
+				
+				
+				console.log(genderChart.generateLegend());
 				
 				// ***********************************
 				clearClickFeature();

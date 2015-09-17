@@ -3067,3 +3067,17 @@ h4 {
   font-weight: bold;
   font-size: 18px;
 }
+
+.block-featured {
+    border-top: 6px solid #ffcc44;
+}
+.block-box {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.14);
+}
+.block {
+    margin-bottom: 33px;
+}
+.block-content {
+  padding: 15px;
+}

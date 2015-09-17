@@ -3,52 +3,50 @@ var geo_host = 'http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com';
 var geo_space = 'c2hgis';
 var geo_output = 'application/json'
 
-var lastZoom = 3;
-var zoomCounty = 6;
-var layerType = "state";
+var geo_type = 'state';
 
-function createMap() {
- 
+var geo_lat;
+var geo_lng;
+
+var geo_id;
+
+var geo_data;
+
+var click_feature;
+
+//var lastZoom = 3;
+//var zoomCounty = 6;
+//var layerType = 'state';
+
+var click_feature_option = {
+	'color': '#ffcc44',
+	'fillColor': '#ffcc44',
+	'weight': 4,
+	'fillOpacity': 0.1
+};
+var click_data = [];
+
+var ctx;
+
+function createMap() { 
+	
+
+                          
  
      L.mapbox.accessToken = 'pk.eyJ1IjoiY29tcHV0ZWNoIiwiYSI6InMyblMya3cifQ.P8yppesHki5qMyxTc2CNLg';
      map = L.mapbox.map('map', 'fcc.k74ed5ge', {
              attributionControl: true,
              maxZoom: 19
          })
-         .setView([45, -93], 3);
-         
-    lastZoom = map.getZoom();
-         
+         .setView([45, -93], 3);    
 
-     map.attributionControl.addAttribution('<a href="http://fcc.gov/maps">FCC Maps</a>');
+     map.attributionControl.addAttribution('<a href="http://fcc.gov/health">FCC Connect2Health</a>');
 
      baseStreet = L.mapbox.tileLayer('fcc.k74ed5ge').addTo(map);
      baseSatellite = L.mapbox.tileLayer('fcc.k74d7n0g');
      baseTerrain = L.mapbox.tileLayer('fcc.k74cm3ol');
  
-    var wms_health_and_broadband_county = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
-         format: 'image/png',
-         transparent: true,
-         layers: 'c2hgis:score_health_and_broadband_county'
-     });
-     
-    var wms_pcp_and_provider_county = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
-         format: 'image/png',
-         transparent: true,
-         layers: 'c2hgis:score_pcp_and_provider_county'
-     });
-     
-    var wms_health_and_broadband_state = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
-         format: 'image/png',
-         transparent: true,
-         layers: 'c2hgis:score_health_and_broadband_state'
-     });
-     
-    var wms_pcp_and_provider_state = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
-         format: 'image/png',
-         transparent: true,
-         layers: 'c2hgis:score_pcp_and_provider_state'
-     });
+    
 
      L.control.scale({
          position: 'bottomright'
@@ -56,41 +54,80 @@ function createMap() {
 
      geocoder = L.mapbox.geocoder('mapbox.places-v1');
 
-     layerControl = new L.Control.Layers({
-         'Street': baseStreet.addTo(map),
-         'Satellite': baseSatellite,
-         'Terrain': baseTerrain
-     }, {
-        'Health and Broadband County': wms_health_and_broadband_county,
-        'PCP and Provider County': wms_pcp_and_provider_county,
-        'Health and Broadband State': wms_health_and_broadband_state.addTo(map),
-        'PCP and Provider State': wms_pcp_and_provider_state
-
-     }, {
-        position: 'topleft'
-     }
-     ).addTo(map);
-     
-    
-    map.on("zoomend", function() {
-    
-        if (lastZoom < zoomCounty && map.getZoom() >= zoomCounty) {
-            if (map.hasLayer(wms_health_and_broadband_state)) {
-                map.removeLayer(wms_health_and_broadband_state);
-            }
-            wms_health_and_broadband_county.addTo(map);
-        }
-        
-        if (lastZoom >= zoomCounty && map.getZoom() < zoomCounty) {
-            if (map.hasLayer(wms_health_and_broadband_county)) {
-                map.removeLayer(wms_health_and_broadband_county);
-            }
-            wms_health_and_broadband_state.addTo(map);
-        }
-        
-        lastZoom = map.getZoom();
-    });
-    
+	 
+	layerControl = new L.Control.Layers(
+		{
+			'Street': baseStreet.addTo(map),
+			'Satellite': baseSatellite,
+			'Terrain': baseTerrain
+		}, 
+		{},
+		{
+			position: 'topleft'
+		})
+		.addTo(map);  
+		    
+	var wms_border = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+         format: 'image/png',
+         transparent: true,
+         layers: 'c2hgis:border',
+		 zIndex: 999
+     });        
+	 
+	 wms_border.addTo(map);
+	
+	
+	map.on('zoomend', function() {
+		
+		var zoom = map.getZoom();
+		
+		if (zoom < 7 ) {
+			new_geo_type = 'state';
+		}
+		else if (zoom >= 7 ) {
+			new_geo_type = 'county';
+		}
+		
+		if (geo_type !== new_geo_type) {		
+			
+			if (geo_type === 'county') {
+				geo_type = new_geo_type;
+				getData();
+			}
+			geo_type = new_geo_type;		
+		}
+		
+		console.log(' geo_type : ' + geo_type );
+		
+	});
+	
+	
+	map.on('click', function(e) {
+		console.log(' e.latlng : ' + e.latlng );
+		
+		geo_lat = e.latlng.lat;
+		geo_lng = e.latlng.lng;		
+		var zoom = map.getZoom();
+		
+		/*
+		var geo_type = 'state';
+		if (zoom < 7 ) {
+			geo_type = 'state';
+		}
+		else if (zoom >= 7 ) {
+			geo_type = 'county';
+		}
+		*/
+		
+		console.log(' geo_lat : ' + geo_lat );
+		console.log(' geo_lng : ' + geo_lng );
+		console.log(' zoom : ' + zoom );
+		console.log(' geo_type : ' + geo_type );
+		
+		getData();
+	});
+	
+	
     // current location
     $('#btn-geo-current').click(function(e) {
         getCurrentLocation(false);
@@ -121,9 +158,9 @@ function getCurrentLocation(load) {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var lat = position.coords.latitude;
-            var lon = position.coords.longitude;
+            var lng = position.coords.longitude;
 
-            map.setView([lat, lon], 10);
+            map.setView([lat, lng], 10);
 
         }, function(error) { 
             if (load) { 
@@ -185,30 +222,135 @@ function setNationwide() {
     map.setView([40, -97], 3);  
 }  
      
-function getData() {
-
-var state = "TX";
-var url = "getStateData/" + state;
-alert("url=" + url);
-    $.ajax({
-            type: "GET",
-            url: url,
-            dataType: "json",
-            //dataType: "jsonp",
-            success: function(data) {
-            processData(data);
-            }
-        });
+function getData() {			
+	
+	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':'+geo_type+'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
+	
+	console.log(' data_url : ' + data_url );
+	
+		$.ajax({
+			type: 'GET',
+			url: data_url,
+			//dataType: 'json',
+			dataType: 'jsonp',
+			jsonpCallback: 'callbackData',
+			success: function(data) {
+				processData(data);
+			}
+		});
 }
     
 
 function processData(data) {
-    
-var stateCountyLayer =  L.geoJson(data,  {
-      //style: styleShown,
-      //onEachFeature: onEachFeature
-  }).addTo(map);
+		
+	//console.log(' data : ' + JSON.stringify(data) );
+	
+	if (data.features){
+	
+		if (data.totalFeatures == 1){
+		
+			var geography_id = data.features[0].properties.geography_id;
+			
+			console.log(' geography_id : ' + geography_id );			
+			
+			if (geo_id !== geography_id) {
+			
+				geo_id = geography_id;
+				
+				geo_data = data;
+			
+				var geography_type = geo_data.features[0].properties.geography_type;
+				var geography_id = geo_data.features[0].properties.geography_id;
+				var geography_desc = geo_data.features[0].properties.geography_desc;
+				var pcp_total = geo_data.features[0].properties.pcp_total;
+				var provider_count = geo_data.features[0].properties.provider_count;
+				var pop_2014 = geo_data.features[0].properties.pop_2014;
+				
+				var female_total = geo_data.features[0].properties.female_total;
+				var male_total = geo_data.features[0].properties.male_total;
+				
+				console.log(' geography_type : ' + geography_type );
+				console.log(' geography_desc : ' + geography_desc );
+				console.log(' pcp_total : ' + pcp_total );
+				console.log(' provider_count : ' + provider_count );
+				console.log(' pop_2014 : ' + pop_2014 );
+				
+				
+				$('#geog_name').text(geography_desc);
+				$('#geog_pop').text(pop_2014);
+				$('#geog_prov').text(provider_count);
+				$('#geog_pcp').text(pcp_total);
+				
+				// ***********************************
+				
+											
+				var genderData = [
+				   {
+					  value: female_total,
+					  label: 'Female',
+					  color: '#5384e0'
+				   },
+				   {
+					  value: male_total,
+					  label: 'Male',
+					  color: '#56e053'
+				   }
+				];
+
+				ctx = document.getElementById('chart_js').getContext('2d');
+				var genderChart = new Chart(ctx).Doughnut(genderData);				
+				
+				// ***********************************
+				clearClickFeature();
+				
+				var click_feature = L.mapbox.featureLayer(geo_data).setStyle(click_feature_option).addTo(map);				
+				
+				click_feature.on('click', function(e) {
+					console.log(' click_feature e.latlng : ' + e.latlng );
+					
+					geo_lat = e.latlng.lat;
+					geo_lng = e.latlng.lng;		
+					var zoom = map.getZoom();
+					
+					/*
+					var geo_type = 'state';
+					if (zoom < 7 ) {
+						geo_type = 'state';
+					}
+					else if (zoom >= 7 ) {
+						geo_type = 'county';
+					}
+					*/
+					
+					console.log(' geo_lat : ' + geo_lat );
+					console.log(' geo_lng : ' + geo_lng );
+					console.log(' zoom : ' + zoom );
+					console.log(' geo_type : ' + geo_type );
+					
+					getData();
+				});
+			}
+			
+	
+			click_data.push(click_feature);	
+				
+		}	
+	}
+	
 }
+
+ function clearClickFeature() {
+	
+	console.log(' clearClickFeature ! '  );
+	
+	for (var i = 0; i < click_data.length; i++){
+		
+		if (map.hasLayer(click_data[i])) {
+			map.removeLayer(click_data[i]);
+		}
+	}
+	click_data.length = 0;	
+ }
 
     
      
@@ -217,14 +359,5 @@ var stateCountyLayer =  L.geoJson(data,  {
      //getData();
 });  
      
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
+  
+  

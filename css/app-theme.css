@@ -3062,10 +3062,18 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 
 .layer-switch li { font-weight: bold;}
 
-h4 {
+.layer-drop-lab {
   color: #2c75d6;
   font-weight: bold;
   font-size: 18px;
+  width: 120px;
+  display: inline-table;
+}
+.layer-drop-div {
+  padding: 2px;
+}
+.layer-drop-sel {
+  width: 100%;
 }
 
 .block-featured {

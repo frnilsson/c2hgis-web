@@ -200,7 +200,7 @@ function createMap() {
 	'health_cost_pct': healthLayer_health_cost_pct_multicolor,
 	'provider_count': broadbandLayer_provider_count_multicolor,
 	'pop_2014': demoLayer_pop_2014_multicolor,
-	'rural_pct': demoLayer_rural_pct_multicolor.addTo(map)
+	'rural_pct': demoLayer_rural_pct_multicolor
 	};
 	 
 	 

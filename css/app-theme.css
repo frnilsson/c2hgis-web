@@ -3061,3 +3061,31 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 .input-group .divider { border-left: 1px solid #CCCCCC; height: 25px; position: absolute; top: 6px; z-index: 9; }
 
 .layer-switch li { font-weight: bold;}
+
+.layer-drop-lab {
+  color: #2c75d6;
+  font-weight: bold;
+  font-size: 18px;
+  width: 120px;
+  display: inline-table;
+}
+.layer-drop-div {
+  padding: 2px;
+}
+.layer-drop-sel {
+  width: 100%;
+}
+
+.block-featured {
+    border-top: 6px solid #ffcc44;
+}
+.block-box {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.14);
+}
+.block {
+    margin-bottom: 33px;
+}
+.block-content {
+  padding: 15px;
+}

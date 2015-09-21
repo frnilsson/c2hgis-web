@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Connect2Health GIS</title>
+
+<style>
+
+#map {width: 700px; height: 700px}
+
+</style>
+
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+<script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-pip/v0.1.0/leaflet-pip.min.js"></script>
+<script src="js/app2.js"></script>
+
+<script>
+
+
+
+</script>
+
+
+</head>
+
+<body>
+
+<table>
+<tr>
+<td>
+<div id="map">
+</div>
+</td>
+<td style="vertical-align: top">
+<select id="broadband-layer-name">
+<option value="advdl_gr25000k">advdl_gr25000k</option>
+<option value="advul_gr3000k">advul_gr3000k</option>
+<option value="wireline_advdl_gr25000k">wireline_advdl_gr25000k</option>
+<option value="wireline_advul_gr3000k">wireline_advul_gr3000k</option>
+<option value="wireless_advdl_gr25000k">wireless_advdl_gr25000k</option>
+<option value="wireless_advul_gr3000k">wireless_advul_gr3000k</option>
+</select>
+Min:<input id="broadband-value-min" value="0"> Max:<input id="broadband-value-max" value="1"><br>
+<select id="health-layer-name">
+<option value="pcp_pct">pcp_pct</option>
+<option value="poor_fair_health_pct">poor_fair_health_pct</option>
+<option value="premature_death_pct">premature_death_pct</option>
+<option value="adult_obesity_pct">adult_obesity_pct</option>
+<option value="prevent_hosp_stay_pct">prevent_hosp_stay_pct</option>
+<option value="health_cost_pct">health_cost_pct</option>
+</select>
+Min:<input id="health-value-min" value="0"> Max:<input id="health-value-max" value="1"><p>
+<button id="btn-score">Go</button>
+
+</td>
+</tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

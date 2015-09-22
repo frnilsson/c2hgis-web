@@ -2811,8 +2811,8 @@ a.active .icon-book-open-2:before  {
 }
 
 .panel {
-  box-shadow: none;
-  -webkit-box-shadow: none;
+  box-shadow: 2px 2px 4px 4px #ddd;  
+  -webkit-box-shadow: 2px 2px 4px 4px #ddd;  
 }
 
 .panel-group .panel + .panel {
@@ -3097,5 +3097,10 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 	width: 100%;
 }
 
-
+.panel-data {
+  padding: 10px 20px;
+}
+.selection-row {
+  padding-bottom: 10px;
+}
 

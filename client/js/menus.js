@@ -23,6 +23,32 @@
       });
     });
 
+    $('.layer-switch').on('click', 'a', function(e) {
+        var $this = $(this),
+            id = $this.attr('id');
+
+        e.preventDefault();
+
+        if (id === 'insights') {
+            $('.list-healthMaps').addClass('hide');
+            $('.list-broadbandMaps').addClass('hide');            
+            $('.list-insightsMaps').removeClass('hide');            
+        }
+        else if (id === 'health') {
+            $('.list-insightsMaps').addClass('hide');
+            $('.list-broadbandMaps').addClass('hide');            
+            $('.list-healthMaps').removeClass('hide');            
+        }
+        else if (id === 'broadband') {
+            $('.list-healthMaps').addClass('hide');
+            $('.list-insightsMaps').addClass('hide');            
+            $('.list-broadbandMaps').removeClass('hide');            
+        }
+
+        $('.layer-switch').find('li').removeClass('active');
+        $this.parent('li').addClass('active');
+    });
+
     // var $navbar = $('.navbar');
     // $('.navbar-secondary li.dropdown').mouseenter(function(){
     //   if (!isMobileLayout()) {

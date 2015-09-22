@@ -39,6 +39,9 @@ var bb_combo_dir = 'dl';
 
 var bb_combo_layer;
 
+var health_sec_type = '';
+var health_sec_layer;
+
 function createMap() { 
 	
 
@@ -200,6 +203,18 @@ function createMap() {
 		else {
 			//setNationwide();
 		}
+    }); 
+	
+	// select health
+	$('#health-sec-type').on('change', function() {
+	
+        health_sec_type = $(this).val();
+		
+		console.log(' health_sec_type : ' + health_sec_type );
+		
+		setHealthSec();
+		
+		
     }); 
 	
 	
@@ -418,6 +433,21 @@ function getGeocode(location) {
     }); 
 }   
 
+
+function setHealthSec() {
+
+	if (map.hasLayer(health_sec_layer)) {
+		map.removeLayer(health_sec_layer);
+	}
+	
+	health_sec_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+		format: 'image/png',
+		transparent: true,
+		layers: ['c2hgis:state', 'c2hgis:county'], 
+		styles: ['c2hgis:health_sec_'+ health_sec_type +'_state', 'c2hgis:health_sec_'+ health_sec_type +'_county']
+	}).setZIndex('999').addTo(map);
+
+}
 
 function setBroadbandCombo() {
 	

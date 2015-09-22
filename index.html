@@ -166,13 +166,13 @@
                                 <div class="panel-data list-healthMaps hide">
                                     <div class="selection-row">                                    
                                         <span class="layer-drop-lab">Health</span>
-                                        <select id="healthCombo" class="selectpicker">
+                                        <select id="health-sec-type" class="selectpicker">
                                             <option value="">-Choose One-</option>
-                                            <option value="pcp">PCP</option>
-                                            <option value="poorhealth">Poor/Fair Health</option>
-                                            <option value="obes">Obesity</option>
-                                            <option value="prematures">Premature Death</option>
-                                            <option value="preventables">Preventable Hospitals</option>
+                                            <option value="pcppc">PCP Per Person</option>
+                                            <option value="poorfair">Poor/Fair Health</option>
+                                            <option value="obesity">Obesity</option>
+                                            <option value="prematured">Premature Death</option>
+                                            <option value="preventhosp">Preventable Hospitals</option>
                                         </select>
                                     </div>
                                 </div>
@@ -394,7 +394,7 @@
 	<script src="./js/theme.js"></script>	
 	
     <script>
-    $("#healthCombo").selectpicker({});
+    $("#health-sec-type").selectpicker({});
     $("#broadbandCombo").selectpicker({});
     $("#popCombo").selectpicker({});
     </script>

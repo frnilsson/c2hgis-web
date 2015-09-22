@@ -34,8 +34,8 @@ var health_layer;
 var count_layer;
 
 
-var broadband_type = 'wireline';
-var broadband_speed = 'download';
+var bb_combo_type = 'wn';
+var bb_combo_dir = 'dl';
 
 var bb_combo_layer;
 
@@ -207,9 +207,9 @@ function createMap() {
 	// select broadband
 	$('.broadband-type').on('change', function() {
 	
-        broadband_type = $(this).val();
+        bb_combo_type = $(this).val();
 		
-		console.log(' broadband_type : ' + broadband_type );
+		console.log(' bb_combo_type : ' + bb_combo_type );
 		
 		setBroadbandCombo();
 		
@@ -218,9 +218,9 @@ function createMap() {
 	
 	$('.broadband-speed').on('change', function() {
 	
-        broadband_speed = $(this).val();
+        bb_combo_dir = $(this).val();
 		
-		console.log(' broadband_speed : ' + broadband_speed );
+		console.log(' bb_combo_dir : ' + bb_combo_dir );
 		
 		setBroadbandCombo();		
     }); 
@@ -427,11 +427,12 @@ function setBroadbandCombo() {
 		map.removeLayer(bb_combo_layer);
 	}
 	
+	
 	bb_combo_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
 		format: 'image/png',
 		transparent: true,
 		layers: ['c2hgis:state', 'c2hgis:county'], 
-		styles: ['c2hgis:bb_combo_wn_dl_county', 'c2hgis:bb_combo_wn_dl_county']
+		styles: ['c2hgis:bb_combo_'+ bb_combo_type +'_'+ bb_combo_dir +'_state', 'c2hgis:bb_combo_'+ bb_combo_type +'_'+ bb_combo_dir +'_county']
 	}).setZIndex('999').addTo(map);
 	
 

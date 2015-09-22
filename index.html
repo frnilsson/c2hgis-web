@@ -13,6 +13,9 @@
 	<link href="css/jquery-ui.css" rel="stylesheet"> 
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" />
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	
     
     <!--[if lt IE 9]>
       <script src="js/vendor/html5shiv.min.js"></script>
@@ -99,35 +102,70 @@
 		        </div>
 		        <div class="col-md-5 col-lg-4">
 		            <div class="panel">	
-                        <form id="bootstrapSelectForm" method="post" class="form-horizontal">					
-                            <div class="layer-drop-div">
-                              <span class="layer-drop-lab">Health:</span>
-                              <select id="healthCombo" class="selectpicker layer-drop-sel">
-                                <option value="">-Choose One-</option>
-                                <option value="doc">Doctors</option>
-                                <option value="ph">Poor Health</option>
-                                <option value="obes">Obesity</option>                                
-                              </select>
+                        					
+                          
+						<br/>  
+						<p>
+							<label for="label-broadband">Broadband:</label>
+							<input type="text" id="label-broadband" readonly style="border:0; color:#f6931f; font-weight:bold;">
+						</p>
+						<div id="slider-broadband" style=""></div>
+						<br/>  
+						<p>
+							<label for="label-health">Health:</label>
+							<input type="text" id="label-health" readonly style="border:0; color:#f6931f; font-weight:bold;">
+						</p>
+						<div id="slider-health" style=""></div>
+						<br/>  
+						<br/>
+						Select Count:
+						
+						<select id="select-count">
+							<option value="">(select)</option>
+							<option value="pcp">Primary Care Physicians</option>
+							<option value="ip">Internet Providers</option>
+							<option value="pop">Population</option>							
+						</select>
+						<br/><br/>
+						<table class="legend-table-circle">
+							<tr>
+								<td><span class="circle-sym" style="background-color: #ba0c0c; height: 5px; width: 5px"></span></td>
+								<td><span class="circle-sym" style="background-color: #ba0c0c; height: 10px; width: 10px"></span></td>
+								<td><span class="circle-sym" style="background-color: #ba0c0c; height: 15px; width: 15px"></span></td>
+								<td><span class="circle-sym" style="background-color: #ba0c0c; height: 20px; width: 20px"></span></td>
+								<td><span class="circle-sym" style="background-color: #ba0c0c; height: 25px; width: 25px"></span></td>
+							</tr>
+							<tr>
+								<td class="circle-label circle-label-min">< 1,000</td>	
+								<td></td>		
+								<td></td>	
+								<td></td>									
+								<td class="circle-label circle-label-max">> 10,000</td>
+							</tr>
+						</table>
+						<br/>
+						Select State:
+						<select id="select-state">
+							<option value="">(select)</option>
+							<option value="FL">Florida</option>
+							<option value="MS">Mississippi</option>
+							<option value="VA">Virginia</option>							
+						</select>
+						<br/>
+						
+						<!--
+						<div class="legend-circle">	
+							<span class="circle" style="background-color: #ba0c0c; height: 5px; width: 5px"></span>
+							<span class="circle" style="background-color: #ba0c0c; height: 10px; width: 10px"></span>
+							<span class="circle" style="background-color: #ba0c0c; height: 15px; width: 15px"></span>
+							<span class="circle" style="background-color: #ba0c0c; height: 20px; width: 20px"></span>
+							<span class="circle" style="background-color: #ba0c0c; height: 25px; width: 25px"></span>
+							<div class="label-row">
+								<span class="legend-label-start"><100</span>
+								<span class="legend-label-end">>10,000</span>
 							</div>
-							<div class="layer-drop-div">	
-                              <span class="layer-drop-lab">Broadband:</span>
-                              <select id="broadbandCombo" class="selectpicker layer-drop-sel">
-                                <option value="">-Choose One-</option>
-                                <option value="speed">Speed</option>
-                                <option value="providers">Provider Number Availability</option>
-                                <option value="wireline">Wireline</option>
-                                <option value="wireless">Wireless</option>                                
-                              </select>
-							</div>
-							<div class="layer-drop-div">
-                              <span class="layer-drop-lab">Population:</span>
-                              <select id="popCombo" class="selectpicker layer-drop-sel">
-                                <option value="">-Choose One-</option>
-                                <option value="population">Population</option>                                
-                              </select>
-                            </div>
-		                    <br/>  
-                        </form>
+						</div>
+                       -->
 		            </div>
 					<div class="panel">	
                         <div>
@@ -146,6 +184,8 @@
 							<div id="chart_legend" style="width: 300px; height: 300px; text-align: center;"></div>						
 						</div>
 		            </div>
+					
+					
 					
 					
 		        </div>
@@ -299,7 +339,13 @@
         </footer>
     </div>
   
+  
+    
+  
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="./js/bootstrap-toolkit.min.js"></script>
 	<script src="//api.tiles.mapbox.com/mapbox.js/v1.6.5/mapbox.js"></script>

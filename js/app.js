@@ -33,6 +33,12 @@ var broadband_layer;
 var health_layer;
 var count_layer;
 
+
+var broadband_type = 'wireline';
+var broadband_speed = 'download';
+
+var bb_combo_layer;
+
 function createMap() { 
 	
 
@@ -82,7 +88,7 @@ function createMap() {
 		 zIndex: 999
      });        
 	 
-	 wms_border.addTo(map);
+	 //wms_border.addTo(map);
 	
 	
 	map.on('zoomend', function() {
@@ -198,15 +204,38 @@ function createMap() {
 	
 	
 	
+	// select broadband
+	$('.broadband-type').on('change', function() {
+	
+        broadband_type = $(this).val();
+		
+		console.log(' broadband_type : ' + broadband_type );
+		
+		setBroadbandCombo();
+		
+		
+    }); 
+	
+	$('.broadband-speed').on('change', function() {
+	
+        broadband_speed = $(this).val();
+		
+		console.log(' broadband_speed : ' + broadband_speed );
+		
+		setBroadbandCombo();		
+    }); 
 	
 	
+	
+	
+	// slider
 	
 	$( '#slider-broadband' ).slider({
 		range: true,
-		min: 0,
+		min: 20,
 		max: 100,
 		step: 10,
-		values: [ 0, 50 ],
+		values: [ 20, 50 ],
 		slide: function( event, slider ) {
 			$( '#label-broadband' ).val( ''+ slider.values[ 0 ] +'% - '+ slider.values[ 1 ] +'%' );
 			
@@ -251,10 +280,10 @@ function createMap() {
 	
 	$( '#slider-health' ).slider({
 		range: true,
-		min: 0,
-		max: 100,
-		step: 10,
-		values: [ 0, 50 ],
+		min: 20,
+		max: 40,
+		step: 5,
+		values: [ 20, 30 ],
 		slide: function( event, slider ) {
 			$( '#label-health' ).val( ''+ slider.values[ 0 ] +'% - '+ slider.values[ 1 ] +'%' );
 					
@@ -388,6 +417,33 @@ function getGeocode(location) {
         }
     }); 
 }   
+
+
+function setBroadbandCombo() {
+	
+	console.log(' setBroadbandCombo : '  );
+	
+	if (map.hasLayer(bb_combo_layer)) {
+		map.removeLayer(bb_combo_layer);
+	}
+	
+	bb_combo_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+		format: 'image/png',
+		transparent: true,
+		layers: ['c2hgis:state', 'c2hgis:county'], 
+		styles: ['c2hgis:bb_combo_wn_dl_county', 'c2hgis:bb_combo_wn_dl_county']
+	}).setZIndex('999').addTo(map);
+	
+
+}
+
+
+
+
+
+
+
+
 
 var count_types = {
 	pcp: {

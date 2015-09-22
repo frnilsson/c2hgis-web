@@ -42,7 +42,20 @@
         else if (id === 'broadband') {
             $('.list-healthMaps').addClass('hide');
             $('.list-insightsMaps').addClass('hide');            
-            $('.list-broadbandMaps').removeClass('hide');            
+            $('.list-broadbandMaps').removeClass('hide');   
+
+
+			if (map.hasLayer(broadband_layer)) {
+				map.removeLayer(broadband_layer);
+			}
+			if (map.hasLayer(health_layer)) {
+				map.removeLayer(health_layer);
+			}
+			if (map.hasLayer(count_layer)) {
+				map.removeLayer(count_layer);
+			}		
+
+			
         }
 
         $('.layer-switch').find('li').removeClass('active');

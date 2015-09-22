@@ -4,7 +4,7 @@ var geo_space = 'c2hgis';
 var geo_output = 'application/json'
 
 var geo_type = 'state';
-
+var zoom_type = 'state';
 var geo_lat;
 var geo_lng;
 
@@ -29,9 +29,16 @@ var click_data = [];
 var ctx;
 var genderChart;
 
+var broadband_layer;
+var health_layer;
+var count_layer;
+
 function createMap() { 
 	
 
+	
+	
+	
                           
  
      L.mapbox.accessToken = 'pk.eyJ1IjoiY29tcHV0ZWNoIiwiYSI6InMyblMya3cifQ.P8yppesHki5qMyxTc2CNLg';
@@ -83,11 +90,16 @@ function createMap() {
 		var zoom = map.getZoom();
 		
 		if (zoom < 7 ) {
-			new_geo_type = 'state';
+			new_geo_type = 'state';	
+			zoom_type = 'state';			
 		}
 		else if (zoom >= 7 ) {
 			new_geo_type = 'county';
+			zoom_type = 'county';
 		}
+		
+		updateCountLegend();
+		
 		
 		if (geo_type !== new_geo_type) {		
 			
@@ -95,8 +107,9 @@ function createMap() {
 				geo_type = new_geo_type;
 				getData();
 			}
-			geo_type = new_geo_type;		
-		}
+			geo_type = new_geo_type;			
+		}		
+		
 		
 		console.log(' geo_type : ' + geo_type );
 		
@@ -152,8 +165,165 @@ function createMap() {
     $('#btn-geo-nation').on('click', function() {
         setNationwide();
     });  
+	
+	// select state
+    $('#select-state').on('change', function() {
+	
+        var state_sel = $('#select-state').val();
+		
+		console.log(' state_sel : ' + state_sel );
+		
+		if (state_sel != "") {
+			setState(state_sel);
+		}
+		else {
+			setNationwide();
+		}
+    }); 
+	
+	// select count
+    $('#select-count').on('change', function() {
+	
+        var count_sel = $('#select-count').val();
+		
+		console.log(' count_sel : ' + count_sel );
+		
+		if (count_sel != "") {
+			setCount(count_sel);
+		}
+		else {
+			//setNationwide();
+		}
+    }); 
+	
+	
+	
+	
+	
+	
+	$( '#slider-broadband' ).slider({
+		range: true,
+		min: 0,
+		max: 100,
+		step: 10,
+		values: [ 0, 50 ],
+		slide: function( event, slider ) {
+			$( '#label-broadband' ).val( ''+ slider.values[ 0 ] +'% - '+ slider.values[ 1 ] +'%' );
+			
+			
+					
+					//http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?&SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=c2hgis%3Astate%2Cc2hgis%3Acounty&STYLES=c2hgis%3Abroadband_state%2Cc2hgis%3Abroadband_county&FORMAT=image%2Fpng&TRANSPARENT=true&HEIGHT=256&WIDTH=256&CQL_FILTER=advdl_gr25000k%3E%3D0%20AND%20advdl_gr25000k%3C%3D0.2&SRS=EPSG%3A3857&BBOX=-10018754.171394622,10018754.171394626,-5009377.085697311,15028131.257091932
+					
+					// broadband_column
+					
+					var broadband_column = 'advdl_gr25000k';
+					var broadband_min = slider.values[ 0 ] / 100;
+					var broadband_max = slider.values[ 1 ] / 100;
+					
+					console.log(' broadband_column : ' + broadband_column );
+					console.log(' broadband_min : ' + broadband_min );
+					console.log(' broadband_max : ' + broadband_max );
+
+					var broadband_filter = broadband_column + ">=" + broadband_min + " AND " + broadband_column + "<=" + broadband_max;
+					broadband_filter = broadband_filter + ";" + broadband_filter;
+
+					console.log(' broadband_filter : ' + broadband_filter );
+
+					if (map.hasLayer(broadband_layer)) {
+						map.removeLayer(broadband_layer);
+					}
+
+					var broadband_state_layer = 'c2hgis:state';
+					var broadband_county_layer = 'c2hgis:county';
+
+					broadband_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+							 format: 'image/png',
+							 transparent: true,
+							 cql_filter: broadband_filter,
+							 layers: ['c2hgis:state', 'c2hgis:county'], 
+							 styles: ['c2hgis:broadband_state', 'c2hgis:broadband_county']
+						 }).setZIndex('99').addTo(map);				
+			
+			
+		}
+	});
+	
+	
+	$( '#slider-health' ).slider({
+		range: true,
+		min: 0,
+		max: 100,
+		step: 10,
+		values: [ 0, 50 ],
+		slide: function( event, slider ) {
+			$( '#label-health' ).val( ''+ slider.values[ 0 ] +'% - '+ slider.values[ 1 ] +'%' );
+					
+		
+						 
+						 
+					 // health
+						 
+					var health_column = 'adult_obesity_pct';
+					var health_min = slider.values[ 0 ];
+					var health_max = slider.values[ 1 ];
+					
+					console.log(' health_column : ' + health_column );
+					console.log(' health_min : ' + health_min );
+					console.log(' health_max : ' + health_max );
+
+					var health_filter = health_column + ">=" + health_min + " AND " + health_column + "<=" + health_max;
+					health_filter = health_filter + ";" + health_filter;
+
+					console.log(' health_filter : ' + health_filter );
+
+					if (map.hasLayer(health_layer)) {
+						map.removeLayer(health_layer);
+					}
+
+					var health_state_layer = 'c2hgis:state';
+					var health_county_layer = 'c2hgis:health_county';
+
+					health_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+							 format: 'image/png',
+							 transparent: true,
+							 cql_filter: health_filter,
+							 layers: ['c2hgis:state', 'c2hgis:county'], 
+							 styles: ['c2hgis:health_state', 'c2hgis:health_county']
+						 }).setZIndex('90').addTo(map);
+
+										
+			
+			
+			
+		}
+	});
+	
+	
+	$( '#label-broadband' ).val( ''+ $( '#slider-broadband' ).slider( 'values', 0 ) +'% - '+ $( '#slider-broadband' ).slider( 'values', 1 ) +'%' );
+	
+	$( '#label-health' ).val( ''+ $( '#slider-health' ).slider( 'values', 0 ) +'% - '+ $( '#slider-health' ).slider( 'values', 1 ) +'%' );
+				
+	
+	
+	
+	
+	count_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+			 format: 'image/png',
+			 transparent: true,
+			 layers: ['c2hgis:state', 'c2hgis:county'], 
+			 styles: ['c2hgis:count_pcp_state', 'c2hgis:count_pcp_county']
+		 }).setZIndex('999').addTo(map);
+	
+	
+	
+	
+	
+	
      
 }
+
+
+
 
 function getCurrentLocation(load) {
     if (navigator.geolocation) {
@@ -219,6 +389,135 @@ function getGeocode(location) {
     }); 
 }   
 
+var count_types = {
+	pcp: {
+		layer: 'pcp_total',
+		color: '#ba0c0c',
+		county: {
+			min: 10,
+			max: 500
+		}, 
+		state: {
+			min: 1000,
+			max: 10000
+		}
+	},
+	ip: {
+		layer: 'provider_count',
+		color: '#0050cc',
+		county: {
+			min: 1,
+			max: 25
+		}, 
+		state: {
+			min: 25,
+			max: 100
+		}
+	},
+	pop: {
+		layer: 'pop_2014',
+		color: '#a3a3a3',
+		county: {
+			min: 10000,
+			max: 1000000
+		}, 
+		state: {
+			min: 1000000,
+			max: 10000000
+		}
+	}
+};
+
+var count_type = 'pcp';
+
+function setCount(type) {
+
+	console.log(' setCount type : ' + type );
+
+	if (count_types[type]) {
+	
+		count_type = type;
+	
+		if (map.hasLayer(count_layer)) {
+			map.removeLayer(count_layer);
+		}
+		
+		count_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+			format: 'image/png',
+			transparent: true,
+			layers: ['c2hgis:state', 'c2hgis:county'], 
+			styles: ['c2hgis:count_'+ type +'_state', 'c2hgis:count_'+ type +'_county']
+		}).setZIndex('999').addTo(map);
+		 
+		 
+		
+
+
+		updateCountLegend();
+	}
+}
+
+function updateCountLegend() {
+	
+	console.log(' count_type : ' + count_type );
+	console.log(' geo_type : ' + geo_type );
+	
+	
+	console.log(' zoom_type : ' + zoom_type );
+	
+	
+	if (count_types[count_type][zoom_type]) {
+	
+	
+
+		var count_min = count_types[count_type][zoom_type].min;
+		var count_max = count_types[count_type][zoom_type].max;
+		var count_color = count_types[count_type].color;
+		console.log(' count_min : ' + count_min );		
+		
+		$( '.circle-label-min' ).text( '< '+ Number(count_min).toLocaleString('en') );
+		$( '.circle-label-max' ).text( '> '+ Number(count_max).toLocaleString('en') );
+		$( '.circle-sym' ).css('background-color', count_color);
+		
+	}
+}
+
+
+var states_in = {
+	FL: {
+		lat: 28.5953035358968,
+		lng: -82.4958094312413,
+		zoom: 7
+	},
+	MS: {
+		lat: 32.7509547380987,
+		lng: -89.6621633573408,
+		zoom: 7
+	}, 
+	VA: {
+		lat: 37.5126006451781,
+		lng: -78.7878086547533,
+		zoom: 7
+	}
+};
+
+function setState(state) {
+
+	if (states_in[state]) {
+	
+		map.setView([states_in[state].lat, states_in[state].lng], states_in[state].zoom);  
+		
+		
+		geo_type = 'state';
+		geo_lat = states_in[state].lat;
+		geo_lng = states_in[state].lng;
+		
+		getData();
+		
+	}
+
+}
+
 function setNationwide() {          
     map.setView([40, -97], 3);  
 }  
@@ -281,6 +580,8 @@ function processData(data) {
 				$('#geog_pop').text(pop_2014);
 				$('#geog_prov').text(provider_count);
 				$('#geog_pcp').text(pcp_total);
+				
+				
 				
 				// ***********************************
 				

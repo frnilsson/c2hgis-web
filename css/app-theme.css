@@ -3051,17 +3051,21 @@ a.gen-passcode {
 /* legend */
 
 #legends>div { overflow:hidden; }
-.legend-sq, .legend-circle { white-space: nowrap; width: 200px; }
-.legend-sq span { display: inline-block; height: 25px; width: 30px; }
-.legend-sq .legend-label { vertical-align: middle; }
+.legend-square, .legend-circle { white-space: nowrap; width: 200px; }
 
 .legend-table-circle { width: 100%; }
 .legend-table-circle tr td { width: 20%; text-align: center;}
-.legend-circle .circle { border-radius: 50px; display: inline-block; height: 50px; width: 50px; vertical-align: middle;  }
 .circle-label-min { text-align: left; }
 .circle-label-max  { text-align: right; }
 .circle-label { font-size: 12px; }
 .circle-sym  { border-radius: 50px; display: inline-block; height: 50px; width: 50px; vertical-align: middle;  }
+
+.legend-table-square { width: 100%; }
+.legend-table-square tr td { width: 20%; text-align: center;}
+.square-label-min { text-align: left; }
+.square-label-max  { text-align: right; }
+.square-label { font-size: 12px; }
+.square-sym  { display: inline-block; height: 25px; width: 100%; vertical-align: middle;  }
 
 /* form */
 

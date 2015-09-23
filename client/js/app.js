@@ -11,6 +11,7 @@ var geo_lng;
 var geo_id;
 
 var geo_data;
+var geo_prop;
 
 var click_feature;
 
@@ -46,7 +47,7 @@ function createMap() {
 	
 
 	
-	
+
 	
                           
  
@@ -120,13 +121,13 @@ function createMap() {
 		}		
 		
 		
-		console.log(' geo_type : ' + geo_type );
+		//console.log(' geo_type : ' + geo_type );
 		
 	});
 	
 	
 	map.on('click', function(e) {
-		console.log(' e.latlng : ' + e.latlng );
+		//console.log(' e.latlng : ' + e.latlng );
 		
 		geo_lat = e.latlng.lat;
 		geo_lng = e.latlng.lng;		
@@ -142,10 +143,10 @@ function createMap() {
 		}
 		*/
 		
-		console.log(' geo_lat : ' + geo_lat );
-		console.log(' geo_lng : ' + geo_lng );
-		console.log(' zoom : ' + zoom );
-		console.log(' geo_type : ' + geo_type );
+		//console.log(' geo_lat : ' + geo_lat );
+		//console.log(' geo_lng : ' + geo_lng );
+		//console.log(' zoom : ' + zoom );
+		//console.log(' geo_type : ' + geo_type );
 		
 		getData();
 	});
@@ -180,7 +181,7 @@ function createMap() {
 	
         var state_sel = $('#select-state').val();
 		
-		console.log(' state_sel : ' + state_sel );
+		//console.log(' state_sel : ' + state_sel );
 		
 		if (state_sel != "") {
 			setState(state_sel);
@@ -195,7 +196,7 @@ function createMap() {
 	
         var count_sel = $('#select-count').val();
 		
-		console.log(' count_sel : ' + count_sel );
+		//console.log(' count_sel : ' + count_sel );
 		
 		if (count_sel != "") {
 			setCount(count_sel);
@@ -210,7 +211,7 @@ function createMap() {
 	
         health_sec_type = $(this).val();
 		
-		console.log(' health_sec_type : ' + health_sec_type );
+		//console.log(' health_sec_type : ' + health_sec_type );
 		
 		setHealthSec();
 		
@@ -224,7 +225,7 @@ function createMap() {
 	
         bb_combo_type = $(this).val();
 		
-		console.log(' bb_combo_type : ' + bb_combo_type );
+		//console.log(' bb_combo_type : ' + bb_combo_type );
 		
 		setBroadbandCombo();
 		
@@ -235,7 +236,7 @@ function createMap() {
 	
         bb_combo_dir = $(this).val();
 		
-		console.log(' bb_combo_dir : ' + bb_combo_dir );
+		//console.log(' bb_combo_dir : ' + bb_combo_dir );
 		
 		setBroadbandCombo();		
     }); 
@@ -264,14 +265,14 @@ function createMap() {
 					var broadband_min = slider.values[ 0 ] / 100;
 					var broadband_max = slider.values[ 1 ] / 100;
 					
-					console.log(' broadband_column : ' + broadband_column );
-					console.log(' broadband_min : ' + broadband_min );
-					console.log(' broadband_max : ' + broadband_max );
+					//console.log(' broadband_column : ' + broadband_column );
+					//console.log(' broadband_min : ' + broadband_min );
+					//console.log(' broadband_max : ' + broadband_max );
 
 					var broadband_filter = broadband_column + ">=" + broadband_min + " AND " + broadband_column + "<=" + broadband_max;
 					broadband_filter = broadband_filter + ";" + broadband_filter;
 
-					console.log(' broadband_filter : ' + broadband_filter );
+					//console.log(' broadband_filter : ' + broadband_filter );
 
 					if (map.hasLayer(broadband_layer)) {
 						map.removeLayer(broadband_layer);
@@ -311,14 +312,14 @@ function createMap() {
 					var health_min = slider.values[ 0 ];
 					var health_max = slider.values[ 1 ];
 					
-					console.log(' health_column : ' + health_column );
-					console.log(' health_min : ' + health_min );
-					console.log(' health_max : ' + health_max );
+					//console.log(' health_column : ' + health_column );
+					//console.log(' health_min : ' + health_min );
+					//console.log(' health_max : ' + health_max );
 
 					var health_filter = health_column + ">=" + health_min + " AND " + health_column + "<=" + health_max;
 					health_filter = health_filter + ";" + health_filter;
 
-					console.log(' health_filter : ' + health_filter );
+					//console.log(' health_filter : ' + health_filter );
 
 					if (map.hasLayer(health_layer)) {
 						map.removeLayer(health_layer);
@@ -402,7 +403,7 @@ function getCurrentLocation(load) {
 function getGeocode(location) {
 
     var geocode_url = 'http://open.mapquestapi.com/nominatim/v1/search.php?format=json&limit=1&countrycode=us&q='+ encodeURIComponent(location);
-    //console.log('geocode_url : '+ geocode_url );  
+    ////console.log('geocode_url : '+ geocode_url );  
     
     $.ajax({
         type: 'GET',
@@ -410,7 +411,7 @@ function getGeocode(location) {
         dataType: 'json',
         success: function(data) {
 
-            //console.log('geocode_url data : '+ JSON.stringify(data) );    
+            ////console.log('geocode_url data : '+ JSON.stringify(data) );    
                         
             // Nominatim Geocoder
             if (data[0]) {                      
@@ -451,7 +452,7 @@ function setHealthSec() {
 
 function setBroadbandCombo() {
 	
-	console.log(' setBroadbandCombo : '  );
+	//console.log(' setBroadbandCombo : '  );
 	
 	if (map.hasLayer(bb_combo_layer)) {
 		map.removeLayer(bb_combo_layer);
@@ -519,7 +520,7 @@ var count_type = 'pcp';
 
 function setCount(type) {
 
-	console.log(' setCount type : ' + type );
+	//console.log(' setCount type : ' + type );
 
 	if (count_types[type]) {
 	
@@ -546,11 +547,11 @@ function setCount(type) {
 
 function updateCountLegend() {
 	
-	console.log(' count_type : ' + count_type );
-	console.log(' geo_type : ' + geo_type );
+	//console.log(' count_type : ' + count_type );
+	//console.log(' geo_type : ' + geo_type );
 	
 	
-	console.log(' zoom_type : ' + zoom_type );
+	//console.log(' zoom_type : ' + zoom_type );
 	
 	
 	if (count_types[count_type][zoom_type]) {
@@ -560,7 +561,7 @@ function updateCountLegend() {
 		var count_min = count_types[count_type][zoom_type].min;
 		var count_max = count_types[count_type][zoom_type].max;
 		var count_color = count_types[count_type].color;
-		console.log(' count_min : ' + count_min );		
+		//console.log(' count_min : ' + count_min );		
 		
 		$( '.circle-label-min' ).text( '< '+ Number(count_min).toLocaleString('en') );
 		$( '.circle-label-max' ).text( '> '+ Number(count_max).toLocaleString('en') );
@@ -613,7 +614,7 @@ function getData() {
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':'+geo_type+'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	console.log(' data_url : ' + data_url );
+	//console.log(' data_url : ' + data_url );
 	
 		$.ajax({
 			type: 'GET',
@@ -630,7 +631,7 @@ function getData() {
 
 function processData(data) {
 		
-	//console.log(' data : ' + JSON.stringify(data) );
+	////console.log(' data : ' + JSON.stringify(data) );
 	
 	if (data.features){
 	
@@ -638,29 +639,31 @@ function processData(data) {
 		
 			var geography_id = data.features[0].properties.geography_id;
 			
-			console.log(' geography_id : ' + geography_id );			
+			//console.log(' geography_id : ' + geography_id );			
 			
 			if (geo_id !== geography_id) {
 			
 				geo_id = geography_id;
 				
 				geo_data = data;
+				
+				geo_prop = geo_data.features[0].properties;
 			
-				var geography_type = geo_data.features[0].properties.geography_type;
-				var geography_id = geo_data.features[0].properties.geography_id;
-				var geography_desc = geo_data.features[0].properties.geography_desc;
-				var pcp_total = geo_data.features[0].properties.pcp_total;
-				var provider_count = geo_data.features[0].properties.provider_count;
-				var pop_2014 = geo_data.features[0].properties.pop_2014;
+				var geography_type = geo_prop.geography_type;
+				var geography_id = geo_prop.geography_id;
+				var geography_desc = geo_prop.geography_desc;
+				var pcp_total = geo_prop.pcp_total;
+				var provider_count = geo_prop.provider_count;
+				var pop_2014 = geo_prop.pop_2014;
 				
-				var female_total = geo_data.features[0].properties.female_total;
-				var male_total = geo_data.features[0].properties.male_total;
+				var female_total = geo_prop.female_total;
+				var male_total = geo_prop.male_total;
 				
-				console.log(' geography_type : ' + geography_type );
-				console.log(' geography_desc : ' + geography_desc );
-				console.log(' pcp_total : ' + pcp_total );
-				console.log(' provider_count : ' + provider_count );
-				console.log(' pop_2014 : ' + pop_2014 );
+				//console.log(' geography_type : ' + geography_type );
+				//console.log(' geography_desc : ' + geography_desc );
+				//console.log(' pcp_total : ' + pcp_total );
+				//console.log(' provider_count : ' + provider_count );
+				//console.log(' pop_2014 : ' + pop_2014 );
 				
 				
 				$('#geog_name').text(geography_desc);
@@ -669,6 +672,8 @@ function processData(data) {
 				$('#geog_pcp').text(pcp_total);
 				
 				
+				// ***********************************
+				createChartBroadband();
 				
 				// ***********************************
 				
@@ -700,7 +705,7 @@ function processData(data) {
 				 $('#chart_legend').html( genderChart.generateLegend() );
 				
 				
-				console.log(genderChart.generateLegend());
+				//console.log(genderChart.generateLegend());
 				
 				// ***********************************
 				clearClickFeature();
@@ -708,7 +713,7 @@ function processData(data) {
 				var click_feature = L.mapbox.featureLayer(geo_data).setStyle(click_feature_option).addTo(map);				
 				
 				click_feature.on('click', function(e) {
-					console.log(' click_feature e.latlng : ' + e.latlng );
+					//console.log(' click_feature e.latlng : ' + e.latlng );
 					
 					geo_lat = e.latlng.lat;
 					geo_lng = e.latlng.lng;		
@@ -724,10 +729,10 @@ function processData(data) {
 					}
 					*/
 					
-					console.log(' geo_lat : ' + geo_lat );
-					console.log(' geo_lng : ' + geo_lng );
-					console.log(' zoom : ' + zoom );
-					console.log(' geo_type : ' + geo_type );
+					//console.log(' geo_lat : ' + geo_lat );
+					//console.log(' geo_lng : ' + geo_lng );
+					//console.log(' zoom : ' + zoom );
+					//console.log(' geo_type : ' + geo_type );
 					
 					getData();
 				});
@@ -741,9 +746,59 @@ function processData(data) {
 	
 }
 
+var chart_bb_dl;
+
+function createChartBroadband() {
+
+	// chart_bb_dl
+
+	
+	var chart_bb_dl_data = {
+		labels: ["> 1", "> 2", "> 3", "> 4", "> 5", "> 6", "> 7", "> 8"],
+		datasets: [
+			{
+				label: "Number of Providers",
+				fillColor: "rgba(220,220,220,0.4)",
+				strokeColor: "rgba(0,80,204,1)",
+				pointColor: "rgba(0,80,204,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(220,220,220,1)",
+				data: [geo_prop.prov_gr1*100, geo_prop.prov_gr2*100, geo_prop.prov_gr3*100, geo_prop.prov_gr4*100, geo_prop.prov_gr5*100, geo_prop.prov_gr6*100, geo_prop.prov_gr7*100, geo_prop.prov_gr8*100]
+			}
+		]
+	};
+	
+	var chart_bb_dl_opts = {
+		//bezierCurve: false
+		pointHitDetectionRadius : 0,		
+		datasetFill : true,
+		scaleBeginAtZero: true,
+		tooltipTemplate: "<%if (label){%>Number of Providers <%=label%>: <%}%><%= value.toFixed(1) %>%",
+		legendTemplate : '<ul class="<%=name.toLowerCase()%>-legends" style="width: 100%; list-style-type: none;"><% for (var i=0; i<datasets.length; i++){%><li><div style="background-color:<%=datasets[i].strokeColor%>; width: 20px; height: 2px; display: inline-block; margin: 4px 0;"></div>&nbsp;<%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
+		
+	};
+
+	if (chart_bb_dl) {
+		chart_bb_dl.destroy();
+	}
+	
+	
+	chart_bb_dl = new Chart(document.getElementById('ch_canvas_bb_dl').getContext('2d')).Line(chart_bb_dl_data, chart_bb_dl_opts);		
+
+	 $('#ch_legend_bb_dl').html( chart_bb_dl.generateLegend() );
+
+
+	console.log(' chart_bb_dl.generateLegend : ' + chart_bb_dl.generateLegend());
+
+
+
+}
+
+
  function clearClickFeature() {
 	
-	console.log(' clearClickFeature ! '  );
+	//console.log(' clearClickFeature ! '  );
 	
 	for (var i = 0; i < click_data.length; i++){
 		

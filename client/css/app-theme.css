@@ -3048,6 +3048,24 @@ a.gen-passcode {
   margin-right: 5px;
 }
 
+
+/* charts */
+.charts-div { width:100%; min-height: 300px; margin: 0 auto; }
+
+/** carousel **/
+
+.carousel-indicators { bottom: -10px; }
+.carousel-indicators  li { background-color: rgba(0,0,0,0.3); }
+.carousel-indicators  li.active { background-color: rgba(0,0,0,0.7); }
+
+.carousel-control {background: none !important; color: #dddddd; width: 5%;}
+.carousel-control.left {}
+.carousel-control.right {}
+
+.carousel-inner { width: 300px; margin: 0 auto;}
+.carousel-inner  div.item{ margin: 0 auto;}
+#myCarousel {width: 350px;}
+
 /* legend */
 
 #legends>div { overflow:hidden; }

@@ -2797,6 +2797,10 @@ a.active .icon-book-open-2:before  {
     width: 27px;
   }
 }
+
+.panel-top {
+  margin-top: 8px;
+}
 .panel-group .panel .panel-title a:hover {
   color: #2c75d6;
   text-decoration: none;
@@ -3123,6 +3127,29 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
   padding: 10px 20px;
 }
 .selection-row {
+  clear: both;
   padding-bottom: 10px;
 }
 
+.top-row {
+  height: 35px;  
+}
+.type-select {
+  display: inline-block;
+}
+#count-row{    
+    float:left;
+}
+#count-row .count-select{
+    float:left;
+    margin-right:5px;
+}
+.legend-box {
+  padding: 5px;
+  background-color: #ddd;
+  border-radius: 3px;
+}
+#geog_name {
+  font-weight: bold;
+  font-size: 20px;
+}

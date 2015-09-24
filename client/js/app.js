@@ -43,13 +43,9 @@ var bb_combo_layer;
 var health_sec_type = '';
 var health_sec_layer;
 
-function createMap() { 
-	
+var count_type = '';
 
-	
-
-	
-                          
+function createMap() {  
  
      L.mapbox.accessToken = 'pk.eyJ1IjoiY29tcHV0ZWNoIiwiYSI6InMyblMya3cifQ.P8yppesHki5qMyxTc2CNLg';
      map = L.mapbox.map('map', 'fcc.k74ed5ge', {
@@ -196,13 +192,17 @@ function createMap() {
 	
         var count_sel = $('#select-count').val();
 		
-		//console.log(' count_sel : ' + count_sel );
+		console.log(' count_sel : ' + count_sel );
 		
 		if (count_sel != "") {
 			setCount(count_sel);
 		}
 		else {
-			//setNationwide();
+			if (map.hasLayer(count_layer)) {
+				map.removeLayer(count_layer);
+			}
+			$( '.circle-sym').css('display','none'); 
+			$( '.circle-label').css('display','none'); 	
 		}
     }); 
 	
@@ -347,24 +347,14 @@ function createMap() {
 	$( '#label-broadband' ).val( ''+ $( '#slider-broadband' ).slider( 'values', 0 ) +'% - '+ $( '#slider-broadband' ).slider( 'values', 1 ) +'%' );
 	
 	$( '#label-health' ).val( ''+ $( '#slider-health' ).slider( 'values', 0 ) +'% - '+ $( '#slider-health' ).slider( 'values', 1 ) +'%' );
-				
 	
-	
-	
-	
-	count_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
-			 format: 'image/png',
-			 transparent: true,
-			 layers: ['c2hgis:state', 'c2hgis:county'], 
-			 styles: ['c2hgis:count_pcp_state', 'c2hgis:count_pcp_county']
-		 }).setZIndex('999').addTo(map);
-	
-	
-	
-	
-	
-	
-     
+	// count_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+	// 		 format: 'image/png',
+	// 		 transparent: true,
+	// 		 layers: ['c2hgis:state', 'c2hgis:county'], 
+	// 		 styles: ['c2hgis:count_pcp_state', 'c2hgis:count_pcp_county']
+	// 	 }).setZIndex('999').addTo(map);
+	 
 }
 
 
@@ -516,11 +506,9 @@ var count_types = {
 	}
 };
 
-var count_type = 'pcp';
-
 function setCount(type) {
 
-	//console.log(' setCount type : ' + type );
+	console.log(' setCount type : ' + type );
 
 	if (count_types[type]) {
 	
@@ -536,10 +524,7 @@ function setCount(type) {
 			layers: ['c2hgis:state', 'c2hgis:county'], 
 			styles: ['c2hgis:count_'+ type +'_state', 'c2hgis:count_'+ type +'_county']
 		}).setZIndex('999').addTo(map);
-		 
-		 
 		
-
 
 		updateCountLegend();
 	}
@@ -555,8 +540,7 @@ function updateCountLegend() {
 	
 	
 	if (count_types[count_type][zoom_type]) {
-	
-	
+		
 
 		var count_min = count_types[count_type][zoom_type].min;
 		var count_max = count_types[count_type][zoom_type].max;
@@ -566,7 +550,8 @@ function updateCountLegend() {
 		$( '.circle-label-min' ).text( '< '+ Number(count_min).toLocaleString('en') );
 		$( '.circle-label-max' ).text( '> '+ Number(count_max).toLocaleString('en') );
 		$( '.circle-sym' ).css('background-color', count_color);
-		
+		$( '.circle-sym').css('display','inline-block'); 
+		$( '.circle-label').css('display','inline-block'); 		
 	}
 }
 

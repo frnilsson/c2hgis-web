@@ -3079,8 +3079,8 @@ a.gen-passcode {
 .legend-table-circle tr td { width: 20%; text-align: center;}
 .circle-label-min { text-align: left; }
 .circle-label-max  { text-align: right; }
-.circle-label { font-size: 12px; }
-.circle-sym  { border-radius: 50px; display: inline-block; height: 50px; width: 50px; vertical-align: middle;  }
+.circle-label { font-size: 12px; display: none;}
+.circle-sym  { border-radius: 50px; display: none; height: 50px; width: 50px; vertical-align: middle;  }
 
 .legend-table-square { width: 100%; }
 .legend-table-square tr td { width: 20%; text-align: center;}

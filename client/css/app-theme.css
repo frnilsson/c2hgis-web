@@ -3052,6 +3052,9 @@ a.gen-passcode {
   margin-right: 5px;
 }
 
+/* slider */
+#slider-broadband { background: #b2caf0;}
+#slider-health { background: #eab6b6;}
 
 /* charts */
 .charts-div { width:100%; min-height: 300px; margin: 0 auto; }
@@ -3072,6 +3075,8 @@ a.gen-passcode {
 
 /* legend */
 
+.legend-box { display: none; }
+
 #legends>div { overflow:hidden; }
 .legend-square, .legend-circle { white-space: nowrap; width: 200px; }
 
@@ -3079,8 +3084,8 @@ a.gen-passcode {
 .legend-table-circle tr td { width: 20%; text-align: center;}
 .circle-label-min { text-align: left; }
 .circle-label-max  { text-align: right; }
-.circle-label { font-size: 12px; display: none;}
-.circle-sym  { border-radius: 50px; display: none; height: 50px; width: 50px; vertical-align: middle;  }
+.circle-label { font-size: 12px; }
+.circle-sym  { display: inline-block; border-radius: 50px; height: 50px; width: 50px; vertical-align: middle;  }
 
 .legend-table-square { width: 100%; }
 .legend-table-square tr td { width: 20%; text-align: center;}
@@ -3145,9 +3150,8 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
     margin-right:5px;
 }
 .legend-box {
-  padding: 5px;
-  background-color: #ddd;
-  border-radius: 3px;
+  padding: 0px;
+
 }
 #geog_name {
   font-weight: bold;

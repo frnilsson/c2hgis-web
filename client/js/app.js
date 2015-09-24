@@ -201,8 +201,7 @@ function createMap() {
 			if (map.hasLayer(count_layer)) {
 				map.removeLayer(count_layer);
 			}
-			$( '.circle-sym').css('display','none'); 
-			$( '.circle-label').css('display','none'); 	
+			$( '.legend-box').hide(); 
 		}
     }); 
 	
@@ -540,11 +539,11 @@ function updateCountLegend() {
 		var count_color = count_types[count_type].color;
 		//console.log(' count_min : ' + count_min );		
 		
-		$( '.circle-label-min' ).text( '< '+ Number(count_min).toLocaleString('en') );
-		$( '.circle-label-max' ).text( '> '+ Number(count_max).toLocaleString('en') );
-		$( '.circle-sym' ).css('background-color', count_color);
-		$( '.circle-sym').css('display','inline-block'); 
-		$( '.circle-label').css('display','inline-block'); 		
+		$( '.circle-label-min' ).html( '<&nbsp;'+ Number(count_min).toLocaleString('en') );
+		$( '.circle-label-max' ).html( '>&nbsp;'+ Number(count_max).toLocaleString('en') );
+		$( '.circle-sym' ).css('background-color', count_color);		
+		
+		$( '.legend-box').show(); 	
 	}
 }
 

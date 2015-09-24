@@ -460,13 +460,6 @@ function setBroadbandCombo() {
 }
 
 
-
-
-
-
-
-
-
 var count_types = {
 	pcp: {
 		layer: 'pcp_total',
@@ -532,14 +525,14 @@ function setCount(type) {
 
 function updateCountLegend() {
 	
-	//console.log(' count_type : ' + count_type );
-	//console.log(' geo_type : ' + geo_type );
+	console.log(' count_type : ' + count_type );
+	console.log(' geo_type : ' + geo_type );
 	
 	
-	//console.log(' zoom_type : ' + zoom_type );
+	console.log(' zoom_type : ' + zoom_type );
 	
 	
-	if (count_types[count_type][zoom_type]) {
+	if (count_type != '' && count_types[count_type][zoom_type]) {
 		
 
 		var count_min = count_types[count_type][zoom_type].min;
@@ -794,11 +787,77 @@ function createChartBroadband() {
 	click_data.length = 0;	
  }
 
-    
+ function generateMenu(){
+	$('.layer-switch').on('click', 'a', function(e) {
+        var $this = $(this),
+            id = $this.attr('id');
+
+        e.preventDefault();
+
+        if (id === 'insights') {
+            $('.list-healthMaps').addClass('hide');
+            $('.list-broadbandMaps').addClass('hide');            
+            $('.list-insightsMaps').removeClass('hide');        
+
+            if (map.hasLayer(broadband_layer)) {
+				map.removeLayer(broadband_layer);
+			}
+			if (map.hasLayer(health_layer)) {
+				map.removeLayer(health_layer);
+			}
+			if (map.hasLayer(count_layer)) {
+				map.removeLayer(count_layer);
+			} 
+			if (map.hasLayer(health_sec_layer)) {
+				map.removeLayer(health_sec_layer);
+			}    
+        }
+        else if (id === 'health') {
+            $('.list-insightsMaps').addClass('hide');
+            $('.list-broadbandMaps').addClass('hide');            
+            $('.list-healthMaps').removeClass('hide'); 
+
+			if (map.hasLayer(broadband_layer)) {
+				map.removeLayer(broadband_layer);
+			}
+			if (map.hasLayer(health_layer)) {
+				map.removeLayer(health_layer);
+			}
+			if (map.hasLayer(count_layer)) {
+				map.removeLayer(count_layer);
+			}
+			if (map.hasLayer(health_sec_layer)) {
+				map.removeLayer(health_sec_layer);
+			}				
+        }
+        else if (id === 'broadband') {
+            $('.list-healthMaps').addClass('hide');
+            $('.list-insightsMaps').addClass('hide');            
+            $('.list-broadbandMaps').removeClass('hide');  
+
+			if (map.hasLayer(broadband_layer)) {
+				map.removeLayer(broadband_layer);
+			}
+			if (map.hasLayer(health_layer)) {
+				map.removeLayer(health_layer);
+			}
+			if (map.hasLayer(count_layer)) {
+				map.removeLayer(count_layer);
+			}
+			if (map.hasLayer(health_sec_layer)) {
+				map.removeLayer(health_sec_layer);
+			}
+        }
+
+        $('.layer-switch').find('li').removeClass('active');
+        $this.parent('li').addClass('active');
+    });
+ }
      
  $(document).ready(function() {
      createMap();
-     //getData();
+     generateMenu();
+     
 });  
      
   

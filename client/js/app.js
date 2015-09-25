@@ -252,82 +252,10 @@ function createMap() {
 	
 	// slider
 	
-	$( '#slider-broadband' ).slider({
-		range: true,
-		min: 20,
-		max: 100,
-		step: 10,
-		values: [ 20, 50 ],
-		slide: function( event, slider ) {
-		
-		
-		
-			setSlider('broadband', slider.values[ 0 ], slider.values[ 1 ]);
-		
-			
-			
-			
-		}
-	});
 	
 	
-	$( '#slider-health' ).slider({
-		range: true,
-		min: 20,
-		max: 40,
-		step: 5,
-		values: [ 20, 30 ],
-		slide: function( event, slider ) {
-		
-		
-			setSlider('health', slider.values[ 0 ], slider.values[ 1 ]);
-			
-		/*
-			
-			$( '#label-health' ).val( ''+ slider.values[ 0 ] +'% - '+ slider.values[ 1 ] +'%' );
-					
-		
-						 
-						 
-					 // health
-						 
-					var health_column = 'adult_obesity_pct';
-					var health_min = slider.values[ 0 ];
-					var health_max = slider.values[ 1 ];
-					
-					//console.log(' health_column : ' + health_column );
-					//console.log(' health_min : ' + health_min );
-					//console.log(' health_max : ' + health_max );
-
-					var health_filter = health_column + ">=" + health_min + " AND " + health_column + "<=" + health_max;
-					health_filter = health_filter + ";" + health_filter;
-
-					//console.log(' health_filter : ' + health_filter );
-
-					if (map.hasLayer(health_layer)) {
-						map.removeLayer(health_layer);
-					}
-
-					var health_state_layer = 'c2hgis:c2hgis_state';
-					var health_county_layer = 'c2hgis:health_county';
-
-					health_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
-						 format: 'image/png',
-						 transparent: true,
-						 cql_filter: health_filter,
-						 layers: ['c2hgis:c2hgis_state', 'c2hgis:c2hgis_county'], 
-						 styles: ['c2hgis:health_state', 'c2hgis:health_county']
-					 }).setZIndex('90').addTo(map);
-
-						*/
-			
-		}
-	});
 	
 	
-	$( '#label-broadband' ).val( ''+ $( '#slider-broadband' ).slider( 'values', 0 ) +'% - '+ $( '#slider-broadband' ).slider( 'values', 1 ) +'%' );
-	
-	$( '#label-health' ).val( ''+ $( '#slider-health' ).slider( 'values', 0 ) +'% - '+ $( '#slider-health' ).slider( 'values', 1 ) +'%' );
 	
 	// count_layer = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
 	// 		 format: 'image/png',
@@ -346,18 +274,54 @@ var map_overlays = {
 }
 
 var bb_speed_tiers = {
-	3: '< 1.5 mbps',
-	4: '1.5 - 3 mbps',
-	5: '3 - 6 mbps',
-	6: '6 - 10 mbps',
-	7: '10 - 25 mbps',
-	8: '25 - 50 mbps',
-	9: '50 - 100 mbps',
-	10: '100 mbps - 1 gbps',
-	11: '> 1 gbps'	
+	3: {
+		range: '< 1.5',
+		min: '< 1.5',
+		max: '< 1.5'
+	},
+	4:{
+		range: '1.5 - 3',
+		min: '1.5',
+		max: '3'
+	},
+	5: {
+		range: '3 - 6',
+		min: '1.5',
+		max: '6'
+	},
+	6: {
+		range: '6 - 10',
+		min: '6',
+		max: '10'
+	},
+	7: {
+		range: '10 - 25',
+		min: '10',
+		max: '25'
+	},
+	8: {
+		range: '25 - 50',
+		min: '25',
+		max: '50'
+	},
+	9: {
+		range: '50 - 100',
+		min: '50',
+		max: '100'
+	},
+	10: {
+		range: '100 - 1,000',
+		min: '100',
+		max: '1,000'
+	},
+	11: {
+		range: '> 1,000',
+		min: '> 1,000',
+		max: '> 1,000'
+	},
 };
 
-var units = {
+var in_units = {
 	perc: {
 		name: 'Percent',
 		desc: '%'
@@ -376,7 +340,7 @@ var units = {
 	},
 	y100000: {
 		name: 'Years Lost Per 100,000 People',
-		desc: 'Years Lost Per 100,000 People'
+		desc: 'Years'
 	},
 	st: {
 		name: 'Speed Tiers',
@@ -389,11 +353,14 @@ var insight_ly = {
 		in_bb_access: {
 			column: 'advdl_gr25000k',
 			unit: 'perc',
-			min: 0,
+			min: 50,
 			max: 100,
 			multiple: 1,
 			zindex: 99,
-			step: 20
+			step: 5,
+			values: [75, 100],
+			label: '% Coverage',
+			tooltip: 'Percent of population with access to 25 mbps advertised download speeds.'
 		},
 		in_bb_dl_speed: {
 			column: 'most_common_dl',
@@ -402,7 +369,10 @@ var insight_ly = {
 			max: 11,
 			multiple: 1,
 			zindex: 99,
-			step: 1
+			step: 1,
+			values: [8, 11],
+			label: 'Download',
+			tooltip: 'Most commonly advertised download speed.'
 		},
 		in_bb_ul_speed: {
 			column: 'most_common_ul',
@@ -411,7 +381,10 @@ var insight_ly = {
 			max: 11,
 			multiple: 1,
 			zindex: 99,
-			step: 1
+			step: 1,
+			values: [8, 11],
+			label: 'Upload',
+			tooltip: 'Most commonly advertised upload speed.'
 		}
 	},
 	health: {
@@ -419,37 +392,49 @@ var insight_ly = {
 			column: 'pcp_per_capita',
 			unit: 'p100000',
 			min: 0,
-			max: 0.005,
+			max: 0.002,
 			multiple: 100000,
 			zindex: 90,
-			step: 1
+			step: 0.00001,
+			values: [0.0005, 0.00075],
+			label: 'Physicians',
+			tooltip: 'Primary Care Physicians per 100,000 people.'
 		},
 		in_prm_death: {
 			column: 'years_lost_per_100000',
 			unit: 'y100000',
-			min: 0,
-			max: 0.005,
-			multiple: 100000,
+			min: 2500,
+			max: 20000,
+			multiple: 1,
 			zindex: 90,
-			step: 1
+			step: 100,
+			values: [7500, 15000],
+			label: 'Years Lost',
+			tooltip: 'Number of years lost due to premature death before age 75 per 100,000 people.'
 		},
 		in_prv_hosp: {
 			column: 'preventable_hospital_stays_per_1000',
 			unit: 'p1000',
 			min: 0,
-			max: 0.005,
-			multiple: 100000,
+			max: 150,
+			multiple: 1,
 			zindex: 90,
-			step: 1
+			step: 5,
+			values: [60, 120],
+			label: 'Hospital Stays',
+			tooltip: 'Number of preventable hospital stays per 1,000 people.'
 		},
 		in_obs_rate: {
 			column: 'adult_obesity_pct',
 			unit: 'perc',
 			min: 0,
-			max: 100,
+			max: 50,
 			multiple: 1,
 			zindex: 90,
-			step: 1
+			step: 1,
+			values: [30, 40],
+			label: '% Obesity',
+			tooltip: 'Percentage of adults that report a BMI of 30 or more.'
 		}
 	},
 	count: {
@@ -492,37 +477,92 @@ var insight_ly = {
 	}
 };
 
-function setSlider(type, low, high) {
+function updateSlider(type) {
 	
+	var dropdown = $( '#select-in-'+ type ).val();	
+
+	var min = insight_ly[type][dropdown].min;
+	var max = insight_ly[type][dropdown].max;
+	var step = insight_ly[type][dropdown].step;
+	var values = insight_ly[type][dropdown].values;
+	
+	console.log(' min : ' + min );
+	console.log(' max : ' + max );
+	console.log(' step : ' + step );	
+	
+	$( '#slider-'+ type ).slider({
+		range: true,
+		min: min,
+		max: max,
+		step: step,
+		values: values,
+		slide: function( event, slider ) {
+		
+			setSliderMap(type, slider.values[ 0 ], slider.values[ 1 ]);
+		}
+	});
+	
+	setSliderMap(type, values[0], values[1]);	
+}
+	
+function createSlider() {
+	
+	updateSlider('broadband');
+	updateSlider('health');
+	
+	$('.select-insight').on('change', function() {
+	
+        var cur_type = $(this).attr('id').split('-')[2];
+		
+		console.log(' cur_type : ' + cur_type );
+		
+		updateSlider(cur_type);	
+		
+    });	
+}
+
+function setSliderMap(type, low, high) {	
 	
 	console.log(' type : ' + type );
 	console.log(' low : ' + low );
 	console.log(' high : ' + high );
 	
-	
-	$( '#label-'+ type ).val( ''+ low +'% - '+ high +'%' );
-			
-			
-					
-	//http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?&SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=c2hgis%3Astate%2Cc2hgis%3Acounty&STYLES=c2hgis%3Abroadband_state%2Cc2hgis%3Abroadband_county&FORMAT=image%2Fpng&TRANSPARENT=true&HEIGHT=256&WIDTH=256&CQL_FILTER=advdl_gr25000k%3E%3D0%20AND%20advdl_gr25000k%3C%3D0.2&SRS=EPSG%3A3857&BBOX=-10018754.171394622,10018754.171394626,-5009377.085697311,15028131.257091932
-	
-	
 	var dropdown = $( '#select-in-'+ type ).val();
 	var column = insight_ly[type][dropdown].column;
 	var zindex = insight_ly[type][dropdown].zindex;
+	var unit = insight_ly[type][dropdown].unit;
+	var multiple = insight_ly[type][dropdown].multiple;
+	var label = insight_ly[type][dropdown].label;
+	var tooltip = insight_ly[type][dropdown].tooltip;
 	
 	console.log(' dropdown : ' + dropdown );
 	console.log(' column : ' + column );
-	console.log(' zindex : ' + zindex );
+	console.log(' zindex : ' + zindex );	
 	
+	var label_text = '';
+	
+	if (unit == 'st') {
+		
+		if (low != high) {
+			label_text = bb_speed_tiers[low].min +' to '+ bb_speed_tiers[high].max +' mbps';
+		}
+		else {
+			label_text = bb_speed_tiers[low].range +' mbps';
+		}			
+	}
+	else {
+		label_text = Number(low*multiple).toLocaleString('en') +' - '+ Number(high*multiple).toLocaleString('en') +' '+ label;
+	}	
 
+	$( '#label-'+ type ).val( label_text );	
+	
+	$( '#in-tooltip-'+ type ).attr( 'title', tooltip ).tooltip('fixTitle');
 
 
 	var filter = column + '>=' + low + ' AND ' + column + '<=' + high;
 	filter = filter + ';' + filter;
 
-	console.log(' filter : ' + filter );
-	
+	console.log(' filter : ' + filter );	
 	
 	//var cur_layer = map_overlays['in_'+ type];
 
@@ -1091,9 +1131,12 @@ function createCharts() {
      createMap();
      generateMenu();
 	 
+	 createSlider();
+	 
 	 $(".selectpicker").selectpicker({});
+	 
+	 $('.in-tooltip').tooltip();
      
 });  
-     
-  
+       
   

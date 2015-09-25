@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Connectivity & Health</title>
+    <title>Connect2Health</title>
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700|Lato:500" rel="stylesheet" type="text/css">
     <link href="css/bootstrap.min.css" rel="stylesheet">    
     <link href="css/jcarousel.responsive.css" rel="stylesheet" />
@@ -129,31 +129,28 @@
 								<!-- Insights Tab  **************************************************************** -->
 							
 							
-                                <div class="panel-data list-insightsMaps">
-                                                  
+                                <div class="panel-data list-insightsMaps">                                                  
 										
-									<select id="select-in-broadband" class="selectpicker">
+									<select id="select-in-broadband" class="selectpicker select-insight">
 										<option value="in_bb_access">Broadband Access</option>
 										<option value="in_bb_dl_speed">Download Speed</option>
 										<option value="in_bb_ul_speed">Upload Speed</option>										
 									</select>
-								 <br/> 
-									<input type="text" id="label-broadband" readonly style="border:0; color:#f6931f; font-weight:bold;">
+									<input type="text" id="label-broadband" class="slider-label" readonly style="color: #0050cc;">
+									<i class="fa fa-question in-tooltip" id="in-tooltip-broadband" data-toggle="tooltip" title=""></i>
                                     <br/>
-                                    <div id="slider-broadband" style=""></div>
-                                    <br/>  
-										
-									<select id="select-in-health" class="selectpicker">
+                                    <div id="slider-broadband" class="slider-bar"></div>
+                                    <br/> 										
+									<select id="select-in-health" class="selectpicker select-insight">
 										<option value="in_pcp_access">Physician Access</option>
 										<option value="in_prm_death">Premature Death</option>
 										<option value="in_prv_hosp">Preventable Hospital</option>
 										<option value="in_obs_rate">Obesity Rate</option>
 									</select>
-										
-									 <br/> 
-									<input type="text" id="label-health" readonly style="border:0; color:#f6931f; font-weight:bold;">
+									<input type="text" id="label-health" class="slider-label" readonly style="color: #ba0c0c;">
+									<i class="fa fa-question in-tooltip" id="in-tooltip-health" data-toggle="tooltip" title=""></i>
                                     <br/> 
-                                    <div id="slider-health" style=""></div>
+                                    <div id="slider-health" class="slider-bar"></div>
                                     <br/>  
                                     <br/>
                          

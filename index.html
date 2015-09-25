@@ -4,15 +4,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Connectivity & Health</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700|Lato:500" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700|Lato:500" rel="stylesheet" type="text/css">
     <link href="css/bootstrap.min.css" rel="stylesheet">    
     <link href="css/jcarousel.responsive.css" rel="stylesheet" />
     <link href="css/icon-styles.css" rel="stylesheet">
     <link href="css/app-theme.css" rel="stylesheet">
 	<link href="css/mapbox.css" rel="stylesheet">
 	<link href="css/jquery-ui.css" rel="stylesheet"> 
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
+	
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.3/css/bootstrap-select.min.css" />
+	<!--
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" />
+	-->
 	
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -109,11 +114,12 @@
                         <span id="geog_name">Nationwide</span>
                     </div>
 		            <div class="panel panel-default panel-top">
-                        <div id="text-div-national" class="text-div" >
+                        <div id="tab-div-nav" class="tab-nav" >
                             <ul class="layer-switch nav nav-pills">
                                 <li class="active"><a id="insights" href="#" class="active" role="presentation">Insights</a></li>
                                 <li><a id="health" href="#" role="presentation">Health</a></li>
-                                <li><a id="broadband" href="#" role="presentation">Broadband</a></li>                                
+                                <li><a id="broadband" href="#" role="presentation">Broadband</a></li> 
+								<li><a id="population" href="#" role="presentation">Population</a></li>  
                             </ul>
                         </div>                        
                         <div>
@@ -126,10 +132,10 @@
                                 <div class="panel-data list-insightsMaps">
                                                   
 										
-									<select id="select-broadband-insight" class="selectpicker">
-										<option value="access">Broadband Access</option>
-										<option value="dl_speed">Download Speed</option>
-										<option value="ul_speed">Upload Speed</option>										
+									<select id="select-in-broadband" class="selectpicker">
+										<option value="in_bb_access">Broadband Access</option>
+										<option value="in_bb_dl_speed">Download Speed</option>
+										<option value="in_bb_ul_speed">Upload Speed</option>										
 									</select>
 								 <br/> 
 									<input type="text" id="label-broadband" readonly style="border:0; color:#f6931f; font-weight:bold;">
@@ -137,11 +143,11 @@
                                     <div id="slider-broadband" style=""></div>
                                     <br/>  
 										
-									<select id="select-health-insight" class="selectpicker">
-										<option value="access">Physician Access</option>
-										<option value="ip">Premature Death</option>
-										<option value="pop">Preventable Hospital</option>
-										<option value="pop">Obesity Rate</option>
+									<select id="select-in-health" class="selectpicker">
+										<option value="in_pcp_access">Physician Access</option>
+										<option value="in_prm_death">Premature Death</option>
+										<option value="in_prv_hosp">Preventable Hospital</option>
+										<option value="in_obs_rate">Obesity Rate</option>
 									</select>
 										
 									 <br/> 
@@ -308,13 +314,7 @@
                                             <td class="square-label square-label-max">> 10,000</td>
                                         </tr>
                                     </table>
-									<Br/><br/>
-									<!--
-									<div style="width: 300px; height: 300px;">
-										<canvas id="ch_canvas_bb_dl" style="width: 300px; height: 250px;"></canvas>
-										<div id="ch_legend_bb_dl" style="width: 300px; height: 50px; text-align: center;"></div>						
-									</div>
-									-->
+									
 									<br/><br/> 
 						
 									<div id="carousel-bb" class="carousel slide" data-ride="carousel" data-wrap="true">
@@ -330,28 +330,29 @@
 										<div class="carousel-inner" role="listbox">
 											<div class="item active">
 												<div style="width: 300px; height: 300px;">
-													<canvas id="ch_canvas_bb_dl" style="width: 300px; height: 250px;"></canvas>
-													<div id="ch_legend_bb_dl" style="width: 300px; height: 50px; text-align: center;"></div>						
+													<canvas id="ch_canvas_broadband_1" style="width: 300px; height: 250px;"></canvas>
+													<div id="ch_legend_broadband_1" style="width: 300px; height: 50px; text-align: center;"></div>						
 												</div>
 											</div>
 
 											<div class="item">
 												<div style="width: 300px; height: 300px;">
-													sdfsadfsdf
+													<canvas id="ch_canvas_broadband_2" style="width: 300px; height: 250px;"></canvas>
+													<div id="ch_legend_broadband_2" style="width: 300px; height: 50px; text-align: center;"></div>						
 												</div>
 											</div>
 
 											<div class="item">
 												<div style="width: 300px; height: 300px;">
-													ddddddd
+													<canvas id="ch_canvas_broadband_3" style="width: 300px; height: 250px;"></canvas>
+													<div id="ch_legend_broadband_3" style="width: 300px; height: 50px; text-align: center;"></div>						
 												</div>
 											</div>
 
 											<div class="item">
 												<div style="width: 300px; height: 300px;">
-													sdfsadfsaaadf
-													<br>
-													sssss
+													<canvas id="ch_canvas_broadband_4" style="width: 300px; height: 250px;"></canvas>
+													<div id="ch_legend_broadband_4" style="width: 300px; height: 50px; text-align: center;"></div>						
 												</div>
 											</div>
 										</div>
@@ -544,7 +545,11 @@
 	<script src="./js/bootstrap-toolkit.min.js"></script>
 	<script src="//api.tiles.mapbox.com/mapbox.js/v1.6.5/mapbox.js"></script>
     <!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>-->
-    <script src="//www.bootply.com/plugins/bootstrap-select.min.js"></script>
+	<!--<script src="//www.bootply.com/plugins/bootstrap-select.min.js"></script>-->
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.3/js/bootstrap-select.min.js"></script>
+	
+	
 	
 	<script src="./js/chart.js"></script>
 	
@@ -552,17 +557,9 @@
 	<script src="./js/jcarousel.responsive.js"></script>-->
 	<script src="//cdn.jsdelivr.net/jquery.color-animation/1/mainfile"></script>	
 	
-	<script src="./js/menus.js"></script>
-	<script src="./js/theme.js"></script>	
-	
-    <script>
-    $("#select-count").selectpicker({});
-    $("#select-state").selectpicker({});    
-    $("#health-sec-type").selectpicker({});
-    $("#broadbandCombo").selectpicker({});
-    $("#popCombo").selectpicker({});
-    
-    </script>
+	<!--<script src="./js/menus.js"></script>-->
+	<!--<script src="./js/theme.js"></script>	-->
+
 
 	<script src="./js/app.js"></script>	
 

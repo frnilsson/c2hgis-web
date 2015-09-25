@@ -51,7 +51,6 @@ function createMap() {
  
 		 
 	 
-	 
 	 L.mapbox.accessToken = 'pk.eyJ1IjoiY29tcHV0ZWNoIiwiYSI6InMyblMya3cifQ.P8yppesHki5qMyxTc2CNLg';
      map = L.mapbox.map('map', 'fcc.k74ed5ge', {
              attributionControl: true,
@@ -132,11 +131,8 @@ function createMap() {
 		geo_lng = e.latlng.lng;		
 		var zoom = map.getZoom();
 		
-
-		
 		//console.log(' geo_lat : ' + geo_lat );
 		//console.log(' geo_lng : ' + geo_lng );
-
 		
 		getData();
 	});
@@ -202,12 +198,10 @@ function createMap() {
 	// select health
 	$('#health-sec-type').on('change', function() {
 	
-        //health_sec_type = $(this).val();  $('#health-sec-type').val();
-		
+        //health_sec_type = $(this).val();  $('#health-sec-type').val();		
 		//console.log(' health_sec_type : ' + health_sec_type );
 		
-		setHealthSec();
-		
+		setHealthSec();	
 		
     }); 
 	
@@ -220,8 +214,7 @@ function createMap() {
 		
 		//console.log(' bb_combo_type : ' + bb_combo_type );
 		
-		setBroadbandCombo();
-		
+		setBroadbandCombo();		
 		
     }); 
 	
@@ -234,9 +227,7 @@ function createMap() {
 		setBroadbandCombo();		
     }); 
 	
-	
-	
-	
+		
 	 
 }
 
@@ -768,7 +759,7 @@ function getData() {
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':'+geo_type+'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	//console.log(' data_url : ' + data_url );
+	console.log(' data_url : ' + data_url );
 	
 		$.ajax({
 			type: 'GET',
@@ -812,6 +803,8 @@ function processData(data) {
 				
 				var female_total = geo_prop.female_total;
 				var male_total = geo_prop.male_total;
+				
+				
 				
 				//console.log(' geography_type : ' + geography_type );
 				//console.log(' geography_desc : ' + geography_desc );
@@ -878,7 +871,6 @@ function processData(data) {
 
 
 function createStats() {
-
 	
 	if (cur_tab == 'health'){
 		
@@ -888,54 +880,126 @@ function createStats() {
 	}
 	else if (cur_tab == 'population'){
 		
-	}
-	
+	}	
 }
 
 var chart_bb_dl;
 
-
+var chart_obj = {
+	health: {
+		measurements: {
+			chart: null,
+			data: null,
+			options: null
+		}
+	},
+	broadband: {
+		num_providers: {
+			chart: null,
+			data: null,
+			options: null
+		}
+	},
+	population: {
+		gender: {
+			chart: null,
+			data: null,
+			options: null
+		}	
+	}
+	
+};
 
 function createCharts() {
 
 	
+	console.log(' cur_tab : ' +  cur_tab );
+	
 	if (cur_tab == 'health'){
+		
+
+		console.log(' health chart : '  );
+		
+		
+		/*
+		premature_death_total: 30050,
+		premature_death_pct: 1.03,
+		poor_fair_health_total: 368811,
+		poor_fair_health_pct: 12.7,
+		adult_obesity_total: 879663,
+		adult_obesity_pct: 30.29,
+		pcp_total: 2133,
+		pcp_pct: 0.07,
+		prevent_hosp_stay_total: 328509,
+		prevent_hosp_stay_pct: 11.31,
+		health_cost_total: 1041631,
+		health_cost_pct: 3.5270087487936372,
+		cost_no_dr_total: 74394,
+		cost_no_dr_pct: 2.56175833439221,
+		submission_cycle: "2015-09",
+		smoking_total: 79118,
+		smoking_pct: 2.7244293343608743,
+		drinking_total: 77728,
+		drinking_pct: 2.6765646667155645,
+		dentist_total: 1528,
+		dentist_pct: 0.052616699397146235,
+		mhp_total: 4984,
+		mhp_pct: 0.17162410326922567,
+		diabetes_total: 197549,
+		diabetes_pct: 6.802602322779347,
+		health_cost_national_total: 29532986,
+		car_death_total: 2956,
+		car_death_pct: 0.10178989752484573,
+		health_cost_state_avg: 9387,
+		
+		
+		
+		geo_prop.adult_obesity_pct
+		*/
+	
+		console.log(' geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );
+		
+		//console.log(' geo_prop : ' +  JSON.stringify(geo_prop) );
+		
+		chart_obj.health.measurements.data = {
+			labels: ["Obesity", "Diabetes", "Smoking", "Excessive Drinking", "Physical Inactivity", "Food Insecurity"],
+			datasets: [
+				{
+					label: "Health Behaviours",
+					fillColor: "rgba(220,220,220,0.2)",
+					strokeColor: "rgba(220,220,220,1)",
+					pointColor: "rgba(220,220,220,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(220,220,220,1)",
+					data: [geo_prop.adult_obesity_pct, geo_prop.diabetes_pct, geo_prop.smoking_pct*10, geo_prop.drinking_pct*3, geo_prop.adult_obesity_pct*.7, geo_prop.diabetes_pct*1.5]
+				}
+			]
+		};
+		
+		chart_obj.health.measurements.options = {
+			//animationEasing: 'easeOutQuart',
+			//tooltipTemplate: '<%=label%>: <%= value.toLocaleString() %> (<%= Math.round(circumference / 6.283 * 1000) / 10 %>%)',
+			//legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
+		
+			tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value.toFixed(1) %>%",
+			legendTemplate : '<ul class="<%=name.toLowerCase()%>-legends" style="width: 100%; list-style-type: none;"><% for (var i=0; i<datasets.length; i++){%><li><div style="background-color:<%=datasets[i].strokeColor%>; width: 20px; height: 2px; display: inline-block; margin: 4px 0;"></div>&nbsp;<%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
+		
+		};
+
+
+		if (chart_obj.health.measurements.chart) {
+			chart_obj.health.measurements.chart.destroy();
+		}
+		chart_obj.health.measurements.chart = new Chart(document.getElementById('ch-canvas-health-1').getContext('2d')).Radar(chart_obj.health.measurements.data, chart_obj.health.measurements.options);		
+		
+		$('#ch-legend-health-1').html( chart_obj.health.measurements.chart.generateLegend() );	
 		
 	}	
 	else if (cur_tab == 'broadband'){
 		
 		
-		
-		
-		
-		
-		/*
-		var genderData = [
-		   {
-			  value: male_total,
-			  label: 'Male',
-			  color: '#56e053'
-		   },
-		   {
-			  value: female_total,
-			  label: 'Female',
-			  color: '#5384e0'
-		   }				   
-		];
-		var genderOptions = {
-			animationEasing: 'easeOutQuart',
-			tooltipTemplate: '<%=label%>: <%= value.toLocaleString() %> (<%= Math.round(circumference / 6.283 * 1000) / 10 %>%)',
-			legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
-		};
 
-		ctx = document.getElementById('chart_js').getContext('2d');
-		if (genderChart) {
-			genderChart.destroy();
-		}
-		genderChart = new Chart(ctx).Doughnut(genderData, genderOptions);		
-		
-		 $('#chart_legend').html( genderChart.generateLegend() );
-		*/
 		
 			
 		
@@ -972,16 +1036,46 @@ function createCharts() {
 			chart_bb_dl.destroy();
 		}		
 		
-		chart_bb_dl = new Chart(document.getElementById('ch_canvas_broadband_1').getContext('2d')).Line(chart_bb_dl_data, chart_bb_dl_opts);		
+		chart_bb_dl = new Chart(document.getElementById('ch-canvas-broadband-1').getContext('2d')).Line(chart_bb_dl_data, chart_bb_dl_opts);		
 
-		 $('#ch_legend_broadband_1').html( chart_bb_dl.generateLegend() );
+		 $('#ch-legend-broadband-1').html( chart_bb_dl.generateLegend() );
 
 
 		//console.log(' chart_bb_dl.generateLegend : ' + chart_bb_dl.generateLegend());
 
 	}
 	else if (cur_tab == 'population'){
-			
+		
+		
+		var female_total = geo_prop.female_total;
+		var male_total = geo_prop.male_total;
+		
+		chart_obj.population.gender.data = [
+		   {
+			  value: male_total,
+			  label: 'Male',
+			  color: '#56e053'
+		   },
+		   {
+			  value: female_total,
+			  label: 'Female',
+			  color: '#5384e0'
+		   }				   
+		];
+		
+		chart_obj.population.gender.options = {
+			animationEasing: 'easeOutQuart',
+			tooltipTemplate: '<%=label%>: <%= value.toLocaleString() %> (<%= Math.round(circumference / 6.283 * 1000) / 10 %>%)',
+			legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
+		};
+
+
+		if (chart_obj.population.gender.chart) {
+			chart_obj.population.gender.chart.destroy();
+		}
+		chart_obj.population.gender.chart = new Chart(document.getElementById('ch-canvas-population-1').getContext('2d')).Doughnut(chart_obj.population.gender.data, chart_obj.population.gender.options);		
+		
+		 $('#ch-legend-population-1').html( chart_obj.population.gender.chart.generateLegend() );	
 	}
 }
 

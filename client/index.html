@@ -129,7 +129,7 @@
 								<!-- Insights Tab  **************************************************************** -->
 							
 							
-                                <div class="panel-data list-insightsMaps">                                                  
+                                <div class="panel-data list-insight-panel">                                                  
 										
 									<select id="select-in-broadband" class="selectpicker select-insight">
 										<option value="in_bb_access">Broadband Access</option>
@@ -140,7 +140,7 @@
 									<i class="fa fa-question in-tooltip" id="in-tooltip-broadband" data-toggle="tooltip" title=""></i>
                                     <br/>
                                     <div id="slider-broadband" class="slider-bar"></div>
-                                    <br/> 										
+                                    <br /> 										
 									<select id="select-in-health" class="selectpicker select-insight">
 										<option value="in_pcp_access">Physician Access</option>
 										<option value="in_prm_death">Premature Death</option>
@@ -149,62 +149,69 @@
 									</select>
 									<input type="text" id="label-health" class="slider-label" readonly style="color: #ba0c0c;">
 									<i class="fa fa-question in-tooltip" id="in-tooltip-health" data-toggle="tooltip" title=""></i>
-                                    <br/> 
+                                    <br /> 
                                     <div id="slider-health" class="slider-bar"></div>
-                                    <br/>  
-                                    <br/>
-                         
-									<div class="selection-row type-select">                      
-										<select id="select-count" class="selectpicker">
-											<option value="">- Choose Type -</option>
-											<option value="pcp">Primary Care Physicians</option>
-											<option value="ip">Internet Providers</option>
-											<option value="pop">Population</option>
-										</select>
+                                    <br />                         
+									<div id="in-cnt-div">
+										<div id="select-in-cnt-div">
+											<select id="select-count" class="selectpicker select-in-cnt">
+												<option value="">- Select Counts -</option>-->
+												<option value="in_cnt_pcp">Physicians</option>
+												<option value="in_cnt_ip">Internet Providers</option>
+												<option value="in_cnt_pop" selected="selected">Population</option>
+											</select>			
+										</div>
+										<div class="in-cnt-legend-box" style="">
+											<table class="in-cnt-legend-table">
+												<tr>
+													<td><span class="circle-sym" style="background-color: #05ad28; height: 5px; width: 5px"></span></td>
+													<td><span class="circle-sym" style="background-color: #05ad28; height: 10px; width: 10px"></span></td>
+													<td><span class="circle-sym" style="background-color: #05ad28; height: 15px; width: 15px"></span></td>
+													<td><span class="circle-sym" style="background-color: #05ad28; height: 20px; width: 20px"></span></td>
+													<td><span class="circle-sym" style="background-color: #05ad28; height: 25px; width: 25px"></span></td>
+												</tr>
+												<tr>
+													<td class="circle-label circle-label-min"><span><1,000</span></td>  													 
+													<td></td>   
+													<td></td>   
+													<td></td>   
+													<td class="circle-label circle-label-max">>10,000</td>
+												</tr>
+											</table>
+										</div>
 									</div>
-                          
-									<br/>
-                              
-									<div class="legend-box">
-										<table class="legend-table-circle">
-											<tr>
-												<td><span class="circle-sym" style="background-color: #ba0c0c; height: 5px; width: 5px"></span></td>
-												<td><span class="circle-sym" style="background-color: #ba0c0c; height: 10px; width: 10px"></span></td>
-												<td><span class="circle-sym" style="background-color: #ba0c0c; height: 15px; width: 15px"></span></td>
-												<td><span class="circle-sym" style="background-color: #ba0c0c; height: 20px; width: 20px"></span></td>
-												<td><span class="circle-sym" style="background-color: #ba0c0c; height: 25px; width: 25px"></span></td>
-											</tr>
-											<tr>
-												<td class="circle-label circle-label-min"><span><&nbsp;1,000</span></td>  
-												<td></td>       
-												<td></td>   
-												<td></td>                                   
-												<td class="circle-label circle-label-max">>&nbsp;10,000</td>
-											</tr>
-										</table>
-									</div>
-                               
-                               
-                                    <br/>                               
-                                    <div class="selection-row">
-                                        <label for="select-state">Select State:</label>
-                                        <div class="type-select">                      
-                                            <select id="select-state" class="selectpicker">
-                                                <option value="">- Select State -</option>
-                                                <option value="FL">Florida</option>
-                                                <option value="MS">Mississippi</option>
-                                                <option value="VA">Virginia</option>
-                                            </select>
-                                        </div>                                    
-                                    </div>
+									<div id="custom-insights">
+										<div class="insight-title">Custom Insights</div>
+										<div class="selection-row">
+											<label for="select-state">Select State:</label>
+											<div class="type-select">                      
+												<select id="select-state" class="selectpicker">
+													<option value="">- State Insigts -</option>
+													<option value="FL">Florida</option>
+													<option value="MS">Mississippi</option>
+													<option value="VA">Virginia</option>
+												</select>
+											</div>                                    
+										</div>
+										<div class="selection-row">
+											<label for="curate-map">Select Map:</label>
+											<div class="type-select">                      
+												<select id="select-curate-map" class="selectpicker">
+													<option value="">- Curated Map -</option>
+													<option value="1">Option 1 </option>
+													<option value="2">Option 2</option>
+													<option value="3">Option 3</option>
+												</select>
+											</div>                                    
+										</div>
+									</div>                             
+                                    
                                 </div>
 								
 								
 								
-								
-								
 								<!-- Health Tab  **************************************************************** -->
-                                <div class="panel-data list-healthMaps hide">
+                                <div class="panel-data list-health-panel hide">
                                     <div class="selection-row">                                    
                                         <span class="layer-drop-lab">Health</span>
                                         <select id="health-sec-type" class="selectpicker">
@@ -212,7 +219,7 @@
                                             <option value="pcppc">PCP Per Person</option>
                                             <option value="poorfair">Poor/Fair Health</option>
                                             <option value="obesity">Obesity</option>
-                                            <option value="prematured">Premature Death</option>
+                                            <option value="prematured" selected="selected">Premature Death</option>
                                             <option value="preventhosp">Preventable Hospitals</option>
                                         </select>
                                     </div>
@@ -236,23 +243,8 @@
                                     </table>
 									<br />
 									<br />                                   
-                                    <table class="legend-table-square">
-                                        <tr>
-                                            <td><span class="square-sym" style="background-color: rgba(186, 12, 12, 0.2); "></span></td>
-                                            <td><span class="square-sym" style="background-color: rgba(186, 12, 12, 0.4); "></span></td>
-                                            <td><span class="square-sym" style="background-color: rgba(186, 12, 12, 0.6); "></span></td>
-                                            <td><span class="square-sym" style="background-color: rgba(186, 12, 12, 0.8); "></span></td>
-                                            <td><span class="square-sym" style="background-color: rgba(186, 12, 12, 1.0); "></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="square-label square-label-min">< 1,000</td>  
-                                            <td></td>       
-                                            <td></td>   
-                                            <td></td>                                   
-                                            <td class="square-label square-label-max">> 10,000</td>
-                                        </tr>
-                                    </table>
-									<Br/><br/>
+                                    
+								
 								
 									<div>
 										Population: <span id="geog_pop"></span>
@@ -270,31 +262,31 @@
 								
 								<!-- Broadband Tab  **************************************************************** -->
 								
-                                <div class="panel-data list-broadbandMaps hide">                                   
-                                    <div class="selection-row">
-                                        <span class="layer-drop-lab">Broadband:</span>
-                                        <div id="broadbandTypeGroup" class="btn-group" data-toggle="buttons">
-                                              <label class="btn btn-primary">
-                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-wn" value="wn" autocomplete="off"> Wireline
+                                <div class="panel-data list-broadband-panel hide">       
+									 <span class="layer-drop-lab">Broadband Availability:</span>
+									 <Br/>
+                                    <div class="selection-row">                                       
+                                        <div id="broadband-type-group" class="btn-group" data-toggle="buttons">
+                                              <label class="btn btn-primary active">
+                                                <input class="show-layer broadband-type" type="radio" checked="checked" name="broadband-type" id="broadband-type-wn" value="wn" autocomplete="off"> Wireline
                                               </label>
                                               <label class="btn btn-primary">
                                                 <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-ws" value="ws" autocomplete="off"> Wireless
                                               </label>                                              
                                         </div>
                                     </div>
-                                    <div class="selection-row">
-                                        <span class="layer-drop-lab">Speed:</span>
-                                        <div class="btn-group" data-toggle="buttons">
-                                              <label class="btn btn-primary">
-                                                <input class="show-layer broadband-speed" type="radio" name="broadband-speed" id="broadband-speed-dl" value="dl" autocomplete="off"> Download
+                                    <div class="selection-row">                                       
+                                        <div id="broadband-dir-group" class="btn-group" data-toggle="buttons">
+                                              <label class="btn btn-primary active">
+                                                <input class="show-layer broadband-dir" type="radio" checked="checked" name="broadband-dir" id="broadband-dir-dl" value="dl" autocomplete="off"> Download
                                               </label>
                                               <label class="btn btn-primary">
-                                                <input class="show-layer broadband-speed" type="radio" name="broadband-speed" id="broadband-speed-ul" value="ul" autocomplete="off"> Upload
+                                                <input class="show-layer broadband-dir" type="radio" name="broadband-dir" id="broadband-dir-ul" value="ul" autocomplete="off"> Upload
                                               </label>                                              
                                         </div>
                                     </div>  
 
-									<br/><br/>  
+									<br/><br />  
 									<table class="legend-table-square">
                                         <tr>
                                             <td><span class="square-sym" style="background-color: #fffc1e; "></span></td>
@@ -304,15 +296,15 @@
                                             <td><span class="square-sym" style="background-color: #0050cc; "></span></td>
                                         </tr>
                                         <tr>
-                                            <td class="square-label square-label-min">< 1,000</td>  
+                                            <td class="square-label square-label-min">0%</td>  
                                             <td></td>       
                                             <td></td>   
                                             <td></td>                                   
-                                            <td class="square-label square-label-max">> 10,000</td>
+                                            <td class="square-label square-label-max">100%</td>
                                         </tr>
                                     </table>
 									
-									<br/><br/> 
+									<br/><br /> 
 						
 									<div id="carousel-bb" class="carousel slide" data-ride="carousel" data-wrap="true">
 										<!-- Indicators -->
@@ -372,7 +364,7 @@
 								
 								
 								<!-- Demographics Tab  **************************************************************** -->
-								<div>
+								<div class="panel-data list-population-panel hide">          
 								</div>
 								
                             </div>
@@ -545,7 +537,6 @@
 	<!--<script src="//www.bootply.com/plugins/bootstrap-select.min.js"></script>-->
 	
 	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.3/js/bootstrap-select.min.js"></script>
-	
 	
 	
 	<script src="./js/chart.js"></script>

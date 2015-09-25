@@ -9,14 +9,14 @@
         e.preventDefault();
 
         if (id === 'insights') {
-            $('.list-healthMaps').addClass('hide');
-            $('.list-broadbandMaps').addClass('hide');            
-            $('.list-insightsMaps').removeClass('hide');            
+            $('.list-health-panel').addClass('hide');
+            $('.list-broadband-panel').addClass('hide');            
+            $('.list-insight-panel').removeClass('hide');            
         }
         else if (id === 'health') {
-            $('.list-insightsMaps').addClass('hide');
-            $('.list-broadbandMaps').addClass('hide');            
-            $('.list-healthMaps').removeClass('hide'); 
+            $('.list-insight-panel').addClass('hide');
+            $('.list-broadband-panel').addClass('hide');            
+            $('.list-health-panel').removeClass('hide'); 
 
 			if (map.hasLayer(broadband_layer)) {
 				map.removeLayer(broadband_layer);
@@ -30,9 +30,9 @@
 			
         }
         else if (id === 'broadband') {
-            $('.list-healthMaps').addClass('hide');
-            $('.list-insightsMaps').addClass('hide');            
-            $('.list-broadbandMaps').removeClass('hide');   
+            $('.list-health-panel').addClass('hide');
+            $('.list-insight-panel').addClass('hide');            
+            $('.list-broadband-panel').removeClass('hide');   
 
 
 			if (map.hasLayer(broadband_layer)) {

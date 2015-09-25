@@ -524,7 +524,7 @@ function setSliderMap(type, low, high) {
 		label_text = Number(low*multiple).toLocaleString('en') +' - '+ Number(high*multiple).toLocaleString('en') +' '+ label;
 	}	
 
-	$( '#label-'+ type ).val( label_text );	
+	$( '#label-'+ type ).text( label_text );	
 	
 	$( '#in-tooltip-'+ type ).attr( 'title', tooltip ).tooltip('fixTitle');
 

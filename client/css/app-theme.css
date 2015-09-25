@@ -2815,8 +2815,9 @@ a.active .icon-book-open-2:before  {
 }
 
 .panel {
-  box-shadow: 2px 2px 4px 4px #ddd;  
-  -webkit-box-shadow: 2px 2px 4px 4px #ddd;  
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	border: none;
 }
 
 .panel-group .panel + .panel {
@@ -2972,22 +2973,7 @@ a.gen-passcode {
 
 /** carousel **/
 
-.jcarousel-wrapper { width: 100%; box-shadow: none; margin: 10px 10px 4px 10px;}
 
-.jcarousel {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-}
-
-.jcarousel li {
-    float: left;
-    width: 100%;
-}
-
-.jcarousel-pagination { bottom: -8px;}
-.jcarousel-control-prev { left: -25px;}
-.jcarousel-control-next { right: -25px;}
 
 /* responsive */
 @media only screen and (max-width : 320px) {
@@ -3051,6 +3037,13 @@ a.gen-passcode {
   width: auto;
   margin-right: 5px;
 }
+
+
+/* tab */
+
+.tab-nav { border-bottom: 6px solid #ffcc44; }
+
+.nav-pills>li>a { border-radius: 4px 4px 0 0; }
 
 /* slider */
 #slider-broadband { background: #b2caf0;}
@@ -3129,7 +3122,7 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 }
 
 .panel-data {
-  padding: 10px 20px;
+  padding: 10px 0px;
 }
 .selection-row {
   clear: both;
@@ -3137,7 +3130,8 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 }
 
 .top-row {
-  height: 35px;  
+  height: 35px; 
+  vertical-align: middle;
 }
 .type-select {
   display: inline-block;
@@ -3156,6 +3150,8 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 #geog_name {
   font-weight: bold;
   font-size: 20px;
+  vertical-align: middle;
+  line-height: 35px;
 }
 
 .btn-primary.active, .btn-primary:active {

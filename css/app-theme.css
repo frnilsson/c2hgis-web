@@ -3049,6 +3049,21 @@ a.gen-passcode {
 #slider-broadband { background: #b2caf0;}
 #slider-health { background: #eab6b6;}
 
+.slider-label { border:0; color:#f6931f; font-weight:bold; display: inline-block; padding-left: 5px;}
+.select-insight { width: 185px !important; display: inline-block;}
+
+.slider-bar { margin: 8px 0px; }
+
+
+/* tooltip */
+.in-tooltip { color: #848484; display: inline-block; }
+
+
+.tooltip-inner {
+    max-width: 310px;
+    
+}
+
 /* charts */
 .charts-div { width:100%; min-height: 300px; margin: 0 auto; }
 

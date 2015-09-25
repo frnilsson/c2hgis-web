@@ -434,7 +434,7 @@ var insight_ly = {
 		in_cnt_pop: {
 			column: 'pop_2014',
 			style: 'pop',
-			color: '#b4e6be',
+			color: '#05ad28',
 			county: {
 				min: '10,000',
 				max: '1&nbsp;million'
@@ -757,7 +757,7 @@ function setNationwide() {
      
 function getData() {			
 	
-	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':'+geo_type+'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
+	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+geo_type+'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
 	console.log(' data_url : ' + data_url );
 	
@@ -898,6 +898,16 @@ var chart_obj = {
 			chart: null,
 			data: null,
 			options: null
+		},
+		dl_tiers: {
+			chart: null,
+			data: null,
+			options: null
+		},
+		ul_tiers: {
+			chart: null,
+			data: null,
+			options: null
 		}
 	},
 	population: {
@@ -952,7 +962,44 @@ function createCharts() {
 		car_death_pct: 0.10178989752484573,
 		health_cost_state_avg: 9387,
 		
-		
+		advdl_gr25000k: 0.8168,
+advul_gr3000k: 0.9977,
+wireline_advdl_gr25000k: 0.8168,
+wireline_advul_gr3000k: 0.7829,
+wireless_advdl_gr25000k: 0,
+wireless_advul_gr3000k: 0.9967,
+advdl_gr768k_lt1500k: 0.0001,
+advdl_gr1500k_lt3000k: 0,
+advdl_gr3000k_lt6000k: 0.0011,
+advdl_gr6000k_lt10000k: 0.0005,
+advdl_gr10000k_lt25000k: 0.1815,
+advdl_gr25000k_lt50000k: 0.0249,
+advdl_gr50000k_lt100000k: 0.0829,
+advdl_gr100000k_lt1gig: 0.6408,
+advul_gr200k_lt768k: 0.0001,
+advul_gr768k_lt1500k: 0.0001,
+advul_gr1500k_lt3000k: 0.0021,
+advul_gr3000k_lt6000k: 0.1724,
+advul_gr6000k_lt10000k: 0.2575,
+advul_gr10000k_lt25000k: 0.3891,
+advul_gr25000k_lt50000k: 0.0693,
+advul_gr50000k_lt100000k: 0.0202,
+advul_gr100000k_lt1gig: 0.0221,
+most_common_dl: 10,
+greatest_dl: 11,
+most_common_ul: 7,
+greatest_ul: 11,
+provider_count: 85,
+prov_0: 0,
+prov_gr1: 1,
+prov_gr2: 1,
+prov_gr3: 0.9976,
+prov_gr4: 0.9686,
+prov_gr5: 0.8935,
+prov_gr6: 0.7772,
+prov_gr7: 0.5751,
+prov_gr8: 0.229,
+pop_2014: 2904021,
 		
 		geo_prop.adult_obesity_pct
 		*/
@@ -967,12 +1014,12 @@ function createCharts() {
 				{
 					label: "Health Behaviours",
 					fillColor: "rgba(220,220,220,0.2)",
-					strokeColor: "rgba(220,220,220,1)",
-					pointColor: "rgba(220,220,220,1)",
+					strokeColor: "rgba(186,12,12,0.5)",
+					pointColor: "rgba(186,12,12,1)",
 					pointStrokeColor: "#fff",
 					pointHighlightFill: "#fff",
 					pointHighlightStroke: "rgba(220,220,220,1)",
-					data: [geo_prop.adult_obesity_pct, geo_prop.diabetes_pct, geo_prop.smoking_pct*10, geo_prop.drinking_pct*3, geo_prop.adult_obesity_pct*.7, geo_prop.diabetes_pct*1.5]
+					data: [geo_prop.adult_obesity_pct, geo_prop.diabetes_pct, geo_prop.smoking_pct, geo_prop.drinking_pct, geo_prop.adult_obesity_pct*.7, geo_prop.diabetes_pct*1.5]
 				}
 			]
 		};
@@ -999,14 +1046,73 @@ function createCharts() {
 	else if (cur_tab == 'broadband'){
 		
 		
-
+	
 		
-			
+		// ***********************************************************
+		// chart - Download Tiers
+		
+		chart_obj.broadband.dl_tiers.data = [
+		   {
+			  value: geo_prop.advdl_gr768k_lt1500k,
+			  label: '0.768 - 1.5',
+			  color: '#3500cc'
+		   },
+		   {
+			  value: geo_prop.advdl_gr1500k_lt3000k,
+			  label: '1.5 - 3',
+			  color: '#00b2cc'
+		   },
+		   {
+			  value: geo_prop.advdl_gr3000k_lt6000k,
+			  label: '3 - 6',
+			  color: '#00cc82'
+		   },
+		   {
+			  value: geo_prop.advdl_gr6000k_lt10000k,
+			  label: '6 - 10',
+			  color: '#005bcc'
+		   },
+		   {
+			  value: geo_prop.advdl_gr10000k_lt25000k,
+			  label: '10 - 25',
+			  color: '#000ecc'
+		   },
+		   {
+			  value: geo_prop.advdl_gr25000k_lt50000k,
+			  label: '25 - 50',
+			  color: '#0090cc'
+		   },
+		   {
+			  value: geo_prop.advdl_gr50000k_lt100000k,
+			  label: '50 - 100',
+			  color: '#00cca3'
+		   },
+		   {
+			  value: geo_prop.advdl_gr100000k_lt1gig,
+			  label: '100 - 1,000',
+			  color: '#003acc'
+		   }
+		];
+		
+		chart_obj.broadband.dl_tiers.options = {
+			animationEasing: 'easeOutQuart',
+			//tooltipTemplate: '<%=label%>: <%= value.toLocaleString() %>',
+			//legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
+		};
+
+
+		if (chart_obj.broadband.dl_tiers.chart) {
+			chart_obj.broadband.dl_tiers.chart.destroy();
+		}
+		chart_obj.broadband.dl_tiers.chart = new Chart(document.getElementById('ch-canvas-broadband-2').getContext('2d')).Doughnut(chart_obj.broadband.dl_tiers.data, chart_obj.broadband.dl_tiers.options);		
+		
+		 //$('#ch-legend-broadband-2').html( chart_obj.broadband.dl_tiers.chart.generateLegend() );
+		 
 		
 		// ***********************************************************
 		// chart - Number of Providers
 		
-		var chart_bb_dl_data = {
+		chart_obj.broadband.num_providers.data = {
 			labels: ["> 1", "> 2", "> 3", "> 4", "> 5", "> 6", "> 7", "> 8"],
 			datasets: [
 				{
@@ -1022,7 +1128,7 @@ function createCharts() {
 			]
 		};
 		
-		var chart_bb_dl_opts = {
+		chart_obj.broadband.num_providers.options = {
 			//bezierCurve: false
 			pointHitDetectionRadius : 0,		
 			datasetFill : true,
@@ -1036,9 +1142,9 @@ function createCharts() {
 			chart_bb_dl.destroy();
 		}		
 		
-		chart_bb_dl = new Chart(document.getElementById('ch-canvas-broadband-1').getContext('2d')).Line(chart_bb_dl_data, chart_bb_dl_opts);		
+		chart_obj.broadband.num_providers.chart = new Chart(document.getElementById('ch-canvas-broadband-1').getContext('2d')).Line(chart_obj.broadband.num_providers.data, chart_obj.broadband.num_providers.options);		
 
-		 $('#ch-legend-broadband-1').html( chart_bb_dl.generateLegend() );
+		 $('#ch-legend-broadband-1').html( chart_obj.broadband.num_providers.chart.generateLegend() );
 
 
 		//console.log(' chart_bb_dl.generateLegend : ' + chart_bb_dl.generateLegend());
@@ -1047,19 +1153,16 @@ function createCharts() {
 	else if (cur_tab == 'population'){
 		
 		
-		var female_total = geo_prop.female_total;
-		var male_total = geo_prop.male_total;
-		
 		chart_obj.population.gender.data = [
 		   {
-			  value: male_total,
+			  value: geo_prop.male_total,
 			  label: 'Male',
-			  color: '#56e053'
+			  color: '#5ce4f0'
 		   },
 		   {
-			  value: female_total,
+			  value: geo_prop.female_total,
 			  label: 'Female',
-			  color: '#5384e0'
+			  color: '#f0cb5c'
 		   }				   
 		];
 		

@@ -11,15 +11,11 @@
     <link href="css/app-theme.css" rel="stylesheet">
 	<link href="css/mapbox.css" rel="stylesheet">
 	<link href="css/jquery-ui.css" rel="stylesheet"> 
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
-	
+	<!--<link href="css/font-awesome.min.css" rel="stylesheet" >-->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
 
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.3/css/bootstrap-select.min.css" />
-	<!--
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" />
-	-->
-	
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="css/bootstrap-select.min.css" />		
+	<link rel="stylesheet" href="css/jquery-ui.css">
 	
     
     <!--[if lt IE 9]>
@@ -182,9 +178,11 @@
 									</div>
 									<div id="custom-insights">
 										<div class="insight-title">Custom Insights</div>
-										<div class="selection-row">
-											<label for="select-state">Select State:</label>
-											<div class="type-select">                      
+										<div class="row selection-row">
+                                            <div class="col-sm-4">
+											     <label for="select-state">Select State:</label>
+                                            </div>
+											<div class="col-sm-8 type-select">                      
 												<select id="select-state" class="selectpicker">
 													<option value="">- State Insigts -</option>
 													<option value="FL">Florida</option>
@@ -193,9 +191,11 @@
 												</select>
 											</div>                                    
 										</div>
-										<div class="selection-row">
-											<label for="curate-map">Select Map:</label>
-											<div class="type-select">                      
+										<div class="row selection-row">
+                                            <div class="col-sm-4">
+											     <label for="curate-map">Select Map:</label>
+                                            </div>
+											<div class="col-sm-8 type-select">                      
 												<select id="select-curate-map" class="selectpicker">
 													<option value="">- Curated Map -</option>
 													<option value="1">Option 1 </option>
@@ -527,29 +527,29 @@
   
      
   
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
 
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="./js/bootstrap-toolkit.min.js"></script>
-	<script src="//api.tiles.mapbox.com/mapbox.js/v1.6.5/mapbox.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-toolkit.min.js"></script>
+	<script src="js/mapbox.js"></script>
     <!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>-->
 	<!--<script src="//www.bootply.com/plugins/bootstrap-select.min.js"></script>-->
 	
-	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.3/js/bootstrap-select.min.js"></script>
+	<script src="js/bootstrap-select.min.js"></script>
 	
 	
-	<script src="./js/chart.js"></script>
+	<script src="js/chart.js"></script>
 	
 	<!--<script src="./js/jquery.jcarousel.min.js"></script>
 	<script src="./js/jcarousel.responsive.js"></script>-->
-	<script src="//cdn.jsdelivr.net/jquery.color-animation/1/mainfile"></script>	
+	<script src="js/jquery-color-animation-mainfile.js"></script>	
 	
 	<!--<script src="./js/menus.js"></script>-->
 	<!--<script src="./js/theme.js"></script>	-->
 
 
-	<script src="./js/app.js"></script>	
+	<script src="js/app.js"></script>	
 
 
 </body>

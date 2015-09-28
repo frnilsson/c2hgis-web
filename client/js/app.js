@@ -1249,6 +1249,8 @@ function clearClickFeature() {
 			$('.list-broadband-panel').addClass('hide'); 
             $('.list-population-panel').removeClass('hide');  			
         }
+		
+		createCharts();
 
         $('.layer-switch').find('li').removeClass('active');
         $(this).parent('li').addClass('active');
@@ -1266,6 +1268,9 @@ function clearClickFeature() {
 	 $(".selectpicker").selectpicker({});
 	 
 	 $('.in-tooltip').tooltip();
+	 
+	 //geo_data = national_data;
+	 geo_prop = national_data.features[0].properties;
      
 });  
        

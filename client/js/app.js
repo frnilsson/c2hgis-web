@@ -1224,6 +1224,10 @@ function clearClickFeature() {
             $('.list-insight-panel').removeClass('hide'); 
 			
 			createSlider();
+			var count_sel = $('#select-count').val();
+			if (count_sel != "") {
+				setCount();
+			}
         }
         else if (cur_tab === 'health') {
             $('.list-insight-panel').addClass('hide');

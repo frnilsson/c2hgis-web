@@ -86,7 +86,7 @@ function createMap() {
 	var wms_border = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
          format: 'image/png',
          transparent: true,
-         layers: 'c2hgis:border',
+         layers: ''+ geo_space +':border',
 		 zIndex: 999
      });        
 	 
@@ -546,9 +546,9 @@ function setSliderMap(type, low, high) {
 		 format: 'image/png',
 		 transparent: true,
 		 cql_filter: filter,
-		 //layers: ['c2hgis:c2hgis_state', 'c2hgis:c2hgis_county'], 
-		 layers: ['c2hgis:c2hgis_'+ type],
-		 //styles: ['c2hgis:'+ type +'_state', 'c2hgis:'+ type +'_county']
+		 //layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
+		 layers: [''+ geo_space +':c2hgis_'+ type],
+		 //styles: [''+ geo_space +':'+ type +'_state', ''+ geo_space +':'+ type +'_county']
 	 }).setZIndex(zindex).addTo(map);				
 	
 }
@@ -629,8 +629,8 @@ function setHealthSec() {
 	map_overlays['health_ov'] = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
 		format: 'image/png',
 		transparent: true,
-		layers: ['c2hgis:c2hgis_state', 'c2hgis:c2hgis_county'], 
-		styles: ['c2hgis:health_sec_'+ type +'_state', 'c2hgis:health_sec_'+ type +'_county']
+		layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
+		styles: [''+ geo_space +':health_sec_'+ type +'_state', ''+ geo_space +':health_sec_'+ type +'_county']
 	}).setZIndex('999').addTo(map);
 
 }
@@ -652,8 +652,8 @@ function setBroadbandCombo() {
 	map_overlays['broadband_ov'] = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
 		format: 'image/png',
 		transparent: true,
-		layers: ['c2hgis:c2hgis_state', 'c2hgis:c2hgis_county'], 
-		styles: ['c2hgis:bb_combo_'+ type +'_'+ dir +'_state', 'c2hgis:bb_combo_'+ type +'_'+ dir +'_county']
+		layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
+		styles: [''+ geo_space +':bb_combo_'+ type +'_'+ dir +'_state', ''+ geo_space +':bb_combo_'+ type +'_'+ dir +'_county']
 	}).setZIndex('999').addTo(map);	
 
 }
@@ -679,8 +679,8 @@ function setCount() {
 		map_overlays['in_count'] = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
 			format: 'image/png',
 			transparent: true,
-			layers: ['c2hgis:c2hgis_state', 'c2hgis:c2hgis_county'], 
-			styles: ['c2hgis:count_'+ style +'_state', 'c2hgis:count_'+ style +'_county']
+			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
+			styles: [''+ geo_space +':count_'+ style +'_state', ''+ geo_space +':count_'+ style +'_county']
 		}).setZIndex('999').addTo(map);		
 
 		updateCountLegend();
@@ -1253,6 +1253,8 @@ function clearClickFeature() {
 			$('.list-broadband-panel').addClass('hide'); 
             $('.list-population-panel').removeClass('hide');  			
         }
+		
+		createCharts();
 
         $('.layer-switch').find('li').removeClass('active');
         $(this).parent('li').addClass('active');
@@ -1270,6 +1272,9 @@ function clearClickFeature() {
 	 $(".selectpicker").selectpicker({});
 	 
 	 $('.in-tooltip').tooltip();
+	 
+	 //geo_data = national_data;
+	 geo_prop = national_data.features[0].properties;
      
 });  
        

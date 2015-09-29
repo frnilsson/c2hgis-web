@@ -47,6 +47,13 @@ var click_data = [];
 
 //var count_type = '';
 
+var states;
+
+$.getJSON("/data/states.json", function(data) {
+    //console.log(data);
+    states = data;    
+});
+
 function createMap() {  
  
 		 
@@ -637,13 +644,13 @@ function setHealthSec() {
 
 function setBroadbandCombo() {
 	
-	console.log(' setBroadbandCombo : '  );
+	//console.log(' setBroadbandCombo : '  );
 	
 	var type =  $('.broadband-type:checked').val();
 	var dir = $('.broadband-dir:checked').val();
 	
-	console.log(' type : '+ type  );
-	console.log(' dir : '+ dir );
+	//console.log(' type : '+ type  );
+	//console.log(' dir : '+ dir );
 	
 	if (map.hasLayer(map_overlays['broadband_ov'])) {
 		map.removeLayer(map_overlays['broadband_ov']);
@@ -759,7 +766,7 @@ function getData() {
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+geo_type+'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	console.log(' data_url : ' + data_url );
+	//console.log(' data_url : ' + data_url );
 	
 		$.ajax({
 			type: 'GET',
@@ -804,6 +811,10 @@ function processData(data) {
 				var female_total = geo_prop.female_total;
 				var male_total = geo_prop.male_total;
 				
+				if(geography_type == 'county'){
+					var abbr = states[geography_id.substring(0,2)]["abbr"];
+					geography_desc = geography_desc.concat(", ").concat(abbr); 
+				}
 				
 				
 				//console.log(' geography_type : ' + geography_type );
@@ -923,12 +934,12 @@ var chart_obj = {
 function createCharts() {
 
 	
-	console.log(' cur_tab : ' +  cur_tab );
+	//console.log(' cur_tab : ' +  cur_tab );
 	
 	if (cur_tab == 'health'){
 		
 
-		console.log(' health chart : '  );
+		//console.log(' health chart : '  );
 		
 		
 		/*
@@ -1004,7 +1015,7 @@ pop_2014: 2904021,
 		geo_prop.adult_obesity_pct
 		*/
 	
-		console.log(' geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );
+		//console.log(' geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );
 		
 		//console.log(' geo_prop : ' +  JSON.stringify(geo_prop) );
 		
@@ -1184,7 +1195,7 @@ pop_2014: 2904021,
 
 function clearMap() {
 
-	console.log(' clearMap ! '  );
+	//console.log(' clearMap ! '  );
 	
 	for (var k in map_overlays) {
 		

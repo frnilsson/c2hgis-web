@@ -5,8 +5,8 @@ var geo_output = 'application/json'
 
 var geo_type = 'state';
 var zoom_type = 'state';
-var geo_lat;
-var geo_lng;
+var geo_lat = 40;
+var geo_lng = -93;
 
 var geo_id;
 
@@ -90,7 +90,7 @@ function createMap() {
 		})
 		.addTo(map);  
 		    
-	var wms_border = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+    var wms_border = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
          format: 'image/png',
          transparent: true,
          layers: ''+ geo_space +':border',
@@ -549,7 +549,7 @@ function setSliderMap(type, low, high) {
 	var wms_method = 'gwc/service/wms';
 	//var wms_method = 'wms';
 
-	map_overlays['in_'+ type] = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/'+ wms_method +'?', {
+	map_overlays['in_'+ type] = L.tileLayer.wms( geo_host + '/' + geo_space + '/' + wms_method +'?', {
 		 format: 'image/png',
 		 transparent: true,
 		 cql_filter: filter,
@@ -633,7 +633,7 @@ function setHealthSec() {
 		map.removeLayer(map_overlays['health_ov']);
 	}
 	
-	map_overlays['health_ov'] = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+	map_overlays['health_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
 		format: 'image/png',
 		transparent: true,
 		layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
@@ -656,7 +656,7 @@ function setBroadbandCombo() {
 		map.removeLayer(map_overlays['broadband_ov']);
 	}	
 	
-	map_overlays['broadband_ov'] = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+	map_overlays['broadband_ov'] = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
 		format: 'image/png',
 		transparent: true,
 		layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
@@ -683,7 +683,7 @@ function setCount() {
 			map.removeLayer(map_overlays['in_count']);
 		}
 		
-		map_overlays['in_count'] = L.tileLayer.wms('http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms?', {
+		map_overlays['in_count'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
 			transparent: true,
 			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
@@ -758,15 +758,17 @@ function setState(state) {
 
 }
 
-function setNationwide() {          
+function setNationwide() {  
+	geo_type = 'national';        
     map.setView([40, -97], 3);  
+    getData();
 }  
      
 function getData() {			
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+geo_type+'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	//console.log(' data_url : ' + data_url );
+	console.log(' data_url : ' + data_url );
 	
 		$.ajax({
 			type: 'GET',
@@ -779,11 +781,11 @@ function getData() {
 			}
 		});
 }
-    
+
 
 function processData(data) {
 		
-	//console.log(' data : ' + JSON.stringify(data) );
+	console.log('processData : ' + JSON.stringify(data) );
 	
 	if (data.features){
 	
@@ -815,7 +817,9 @@ function processData(data) {
 					var abbr = states[geography_id.substring(0,2)]["abbr"];
 					geography_desc = geography_desc.concat(", ").concat(abbr); 
 				}
-				
+				else if (geography_type == 'national'){
+					geography_desc = "Nationwide";
+				}
 				
 				//console.log(' geography_type : ' + geography_type );
 				//console.log(' geography_desc : ' + geography_desc );

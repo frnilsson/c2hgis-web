@@ -803,36 +803,7 @@ function processData(data) {
 				
 				geo_prop = geo_data.features[0].properties;
 			
-				var geography_type = geo_prop.geography_type;
-				var geography_id = geo_prop.geography_id;
-				var geography_desc = geo_prop.geography_desc;
-				var pcp_total = geo_prop.pcp_total;
-				var provider_count = geo_prop.provider_count;
-				var pop_2014 = geo_prop.pop_2014;
-				
-				var female_total = geo_prop.female_total;
-				var male_total = geo_prop.male_total;
-				
-				if(geography_type == 'county'){
-					var abbr = states[geography_id.substring(0,2)]["abbr"];
-					geography_desc = geography_desc.concat(", ").concat(abbr); 
-				}
-				else if (geography_type == 'national'){
-					geography_desc = "Nationwide";
-				}
-				
-				//console.log(' geography_type : ' + geography_type );
-				//console.log(' geography_desc : ' + geography_desc );
-				//console.log(' pcp_total : ' + pcp_total );
-				//console.log(' provider_count : ' + provider_count );
-				//console.log(' pop_2014 : ' + pop_2014 );
-				
-				
-				$('#geog_name').text(geography_desc);
-				$('#geog_pop').text(pop_2014);
-				$('#geog_prov').text(provider_count);
-				$('#geog_pcp').text(pcp_total);
-				
+				updateStats();				
 				
 				// ***********************************
 				
@@ -840,8 +811,7 @@ function processData(data) {
 				
 				
 				// ***********************************
-				
-				
+								
 				
 				//console.log(genderChart.generateLegend());
 				
@@ -884,6 +854,41 @@ function processData(data) {
 	
 }
 
+function updateStats(){
+	var geography_type = geo_prop.geography_type;
+	var geography_id = geo_prop.geography_id;
+	var geography_desc = geo_prop.geography_desc;
+	
+	var female_total = geo_prop.female_total;
+	var male_total = geo_prop.male_total;
+	
+	if(geography_type == 'county'){
+		var abbr = states[geography_id.substring(0,2)]["abbr"];
+		geography_desc = geography_desc.concat(", ").concat(abbr); 
+	}
+	else if (geography_type == 'national'){
+		geography_desc = "Nationwide";
+	}
+	
+	//console.log(' geography_type : ' + geography_type );
+	//console.log(' geography_desc : ' + geography_desc );
+	//console.log(' pcp_total : ' + pcp_total );
+	//console.log(' provider_count : ' + provider_count );
+	//console.log(' pop_2014 : ' + pop_2014 );
+	
+	
+	$('#geog_name').text(geography_desc);
+	$('#geog_name2').text(geography_desc);
+	$('#geog_pop').text(geo_prop.pop_2014);
+	$('#geog_prov').text(geo_prop.provider_count);
+	$('#geog_pcp').text(geo_prop.pcp_total);
+	$('#geog_obes').text((geo_prop.adult_obesity_pct).toFixed(3) + '%');
+	$('#geog_diab').text((geo_prop.diabetes_pct).toFixed(3) + '%');
+	$('#geog_smok').text((geo_prop.smoking_pct).toFixed(3) + '%');
+	$('#geog_drin').text((geo_prop.drinking_pct).toFixed(3) + '%');
+	$('#geog_inac').text((geo_prop.adult_obesity_pct*.7).toFixed(3) + '%');
+	$('#geog_inse').text((geo_prop.diabetes_pct*1.5).toFixed(3) + '%');
+}
 
 function createStats() {
 	
@@ -1022,6 +1027,8 @@ pop_2014: 2904021,
 		//console.log(' geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );
 		
 		//console.log(' geo_prop : ' +  JSON.stringify(geo_prop) );
+
+		updateStats();
 		
 		chart_obj.health.measurements.data = {
 			labels: ["Obesity", "Diabetes", "Smoking", "Excessive Drinking", "Physical Inactivity", "Food Insecurity"],

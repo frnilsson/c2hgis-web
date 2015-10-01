@@ -54,11 +54,12 @@ $.getJSON("/data/states.json", function(data) {
     states = data;    
 });
 
+var mb_accessToken = 'pk.eyJ1IjoiY29tcHV0ZWNoIiwiYSI6InMyblMya3cifQ.P8yppesHki5qMyxTc2CNLg';
+
 function createMap() {  
- 
-		 
 	 
-	 L.mapbox.accessToken = 'pk.eyJ1IjoiY29tcHV0ZWNoIiwiYSI6InMyblMya3cifQ.P8yppesHki5qMyxTc2CNLg';
+	 L.mapbox.accessToken = mb_accessToken;
+	 
      map = L.mapbox.map('map', 'fcc.k74ed5ge', {
              attributionControl: true,
              maxZoom: 19
@@ -75,7 +76,7 @@ function createMap() {
          position: 'bottomright'
      }).addTo(map);
 
-     geocoder = L.mapbox.geocoder('mapbox.places-v1');
+     //geocoder = L.mapbox.geocoder('mapbox.places-v1');
 
 	 
 	layerControl = new L.Control.Layers(
@@ -590,10 +591,11 @@ function getCurrentLocation(load) {
     return false;
 }
 
-function getGeocode(location) {
+function getGeocode(search_input) {
 
-    var geocode_url = 'http://open.mapquestapi.com/nominatim/v1/search.php?format=json&limit=1&countrycode=us&q='+ encodeURIComponent(location);
-    //console.log('geocode_url : '+ geocode_url );  
+    var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
+		
+    console.log('geocode_url : '+ geocode_url );  
     
     $.ajax({
         type: 'GET',
@@ -601,16 +603,15 @@ function getGeocode(location) {
         dataType: 'json',
         success: function(data) {
 
-            //console.log('geocode_url data : '+ JSON.stringify(data) );    
+            console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
                         
-            // Nominatim Geocoder
-            if (data[0]) {                      
+            if (data.features[0]) {                      
                 
-                var geo_bounds = data[0].boundingbox;
+                var geo_bounds = data.features[0].bbox;
                 
                 map.fitBounds([
-                    [geo_bounds[0], geo_bounds[2]],
-                    [geo_bounds[1], geo_bounds[3]]
+                    [geo_bounds[1], geo_bounds[0]],
+                    [geo_bounds[3], geo_bounds[2]]
                 ]);             
             }
             else {
@@ -623,7 +624,6 @@ function getGeocode(location) {
         }
     }); 
 }   
-
 
 function setHealthSec() {
 

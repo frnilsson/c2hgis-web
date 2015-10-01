@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connect2Health</title>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700|Lato:500" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">    
+    <link href="css/jcarousel.responsive.css" rel="stylesheet" />
+    <link href="css/icon-styles.css" rel="stylesheet">
+    <link href="css/app-theme.css" rel="stylesheet">
+	<link href="css/mapbox.css" rel="stylesheet">
+	<link href="css/jquery-ui.css" rel="stylesheet"> 
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
+	
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.3/css/bootstrap-select.min.css" />
+	<!--
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" />
+	-->
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	
+    
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page row-offcanvas row-offcanvas-right">
+	<header class="site-header">
+		<div class="jumpLinks"> <a href="index.html#skiptarget1" class="sr-only focusable">Skip to main content</a> <a href="index.html#skiptarget3" class="sr-only focusable">Skip to footer and contact information</a> </div>
+		<nav role="navigation">
+			<div class="navbar navbar-default navbar-primary">
+				<div class="container">
+					<div class="navbar-header">
+						<h1 class="navbar-brand">
+					  <a title="Home" href="http://fcc.gov" class="navbar-logo">
+						<span class="sr-only">Federal Communications Commission</span>
+					  </a>
+					</h1>
+					</div>
+					<ul aria-hidden="true" id="menu-primary" class="nav navbar-nav nav-offcanvas-right">
+						<li class="active">
+							<a aria-controls="browse-by-category" data-toggle="tab" href="index.html">
+								<div class="text-prefix">Reports &amp; Research</div>
+								<strong class="title-emphasis">Connect2Health</strong>
+							</a>
+						</li>
+					</ul>                
+					<div class="navbar-controls">
+						<a data-toggle-direction="right" data-toggle="offcanvas" class="btn navbar-btn btn-toggle-menu" type="button">
+							<span class="btn-inner btn-inner-menu"><span class="sr-only">Menu</span></span>
+						</a>
+					</div>
+				</div>
+			</div>		
+			<div aria-hidden="true" class="navbar-secondary navbar-default yamm nav-offcanvas nav-offcanvas-right">
+				<div id="menu-secondary" class="tab-content">
+					<div class="container tab-pane active" id="browse-by-category">
+						<ul class="nav nav-tabs menu-secondary">
+							<li class="dropdown dropdown-left yamm-fw" role="presentation">
+								<a href="index.html" class="dropdown-toggle active">
+									<span class="link-title dropdown-link-title">Home</span>
+								</a>
+							</li>
+							<li class="dropdown dropdown-left yamm-fw" role="presentation">
+								<a href="about.html" class="dropdown-toggle">
+									<span class="link-title dropdown-link-title">About</span>
+								</a>
+							</li>                                                
+							<li class="dropdown dropdown-left yamm-fw" role="presentation">
+								<a href="faq.html" class="dropdown-toggle">
+									<span class="link-title dropdown-link-title">FAQ</span>
+								</a>
+							</li>
+							<li class="dropdown dropdown-left yamm-fw">
+								<a href="public-help.html" class="dropdown-toggle">
+									<span class="dropdown-link-title link-title">Help</span>
+								</a>
+							</li>
+						</ul>
+						<!--.nav-tabs -->
+					</div>
+				</div>
+			</div>
+			<!-- .secondary-menu -->
+		</nav>
+	</header>
+	<div class="clearfix"></div>
+	<a class="visuallyhidden" id="skiptarget1" tabindex="-1"></a>
+        <main class="container" role="main">
+		    <div class="row">
+		        <div class="col-md-8">
+					<div class="top-row" >
+						<div class="input-group">					
+							<input id="input-geo-location" class="form-control" type="search" placeholder="Enter Location" aria-label="Enter Geographic Location/Address" style="display: block">
+							<span class="input-group-btn" style="display: table-cell">                        
+								<button class="btn-search btn btn-default" type="submit" id="input-geo-search"  data-toggle="tooltip" data-placement="top" title="Location Search" aria-label="Submit Location Search"><span><i class="fa fa-search"></i></span></button>
+							</span>
+							<span></span>							
+						</div>
+					</div>								
+		            <div class="map-container">
+						<button class="btn-geo btn-geo-current btn st" type="button" id="btn-geo-current" data-toggle="tooltip" data-placement="right" title="Current Location"><i class="fa fa-location-arrow"></i><span class="sr-only">Current Location</span></button>
+						<button class="btn-geo btn-geo-nation btn st" type="button" id="btn-geo-nation" data-toggle="tooltip" data-placement="right" title="Nationwide"><i class="fa fa-globe"></i><span class="sr-only">Nationwide</span></button>		                
+						<div id="map"></div>	           
+		            </div>
+		        </div>
+		        <div class="col-md-4">
+                    <div class="top-row">
+                        <span id="geog_name">Nationwide</span>
+                    </div>
+		            <div class="panel panel-default panel-top">
+                        <div id="tab-div-nav" class="tab-nav" >
+                            <ul class="layer-switch nav nav-pills">
+                                <li class="active"><a id="insights" href="#" class="active" role="presentation">Insights</a></li>
+                                <li><a id="health" href="#" role="presentation">Health</a></li>
+                                <li><a id="broadband" href="#" role="presentation">Broadband</a></li> 
+								<li><a id="population" href="#" role="presentation">Population</a></li>  
+                            </ul>
+                        </div>                        
+                        <div>
+                            <div id="controlButtons" style="margin-top:10px;">							
+							
+								<!-- Insights Tab  **************************************************************** -->
+							
+                                <div class="panel-data list-insight-panel">                                                  
+										
+									<select id="select-in-broadband" class="selectpicker select-insight">
+										<option value="in_bb_access">Broadband Access</option>
+										<option value="in_bb_dl_speed">Download Speed</option>
+										<option value="in_bb_ul_speed">Upload Speed</option>										
+									</select>
+									<input type="text" id="label-broadband" class="slider-label" readonly style="color: #0050cc;">
+									<i class="fa fa-question in-tooltip" id="in-tooltip-broadband" data-toggle="tooltip" title=""></i>
+                                    <br/>
+                                    <div id="slider-broadband" class="slider-bar"></div>
+                                    <br /> 										
+									<select id="select-in-health" class="selectpicker select-insight">
+										<option value="in_pcp_access">Physician Access</option>
+										<option value="in_prm_death">Premature Death</option>
+										<option value="in_prv_hosp">Preventable Hospital</option>
+										<option value="in_obs_rate">Obesity Rate</option>
+									</select>
+									<input type="text" id="label-health" class="slider-label" readonly style="color: #ba0c0c;">
+									<i class="fa fa-question in-tooltip" id="in-tooltip-health" data-toggle="tooltip" title=""></i>
+                                    <br /> 
+                                    <div id="slider-health" class="slider-bar"></div>
+                                    <br />                         
+									<div id="in-cnt-div">
+										<div id="select-in-cnt-div">
+											<select id="select-count" class="selectpicker select-in-cnt">
+												<option value="">- Select Counts -</option>-->
+												<option value="in_cnt_pcp">Physicians</option>
+												<option value="in_cnt_ip">Internet Providers</option>
+												<option value="in_cnt_pop" selected="selected">Population</option>
+											</select>			
+										</div>
+										<div class="in-cnt-legend-box" style="">
+											<table class="in-cnt-legend-table">
+												<tr>
+													<td><span class="circle-sym" style="background-color: #05ad28; height: 5px; width: 5px"></span></td>
+													<td><span class="circle-sym" style="background-color: #05ad28; height: 10px; width: 10px"></span></td>
+													<td><span class="circle-sym" style="background-color: #05ad28; height: 15px; width: 15px"></span></td>
+													<td><span class="circle-sym" style="background-color: #05ad28; height: 20px; width: 20px"></span></td>
+													<td><span class="circle-sym" style="background-color: #05ad28; height: 25px; width: 25px"></span></td>
+												</tr>
+												<tr>
+													<td class="circle-label circle-label-min"><span><1,000</span></td>  													 
+													<td></td>   
+													<td></td>   
+													<td></td>   
+													<td class="circle-label circle-label-max">>10,000</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<div id="custom-insights">
+										<div class="insight-title">Custom Insights</div>
+										<div class="selection-row">
+											<label for="select-state">Select State:</label>
+											<div class="type-select">                      
+												<select id="select-state" class="selectpicker">
+													<option value="">- State Insigts -</option>
+													<option value="FL">Florida</option>
+													<option value="MS">Mississippi</option>
+													<option value="VA">Virginia</option>
+												</select>
+											</div>                                    
+										</div>
+										<div class="selection-row">
+											<label for="curate-map">Select Map:</label>
+											<div class="type-select">                      
+												<select id="select-curate-map" class="selectpicker">
+													<option value="">- Curated Map -</option>
+													<option value="1">Option 1 </option>
+													<option value="2">Option 2</option>
+													<option value="3">Option 3</option>
+												</select>
+											</div>                                    
+										</div>
+									</div> 
+                                </div>
+								
+								<!-- Health Tab  **************************************************************** -->
+                                <div class="panel-data list-health-panel hide">
+                                    <div class="selection-row">                                    
+                                        <span class="layer-drop-lab">Health</span>
+                                        <select id="health-sec-type" class="selectpicker">
+                                            <option value="">-Choose One-</option>
+                                            <option value="pcppc">PCP Per Person</option>
+                                            <option value="poorfair">Poor/Fair Health</option>
+                                            <option value="obesity">Obesity</option>
+                                            <option value="prematured" selected="selected">Premature Death</option>
+                                            <option value="preventhosp">Preventable Hospitals</option>
+                                        </select>
+                                    </div>									
+									<br /><br />
+                                    <table class="legend-table-square">
+                                        <tr>
+                                            <td><span class="square-sym" style="background-color: #fffc1e; "></span></td>
+                                            <td><span class="square-sym" style="background-color: #f1cd1a; "></span></td>
+                                            <td><span class="square-sym" style="background-color: #dd8515; "></span></td>
+                                            <td><span class="square-sym" style="background-color: #c83e10; "></span></td>
+                                            <td><span class="square-sym" style="background-color: #ba0c0c; "></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="square-label square-label-min">< 1,000</td>  
+                                            <td></td>       
+                                            <td></td>   
+                                            <td></td>                                   
+                                            <td class="square-label square-label-max">> 10,000</td>
+                                        </tr>
+                                    </table>
+									<br />
+									<br />  
+									<div>
+										Population: <span id="geog_pop"></span>
+										<br />
+										Broadband Providers: <span id="geog_prov"></span>
+										<br />
+										Primary Care Physicians: <span id="geog_pcp"></span>							
+									</div>
+									
+									<div style="width: 300px; height: 300px;">
+										<canvas id="ch-canvas-health-1" style="width: 300px; height: 250px;"></canvas>
+										<div id="ch-legend-health-1" style="width: 300px; height: 50px; text-align: center;"></div>						
+									</div>
+									
+								
+									
+                                </div>
+								
+								
+								<!-- Broadband Tab  **************************************************************** -->
+								
+                                <div class="panel-data list-broadband-panel hide">       
+									 <span class="layer-drop-lab">Broadband Availability:</span>
+									 <Br/>
+                                    <div class="selection-row">                                       
+                                        <div id="broadband-type-group" class="btn-group" data-toggle="buttons">
+                                              <label class="btn btn-primary active">
+                                                <input class="show-layer broadband-type" type="radio" checked="checked" name="broadband-type" id="broadband-type-wn" value="wn" autocomplete="off"> Wireline
+                                              </label>
+                                              <label class="btn btn-primary">
+                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-ws" value="ws" autocomplete="off"> Wireless
+                                              </label>                                              
+                                        </div>
+                                    </div>
+                                    <div class="selection-row">                                       
+                                        <div id="broadband-dir-group" class="btn-group" data-toggle="buttons">
+                                              <label class="btn btn-primary active">
+                                                <input class="show-layer broadband-dir" type="radio" checked="checked" name="broadband-dir" id="broadband-dir-dl" value="dl" autocomplete="off"> Download
+                                              </label>
+                                              <label class="btn btn-primary">
+                                                <input class="show-layer broadband-dir" type="radio" name="broadband-dir" id="broadband-dir-ul" value="ul" autocomplete="off"> Upload
+                                              </label>                                              
+                                        </div>
+                                    </div>  
+
+									<br/><br />  
+									<table class="legend-table-square">
+                                        <tr>
+                                            <td><span class="square-sym" style="background-color: #fffc1e; "></span></td>
+                                            <td><span class="square-sym" style="background-color: #cad942; "></span></td>
+                                            <td><span class="square-sym" style="background-color: #7ea576; "></span></td>
+                                            <td><span class="square-sym" style="background-color: #3372a9; "></span></td>
+                                            <td><span class="square-sym" style="background-color: #0050cc; "></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="square-label square-label-min">0%</td>  
+                                            <td></td>       
+                                            <td></td>   
+                                            <td></td>                                   
+                                            <td class="square-label square-label-max">100%</td>
+                                        </tr>
+                                    </table>
+									
+									<br/><br /> 
+						
+									<div id="carousel-bb" class="carousel slide" data-ride="carousel" data-wrap="true">
+										<!-- Indicators -->
+										<ol class="carousel-indicators">
+											<li data-target="#carousel-bb" data-slide-to="0" class="active"></li>
+											<li data-target="#carousel-bb" data-slide-to="1"></li>
+											<li data-target="#carousel-bb" data-slide-to="2"></li>
+											<li data-target="#carousel-bb" data-slide-to="3"></li>
+										</ol>
+
+										<!-- Wrapper for slides -->
+										<div class="carousel-inner" role="listbox">
+											<div class="item active">
+												<div style="width: 300px; height: 300px;">
+													<canvas id="ch-canvas-broadband-1" style="width: 300px; height: 250px;"></canvas>
+													<div id="ch-legend-broadband-1" style="width: 300px; height: 50px; text-align: center;"></div>						
+												</div>
+											</div>
+
+											<div class="item">
+												<div style="width: 300px; height: 300px;">
+													<canvas id="ch-canvas-broadband-2" style="width: 300px; height: 250px;"></canvas>
+													<div id="ch-legend-broadband-2" style="width: 300px; height: 50px; text-align: center;"></div>						
+												</div>
+											</div>
+
+											<div class="item">
+												<div style="width: 300px; height: 300px;">
+													<canvas id="ch-canvas-broadband-3" style="width: 300px; height: 250px;"></canvas>
+													<div id="ch-legend-broadband-3" style="width: 300px; height: 50px; text-align: center;"></div>						
+												</div>
+											</div>
+
+											<div class="item">
+												<div style="width: 300px; height: 300px;">
+													<canvas id="ch-canvas-broadband-4" style="width: 300px; height: 250px;"></canvas>
+													<div id="ch-legend-broadband-4" style="width: 300px; height: 50px; text-align: center;"></div>						
+												</div>
+											</div>
+										</div>
+
+										<!-- Left and right controls -->
+										<a class="left carousel-control" href="#carousel-bb" role="button" data-slide="prev">
+											<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+											<span class="sr-only">Previous</span>
+										</a>
+										<a class="right carousel-control" href="#carousel-bb" role="button" data-slide="next">
+											<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+											<span class="sr-only">Next</span>
+										</a>
+									</div>																		
+									
+                                </div>
+								
+								
+								<!-- Demographics Tab  **************************************************************** -->
+								<div class="panel-data list-population-panel hide">  
+								
+									<div style="width: 300px; height: 300px;">
+										<canvas id="ch-canvas-population-1" style="width: 300px; height: 250px;"></canvas>
+										<div id="ch-legend-population-1" style="width: 300px; height: 50px; text-align: center;"></div>						
+									</div>
+								
+								</div>
+								
+                            </div>
+                        </div>                    
+                    
+					
+					
+					
+					</div>   					
+		        </div>
+		    </div>
+		</main>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-6">
+                                <a tabindex="-1" name="skiptarget3" id="skiptarget3" class="sr-only"></a>
+                                    <address class="contact-info">
+                                        Federal Communications Commission
+                                        <br> 445 12th Street SW, Washington, DC 20554
+                                        <br>
+                                    </address>
+                                    <ul class="contact-info contact-phone">
+                                        <li>
+                                            <a href="tel:+18882255322" class="phone-link">Phone: 1-888-225-5322</a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:+18888355322" class="phone-link">TTY: 1-888-835-5322</a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:+18444322275" class="phone-link">Videophone: 1-844-432-2275</a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:+18884185322" class="phone-link">Fax: 1-866-418-0232</a>
+                                        </li>
+                                    </ul>
+                                    <a href="index.html#" class="contact-link btn-mobile">
+                                        Contact Us
+                                    </a>
+                                    <ul class="footer-links social-media-links">
+                                        <li>
+                                            <a title="" href="index.html#" class="social-media twitter">Twitter    </a>
+                                        </li>
+                                        <li>
+                                            <a title="" href="index.html#" class="social-media facebook">
+												Facebook
+											</a>
+                                        </li>
+                                        <li>
+                                            <a title="" href="index.html#" class="social-media youtube">
+												YouTube
+											</a>
+                                        </li>
+                                        <li>
+                                            <a title="" href="index.html#" class="social-media flickr">
+												Flickr
+											</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12 col-sm-6">
+                                    <span class="fcc-seal hide-text">
+                                        Federal Communications Commission
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 visible-md-block visible-lg-block">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <ul class="footer-links footer-links-sitemap">
+                                        <li>
+                                            <a href="index.html#">Website Policies &amp; Notices</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">FOIA</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">No Fear Act Data</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">FCC Digital Strategy</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Open Government Directive</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Plain Writing Act</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">RSS Feeds &amp; Email Updates</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Disability Rights</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-4">
+                                    <h4 class="footer-heading">Categories</h4>
+                                    <ul class="footer-links footer-links-categories">
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/about.php">About the FCC</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/proceedings.php">Proceedings &amp; Actions</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/licensing.php">Licensing &amp; Databases</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Reports &amp; Research</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/news-events.php">News &amp; Events</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/consumer-landing.php">For Consumers</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-4">
+                                    <h4 class="footer-heading">Bureaus &amp; Offices</h4>
+                                    <ul class="footer-links footer-links-bureaus-offices">
+                                        <li>
+                                            <a href="index.html#">Consumer</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Enforcement</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">International</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://nelson:7028/opif-new/media-bureau.php">Media</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Public Safety</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Wireless</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Wireline</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.html#">Offices</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+  
+     
+  
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="./js/bootstrap-toolkit.min.js"></script>
+	<script src="//api.tiles.mapbox.com/mapbox.js/v1.6.5/mapbox.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>-->
+	<!--<script src="//www.bootply.com/plugins/bootstrap-select.min.js"></script>-->
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.3/js/bootstrap-select.min.js"></script>
+	
+	
+	<script src="./js/chart.js"></script>
+	
+	<!--<script src="./js/jquery.jcarousel.min.js"></script>
+	<script src="./js/jcarousel.responsive.js"></script>-->
+	<script src="//cdn.jsdelivr.net/jquery.color-animation/1/mainfile"></script>	
+	
+	<!--<script src="./js/menus.js"></script>-->
+	<!--<script src="./js/theme.js"></script>	-->
+
+
+	<script src="./js/app.js"></script>	
+
+
+</body>
+</html>

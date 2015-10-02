@@ -731,8 +731,7 @@ function updateHealthLegend() {
 		
 		$( '#hh-tooltip-health' ).attr( 'title', health_tooltip ).tooltip('fixTitle');		
 		
-		$( '.health-table-label' ).html( health_label );	
-		
+		$( '.health-table-label' ).html( health_label );			
 	}
 }
 
@@ -859,7 +858,7 @@ function getData() {
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+geo_type+'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	//console.log(' data_url : ' + data_url );
+	console.log(' data_url : ' + data_url );
 	
 		$.ajax({
 			type: 'GET',
@@ -896,15 +895,8 @@ function processData(data) {
 			
 				updateStats();				
 				
-				// ***********************************
-				
-				createCharts();
-				
-				
-				// ***********************************
-								
-				
-				//console.log(genderChart.generateLegend());
+				// ***********************************				
+				createCharts();				
 				
 				// ***********************************
 				clearClickFeature();
@@ -946,38 +938,66 @@ function processData(data) {
 function updateStats(){
 	var geography_type = geo_prop.geography_type;
 	var geography_id = geo_prop.geography_id;
-	var geography_desc = geo_prop.geography_desc;
-	
-	var female_total = geo_prop.female_total;
-	var male_total = geo_prop.male_total;
-	
-	if(geography_type == 'county'){
+	var geography_desc = geo_prop.geography_desc;	
+
+	if (geography_type == 'county'){
 		var abbr = states[geography_id.substring(0,2)]["abbr"];
-		geography_desc = geography_desc.concat(", ").concat(abbr); 
+		//geography_desc = geography_desc.concat(", ").concat(abbr); 
+		geography_desc += ', '+ abbr; 
 	}
 	else if (geography_type == 'national'){
-		geography_desc = "Nationwide";
+		geography_desc = 'Nationwide';
 	}
 	
+	geography_desc += ' Statistics:';
+	
 	//console.log(' geography_type : ' + geography_type );
-	//console.log(' geography_desc : ' + geography_desc );
-	//console.log(' pcp_total : ' + pcp_total );
-	//console.log(' provider_count : ' + provider_count );
-	//console.log(' pop_2014 : ' + pop_2014 );
+	//console.log(' geography_desc : ' + geography_desc );	
 	
+	$('.geog-name').text(geography_desc);
+
+	$('.geog-pop').text(formatStat(geo_prop.pop_2014));
+	$('.geog-prov').text(formatStat(geo_prop.provider_count));
 	
-	$('#geog_name').text(geography_desc);
-	$('#geog_name2').text(geography_desc);
-	$('#geog_pop').text(geo_prop.pop_2014);
-	$('#geog_prov').text(geo_prop.provider_count);
-	$('#geog_pcp').text(geo_prop.pcp_total);
-	$('#geog_obes').text((geo_prop.adult_obesity_pct).toFixed(1) + '%');
-	$('#geog_diab').text((geo_prop.diabetes_pct).toFixed(1) + '%');
-	$('#geog_smok').text((geo_prop.smoking_pct).toFixed(1) + '%');
-	$('#geog_drin').text((geo_prop.drinking_pct).toFixed(1) + '%');
-	$('#geog_inac').text((geo_prop.physical_inactivity).toFixed(1) + '%');
-	//$('#geog_inse').text((geo_prop.physical_inactivity).toFixed(3) + '%');	
-	$('#geog_severe_housing').text((geo_prop.severe_housing_problems).toFixed(1) + '%');
+
+	
+	$('.geog-pcp').text(formatStat(geo_prop.pcp_total));
+	$('.geog-dentists').text(formatStat(geo_prop.dentist_total));
+	$('.geog-mental').text(formatStat(geo_prop.mhp_total));
+	
+	$('.geog-poorfair').text(formatStat(geo_prop.poor_fair_health_total));
+	$('.geog-prematured').text(formatStat(geo_prop.years_lost_per_100000, 1) +' per 100,000');
+	$('.geog-prevhosp').text(formatStat(geo_prop.preventable_hospital_stays_per_1000, 1) +' per 1,000');	
+	$('.geog-injuryd').text(formatStat(geo_prop.injury_deaths_per_100000, 1) +' per 100,000');
+	$('.geog-sickdays').text(formatStat(geo_prop.poor_physical_health_days_within_last_30_days, 1) +' days per month');	
+	
+	$('.geog-longcommute').text(formatStat(geo_prop.long_commute_driving_alone) +'%');
+	$('.geog-drivealone').text(formatStat(geo_prop.driving_alone_to_work) +'%');
+	
+	$('.geog-obes').text(formatStat(geo_prop.adult_obesity_pct, 1) + '%');
+	$('.geog-diab').text(formatStat(geo_prop.diabetes_pct, 1) + '%');
+	$('.geog-smok').text(formatStat(geo_prop.smoking_pct, 1) + '%');
+	$('.geog-drin').text(formatStat(geo_prop.drinking_pct, 1) + '%');
+	$('.geog-inac').text(formatStat(geo_prop.physical_inactivity, 1) + '%');
+	//$('.geog-inse').text(formatStat(geo_prop.physical_inactivity, 3) + '%');	
+	$('.geog-severehousing').text(formatStat(geo_prop.severe_housing_problems, 1) + '%');
+}
+
+function formatStat(input, decimal) {
+	
+	var output = '';
+	
+	if ($.isNumeric( input )) {
+		
+		if (decimal) {
+			output = Number(input.toFixed(decimal)).toLocaleString('en');
+		}
+		else {
+			output = input.toLocaleString('en');
+		}		
+	}
+	
+	return output;	
 }
 
 function createStats() {
@@ -1049,7 +1069,7 @@ function createCharts() {
 		updateStats();
 		
 		chart_obj.health.measurements.data = {
-			labels: ["Obesity", "Diabetes", "Smoking", "Excessive Drinking", "Physical Inactivity", "Severe Housing Problem"],
+			labels: ["Obesity", "Diabetes", "Smoking", "Excessive Drinking", "Physical Inactivity", "Severe Housing"],
 			datasets: [
 				{
 					label: "Health Behaviours",

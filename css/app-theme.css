@@ -2799,7 +2799,7 @@ a.active .icon-book-open-2:before  {
 }
 
 .panel-top {
-  margin-top: 8px;
+  margin-top: 0px;
 }
 .panel-group .panel .panel-title a:hover {
   color: #2c75d6;
@@ -2948,7 +2948,7 @@ a.gen-passcode {
 
 /* ============== new CSS related to maps starts ============== */
 
-#map { height: 650px; }
+#map { height: 666px; }
 .map-container { position: relative; margin-top: 8px; }
 
 .btn-geo { border: 1px solid rgba(0, 0, 0, 0.4); border-radius: 3px; left: 10px; padding: 2px; position: absolute; width: 28px; height: 26px; background: #ffffff; }
@@ -3043,6 +3043,26 @@ a.gen-passcode {
 }
 
 .panel-container { min-width: 420px;}
+
+.panel-sec-heading {
+	color: #2c75d6;
+    font-weight: bold;
+    font-size: 18px;
+    vertical-align: middle;
+    line-height: 30px;
+    padding: 0;
+}
+
+.panel-sec-sub {
+	color: #888888;
+	font-size: 18px;
+	text-decoration: underline;
+}
+
+#health-stats-div {
+	height: 200px;
+	overflow-y: auto;
+}
 
 /* insights */
 

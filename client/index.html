@@ -426,7 +426,7 @@
 									 <div class="row">
                                         <div class="col-md-12 layer-drop-lab">Broadband Availability:</div>
                                      </div>
-									 <Br/>
+									 <br/>
                                      <div class="row">
                                         <div class="col-md-6">                                                     
                                             <div id="broadband-type-group" class="btn-group" data-toggle="buttons">
@@ -449,7 +449,7 @@
                                             </div>
                                         </div>  
                                     </div>
-									<br/><br />  
+									<br/>
 									<table class="legend-table-square">
                                         <tr>
                                             <td><span class="square-sym" style="background-color: #fffc1e; "></span></td>
@@ -471,7 +471,7 @@
 									<hr/>
 									<br/>
 									<h4 class="geog-name panel-sec-heading"></h4>
-									<div class="row" id="health-stats-div">
+									<div class="row" id="broadband-stats-div">
 									<!--
                                         <div class="col-md-12">
                                             <h4 class="geog-name panel-sec-heading"></h4>
@@ -600,11 +600,7 @@
 										</a>
 									</div>
 									
-									
-									
-									
-                                </div>
-								
+                                </div>								
 								
 								<!-- Demographics Tab  **************************************************************** -->
 								<div class="panel-data list-population-panel hide">   
@@ -615,13 +611,21 @@
 								</div>
 								
                             </div>
-                        </div>                    
-                    
-					
-					
-					
-					</div>   					
-		        </div>
+                        </div>  
+						<div id="download-data-div" class="pull-right">
+							Data Download: 
+							<a id="download-data-json" href="http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=c2hgis:c2hgis_national&maxFeatures=1&outputFormat=application/json" target="_blank">JSON</a>
+							|  
+							<a id="download-data-xml" href="http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=c2hgis:c2hgis_national&maxFeatures=1&outputFormat=GML3" target="_blank">XML</a>
+							| 
+							<a id="download-data-shp" href="http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=c2hgis:c2hgis_national&maxFeatures=1&outputFormat=shape-zip" target="_blank">SHP</a>
+							| 
+							<a id="download-data-kml" href="http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wms/kml?layers=c2hgis:c2hgis_national" target="_blank">KML</a>							
+							|
+							<a id="download-data-csv" href="http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com/c2hgis/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=c2hgis:c2hgis_national&maxFeatures=1&outputFormat=csv" target="_blank">CSV</a>
+						</div>	
+					</div>   
+				</div>
 		    </div>
 		</main>
         <footer class="page-footer">

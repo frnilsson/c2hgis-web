@@ -3061,6 +3061,17 @@ a.gen-passcode {
 	overflow-y: auto;
 }
 
+#broadband-stats-div {
+	height: 160px;
+	overflow-y: auto;
+}
+
+#download-data-div {
+	font-size: 11px;
+	color: #99999;
+	padding: 5px 0;
+}
+
 /* insights */
 
 #custom-insights { width: 100%;}

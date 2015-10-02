@@ -4,6 +4,8 @@ var geo_space = 'c2hgis';
 var geo_output = 'application/json'
 
 var geo_type = 'state';
+//var geo_type = 'national';
+
 var zoom_type = 'state';
 var geo_lat = 40;
 var geo_lng = -93;
@@ -14,7 +16,6 @@ var geo_data;
 var geo_prop;
 
 var cur_tab = 'insights';
-
 var click_feature;
 
 //var lastZoom = 3;
@@ -77,7 +78,6 @@ function createMap() {
      }).addTo(map);
 
      //geocoder = L.mapbox.geocoder('mapbox.places-v1');
-
 	 
 	layerControl = new L.Control.Layers(
 		{
@@ -98,8 +98,7 @@ function createMap() {
 		 zIndex: 999
      });        
 	 
-	 //wms_border.addTo(map);
-	
+	 //wms_border.addTo(map);	
 	
 	map.on('zoomend', function() {
 		
@@ -114,8 +113,7 @@ function createMap() {
 			zoom_type = 'county';
 		}
 		
-		updateCountLegend();
-		
+		updateCountLegend();		
 		
 		if (geo_type !== new_geo_type) {		
 			
@@ -124,14 +122,11 @@ function createMap() {
 				getData();
 			}
 			geo_type = new_geo_type;			
-		}		
+		}			
 		
-		
-		//console.log(' geo_type : ' + geo_type );
-		
+		//console.log(' geo_type : ' + geo_type );		
 	});
-	
-	
+		
 	map.on('click', function(e) {
 		//console.log(' e.latlng : ' + e.latlng );
 		
@@ -849,29 +844,56 @@ function setState(state) {
 }
 
 function setNationwide() {  
-	geo_type = 'national';        
-    map.setView([40, -95], 4);  
-    getData();
-}  
-     
-function getData() {			
+	//geo_type = 'national';        
+    map.setView([40, -95], 3);  
+    //getData();
 	
-	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+geo_type+'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
+	geo_prop = national_data.features[0].properties;
+	 
+	clearClickFeature();
+	
+	createCharts();	 
+	updateStats();
+	setDownloadLinks();
+}  
+
+function setDownloadLinks() {
+	
+	var data_type = geo_prop.geography_type;	
+	var download_layer = 'c2hgis_'+ data_type;
+	
+	var download_filter = '';	
+	if (data_type != 'national') {	
+		download_filter = '&cql_filter=geography_id='+ geo_prop.geography_id;
+	}
+	
+	console.log(' data_type : ' + data_type );
+	console.log(' download_filter : ' + download_filter );
+	
+	$('#download-data-json').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=application/json&typeName='+ geo_space +':'+ download_layer + download_filter );
+	$('#download-data-xml').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=GML3&typeName='+ geo_space +':'+ download_layer + download_filter );
+	$('#download-data-shp').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=shape-zip&typeName='+ geo_space +':'+ download_layer + download_filter );
+	$('#download-data-kml').attr('href', geo_host + '/' + geo_space + '/wms/kml?layers='+ geo_space +':'+ download_layer );
+	$('#download-data-csv').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=csv&typeName='+ geo_space +':'+ download_layer + download_filter );
+}
+
+function getData() {	
+
+	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ geo_type +'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
 	console.log(' data_url : ' + data_url );
 	
-		$.ajax({
-			type: 'GET',
-			url: data_url,
-			//dataType: 'json',
-			dataType: 'jsonp',
-			jsonpCallback: 'callbackData',
-			success: function(data) {
-				processData(data);
-			}
-		});
+	$.ajax({
+		type: 'GET',
+		url: data_url,
+		//dataType: 'json',
+		dataType: 'jsonp',
+		jsonpCallback: 'callbackData',
+		success: function(data) {
+			processData(data);
+		}
+	});
 }
-
 
 function processData(data) {
 		
@@ -892,41 +914,40 @@ function processData(data) {
 				geo_data = data;
 				
 				geo_prop = geo_data.features[0].properties;
-			
-				updateStats();				
 				
-				// ***********************************				
+				// ***********************************		
+				setDownloadLinks();
+				updateStats();	
 				createCharts();				
-				
-				// ***********************************
 				clearClickFeature();
 				
-				var click_feature = L.mapbox.featureLayer(geo_data).setStyle(click_feature_option).addTo(map);				
+				// ***********************************		
+				if (geo_type != 'national') {
 				
-				click_feature.on('click', function(e) {
-					//console.log(' click_feature e.latlng : ' + e.latlng );
+					var click_feature = L.mapbox.featureLayer(geo_data).setStyle(click_feature_option).addTo(map);				
 					
-					geo_lat = e.latlng.lat;
-					geo_lng = e.latlng.lng;		
-					var zoom = map.getZoom();
-					
-					/*
-					var geo_type = 'state';
-					if (zoom < 7 ) {
-						geo_type = 'state';
-					}
-					else if (zoom >= 7 ) {
-						geo_type = 'county';
-					}
-					*/
-					
-					//console.log(' geo_lat : ' + geo_lat );
-					//console.log(' geo_lng : ' + geo_lng );
-					//console.log(' zoom : ' + zoom );
-					//console.log(' geo_type : ' + geo_type );
-					
-					getData();
-				});
+					click_feature.on('click', function(e) {
+						//console.log(' click_feature e.latlng : ' + e.latlng );
+						
+						geo_lat = e.latlng.lat;
+						geo_lng = e.latlng.lng;		
+						var zoom = map.getZoom();
+						
+						/*
+						var geo_type = 'state';
+						if (zoom < 7 ) {
+							geo_type = 'state';
+						}
+						else if (zoom >= 7 ) {
+							geo_type = 'county';
+						}
+						*/
+						
+						//console.log(' geo_lat : ' + geo_lat );					
+						
+						getData();
+					});
+				}
 			}			
 	
 			click_data.push(click_feature);					
@@ -985,12 +1006,12 @@ function updateStats(){
 	// Broadband Stats
 	$('.geog-provcount').text(formatStat(geo_prop.provider_count) );
 	
-	$('.geog-combdl').text(formatStat(geo_prop.advdl_gr25000k*100, 1) + '%');
-	$('.geog-combul').text(formatStat(geo_prop.advul_gr3000k*100, 1) + '%');
-	$('.geog-wldl').text(formatStat(geo_prop.wireline_advdl_gr25000k*100, 1) + '%');
-	$('.geog-wlul').text(formatStat(geo_prop.wireline_advul_gr3000k*100, 1) + '%');
-	$('.geog-wsdl').text(formatStat(geo_prop.wireless_advdl_gr25000k*100, 1) + '%');
-	$('.geog-wsul').text(formatStat(geo_prop.wireless_advul_gr3000k*100, 1) + '%');	
+	$('.geog-combdl').text(formatStat(geo_prop.advdl_gr25000k, 1) + '%');
+	$('.geog-combul').text(formatStat(geo_prop.advul_gr3000k, 1) + '%');
+	$('.geog-wldl').text(formatStat(geo_prop.wireline_advdl_gr25000k, 1) + '%');
+	$('.geog-wlul').text(formatStat(geo_prop.wireline_advul_gr3000k, 1) + '%');
+	$('.geog-wsdl').text(formatStat(geo_prop.wireless_advdl_gr25000k, 1) + '%');
+	$('.geog-wsul').text(formatStat(geo_prop.wireless_advul_gr3000k, 1) + '%');	
 	
 	$('.geog-commondl').text((bb_speed_tiers[geo_prop.most_common_dl].range) + ' mbps');
 	$('.geog-commonul').text((bb_speed_tiers[geo_prop.most_common_ul].range) + ' mbps');
@@ -1179,7 +1200,7 @@ function createCharts() {
 			
 			chart_obj.broadband.dl_tiers.options = {
 				animationEasing: 'easeOutQuart',
-				tooltipTemplate: '<%=label%>: <%= Number(value*100).toLocaleString() %>%',
+				tooltipTemplate: '<%=label%>: <%= Number(value).toLocaleString() %>%',
 				//legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
 			};
 
@@ -1241,7 +1262,7 @@ function createCharts() {
 			
 			chart_obj.broadband.ul_tiers.options = {
 				animationEasing: 'easeOutQuart',
-				tooltipTemplate: '<%=label%>: <%= Number(value*100).toLocaleString() %>%',
+				tooltipTemplate: '<%=label%>: <%= Number(value).toLocaleString() %>%',
 				//legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
 			};
 

@@ -2799,7 +2799,7 @@ a.active .icon-book-open-2:before  {
 }
 
 .panel-top {
-  margin-top: 8px;
+  margin-top: 0px;
 }
 .panel-group .panel .panel-title a:hover {
   color: #2c75d6;
@@ -2948,7 +2948,7 @@ a.gen-passcode {
 
 /* ============== new CSS related to maps starts ============== */
 
-#map { height: 670px; }
+#map { height: 666px; }
 .map-container { position: relative; margin-top: 8px; }
 
 .btn-geo { border: 1px solid rgba(0, 0, 0, 0.4); border-radius: 3px; left: 10px; padding: 2px; position: absolute; width: 28px; height: 26px; background: #ffffff; }
@@ -2970,9 +2970,6 @@ a.gen-passcode {
 
 /* charts */
 .charts-div { width:100%; min-height: 300px; margin: 0 auto; }
-
-/** carousel **/
-
 
 
 /* responsive */
@@ -3033,9 +3030,46 @@ a.gen-passcode {
  @media (min-width: 992px) {
 	.container {padding-left: 0px; padding-right: 0px; }
 }
+
+@media (min-width: 992px) and (max-width : 1199px) {
+	.geo-container { max-width: 580px;}
+}
 .selectWidth {
   width: auto;
   margin-right: 5px;
+}
+
+.panel-container { min-width: 420px;}
+
+.panel-sec-heading {
+	color: #2c75d6;
+    font-weight: bold;
+    font-size: 18px;
+    vertical-align: middle;
+    line-height: 30px;
+    padding: 0;
+}
+
+.panel-sec-sub {
+	color: #888888;
+	font-size: 18px;
+	text-decoration: underline;
+}
+
+#health-stats-div {
+	height: 200px;
+	overflow-y: auto;
+}
+
+#broadband-stats-div {
+	height: 160px;
+	overflow-y: auto;
+}
+
+#download-data-div {
+	font-size: 11px;
+	color: #99999;
+	padding: 5px 0;
 }
 
 /* insights */
@@ -3050,30 +3084,42 @@ a.gen-passcode {
 .nav-pills>li>a { border-radius: 4px 4px 0 0; }
 
 /* slider */
-#slider-broadband { background: #b2caf0;}
-#slider-health { background: #eab6b6;}
+#slider-broadband { background: #D9D9D9; margin: 10px 15px;}
+#slider-health { background: #D9D9D9; margin: 10px 15px;}
+#slider-broadband .ui-slider-range { background: #b2caf0; }
+#slider-health .ui-slider-range { background: #eab6b6; }
 
-.slider-label { border:0; color:#f6931f; font-weight:bold; display: inline-block; padding-left: 5px;}
+.slider-label { border:0; color:#f6931f; font-weight:bold; display: inline-block; padding-left: 5px; line-height: 30px}
 .select-insight { width: 185px !important; display: inline-block;}
 
 .slider-bar { margin: 8px 0px; }
 
 .select-in-cnt { width: 160px !important; ;}
-#in-cnt-div { width: 100%; vertical-align: middle; height: 70px;}
+/*#in-cnt-div { width: 100%; vertical-align: middle; height: 70px;} */
 #select-in-cnt-div { display: inline-block; vertical-align: middle; line-height: 100%; height: 100%; }
 
+
+.select-health { width: 185px !important; display: inline-block;}
+
 /* tooltip */
-.in-tooltip { color: #848484; display: inline-block; }
+.in-tooltip, .hh-tooltip { color: #848484; display: inline-block; font-size: 16px !important; }
+.in-tooltip  { padding-right: 3px;}
+.hh-tooltip  { padding-left: 3px;}
 
+.tooltip-inner {  min-width: 220px; }
 
-.tooltip-inner {   max-width: 310px; }
+.slider-tooltip-div {  line-height: 30px;}
 
 /* charts */
 .charts-div { width:100%; min-height: 300px; margin: 0 auto; }
 
 /** carousel **/
 
-.carousel-indicators { bottom: -10px; }
+.carousel-cont { width: 300px; height: 250px; }
+.carousel-canvas { width: 300px; height: 220px; }
+.carousel-legend { width: 300px; height: 30px; text-align: center; }
+
+.carousel-indicators { bottom: -25px; }
 .carousel-indicators  li { background-color: rgba(0,0,0,0.3); }
 .carousel-indicators  li.active { background-color: rgba(0,0,0,0.7); }
 
@@ -3083,27 +3129,22 @@ a.gen-passcode {
 
 .carousel-inner { width: 300px; margin: 0 auto;}
 .carousel-inner  div.item{ margin: 0 auto;}
-#myCarousel {width: 350px;}
-
-
-
 
 /* legend */
 
-
-
-.in-cnt-legend-box { width: 230px; display: none; }
+.in-cnt-legend-box { display: none; }
 
 #legends>div { overflow:hidden; }
 
 .in-cnt-legend-table { width: 100%; }
 .in-cnt-legend-table tr td { width: 20%; text-align: center;}
+.in-cnt-legend-table .col-xs-2 { padding-left: 10px; padding-right: 10px;}
 .circle-label-min { text-align: center !important; }
 .circle-label-max  { text-align: center !important; }
 .circle-label { font-size: 12px; }
-.circle-sym  { display: inline-block; border-radius: 50px; height: 50px; width: 50px; vertical-align: middle;  }
+.circle-sym  { display: inline-block; border-radius: 50px; vertical-align: middle;  }
 
-.legend-table-square { width: 100%; }
+.legend-table-square { width: 100%; padding: 10px 0; }
 .legend-table-square tr td { width: 20%; text-align: center;}
 .square-label-min { text-align: left; }
 .square-label-max  { text-align: right; }
@@ -3134,8 +3175,15 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
   color: #2c75d6;
   font-weight: bold;
   font-size: 18px;
+	vertical-align: middle;
+	line-height: 36px;
 
 }
+.layer-drop-lab-health {
+	padding: 0;
+	line-height: 36px;
+}
+
 .layer-drop-div {
 	padding: 2px;
 }
@@ -3153,6 +3201,8 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
   display: inline-block;
   
 }
+
+
 
 .top-row {
   height: 35px; 

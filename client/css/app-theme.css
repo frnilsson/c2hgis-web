@@ -2971,9 +2971,6 @@ a.gen-passcode {
 /* charts */
 .charts-div { width:100%; min-height: 300px; margin: 0 auto; }
 
-/** carousel **/
-
-
 
 /* responsive */
 @media only screen and (max-width : 320px) {
@@ -3107,6 +3104,10 @@ a.gen-passcode {
 
 /** carousel **/
 
+.carousel-cont { width: 300px; height: 250px; }
+.carousel-canvas { width: 300px; height: 220px; }
+.carousel-legend { width: 300px; height: 30px; text-align: center; }
+
 .carousel-indicators { bottom: -25px; }
 .carousel-indicators  li { background-color: rgba(0,0,0,0.3); }
 .carousel-indicators  li.active { background-color: rgba(0,0,0,0.7); }
@@ -3164,9 +3165,14 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
   font-weight: bold;
   font-size: 18px;
 	vertical-align: middle;
-	line-height: 30px;
-	padding: 0;
+	line-height: 36px;
+
 }
+.layer-drop-lab-health {
+	padding: 0;
+	line-height: 36px;
+}
+
 .layer-drop-div {
 	padding: 2px;
 }

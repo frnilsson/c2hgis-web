@@ -867,8 +867,8 @@ function setDownloadLinks() {
 		download_filter = '&cql_filter=geography_id='+ geo_prop.geography_id;
 	}
 	
-	console.log(' data_type : ' + data_type );
-	console.log(' download_filter : ' + download_filter );
+	//console.log(' data_type : ' + data_type );
+	//console.log(' download_filter : ' + download_filter );
 	
 	$('#download-data-json').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=application/json&typeName='+ geo_space +':'+ download_layer + download_filter );
 	$('#download-data-xml').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=GML3&typeName='+ geo_space +':'+ download_layer + download_filter );
@@ -881,7 +881,7 @@ function getData() {
 
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ geo_type +'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	console.log(' data_url : ' + data_url );
+	//console.log(' data_url : ' + data_url );
 	
 	$.ajax({
 		type: 'GET',
@@ -1141,7 +1141,7 @@ function createCharts() {
 			
 		var current_slide = $('.carousel-inner div.active').index() + 1;
 		
-		console.log(' current_slide : ' + current_slide );	
+		//console.log(' current_slide : ' + current_slide );	
 		
 		if (chart_obj.broadband.dl_tiers.chart) {
 			chart_obj.broadband.dl_tiers.chart.destroy();
@@ -1446,7 +1446,7 @@ function clearClickFeature() {
 
 	
 	$('#carousel-bb').bind('slid.bs.carousel', function (e) {
-		console.log('slide event!');
+		//console.log('slide event!');
 		createCharts();
 	});
     

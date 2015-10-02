@@ -3107,7 +3107,7 @@ a.gen-passcode {
 
 /** carousel **/
 
-.carousel-indicators { bottom: -10px; }
+.carousel-indicators { bottom: -25px; }
 .carousel-indicators  li { background-color: rgba(0,0,0,0.3); }
 .carousel-indicators  li.active { background-color: rgba(0,0,0,0.7); }
 
@@ -3117,7 +3117,6 @@ a.gen-passcode {
 
 .carousel-inner { width: 300px; margin: 0 auto;}
 .carousel-inner  div.item{ margin: 0 auto;}
-#myCarousel {width: 350px;}
 
 /* legend */
 

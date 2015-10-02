@@ -958,9 +958,8 @@ function updateStats(){
 
 	$('.geog-pop').text(formatStat(geo_prop.pop_2014));
 	$('.geog-prov').text(formatStat(geo_prop.provider_count));
-	
 
-	
+	// Health Stats
 	$('.geog-pcp').text(formatStat(geo_prop.pcp_total));
 	$('.geog-dentists').text(formatStat(geo_prop.dentist_total));
 	$('.geog-mental').text(formatStat(geo_prop.mhp_total));
@@ -981,6 +980,22 @@ function updateStats(){
 	$('.geog-inac').text(formatStat(geo_prop.physical_inactivity, 1) + '%');
 	//$('.geog-inse').text(formatStat(geo_prop.physical_inactivity, 3) + '%');	
 	$('.geog-severehousing').text(formatStat(geo_prop.severe_housing_problems, 1) + '%');
+	
+	// Broadband Stats
+	$('.geog-provcount').text(formatStat(geo_prop.provider_count) );
+	
+	$('.geog-combdl').text(formatStat(geo_prop.advdl_gr25000k*100, 1) + '%');
+	$('.geog-combul').text(formatStat(geo_prop.advul_gr3000k*100, 1) + '%');
+	$('.geog-wldl').text(formatStat(geo_prop.wireline_advdl_gr25000k*100, 1) + '%');
+	$('.geog-wlul').text(formatStat(geo_prop.wireline_advul_gr3000k*100, 1) + '%');
+	$('.geog-wsdl').text(formatStat(geo_prop.wireless_advdl_gr25000k*100, 1) + '%');
+	$('.geog-wsul').text(formatStat(geo_prop.wireless_advul_gr3000k*100, 1) + '%');	
+	
+	$('.geog-commondl').text((bb_speed_tiers[geo_prop.most_common_dl].range) + ' mbps');
+	$('.geog-commonul').text((bb_speed_tiers[geo_prop.most_common_ul].range) + ' mbps');
+	$('.geog-greatdl').text((bb_speed_tiers[geo_prop.greatest_dl].range) + ' mbps');
+	$('.geog-greatul').text((bb_speed_tiers[geo_prop.greatest_ul].range) + ' mbps');
+	
 }
 
 function formatStat(input, decimal) {
@@ -1059,8 +1074,6 @@ function createCharts() {
 		
 
 		//console.log(' health chart : '  );	
-
-
 	
 		//console.log(' geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );
 		

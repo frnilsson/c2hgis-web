@@ -54,7 +54,7 @@ $.getJSON("/data/states.json", function(data) {
     states = data;    
 });
 
-var mb_accessToken = 'pk.eyJ1IjoiY29tcHV0ZWNoIiwiYSI6InMyblMya3cifQ.P8yppesHki5qMyxTc2CNLg';
+var mb_accessToken = 'pk.eyJ1IjoiZmNjIiwiYSI6IlA5cThBQTQifQ.EbifLm_7JkQ1uI_0_qYEAA';
 
 function createMap() {  
 	 
@@ -143,8 +143,7 @@ function createMap() {
 		//console.log(' geo_lng : ' + geo_lng );
 		
 		getData();
-	});
-	
+	});	
 	
     // current location
     $('#btn-geo-current').click(function(e) {
@@ -173,8 +172,7 @@ function createMap() {
 	// select state
     $('#select-state').on('change', function() {
 	
-        var state_sel = $('#select-state').val();
-		
+        var state_sel = $('#select-state').val();		
 		//console.log(' state_sel : ' + state_sel );
 		
 		if (state_sel != "") {
@@ -188,8 +186,7 @@ function createMap() {
 	// select count
     $('#select-count').on('change', function() {
 	
-        var count_sel = $('#select-count').val();
-		
+        var count_sel = $('#select-count').val();		
 		//console.log(' count_sel : ' + count_sel );
 		
 		if (count_sel != "") {
@@ -212,14 +209,11 @@ function createMap() {
 		setHealthSec();	
 		
     }); 
-	
-	
-	
+			
 	// select broadband
 	$('.broadband-type').on('change', function() {
 	
-        bb_combo_type = $(this).val();
-		
+        bb_combo_type = $(this).val();		
 		//console.log(' bb_combo_type : ' + bb_combo_type );
 		
 		setBroadbandCombo();		
@@ -228,17 +222,13 @@ function createMap() {
 	
 	$('.broadband-dir').on('change', function() {
 	
-        bb_combo_dir = $(this).val();
-		
+        bb_combo_dir = $(this).val();		
 		//console.log(' bb_combo_dir : ' + bb_combo_dir );
 		
 		setBroadbandCombo();		
     }); 
-	
-		
-	 
+			 
 }
-
 
 var map_overlays = {	
 	in_broadband: null,
@@ -384,7 +374,7 @@ var insight_ly = {
 			zindex: 90,
 			step: 100,
 			values: [7500, 15000],
-			label: 'Years Lost',
+			label: 'Years',
 			tooltip: 'Number of years lost due to premature death before age 75 per 100,000 people.'
 		},
 		in_prv_hosp: {
@@ -595,7 +585,7 @@ function getGeocode(search_input) {
 
     var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
 		
-    console.log('geocode_url : '+ geocode_url );  
+    //console.log('geocode_url : '+ geocode_url );  
     
     $.ajax({
         type: 'GET',
@@ -603,7 +593,7 @@ function getGeocode(search_input) {
         dataType: 'json',
         success: function(data) {
 
-            console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
+            //console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
                         
             if (data.features[0]) {                      
                 
@@ -625,21 +615,125 @@ function getGeocode(search_input) {
     }); 
 }   
 
+																			
+var health_ly = {
+	hh_pcppc: {
+		column: 'pcp_per_capita',
+		style: 'health_sec_pcppc',
+		unit: 'p100000',
+		min: '>90',
+		max: '<60',
+		multiple: 100000,
+		zindex: 90,
+		step: 0.00005,
+		values: [0.00025, 0.00075],
+		label: 'PCP/100,000',
+		tooltip: 'Primary Care Physicians per 100,000 people.'
+	},
+	hh_poorfair: {
+		column: 'poor_fair_health_pct',
+		style: 'health_sec_poorfair',
+		unit: 'perc',
+		min: '<10',
+		max: '>17.5',
+		multiple: 1,
+		zindex: 90,
+		step: 1,
+		values: [30, 40],
+		label: '% Poor/Fair Health',
+		tooltip: 'Percentage of adults reporting fair or poor health (age-adjusted).'
+	},
+	hh_obesity: {
+		column: 'adult_obesity_pct',
+		style: 'health_sec_obesity',
+		unit: 'perc',
+		min: '<25',
+		max: '>32.5',
+		multiple: 1,
+		zindex: 90,
+		step: 1,
+		values: [30, 40],
+		label: '% Obesity',
+		tooltip: 'Percentage of adults that report a BMI of 30 or more.'
+	},
+	hh_prematured: {
+		column: 'years_lost_per_100000',
+		style: 'health_sec_prematured',
+		unit: 'y100000',
+		min: '<5,000',
+		max: '>8,000',
+		multiple: 1,
+		zindex: 90,
+		step: 100,
+		values: [7500, 15000],
+		label: '# Years Lost',
+		tooltip: 'Number of years lost due to premature death before age 75 per 100,000 people.'
+	},
+	hh_preventhosp: {
+		column: 'preventable_hospital_stays_per_1000',
+		style: 'health_sec_preventhosp',
+		unit: 'p1000',
+		min: '<40',
+		max: '>70',
+		multiple: 1,
+		zindex: 90,
+		step: 5,
+		values: [60, 120],
+		label: '# Hospital Stays',
+		tooltip: 'Number of preventable hospital stays per 1,000 people.'
+	}
+}
+
 function setHealthSec() {
 
-	var type = $('#health-sec-type').val();
+	var health_type = $('#health-sec-type').val();
 	
-	if (map.hasLayer(map_overlays['health_ov'])) {
-		map.removeLayer(map_overlays['health_ov']);
+	if (health_ly[health_type]) {
+	
+		var health_style = health_ly[health_type].style;
+		
+		if (map.hasLayer(map_overlays['health_ov'])) {
+			map.removeLayer(map_overlays['health_ov']);
+		}
+		
+		map_overlays['health_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
+			format: 'image/png',
+			transparent: true,
+			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
+			styles: [''+ geo_space +':'+ health_style +'_state', ''+ geo_space +':'+ health_style +'_county']
+		}).setZIndex('999').addTo(map);
+		
+		updateHealthLegend();
 	}
-	
-	map_overlays['health_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
-		format: 'image/png',
-		transparent: true,
-		layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-		styles: [''+ geo_space +':health_sec_'+ type +'_state', ''+ geo_space +':health_sec_'+ type +'_county']
-	}).setZIndex('999').addTo(map);
+}
 
+function updateHealthLegend() {
+	
+	//console.log(' count_type : ' + count_type );
+	//console.log(' geo_type : ' + geo_type );	
+	
+	//console.log(' zoom_type : ' + zoom_type );
+	
+	var health_type = $('#health-sec-type').val();
+	
+	if (health_ly[health_type]) {
+
+		var health_min = health_ly[health_type].min;
+		var health_max = health_ly[health_type].max;
+		var health_label = health_ly[health_type].label;
+		var health_tooltip = health_ly[health_type].tooltip;
+		
+		$( '.health-label-min' ).html( health_min );
+		$( '.health-label-max' ).html( health_max );
+		//$( '.circle-sym' ).css('background-color', count_color);		
+		
+		$( '.in-cnt-legend-box').css('display', 'inline-block');	
+		
+		$( '#hh-tooltip-health' ).attr( 'title', health_tooltip ).tooltip('fixTitle');		
+		
+		$( '.health-table-label' ).html( health_label );	
+		
+	}
 }
 
 function setBroadbandCombo() {
@@ -745,22 +839,19 @@ function setState(state) {
 
 	if (states_in[state]) {
 	
-		map.setView([states_in[state].lat, states_in[state].lng], states_in[state].zoom);  
-		
+		map.setView([states_in[state].lat, states_in[state].lng], states_in[state].zoom);  		
 		
 		geo_type = 'state';
 		geo_lat = states_in[state].lat;
 		geo_lng = states_in[state].lng;
 		
-		getData();
-		
+		getData();		
 	}
-
 }
 
 function setNationwide() {  
 	geo_type = 'national';        
-    map.setView([40, -97], 3);  
+    map.setView([40, -97], 4);  
     getData();
 }  
      
@@ -768,7 +859,7 @@ function getData() {
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+geo_type+'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	console.log(' data_url : ' + data_url );
+	//console.log(' data_url : ' + data_url );
 	
 		$.ajax({
 			type: 'GET',
@@ -785,7 +876,7 @@ function getData() {
 
 function processData(data) {
 		
-	console.log('processData : ' + JSON.stringify(data) );
+	//console.log('processData : ' + JSON.stringify(data) );
 	
 	if (data.features){
 	
@@ -1056,7 +1147,6 @@ pop_2014: 2904021,
 		
 		};
 
-
 		if (chart_obj.health.measurements.chart) {
 			chart_obj.health.measurements.chart.destroy();
 		}
@@ -1066,9 +1156,7 @@ pop_2014: 2904021,
 		
 	}	
 	else if (cur_tab == 'broadband'){
-		
-		
-	
+			
 		
 		// ***********************************************************
 		// chart - Download Tiers
@@ -1168,12 +1256,10 @@ pop_2014: 2904021,
 
 		 $('#ch-legend-broadband-1').html( chart_obj.broadband.num_providers.chart.generateLegend() );
 
-
 		//console.log(' chart_bb_dl.generateLegend : ' + chart_bb_dl.generateLegend());
 
 	}
-	else if (cur_tab == 'population'){
-		
+	else if (cur_tab == 'population'){		
 		
 		chart_obj.population.gender.data = [
 		   {
@@ -1193,7 +1279,6 @@ pop_2014: 2904021,
 			tooltipTemplate: '<%=label%>: <%= value.toLocaleString() %> (<%= Math.round(circumference / 6.283 * 1000) / 10 %>%)',
 			legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
 		};
-
 
 		if (chart_obj.population.gender.chart) {
 			chart_obj.population.gender.chart.destroy();
@@ -1231,7 +1316,6 @@ function clearClickFeature() {
 
  function generateMenu(){
 	$('.layer-switch').on('click', 'a', function(e) {
-
 
         e.preventDefault();
 	
@@ -1293,7 +1377,7 @@ function clearClickFeature() {
 	 
 	 $(".selectpicker").selectpicker({});
 	 
-	 $('.in-tooltip').tooltip();
+	 $('.in-tooltip, .hh-tooltip').tooltip();
 	 
 	 //geo_data = national_data;
 	 geo_prop = national_data.features[0].properties;

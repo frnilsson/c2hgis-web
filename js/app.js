@@ -64,7 +64,7 @@ function createMap() {
              attributionControl: true,
              maxZoom: 19
          })
-         .setView([40, -93], 4);    
+         .setView([40, -95], 4);    
 
      map.attributionControl.addAttribution('<a href="http://fcc.gov/health">FCC Connect2Health</a>');
 
@@ -851,7 +851,7 @@ function setState(state) {
 
 function setNationwide() {  
 	geo_type = 'national';        
-    map.setView([40, -97], 4);  
+    map.setView([40, -95], 4);  
     getData();
 }  
      
@@ -935,11 +935,9 @@ function processData(data) {
 					
 					getData();
 				});
-			}
-			
+			}			
 	
-			click_data.push(click_feature);	
-				
+			click_data.push(click_feature);					
 		}	
 	}
 	
@@ -973,12 +971,13 @@ function updateStats(){
 	$('#geog_pop').text(geo_prop.pop_2014);
 	$('#geog_prov').text(geo_prop.provider_count);
 	$('#geog_pcp').text(geo_prop.pcp_total);
-	$('#geog_obes').text((geo_prop.adult_obesity_pct).toFixed(3) + '%');
-	$('#geog_diab').text((geo_prop.diabetes_pct).toFixed(3) + '%');
-	$('#geog_smok').text((geo_prop.smoking_pct).toFixed(3) + '%');
-	$('#geog_drin').text((geo_prop.drinking_pct).toFixed(3) + '%');
-	$('#geog_inac').text((geo_prop.adult_obesity_pct*.7).toFixed(3) + '%');
-	$('#geog_inse').text((geo_prop.diabetes_pct*1.5).toFixed(3) + '%');
+	$('#geog_obes').text((geo_prop.adult_obesity_pct).toFixed(1) + '%');
+	$('#geog_diab').text((geo_prop.diabetes_pct).toFixed(1) + '%');
+	$('#geog_smok').text((geo_prop.smoking_pct).toFixed(1) + '%');
+	$('#geog_drin').text((geo_prop.drinking_pct).toFixed(1) + '%');
+	$('#geog_inac').text((geo_prop.physical_inactivity).toFixed(1) + '%');
+	//$('#geog_inse').text((geo_prop.physical_inactivity).toFixed(3) + '%');	
+	$('#geog_severe_housing').text((geo_prop.severe_housing_problems).toFixed(1) + '%');
 }
 
 function createStats() {
@@ -1039,81 +1038,9 @@ function createCharts() {
 	if (cur_tab == 'health'){
 		
 
-		//console.log(' health chart : '  );
-		
-		
-		/*
-		premature_death_total: 30050,
-		premature_death_pct: 1.03,
-		poor_fair_health_total: 368811,
-		poor_fair_health_pct: 12.7,
-		adult_obesity_total: 879663,
-		adult_obesity_pct: 30.29,
-		pcp_total: 2133,
-		pcp_pct: 0.07,
-		prevent_hosp_stay_total: 328509,
-		prevent_hosp_stay_pct: 11.31,
-		health_cost_total: 1041631,
-		health_cost_pct: 3.5270087487936372,
-		cost_no_dr_total: 74394,
-		cost_no_dr_pct: 2.56175833439221,
-		submission_cycle: "2015-09",
-		smoking_total: 79118,
-		smoking_pct: 2.7244293343608743,
-		drinking_total: 77728,
-		drinking_pct: 2.6765646667155645,
-		dentist_total: 1528,
-		dentist_pct: 0.052616699397146235,
-		mhp_total: 4984,
-		mhp_pct: 0.17162410326922567,
-		diabetes_total: 197549,
-		diabetes_pct: 6.802602322779347,
-		health_cost_national_total: 29532986,
-		car_death_total: 2956,
-		car_death_pct: 0.10178989752484573,
-		health_cost_state_avg: 9387,
-		
-		advdl_gr25000k: 0.8168,
-advul_gr3000k: 0.9977,
-wireline_advdl_gr25000k: 0.8168,
-wireline_advul_gr3000k: 0.7829,
-wireless_advdl_gr25000k: 0,
-wireless_advul_gr3000k: 0.9967,
-advdl_gr768k_lt1500k: 0.0001,
-advdl_gr1500k_lt3000k: 0,
-advdl_gr3000k_lt6000k: 0.0011,
-advdl_gr6000k_lt10000k: 0.0005,
-advdl_gr10000k_lt25000k: 0.1815,
-advdl_gr25000k_lt50000k: 0.0249,
-advdl_gr50000k_lt100000k: 0.0829,
-advdl_gr100000k_lt1gig: 0.6408,
-advul_gr200k_lt768k: 0.0001,
-advul_gr768k_lt1500k: 0.0001,
-advul_gr1500k_lt3000k: 0.0021,
-advul_gr3000k_lt6000k: 0.1724,
-advul_gr6000k_lt10000k: 0.2575,
-advul_gr10000k_lt25000k: 0.3891,
-advul_gr25000k_lt50000k: 0.0693,
-advul_gr50000k_lt100000k: 0.0202,
-advul_gr100000k_lt1gig: 0.0221,
-most_common_dl: 10,
-greatest_dl: 11,
-most_common_ul: 7,
-greatest_ul: 11,
-provider_count: 85,
-prov_0: 0,
-prov_gr1: 1,
-prov_gr2: 1,
-prov_gr3: 0.9976,
-prov_gr4: 0.9686,
-prov_gr5: 0.8935,
-prov_gr6: 0.7772,
-prov_gr7: 0.5751,
-prov_gr8: 0.229,
-pop_2014: 2904021,
-		
-		geo_prop.adult_obesity_pct
-		*/
+		//console.log(' health chart : '  );	
+
+
 	
 		//console.log(' geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );
 		
@@ -1122,7 +1049,7 @@ pop_2014: 2904021,
 		updateStats();
 		
 		chart_obj.health.measurements.data = {
-			labels: ["Obesity", "Diabetes", "Smoking", "Excessive Drinking", "Physical Inactivity", "Food Insecurity"],
+			labels: ["Obesity", "Diabetes", "Smoking", "Excessive Drinking", "Physical Inactivity", "Severe Housing Problem"],
 			datasets: [
 				{
 					label: "Health Behaviours",
@@ -1132,7 +1059,7 @@ pop_2014: 2904021,
 					pointStrokeColor: "#fff",
 					pointHighlightFill: "#fff",
 					pointHighlightStroke: "rgba(220,220,220,1)",
-					data: [geo_prop.adult_obesity_pct, geo_prop.diabetes_pct, geo_prop.smoking_pct, geo_prop.drinking_pct, geo_prop.adult_obesity_pct*.7, geo_prop.diabetes_pct*1.5]
+					data: [geo_prop.adult_obesity_pct, geo_prop.diabetes_pct, geo_prop.smoking_pct, geo_prop.drinking_pct, geo_prop.physical_inactivity, geo_prop.severe_housing_problems]
 				}
 			]
 		};

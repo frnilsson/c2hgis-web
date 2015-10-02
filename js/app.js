@@ -179,13 +179,14 @@ function createMap() {
     }); 
 	
 	// select count
-    $('#select-count').on('change', function() {
+    $('#select-in-count').on('change', function() {
 	
-        var count_sel = $('#select-count').val();		
+        var count_sel = $('#select-in-count').val();		
 		//console.log(' count_sel : ' + count_sel );
 		
 		if (count_sel != "") {
 			setCount();
+			updateStats();
 		}
 		else {
 			if (map.hasLayer(map_overlays['in_count'])) {
@@ -320,7 +321,9 @@ var insight_ly = {
 			step: 5,
 			values: [90, 100],
 			label: '% Coverage',
-			tooltip: 'Percent of population with access to 25 mbps advertised download speeds.'
+			tooltip: 'Percent of population with access to 25 mbps advertised download speeds.',
+			name: 'Broadband Access',
+			suffix: '%'
 		},
 		in_bb_dl_speed: {
 			column: 'most_common_dl',
@@ -332,7 +335,9 @@ var insight_ly = {
 			step: 1,
 			values: [8, 11],
 			label: 'Download',
-			tooltip: 'Most commonly advertised download speed.'
+			tooltip: 'Most commonly advertised download speed.',
+			name: 'Download Speed',
+			suffix: 'mbps'
 		},
 		in_bb_ul_speed: {
 			column: 'most_common_ul',
@@ -344,7 +349,9 @@ var insight_ly = {
 			step: 1,
 			values: [8, 11],
 			label: 'Upload',
-			tooltip: 'Most commonly advertised upload speed.'
+			tooltip: 'Most commonly advertised upload speed.',
+			name: 'Upload Speed',
+			suffix: 'mbps'
 		}
 	},
 	health: {
@@ -358,7 +365,9 @@ var insight_ly = {
 			step: 0.00005,
 			values: [0.00025, 0.00075],
 			label: 'Physicians',
-			tooltip: 'Primary Care Physicians per 100,000 people.'
+			tooltip: 'Primary Care Physicians per 100,000 people.',
+			name: 'Physician Access',
+			suffix: 'per 100,000'
 		},
 		in_prm_death: {
 			column: 'years_lost_per_100000',
@@ -370,7 +379,9 @@ var insight_ly = {
 			step: 100,
 			values: [7500, 15000],
 			label: 'Years',
-			tooltip: 'Number of years lost due to premature death before age 75 per 100,000 people.'
+			tooltip: 'Number of years lost due to premature death before age 75 per 100,000 people.',
+			name: 'Premature Death',
+			suffix: 'per 100,000'
 		},
 		in_prv_hosp: {
 			column: 'preventable_hospital_stays_per_1000',
@@ -382,7 +393,9 @@ var insight_ly = {
 			step: 5,
 			values: [60, 120],
 			label: 'Hospital Stays',
-			tooltip: 'Number of preventable hospital stays per 1,000 people.'
+			tooltip: 'Number of preventable hospital stays per 1,000 people.',
+			name: 'Preventable Hospital',
+			suffix: 'per 1,000'
 		},
 		in_obs_rate: {
 			column: 'adult_obesity_pct',
@@ -394,7 +407,9 @@ var insight_ly = {
 			step: 1,
 			values: [30, 40],
 			label: '% Obesity',
-			tooltip: 'Percentage of adults that report a BMI of 30 or more.'
+			tooltip: 'Percentage of adults that report a BMI of 30 or more.',
+			name: 'Obesity Rate',
+			suffix: '%'
 		}
 	},
 	count: {
@@ -409,7 +424,9 @@ var insight_ly = {
 			state: {
 				min: '1,000',
 				max: '10,000'
-			}
+			},
+			name: 'Population',
+			suffix: ''
 		},
 		in_cnt_ip: {
 			column: 'provider_count',
@@ -422,7 +439,9 @@ var insight_ly = {
 			state: {
 				min: 25,
 				max: 100
-			}
+			},
+			name: 'Physicians',
+			suffix: ''
 		},
 		in_cnt_pop: {
 			column: 'pop_2014',
@@ -435,7 +454,9 @@ var insight_ly = {
 			state: {
 				min: '1&nbsp;million',
 				max: '10&nbsp;million'
-			}
+			},
+			name: 'Internet Providers',
+			suffix: ''
 		}
 	}
 };
@@ -475,11 +496,12 @@ function createSlider() {
 	
 	$('.select-insight').on('change', function() {
 	
-        var cur_type = $(this).attr('id').split('-')[2];
-		
+        var cur_type = $(this).attr('id').split('-')[2];		
 		//console.log(' cur_type : ' + cur_type );
 		
 		updateSlider(cur_type);	
+		
+		updateStats();
 		
     });	
 }
@@ -757,7 +779,7 @@ function setCount() {
 
 	//console.log(' setCount type : ' + type );
 	
-	var type = $('#select-count').val();
+	var type = $('#select-in-count').val();
 	
 	//console.log(' setCount type : ' + type );
 
@@ -785,12 +807,10 @@ function setCount() {
 function updateCountLegend() {
 	
 	//console.log(' count_type : ' + count_type );
-	//console.log(' geo_type : ' + geo_type );
-	
-	
+	//console.log(' geo_type : ' + geo_type );	
 	//console.log(' zoom_type : ' + zoom_type );
 	
-	var count_type = $('#select-count').val();	
+	var count_type = $('#select-in-count').val();	
 	
 	if (count_type != '' && insight_ly.count[count_type][zoom_type]) {		
 
@@ -810,13 +830,17 @@ function updateCountLegend() {
 	}
 }
 
-
 var states_in = {
 	FL: {
 		lat: 28.5953035358968,
 		lng: -82.4958094312413,
 		zoom: 7
-	},
+	},	
+	MI: {
+		lat: 44.3715397944714,
+		lng: -85.4376684832842,
+		zoom: 7
+	}, 
 	MS: {
 		lat: 32.7509547380987,
 		lng: -89.6621633573408,
@@ -826,7 +850,7 @@ var states_in = {
 		lat: 37.5126006451781,
 		lng: -78.7878086547533,
 		zoom: 7
-	}
+	}	
 };
 
 function setState(state) {
@@ -956,7 +980,7 @@ function processData(data) {
 	
 }
 
-function updateStats(){
+function updateStats() {
 	
 	var geography_type = geo_prop.geography_type;
 	var geography_id = geo_prop.geography_id;
@@ -977,10 +1001,37 @@ function updateStats(){
 	//console.log(' geography_desc : ' + geography_desc );	
 	
 	$('.geog-name').text(geography_desc);
-
 	$('.geog-pop').text(formatStat(geo_prop.pop_2014));
-	$('.geog-prov').text(formatStat(geo_prop.provider_count));
-
+	$('.geog-prov').text(formatStat(geo_prop.provider_count));	
+		
+	// Insight Stats	
+	
+	var broadband_sel = $('#select-in-broadband').val();
+	var health_sel = $('#select-in-health').val();
+	var count_sel = $('#select-in-count').val();
+	
+	var broadband_stat_value, health_stat_value, count_stat_value;
+	
+	if ((broadband_sel == 'in_bb_dl_speed') || (broadband_sel == 'in_bb_ul_speed')) {
+		broadband_stat_value = bb_speed_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range +' '+ insight_ly.broadband[broadband_sel].suffix;
+	}
+	else {
+		broadband_stat_value = formatStat(geo_prop[insight_ly.broadband[broadband_sel].column]) +' '+ insight_ly.broadband[broadband_sel].suffix;
+	}		
+	
+	health_stat_value = formatStat((geo_prop[insight_ly.health[health_sel].column] * insight_ly.health[health_sel].multiple), 1) +' '+ insight_ly.health[health_sel].suffix;
+	
+	count_stat_value = formatStat(geo_prop[insight_ly.count[count_sel].column]) +' '+ insight_ly.count[count_sel].suffix;
+	
+	$('#in-broadband-stat-name').text(insight_ly.broadband[broadband_sel].name +' : ');
+	$('#in-broadband-stat-value').text(broadband_stat_value);
+	
+	$('#in-health-stat-name').text(insight_ly.health[health_sel].name +' : ');
+	$('#in-health-stat-value').text(health_stat_value);
+	
+	$('#in-count-stat-name').text(insight_ly.count[count_sel].name +' : ');
+	$('#in-count-stat-value').text(count_stat_value);
+	
 	// Health Stats
 	$('.geog-pcp').text(formatStat(geo_prop.pcp_total));
 	$('.geog-dentists').text(formatStat(geo_prop.dentist_total));
@@ -992,8 +1043,8 @@ function updateStats(){
 	$('.geog-injuryd').text(formatStat(geo_prop.injury_deaths_per_100000, 1) +' per 100,000');
 	$('.geog-sickdays').text(formatStat(geo_prop.poor_physical_health_days_within_last_30_days, 1) +' days per month');	
 	
-	$('.geog-longcommute').text(formatStat(geo_prop.long_commute_driving_alone) +'%');
-	$('.geog-drivealone').text(formatStat(geo_prop.driving_alone_to_work) +'%');
+	$('.geog-longcommute').text(formatStat(geo_prop.long_commute_driving_alone, 1) +'%');
+	$('.geog-drivealone').text(formatStat(geo_prop.driving_alone_to_work, 1) +'%');
 	
 	$('.geog-obes').text(formatStat(geo_prop.adult_obesity_pct, 1) + '%');
 	$('.geog-diab').text(formatStat(geo_prop.diabetes_pct, 1) + '%');
@@ -1032,6 +1083,9 @@ function formatStat(input, decimal) {
 		else {
 			output = input.toLocaleString('en');
 		}		
+	}
+	else {
+		output = 'N/A ';
 	}
 	
 	return output;	
@@ -1083,22 +1137,17 @@ var chart_obj = {
 			data: null,
 			options: null
 		}	
-	}
-	
+	}	
 };
 
 function createCharts() {
-
 	
 	//console.log(' cur_tab : ' +  cur_tab );
 	
-	if (cur_tab == 'health'){
-		
+	if (cur_tab == 'health'){		
 
 		//console.log(' health chart : '  );	
-	
 		//console.log(' geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );
-		
 		//console.log(' geo_prop : ' +  JSON.stringify(geo_prop) );
 
 		updateStats();
@@ -1290,7 +1339,7 @@ function createCharts() {
 						pointStrokeColor: "#fff",
 						pointHighlightFill: "#fff",
 						pointHighlightStroke: "rgba(220,220,220,1)",
-						data: [geo_prop.prov_gr1*100, geo_prop.prov_gr2*100, geo_prop.prov_gr3*100, geo_prop.prov_gr4*100, geo_prop.prov_gr5*100, geo_prop.prov_gr6*100, geo_prop.prov_gr7*100, geo_prop.prov_gr8*100]
+						data: [geo_prop.prov_gr1, geo_prop.prov_gr2, geo_prop.prov_gr3, geo_prop.prov_gr4, geo_prop.prov_gr5, geo_prop.prov_gr6, geo_prop.prov_gr7, geo_prop.prov_gr8]
 					}
 				]
 			};
@@ -1389,7 +1438,7 @@ function clearClickFeature() {
             $('.list-insight-panel').removeClass('hide'); 
 			
 			createSlider();
-			var count_sel = $('#select-count').val();
+			var count_sel = $('#select-in-count').val();
 			if (count_sel != "") {
 				setCount();
 			}
@@ -1442,8 +1491,7 @@ function clearClickFeature() {
 	 
 	 $(".selectpicker").selectpicker({});
 	 
-	 $('.in-tooltip, .hh-tooltip').tooltip(); 
-
+	 $('.in-tooltip, .hh-tooltip').tooltip();
 	
 	$('#carousel-bb').bind('slid.bs.carousel', function (e) {
 		//console.log('slide event!');

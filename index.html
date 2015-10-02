@@ -247,7 +247,7 @@
                                 <div class="panel-data list-health-panel hide">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="col-sm-5 layer-drop-lab">                                    
+                                            <div class="col-sm-5 layer-drop-lab layer-drop-lab-health">                                    
 												Health Measures: 
                                             </div>
                                             <div class="col-sm-7">                                    
@@ -439,7 +439,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">                                               
-                                            <div id="broadband-dir-group" class="btn-group" data-toggle="buttons">
+                                            <div id="broadband-dir-group" class="btn-group pull-right" data-toggle="buttons">
                                                   <label class="btn btn-primary active">
                                                     <input class="show-layer broadband-dir" type="radio" checked="checked" name="broadband-dir" id="broadband-dir-dl" value="dl" autocomplete="off"> Download
                                                   </label>
@@ -559,42 +559,32 @@
                                         </div>										
 									</div>
 						
-									<div id="carousel-bb" class="carousel slide" data-wrap="true">
+									<div id="carousel-bb" class="carousel slide" data-wrap="true" data-interval="false">
 										<!-- Indicators -->
 										<ol class="carousel-indicators">
 											<li data-target="#carousel-bb" data-slide-to="0" class="active"></li>
 											<li data-target="#carousel-bb" data-slide-to="1"></li>
 											<li data-target="#carousel-bb" data-slide-to="2"></li>
-											<li data-target="#carousel-bb" data-slide-to="3"></li>
 										</ol>
 
 										<!-- Wrapper for slides -->
 										<div class="carousel-inner" role="listbox">
 											<div class="item active">
-												<div style="width: 300px; height: 250px;">
-													<canvas id="ch-canvas-broadband-1" style="width: 300px; height: 220px;"></canvas>
-													<div id="ch-legend-broadband-1" style="width: 300px; height: 30px; text-align: center;"></div>						
+												<div class="carousel-cont">
+													<canvas id="ch-canvas-broadband-1" class="carousel-canvas"></canvas>
+													<div id="ch-legend-broadband-1" class="carousel-legend" ></div>						
 												</div>
 											</div>
-
 											<div class="item">
-												<div style="width: 300px; height: 300px;">
-													<canvas id="ch-canvas-broadband-2" style="width: 300px; height: 220px;"></canvas>
-													<div id="ch-legend-broadband-2" style="width: 300px; height: 30px; text-align: center;"></div>						
+												<div class="carousel-cont">
+													<canvas id="ch-canvas-broadband-2" class="carousel-canvas"></canvas>
+													<div id="ch-legend-broadband-2" class="carousel-legend"></div>						
 												</div>
 											</div>
-
 											<div class="item">
-												<div style="width: 300px; height: 300px;">
-													<canvas id="ch-canvas-broadband-3" style="width: 300px; height: 220px;"></canvas>
-													<div id="ch-legend-broadband-3" style="width: 300px; height: 30px; text-align: center;"></div>						
-												</div>
-											</div>
-
-											<div class="item">
-												<div style="width: 300px; height: 300px;">
-													<canvas id="ch-canvas-broadband-4" style="width: 300px; height: 220px;"></canvas>
-													<div id="ch-legend-broadband-4" style="width: 300px; height: 30px; text-align: center;"></div>						
+												<div class="carousel-cont">
+													<canvas id="ch-canvas-broadband-3" class="carousel-canvas"></canvas>
+													<div id="ch-legend-broadband-3" class="carousel-legend"></div>						
 												</div>
 											</div>
 										</div>

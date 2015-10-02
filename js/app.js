@@ -936,6 +936,7 @@ function processData(data) {
 }
 
 function updateStats(){
+	
 	var geography_type = geo_prop.geography_type;
 	var geography_id = geo_prop.geography_id;
 	var geography_desc = geo_prop.geography_desc;	
@@ -1117,107 +1118,184 @@ function createCharts() {
 	}	
 	else if (cur_tab == 'broadband'){
 			
+		var current_slide = $('.carousel-inner div.active').index() + 1;
+		
+		console.log(' current_slide : ' + current_slide );	
+		
+		if (chart_obj.broadband.dl_tiers.chart) {
+			chart_obj.broadband.dl_tiers.chart.destroy();
+		}
+		if (chart_obj.broadband.num_providers.chart) {
+			chart_obj.broadband.num_providers.chart.destroy();
+		}
 		
 		// ***********************************************************
 		// chart - Download Tiers
 		
-		chart_obj.broadband.dl_tiers.data = [
-		   {
-			  value: geo_prop.advdl_gr768k_lt1500k,
-			  label: '0.768 - 1.5',
-			  color: '#3500cc'
-		   },
-		   {
-			  value: geo_prop.advdl_gr1500k_lt3000k,
-			  label: '1.5 - 3',
-			  color: '#00b2cc'
-		   },
-		   {
-			  value: geo_prop.advdl_gr3000k_lt6000k,
-			  label: '3 - 6',
-			  color: '#00cc82'
-		   },
-		   {
-			  value: geo_prop.advdl_gr6000k_lt10000k,
-			  label: '6 - 10',
-			  color: '#005bcc'
-		   },
-		   {
-			  value: geo_prop.advdl_gr10000k_lt25000k,
-			  label: '10 - 25',
-			  color: '#000ecc'
-		   },
-		   {
-			  value: geo_prop.advdl_gr25000k_lt50000k,
-			  label: '25 - 50',
-			  color: '#0090cc'
-		   },
-		   {
-			  value: geo_prop.advdl_gr50000k_lt100000k,
-			  label: '50 - 100',
-			  color: '#00cca3'
-		   },
-		   {
-			  value: geo_prop.advdl_gr100000k_lt1gig,
-			  label: '100 - 1,000',
-			  color: '#003acc'
-		   }
-		];
+		if (current_slide == 2) {
 		
-		chart_obj.broadband.dl_tiers.options = {
-			animationEasing: 'easeOutQuart',
-			//tooltipTemplate: '<%=label%>: <%= value.toLocaleString() %>',
-			//legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
-		};
+			chart_obj.broadband.dl_tiers.data = [
+			   {
+				  value: geo_prop.advdl_gr768k_lt1500k,
+				  label: '0.768 - 1.5',
+				  color: '#919190'
+			   },
+			   {
+				  value: geo_prop.advdl_gr1500k_lt3000k,
+				  label: '1.5 - 3',
+				  color: '#dcdcc6'
+			   },
+			   {
+				  value: geo_prop.advdl_gr3000k_lt6000k,
+				  label: '3 - 6',
+				  color: '#baf200'
+			   },
+			   {
+				  value: geo_prop.advdl_gr6000k_lt10000k,
+				  label: '6 - 10',
+				  color: '#baf200'
+			   },
+			   {
+				  value: geo_prop.advdl_gr10000k_lt25000k,
+				  label: '10 - 25',
+				  color: '#5ae200'
+			   },
+			   {
+				  value: geo_prop.advdl_gr25000k_lt50000k,
+				  label: '25 - 50',
+				  color: '#0bb81d'
+			   },
+			   {
+				  value: geo_prop.advdl_gr50000k_lt100000k,
+				  label: '50 - 100',
+				  color: '#00807a'
+			   },
+			   {
+				  value: geo_prop.advdl_gr100000k_lt1gig,
+				  label: '100 - 1,000',
+				  color: '#0050cc'
+			   }
+			];
+			
+			chart_obj.broadband.dl_tiers.options = {
+				animationEasing: 'easeOutQuart',
+				tooltipTemplate: '<%=label%>: <%= Number(value*100).toLocaleString() %>%',
+				//legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
+			};
 
-
-		if (chart_obj.broadband.dl_tiers.chart) {
-			chart_obj.broadband.dl_tiers.chart.destroy();
+			if (chart_obj.broadband.dl_tiers.chart) {
+				chart_obj.broadband.dl_tiers.chart.destroy();
+			}
+			chart_obj.broadband.dl_tiers.chart = new Chart(document.getElementById('ch-canvas-broadband-2').getContext('2d')).Doughnut(chart_obj.broadband.dl_tiers.data, chart_obj.broadband.dl_tiers.options);		
+			
+			 $('#ch-legend-broadband-2').html( 'Download Speed Tiers' );
 		}
-		chart_obj.broadband.dl_tiers.chart = new Chart(document.getElementById('ch-canvas-broadband-2').getContext('2d')).Doughnut(chart_obj.broadband.dl_tiers.data, chart_obj.broadband.dl_tiers.options);		
 		
-		 //$('#ch-legend-broadband-2').html( chart_obj.broadband.dl_tiers.chart.generateLegend() );
-		 
+		// ***********************************************************
+		// chart - Upload Tiers
+		
+		if (current_slide == 3) {
+		
+			chart_obj.broadband.ul_tiers.data = [
+			   {
+				  value: geo_prop.advul_gr768k_lt1500k,
+				  label: '0.768 - 1.5',
+				  color: '#919190'
+			   },
+			   {
+				  value: geo_prop.advul_gr1500k_lt3000k,
+				  label: '1.5 - 3',
+				  color: '#dcdcc6'
+			   },
+			   {
+				  value: geo_prop.advul_gr3000k_lt6000k,
+				  label: '3 - 6',
+				  color: '#baf200'
+			   },
+			   {
+				  value: geo_prop.advul_gr6000k_lt10000k,
+				  label: '6 - 10',
+				  color: '#baf200'
+			   },
+			   {
+				  value: geo_prop.advul_gr10000k_lt25000k,
+				  label: '10 - 25',
+				  color: '#5ae200'
+			   },
+			   {
+				  value: geo_prop.advul_gr25000k_lt50000k,
+				  label: '25 - 50',
+				  color: '#0bb81d'
+			   },
+			   {
+				  value: geo_prop.advul_gr50000k_lt100000k,
+				  label: '50 - 100',
+				  color: '#00807a'
+			   },
+			   {
+				  value: geo_prop.advul_gr100000k_lt1gig,
+				  label: '100 - 1,000',
+				  color: '#0050cc'
+			   }
+			];
+			
+			chart_obj.broadband.ul_tiers.options = {
+				animationEasing: 'easeOutQuart',
+				tooltipTemplate: '<%=label%>: <%= Number(value*100).toLocaleString() %>%',
+				//legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
+			};
+
+			if (chart_obj.broadband.ul_tiers.chart) {
+				chart_obj.broadband.ul_tiers.chart.destroy();
+			}
+			chart_obj.broadband.ul_tiers.chart = new Chart(document.getElementById('ch-canvas-broadband-3').getContext('2d')).Doughnut(chart_obj.broadband.ul_tiers.data, chart_obj.broadband.ul_tiers.options);		
+			
+			 $('#ch-legend-broadband-3').html( 'Upload Speed Tiers' );
+		}
 		
 		// ***********************************************************
 		// chart - Number of Providers
 		
-		chart_obj.broadband.num_providers.data = {
-			labels: ["> 1", "> 2", "> 3", "> 4", "> 5", "> 6", "> 7", "> 8"],
-			datasets: [
-				{
-					label: "Number of Providers",
-					fillColor: "rgba(220,220,220,0.4)",
-					strokeColor: "rgba(0,80,204,1)",
-					pointColor: "rgba(0,80,204,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(220,220,220,1)",
-					data: [geo_prop.prov_gr1*100, geo_prop.prov_gr2*100, geo_prop.prov_gr3*100, geo_prop.prov_gr4*100, geo_prop.prov_gr5*100, geo_prop.prov_gr6*100, geo_prop.prov_gr7*100, geo_prop.prov_gr8*100]
-				}
-			]
-		};
+		if (current_slide == 1) {
 		
-		chart_obj.broadband.num_providers.options = {
-			//bezierCurve: false
-			pointHitDetectionRadius : 0,		
-			datasetFill : true,
-			scaleBeginAtZero: true,
-			tooltipTemplate: "<%if (label){%>Number of Providers <%=label%>: <%}%><%= value.toFixed(1) %>%",
-			legendTemplate : '<ul class="<%=name.toLowerCase()%>-legends" style="width: 100%; list-style-type: none;"><% for (var i=0; i<datasets.length; i++){%><li><div style="background-color:<%=datasets[i].strokeColor%>; width: 20px; height: 2px; display: inline-block; margin: 4px 0;"></div>&nbsp;<%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
+			chart_obj.broadband.num_providers.data = {
+				labels: ["> 1", "> 2", "> 3", "> 4", "> 5", "> 6", "> 7", "> 8"],
+				datasets: [
+					{
+						label: "Number of Providers",
+						fillColor: "rgba(220,220,220,0.4)",
+						strokeColor: "rgba(0,80,204,1)",
+						pointColor: "rgba(0,80,204,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(220,220,220,1)",
+						data: [geo_prop.prov_gr1*100, geo_prop.prov_gr2*100, geo_prop.prov_gr3*100, geo_prop.prov_gr4*100, geo_prop.prov_gr5*100, geo_prop.prov_gr6*100, geo_prop.prov_gr7*100, geo_prop.prov_gr8*100]
+					}
+				]
+			};
 			
-		};
+			chart_obj.broadband.num_providers.options = {
+				//bezierCurve: false
+				pointHitDetectionRadius : 0,		
+				datasetFill : true,
+				scaleBeginAtZero: true,
+				tooltipTemplate: "<%if (label){%>Number of Providers <%=label%>: <%}%><%= value.toFixed(1) %>%",
+				legendTemplate : '<ul class="<%=name.toLowerCase()%>-legends" style="width: 100%; list-style-type: none;"><% for (var i=0; i<datasets.length; i++){%><li><div style="background-color:<%=datasets[i].strokeColor%>; width: 20px; height: 2px; display: inline-block; margin: 4px 0;"></div>&nbsp;<%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
+				
+			};
 
-		if (chart_bb_dl) {
-			chart_bb_dl.destroy();
-		}		
+			if (chart_obj.broadband.num_providers.chart) {
+				chart_obj.broadband.num_providers.chart.destroy();
+			}		
+			
+			chart_obj.broadband.num_providers.chart = new Chart(document.getElementById('ch-canvas-broadband-1').getContext('2d')).Line(chart_obj.broadband.num_providers.data, chart_obj.broadband.num_providers.options);		
+
+			 $('#ch-legend-broadband-1').html( chart_obj.broadband.num_providers.chart.generateLegend() );
+
+			//console.log(' chart_bb_dl.generateLegend : ' + chart_bb_dl.generateLegend());
 		
-		chart_obj.broadband.num_providers.chart = new Chart(document.getElementById('ch-canvas-broadband-1').getContext('2d')).Line(chart_obj.broadband.num_providers.data, chart_obj.broadband.num_providers.options);		
-
-		 $('#ch-legend-broadband-1').html( chart_obj.broadband.num_providers.chart.generateLegend() );
-
-		//console.log(' chart_bb_dl.generateLegend : ' + chart_bb_dl.generateLegend());
-
+		}
+		
 	}
 	else if (cur_tab == 'population'){		
 		
@@ -1328,20 +1406,29 @@ function clearClickFeature() {
  }
      
  $(document).ready(function() {
-     createMap();
+ 
+     //geo_data = national_data;
+	 geo_prop = national_data.features[0].properties;
+	 
+	 createMap();
      generateMenu();
 	 
 	 createSlider();
 	 
 	 setCount();
 	 
+	 updateStats();	
+	 
 	 $(".selectpicker").selectpicker({});
 	 
-	 $('.in-tooltip, .hh-tooltip').tooltip();
-	 
-	 //geo_data = national_data;
-	 geo_prop = national_data.features[0].properties;
-     
+	 $('.in-tooltip, .hh-tooltip').tooltip(); 
+
+	
+	$('#carousel-bb').bind('slid.bs.carousel', function (e) {
+		console.log('slide event!');
+		createCharts();
+	});
+    
 });  
        
   

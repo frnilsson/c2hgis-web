@@ -813,6 +813,9 @@ blockquote {
     .menu-secondary > li > a:focus, .menu-secondary > li > a:active, .menu-secondary > li > a:hover {
       background: transparent;
     }
+    .menu-secondary > li > a.active:focus .link-title, .menu-secondary > li > a:focus .link-title {
+        border-bottom: 6px solid #ddd;
+    }
     @media screen and (max-width: 991px) {
       /* line 413, ../scss/ui-components/_header.scss */
       .menu-secondary > li > a {

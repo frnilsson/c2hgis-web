@@ -55,23 +55,23 @@
 			<div aria-hidden="true" class="navbar-secondary navbar-default yamm nav-offcanvas nav-offcanvas-right">
 				<div id="menu-secondary" class="tab-content">
 					<div class="container tab-pane active" id="browse-by-category">
-						<ul class="nav nav-tabs menu-secondary">
-							<li class="dropdown dropdown-left yamm-fw" role="presentation">
+						<ul class="nav nav-tabs menu-secondary" role="navigation">
+							<li class="dropdown dropdown-left yamm-fw">
 								<a href="index.html" class="dropdown-toggle active">
 									<span class="link-title dropdown-link-title">Interactive</span>
 								</a>
 							</li>
-							<li class="dropdown dropdown-left yamm-fw" role="presentation">
+							<li class="dropdown dropdown-left yamm-fw">
 								<a href="methodology.html" class="dropdown-toggle">
 									<span class="link-title dropdown-link-title">Methodology</span>
 								</a>
 							</li>                                                
-							<li class="dropdown dropdown-left yamm-fw" role="presentation">
+							<li class="dropdown dropdown-left yamm-fw">
 								<a href="data-sources.html" class="dropdown-toggle">
 									<span class="link-title dropdown-link-title">Data Sources</span>
 								</a>
 							</li>
-							<li class="dropdown dropdown-left yamm-fw" role="presentation">
+							<li class="dropdown dropdown-left yamm-fw">
 								<a href="community-engagement.html" class="dropdown-toggle">
 									<span class="link-title dropdown-link-title">Community Engagement</span>
 								</a>
@@ -117,11 +117,11 @@
 				-->
 		            <div class="panel panel-default panel-top">
                         <div id="tab-div-nav" class="tab-nav" >
-                            <ul class="layer-switch nav nav-pills">
-                                <li class="active"><a id="insights" href="#" class="active" role="presentation">Insights</a></li>
-                                <li><a id="health" href="#" role="presentation">Health</a></li>
-                                <li><a id="broadband" href="#" role="presentation">Broadband</a></li> 
-								<li><a id="population" href="#" role="presentation">Population</a></li>  
+                            <ul class="layer-switch nav nav-pills" role="navigation">
+                                <li class="active"><a id="insights" href="#" class="active">Insights</a></li>
+                                <li><a id="health" href="#">Health</a></li>
+                                <li><a id="broadband" href="#">Broadband</a></li> 
+								<li><a id="population" href="#">Population</a></li>  
                             </ul>
                         </div>                        
                         <div>
@@ -143,7 +143,7 @@
                                                 <div class="col-xs-10 slider-label" id="label-broadband" style="color: #0050cc;">
         									    </div>   
                                                 <div class="col-xs-2 slider-tooltip-div">
-                                                    <i class="fa fa-question in-tooltip" id="in-tooltip-broadband" data-toggle="tooltip" title=""></i>
+                                                    <i class="fa fa-question in-tooltip" id="in-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
                                                 </div>
                                             </div>
                                         </div>                                        
@@ -166,7 +166,7 @@
                                                 <div class="col-xs-10 slider-label" id="label-health" style="color: #ba0c0c;">
                                                 </div>   
                                                 <div class="col-xs-2 slider-tooltip-div">
-                                                    <i class="fa fa-question in-tooltip" id="in-tooltip-health" data-toggle="tooltip" title=""></i>
+                                                    <i class="fa fa-question in-tooltip" id="in-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
                                                 </div>
                                             </div>
                                         </div>                                         
@@ -254,6 +254,7 @@
 													<option value="FL">Florida</option>
 													<option value="MI">Michigan</option>
 													<option value="MS">Mississippi</option>
+													<option value="OH">Ohio</option>
 													<option value="VA">Virginia</option>
 												</select>
 											</div>                                    
@@ -263,7 +264,7 @@
                                     <div class="row">
 										<div class="col-md-12">
                                             <div class="col-sm-4">
-											     <label for="curate-map">Select Map:</label>
+											     <label for="select-curate-map">Select Map:</label>
                                             </div>
 											<div class="col-sm-8 type-select">                      
 												<select id="select-curate-map" class="selectpicker">
@@ -293,7 +294,7 @@
                                                     <option value="hh_preventhosp">Preventable Hospital</option>
 													<option value="hh_obesity">Obesity Rate</option>
                                                 </select>												
-												<i class="fa fa-question hh-tooltip" id="hh-tooltip-health" data-toggle="tooltip" title=""></i>
+												<i class="fa fa-question hh-tooltip" id="hh-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
                                             </div>
                                         </div>										
 									</div>	
@@ -744,22 +745,22 @@
                                     <h4 class="footer-heading">Categories</h4>
                                     <ul class="footer-links footer-links-categories">
                                         <li>
-                                            <a href="http://nelson:7028/opif-new/about.php">About the FCC</a>
+                                            <a href="index.html#">About the FCC</a>
                                         </li>
                                         <li>
-                                            <a href="http://nelson:7028/opif-new/proceedings.php">Proceedings &amp; Actions</a>
+                                            <a href="index.html#">Proceedings &amp; Actions</a>
                                         </li>
                                         <li>
-                                            <a href="http://nelson:7028/opif-new/licensing.php">Licensing &amp; Databases</a>
+                                            <a href="index.html#">Licensing &amp; Databases</a>
                                         </li>
                                         <li>
                                             <a href="index.html#">Reports &amp; Research</a>
                                         </li>
                                         <li>
-                                            <a href="http://nelson:7028/opif-new/news-events.php">News &amp; Events</a>
+                                            <a href="index.html#">News &amp; Events</a>
                                         </li>
                                         <li>
-                                            <a href="http://nelson:7028/opif-new/consumer-landing.php">For Consumers</a>
+                                            <a href="index.html#">For Consumers</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -776,7 +777,7 @@
                                             <a href="index.html#">International</a>
                                         </li>
                                         <li>
-                                            <a href="http://nelson:7028/opif-new/media-bureau.php">Media</a>
+                                            <a href="index.html#">Media</a>
                                         </li>
                                         <li>
                                             <a href="index.html#">Public Safety</a>

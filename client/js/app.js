@@ -202,12 +202,13 @@ function createMap() {
     });  
 	
 	// select state
-    $('#select-state').on('change', function() {
+    $('#insight-select-state').on('change', function() {
 	
-        var state_sel = $('#select-state').val();		
+        var state_sel = $('#insight-select-state').val();		
 		console.log(' state_sel : ' + state_sel );
 
 		updateInsightContent(state_sel);
+		
 		console.log('map options updated for :' + state_sel );		
 		if (state_sel == "nationwide") {
 			setNationwide();
@@ -271,7 +272,7 @@ var map_overlays = {
 	in_count: null,
 	health_ov: null,
 	broadband_ov: null
-}
+	}
 
 var bb_speed_tiers = {
 	3: {
@@ -464,7 +465,7 @@ var insight_ly = {
 				min: '1,000',
 				max: '10,000'
 			},
-			name: 'Population',
+			name: 'Physicians',
 			suffix: ''
 		},
 		in_cnt_ip: {
@@ -479,7 +480,7 @@ var insight_ly = {
 				min: 25,
 				max: 100
 			},
-			name: 'Physicians',
+			name: 'Internet Providers',
 			suffix: ''
 		},
 		in_cnt_pop: {
@@ -494,7 +495,7 @@ var insight_ly = {
 				min: '1&nbsp;million',
 				max: '10&nbsp;million'
 			},
-			name: 'Internet Providers',
+			name: 'Population',
 			suffix: ''
 		}
 	}
@@ -969,26 +970,36 @@ function updateMapOptions(state_sel) {
 
 function updateInsightContent(state_sel) {
 	var insightContent;
-	if (state_sel == "nationwide") {
-		insightContent	= "This is the brief description of the <b>Nationwide</b> insight map. Please click the more link to see the full insights. <a href='insights.html#nationwide'>More>></a>";
+	
+	
+	if (state_sel == 'nationwide') {
+		insightContent	= 'This is the brief description of the <b>Nationwide</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Nationwide</b> insight map. Please click the more link to see the full insights. <br/><br/>This is the brief description of the <b>Nationwide</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Nationwide</b> insight map. Please click the more link to see the full insights.';
 	}
-	else if (state_sel == "FL") {
-		insightContent	= "This is the brief description of the <b>Florida</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Florida</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Florida</b> insight map. Please click the more link to see the full insights. <a href='insights.html#FL'>More>></a>";
+	else if (state_sel == 'FL') {
+		insightContent	= 'This is the brief description of the <b>Florida</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Florida</b> insight map. <br/><br/>Please click the more link to see the full insights. This is the brief description of the <b>Florida</b> insight map. Please click the more link to see the full insights. ';
 	}
-	else if (state_sel == "MI") {
-		insightContent	= "This is the brief description of the <b>Michigan</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Michigan</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Michigan</b> insight map. Please click the more link to see the full insights. <a href='insights.html#MI'>More>></a>";
+	else if (state_sel == 'MI') {
+		insightContent	= 'This is the brief description of the <b>Michigan</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Michigan</b> insight map. <br/><br/>Please click the more link to see the full insights. This is the brief description of the <b>Michigan</b> insight map. Please click the more link to see the full insights. ';
 	}
-	else if (state_sel == "MS") {
-		insightContent	= "This is the brief description of the <b>Mississippi</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Mississippi</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Mississippi</b> insight map. Please click the more link to see the full insights. <a href='insights.html#MS'>More>></a>";
+	else if (state_sel == 'MS') {
+		insightContent	= 'This is the brief description of the <b>Mississippi</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Mississippi</b> insight map. <br/><br/>Please click the more link to see the full insights. This is the brief description of the <b>Mississippi</b> insight map. Please click the more link to see the full insights.';
 	}
-	else if (state_sel == "OH") {
-		insightContent	= "This is the brief description of the <b>Ohio</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Ohio</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Ohio</b> insight map. Please click the more link to see the full insights. <a href='insights.html#OH'>More>></a>";
+	else if (state_sel == 'OH') {
+		insightContent	= 'This is the brief description of the <b>Ohio</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Ohio</b> insight map. <br/><br/>Please click the more link to see the full insights. This is the brief description of the <b>Ohio</b> insight map. Please click the more link to see the full insights. ';
 	}
-	else if (state_sel == "VA") {
-		insightContent	= "This is the brief description of the <b>Virginia</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Virginia</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Virginia</b> insight map. Please click the more link to see the full insights. <a href='insights.html#VA'>More>></a>";
+	else if (state_sel == 'VA') {
+		insightContent	= 'This is the brief description of the <b>Virginia</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Virginia</b> insight map. <br/><br/>Please click the more link to see the full insights. This is the brief description of the <b>Virginia</b> insight map. Please click the more link to see the full insights. ';
 	}
+	
+	var insightURL = 'insights.html';	
+	if (state_sel != 'nationwide') {
+		insightURL += '#'+ state_sel;
+	}
+	
+	$('.full-insights-link').attr('href', insightURL);
+	
 	$('#state-insights').html(insightContent);
-	$("#state-insights").show();	
+	//$('#state-insights').show();	
 }
 
 function setDownloadLinks() {
@@ -1138,6 +1149,8 @@ function updateStats() {
 	
 	$('#in-health-stat-name').text(insight_ly.health[health_sel].name +' : ');
 	$('#in-health-stat-value').text(health_stat_value);
+	
+	console.log(' count_sel : ' + count_sel );	
 	
 	$('#in-count-stat-name').text(insight_ly.count[count_sel].name +' : ');
 	$('#in-count-stat-value').text(count_stat_value);

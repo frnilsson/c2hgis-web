@@ -3215,14 +3215,33 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 }
 
 
-
+.state-insights-text {
+	font-size: 13px;
+	padding-top: 4px;
+	padding-bottom: 8px;
+}
+.full-insights-link {
+	font-style: italic;
+	font-size: 15px;
+}
 .top-row {
   height: 35px; 
   vertical-align: middle;
+  padding-left: 0px;
 }
-.type-select {
+.insight-select-state {
+	width: 160px !important;
+}
+.insight-type-select {
   display: inline-block;
+  line-height: 50px;
+  vertical-align: middle;
+  
 }
+.insight-sec-heading {
+	padding-left: 0px !important;
+}
+
 #count-row{    
     float:left;
 }
@@ -3240,4 +3259,8 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 
 .btn-primary.active, .btn-primary:active {
   font-weight: bold;
+}
+
+.state-insight-icon {
+	height: 32px;
 }

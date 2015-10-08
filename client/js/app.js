@@ -1,6 +1,7 @@
-
 var geo_host = 'http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com';
 var geo_space = 'c2hgis';
+//var geo_host = 'http://kyauk.fcc.gov:8010/geoserver';
+//var geo_space = 'fcc';
 var geo_output = 'application/json'
 
 var geo_type = 'state';
@@ -29,6 +30,42 @@ var click_feature_option = {
 	'fillOpacity': 0.1
 };
 var click_data = [];
+
+var nationwideMaps = {
+ "Nationwide 1":"nationwide-1",
+ "Nationwide 2":"nationwide-2",
+ "Nationwide 3":"nationwide-3"
+};
+
+var flMaps = {
+ "Florida 1":"fl-1",
+ "Florida 2":"fl-2",
+ "Florida 3":"fl-3"
+};
+
+var miMaps = {
+ "Michigan 1":"mi-1",
+ "Michigan 2":"mi-2",
+ "Michigan 3":"mi-3"
+};
+
+var msMaps = {
+ "Mississippi 1":"ms-1",
+ "Mississippi 2":"ms-2",
+ "Mississippi 3":"ms-3"
+};
+
+var ohMaps = {
+ "Ohio 1":"oh-1",
+ "Ohio 2":"oh-2",
+ "Ohio 3":"oh-3"
+};
+
+var vaMaps = {
+ "Virginia 1":"va-1",
+ "Virginia 2":"va-2",
+ "Virginia 3":"va-3"
+};
 
 //var ctx;
 //var genderChart;
@@ -168,13 +205,15 @@ function createMap() {
     $('#select-state').on('change', function() {
 	
         var state_sel = $('#select-state').val();		
-		//console.log(' state_sel : ' + state_sel );
-		
-		if (state_sel != "") {
-			setState(state_sel);
+		console.log(' state_sel : ' + state_sel );
+
+		updateInsightContent(state_sel);
+		console.log('map options updated for :' + state_sel );		
+		if (state_sel == "nationwide") {
+			setNationwide();
 		}
 		else {
-			setNationwide();
+			setState(state_sel);
 		}
     }); 
 	
@@ -182,7 +221,7 @@ function createMap() {
     $('#select-in-count').on('change', function() {
 	
         var count_sel = $('#select-in-count').val();		
-		//console.log(' count_sel : ' + count_sel );
+		console.log(' count_sel : ' + count_sel );
 		
 		if (count_sel != "") {
 			setCount();
@@ -846,6 +885,11 @@ var states_in = {
 		lng: -89.6621633573408,
 		zoom: 7
 	}, 
+	OH: {
+		lat: 40.1903624,
+		lng: -82.6692525,
+		zoom: 7
+	},
 	VA: {
 		lat: 37.5126006451781,
 		lng: -78.7878086547533,
@@ -880,6 +924,72 @@ function setNationwide() {
 	updateStats();
 	setDownloadLinks();
 }  
+
+function updateMapOptions(state_sel) {
+	$('#select-curate-map').empty();
+
+	var mapOptions;
+
+	if (state_sel == "nationwide") {
+		mapOptions	= nationwideMaps;
+	}
+	else if (state_sel == "FL") {
+		mapOptions	= flMaps;
+	}
+	else if (state_sel == "MI") {
+		mapOptions	= miMaps;
+	}
+	else if (state_sel == "MS") {
+		mapOptions	= msMaps;
+	}
+	else if (state_sel == "OH") {
+		mapOptions	= ohMaps;
+	}
+	else if (state_sel == "VA") {
+		mapOptions	= vaMaps;
+	}
+
+	$("#select-curate-map")
+       .html(mapOptions)
+       .selectpicker('refresh');
+    
+
+	/*if (state_sel == "nationwide") {
+		$.each(nationwideMaps, function(key, value) {
+	 		$('#select-curate-map').append($("<option></option>").attr("value", value).text(key));
+		});
+	}
+	else if (c
+		var newOption = $('<option value="1">test</option>');
+		$('#select-curate-map').append(newOption);
+	}
+	$('#select-curate-map').trigger("chosen:updated");
+	*/
+}
+
+function updateInsightContent(state_sel) {
+	var insightContent;
+	if (state_sel == "nationwide") {
+		insightContent	= "This is the brief description of the <b>Nationwide</b> insight map. Please click the more link to see the full insights. <a href='insights.html#nationwide'>More>></a>";
+	}
+	else if (state_sel == "FL") {
+		insightContent	= "This is the brief description of the <b>Florida</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Florida</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Florida</b> insight map. Please click the more link to see the full insights. <a href='insights.html#FL'>More>></a>";
+	}
+	else if (state_sel == "MI") {
+		insightContent	= "This is the brief description of the <b>Michigan</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Michigan</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Michigan</b> insight map. Please click the more link to see the full insights. <a href='insights.html#MI'>More>></a>";
+	}
+	else if (state_sel == "MS") {
+		insightContent	= "This is the brief description of the <b>Mississippi</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Mississippi</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Mississippi</b> insight map. Please click the more link to see the full insights. <a href='insights.html#MS'>More>></a>";
+	}
+	else if (state_sel == "OH") {
+		insightContent	= "This is the brief description of the <b>Ohio</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Ohio</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Ohio</b> insight map. Please click the more link to see the full insights. <a href='insights.html#OH'>More>></a>";
+	}
+	else if (state_sel == "VA") {
+		insightContent	= "This is the brief description of the <b>Virginia</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Virginia</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Virginia</b> insight map. Please click the more link to see the full insights. <a href='insights.html#VA'>More>></a>";
+	}
+	$('#state-insights').html(insightContent);
+	$("#state-insights").show();	
+}
 
 function setDownloadLinks() {
 	

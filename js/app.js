@@ -608,6 +608,7 @@ var insight_ly = {
 	},	
 	count: {
 		in_cnt_pcp: {
+			layer: 'c2hgis',
 			column: 'pcp_total',
 			style: 'pcp',
 			color: '#ba0c0c',
@@ -623,6 +624,7 @@ var insight_ly = {
 			suffix: ''
 		},
 		in_cnt_ip: {
+			layer: 'c2hgis',
 			column: 'provider_count',
 			style: 'ip',
 			color: '#0050cc',
@@ -638,6 +640,7 @@ var insight_ly = {
 			suffix: ''
 		},
 		in_cnt_pop: {
+			layer: 'c2hgis',
 			column: 'pop_2014',
 			style: 'pop',
 			color: '#05ad28',
@@ -650,6 +653,22 @@ var insight_ly = {
 				max: '10&nbsp;million'
 			},
 			name: 'Population',
+			suffix: ''
+		},
+		in_cnt_tele: {
+			layer: 'telehealth_cms',
+			column: 'total_medicare_beneficiaries',
+			style: 'telehealth',
+			color: '#9d5978',
+			county: {
+				min: '10',
+				max: '100'
+			}, 
+			state: {
+				min: '10',
+				max: '100'
+			},
+			name: 'Telehealth',
 			suffix: ''
 		}
 	}
@@ -978,20 +997,33 @@ function setCount() {
 	//console.log(' setCount type : ' + type );
 
 	if (insight_ly.count[type]) {
-	
-		var style = insight_ly.count[type].style;
 		
-		//console.log(' style : ' + style );	
+		var count_layer = insight_ly.count[type].layer;
+		var count_style = insight_ly.count[type].style;		
+		
+		console.log(' count_layer : ' + count_layer );	
+		console.log(' count_style : ' + count_style );			
 	
 		if (map.hasLayer(map_overlays['in_count'])) {
 			map.removeLayer(map_overlays['in_count']);
 		}
 		
+		var count_layers = [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'];
+		var count_styles = [''+ geo_space +':count_'+ count_style +'_state', ''+ geo_space +':count_'+ count_style +'_county'];
+		
+		if (count_layer != 'c2hgis') {
+			count_layers = ''+ geo_space +':' + count_layer;
+			count_styles = ''+ geo_space +':count_' + count_style;
+		}
+		
+		console.log(' count_layers : ' + count_layers );	
+		console.log(' count_styles : ' + count_styles );
+		
 		map_overlays['in_count'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
 			transparent: true,
-			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-			styles: [''+ geo_space +':count_'+ style +'_state', ''+ geo_space +':count_'+ style +'_county']
+			layers: count_layers, 
+			styles: count_styles
 		}).setZIndex('999').addTo(map);		
 
 		updateCountLegend();

@@ -364,6 +364,34 @@ var insight_ly = {
 			tooltip: 'Percent of population with access to 25 mbps advertised download speeds.',
 			name: 'Broadband Access',
 			suffix: '%'
+		},		
+		in_bb_wn_access: {
+			column: 'wireline_advdl_gr25000k',
+			unit: 'perc',
+			min: 0,
+			max: 100,
+			multiple: 1,
+			zindex: 99,
+			step: 5,
+			values: [75, 100],
+			label: '% Coverage',
+			tooltip: 'Percent of population with access to 25 mbps advertised wireline download speeds.',
+			name: 'Wireline Access',
+			suffix: '%'
+		},
+		in_bb_ws_access: {
+			column: 'wireless_advdl_gr25000k',
+			unit: 'perc',
+			min: 0,
+			max: 100,
+			multiple: 1,
+			zindex: 99,
+			step: 5,
+			values: [75, 100],
+			label: '% Coverage',
+			tooltip: 'Percent of population with access to 25 mbps advertised wireless download speeds.',
+			name: 'Wireless Access',
+			suffix: '%'
 		},
 		in_bb_dl_speed: {
 			column: 'most_common_dl',
@@ -373,7 +401,7 @@ var insight_ly = {
 			multiple: 1,
 			zindex: 99,
 			step: 1,
-			values: [8, 11],
+			values: [10, 11],
 			label: 'Download',
 			tooltip: 'Most commonly advertised download speed.',
 			name: 'Download Speed',
@@ -387,12 +415,12 @@ var insight_ly = {
 			multiple: 1,
 			zindex: 99,
 			step: 1,
-			values: [8, 11],
+			values: [10, 11],
 			label: 'Upload',
 			tooltip: 'Most commonly advertised upload speed.',
 			name: 'Upload Speed',
 			suffix: 'mbps'
-		}
+		}		
 	},
 	health: {
 		in_pcp_access: {

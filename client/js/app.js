@@ -657,7 +657,7 @@ var insight_ly = {
 		},
 		in_cnt_tele: {
 			layer: 'telehealth_cms',
-			column: 'total_medicare_beneficiaries',
+			column: 'telehealth_beneficiary_total',
 			style: 'telehealth',
 			color: '#9d5978',
 			county: {
@@ -669,7 +669,7 @@ var insight_ly = {
 				max: '100'
 			},
 			name: 'Telehealth',
-			suffix: ''
+			suffix: ' beneficiaries'
 		}
 	}
 };

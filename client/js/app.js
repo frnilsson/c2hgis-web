@@ -256,6 +256,12 @@ function createMap() {
 		
     }); 
 	
+	// select population
+	$('#pop-sec-type').on('change', function() {
+		
+		setPopSec();			
+    }); 
+	
 	$('.broadband-dir').on('change', function() {
 	
         bb_combo_dir = $(this).val();		
@@ -271,8 +277,9 @@ var map_overlays = {
 	in_health: null,
 	in_count: null,
 	health_ov: null,
-	broadband_ov: null
-	}
+	broadband_ov: null,
+	pop_ov: null
+};
 
 var bb_speed_tiers = {
 	3: {
@@ -319,7 +326,7 @@ var bb_speed_tiers = {
 		range: '> 1,000',
 		min: '> 1,000',
 		max: '> 1,000'
-	},
+	}
 };
 
 var in_units = {
@@ -845,6 +852,66 @@ function getGeocode(search_input) {
     }); 
 }   
 
+var pop_ly = {
+	pop_density: {
+		column: 'pop_density',
+		style: 'pop_density',
+		unit: 'pkm',
+		min: '<25',
+		max: '>250',
+		zindex: 90,
+		label: '',
+		tooltip: 'Population density per square kilometer.'
+	}
+}
+
+function setPopSec() {
+
+	var pop_type = $('#pop-sec-type').val();
+	
+	console.log('pop_type : '+ pop_type );  
+	
+	if (pop_ly[pop_type]) {
+	
+		var pop_style = pop_ly[pop_type].style;
+		
+		if (map.hasLayer(map_overlays['pop_ov'])) {
+			map.removeLayer(map_overlays['pop_ov']);
+		}
+		
+		map_overlays['pop_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
+			format: 'image/png',
+			transparent: true,
+			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
+			styles: [''+ geo_space +':'+ pop_style +'_state', ''+ geo_space +':'+ pop_style +'_county']
+		}).setZIndex('999').addTo(map);
+		
+		updatePopLegend();
+	}
+}
+
+function updatePopLegend() {	
+
+	var pop_type = $('#pop-sec-type').val();
+	
+	if (pop_ly[pop_type]) {
+
+		var pop_min = pop_ly[pop_type].min;
+		var pop_max = pop_ly[pop_type].max;
+		var pop_label = pop_ly[pop_type].label;
+		var pop_tooltip = pop_ly[pop_type].tooltip;
+		
+		$( '.pop-label-min' ).html( pop_min );
+		$( '.pop-label-max' ).html( pop_max );
+		//$( '.circle-sym' ).css('background-color', count_color);		
+		
+		$( '.in-cnt-legend-box').css('display', 'inline-block');	
+		
+		$( '#hh-tooltip-pop' ).attr( 'title', pop_tooltip ).tooltip('fixTitle');		
+		
+		$( '.pop-table-label' ).html( pop_label );			
+	}
+}
 																			
 var health_ly = {
 	hh_pcppc: {
@@ -853,10 +920,6 @@ var health_ly = {
 		unit: 'p100000',
 		min: '>90',
 		max: '<60',
-		multiple: 100000,
-		zindex: 90,
-		step: 0.00005,
-		values: [0.00025, 0.00075],
 		label: 'PCP/100,000',
 		tooltip: 'Primary Care Physicians per 100,000 people.'
 	},
@@ -866,10 +929,6 @@ var health_ly = {
 		unit: 'perc',
 		min: '<10',
 		max: '>17.5',
-		multiple: 1,
-		zindex: 90,
-		step: 1,
-		values: [30, 40],
 		label: '% Poor/Fair Health',
 		tooltip: 'Percentage of adults reporting fair or poor health (age-adjusted).'
 	},
@@ -879,10 +938,6 @@ var health_ly = {
 		unit: 'perc',
 		min: '<25',
 		max: '>32.5',
-		multiple: 1,
-		zindex: 90,
-		step: 1,
-		values: [30, 40],
 		label: '% Obesity',
 		tooltip: 'Percentage of adults that report a BMI of 30 or more.'
 	},
@@ -892,10 +947,6 @@ var health_ly = {
 		unit: 'y100000',
 		min: '<5,000',
 		max: '>8,000',
-		multiple: 1,
-		zindex: 90,
-		step: 100,
-		values: [7500, 15000],
 		label: '# Years Lost',
 		tooltip: 'Number of years lost due to premature death before age 75 per 100,000 people.'
 	},
@@ -905,10 +956,6 @@ var health_ly = {
 		unit: 'p1000',
 		min: '<40',
 		max: '>70',
-		multiple: 1,
-		zindex: 90,
-		step: 5,
-		values: [60, 120],
 		label: '# Hospital Stays',
 		tooltip: 'Number of preventable hospital stays per 1,000 people.'
 	}
@@ -937,13 +984,8 @@ function setHealthSec() {
 	}
 }
 
-function updateHealthLegend() {
-	
-	//console.log(' count_type : ' + count_type );
-	//console.log(' geo_type : ' + geo_type );	
-	
-	//console.log(' zoom_type : ' + zoom_type );
-	
+function updateHealthLegend() {	
+
 	var health_type = $('#health-sec-type').val();
 	
 	if (health_ly[health_type]) {
@@ -1378,6 +1420,15 @@ function updateStats() {
 	$('.geog-greatdl').text((bb_speed_tiers[geo_prop.greatest_dl].range) + ' mbps');
 	$('.geog-greatul').text((bb_speed_tiers[geo_prop.greatest_ul].range) + ' mbps');
 	
+	// Population Stats
+	$('.geog-pop-total').text(formatStat(geo_prop.pop_2014) );	
+	$('.geog-pop-density').text(formatStat(geo_prop.pop_density, 1) + 'per sq km');
+	
+	$('.geog-pop-urban').text(formatStat(geo_prop.urban_total, 0) + '');
+	$('.geog-pop-rural').text(formatStat(geo_prop.rural_total, 0) + '');
+	
+	$('.geog-pop-male').text(formatStat(geo_prop.male_total, 0) + '');
+	$('.geog-pop-female').text(formatStat(geo_prop.female_total, 0) + '');	
 }
 
 function formatStat(input, decimal) {
@@ -1682,12 +1733,12 @@ function createCharts() {
 		   {
 			  value: geo_prop.male_total,
 			  label: 'Male',
-			  color: '#5ce4f0'
+			  color: '#05ad28'
 		   },
 		   {
 			  value: geo_prop.female_total,
 			  label: 'Female',
-			  color: '#f0cb5c'
+			  color: '#fffc1e'
 		   }				   
 		];
 		
@@ -1774,7 +1825,9 @@ function clearClickFeature() {
             $('.list-health-panel').addClass('hide');
             $('.list-insight-panel').addClass('hide');   
 			$('.list-broadband-panel').addClass('hide'); 
-            $('.list-population-panel').removeClass('hide');  			
+            $('.list-population-panel').removeClass('hide');  	
+			
+			setPopSec();
         }
 		
 		createCharts();

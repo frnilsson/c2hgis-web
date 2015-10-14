@@ -109,7 +109,8 @@ var national_data = {
 				high_school: 81.1066416127859,
 				some_college: 63.12808024420824,
 				unemployment: 7.388371402387909,
-				telehealth_beneficiary_total: 7285
+				telehealth_beneficiary_total: 7285,
+				pop_density: 33.8665980161213
 			}
 		}
 	],

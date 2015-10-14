@@ -3113,6 +3113,8 @@ a.gen-passcode {
 
 .select-health { width: 185px !important; display: inline-block;}
 
+.select-pop { width: 150px !important; display: inline-block;}
+
 /* tooltip */
 .in-tooltip, .hh-tooltip { color: #848484; display: inline-block; font-size: 16px !important; }
 .in-tooltip  { padding-right: 3px;}
@@ -3184,14 +3186,17 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 .layer-switch li { font-weight: bold;}
 
 .layer-drop-lab {
-  color: #2c75d6;
-  font-weight: bold;
-  font-size: 18px;
+	color: #2c75d6;
+	font-weight: bold;
+	font-size: 18px;
 	vertical-align: middle;
 	line-height: 36px;
-
 }
 .layer-drop-lab-health {
+	padding: 0;
+	line-height: 36px;
+}
+.layer-drop-lab-pop {
 	padding: 0;
 	line-height: 36px;
 }
@@ -3207,11 +3212,8 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
   padding: 10px 0px;
 }
 .selection-row {
-
-  padding: 5px 12px 10px 0px;
-  
-  display: inline-block;
-  
+  padding: 5px 12px 10px 0px;  
+  display: inline-block;  
 }
 
 

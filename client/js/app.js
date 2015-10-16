@@ -1096,6 +1096,9 @@ function updateCountLegend() {
 		
 		$( '.in-cnt-legend-box').css('display', 'inline-block');	
 	}
+	else {
+		$( '.in-cnt-legend-box').css('display', 'none');	
+	}
 }
 
 var states_in = {
@@ -1359,6 +1362,8 @@ function updateStats() {
 	var health_sel = $('#select-in-health').val();
 	var count_sel = $('#select-in-count').val();
 	
+	console.log(' count_sel : ' + count_sel );	
+
 	var broadband_stat_value, health_stat_value, count_stat_value;
 	
 	if ((broadband_sel == 'in_bb_dl_speed') || (broadband_sel == 'in_bb_ul_speed')) {
@@ -1370,7 +1375,14 @@ function updateStats() {
 	
 	health_stat_value = formatStat((geo_prop[insight_ly.health[health_sel].column] * insight_ly.health[health_sel].multiple), 1) +' '+ insight_ly.health[health_sel].suffix;
 	
-	count_stat_value = formatStat(geo_prop[insight_ly.count[count_sel].column]) +' '+ insight_ly.count[count_sel].suffix;
+	if (count_sel != '') {
+		count_stat_value = formatStat(geo_prop[insight_ly.count[count_sel].column]) +' '+ insight_ly.count[count_sel].suffix;
+	}
+	else {
+		$( '.in-cnt-legend-box').css('display', 'none'); 
+		count_stat_value = '';
+	}
+		
 	
 	$('#in-broadband-stat-name').text(insight_ly.broadband[broadband_sel].name +' : ');
 	$('#in-broadband-stat-value').text(broadband_stat_value);
@@ -1378,9 +1390,11 @@ function updateStats() {
 	$('#in-health-stat-name').text(insight_ly.health[health_sel].name +' : ');
 	$('#in-health-stat-value').text(health_stat_value);
 	
-	console.log(' count_sel : ' + count_sel );	
-	
-	$('#in-count-stat-name').text(insight_ly.count[count_sel].name +' : ');
+	if (count_sel != '')
+		$('#in-count-stat-name').text(insight_ly.count[count_sel].name +' : ');
+	else 
+		$('#in-count-stat-name').text('');
+
 	$('#in-count-stat-value').text(count_stat_value);
 	
 	// Health Stats
@@ -1804,6 +1818,7 @@ function clearClickFeature() {
 			}
         }
         else if (cur_tab === 'health') {
+        	console.log("health tab switch");
             $('.list-insight-panel').addClass('hide');
             $('.list-broadband-panel').addClass('hide');  
 			$('.list-population-panel').addClass('hide'); 

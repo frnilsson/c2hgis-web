@@ -205,11 +205,11 @@ function createMap() {
     $('#insight-select-state').on('change', function() {
 	
         var state_sel = $('#insight-select-state').val();		
-		console.log(' state_sel : ' + state_sel );
+		//console.log(' state_sel : ' + state_sel );
 
-		updateInsightContent(state_sel);
+		// updateInsightContent(state_sel);
 		
-		console.log('map options updated for :' + state_sel );		
+		//console.log('map options updated for :' + state_sel );		
 		if (state_sel == "nationwide") {
 			setNationwide();
 		}
@@ -222,7 +222,7 @@ function createMap() {
     $('#select-in-count').on('change', function() {
 	
         var count_sel = $('#select-in-count').val();		
-		console.log(' count_sel : ' + count_sel );
+		//console.log(' count_sel : ' + count_sel );
 		
 		if (count_sel != "") {
 			setCount();
@@ -869,7 +869,7 @@ function setPopSec() {
 
 	var pop_type = $('#pop-sec-type').val();
 	
-	console.log('pop_type : '+ pop_type );  
+	//console.log('pop_type : '+ pop_type );  
 	
 	if (pop_ly[pop_type]) {
 	
@@ -1043,8 +1043,8 @@ function setCount() {
 		var count_layer = insight_ly.count[type].layer;
 		var count_style = insight_ly.count[type].style;		
 		
-		console.log(' count_layer : ' + count_layer );	
-		console.log(' count_style : ' + count_style );			
+		//console.log(' count_layer : ' + count_layer );	
+		//console.log(' count_style : ' + count_style );			
 	
 		if (map.hasLayer(map_overlays['in_count'])) {
 			map.removeLayer(map_overlays['in_count']);
@@ -1058,8 +1058,8 @@ function setCount() {
 			count_styles = ''+ geo_space +':count_' + count_style;
 		}
 		
-		console.log(' count_layers : ' + count_layers );	
-		console.log(' count_styles : ' + count_styles );
+		//console.log(' count_layers : ' + count_layers );	
+		//console.log(' count_styles : ' + count_styles );
 		
 		map_overlays['in_count'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
@@ -1362,7 +1362,7 @@ function updateStats() {
 	var health_sel = $('#select-in-health').val();
 	var count_sel = $('#select-in-count').val();
 	
-	console.log(' count_sel : ' + count_sel );	
+	//console.log(' count_sel : ' + count_sel );	
 
 	var broadband_stat_value, health_stat_value, count_stat_value;
 	
@@ -1818,7 +1818,7 @@ function clearClickFeature() {
 			}
         }
         else if (cur_tab === 'health') {
-        	console.log("health tab switch");
+        	//console.log("health tab switch");
             $('.list-insight-panel').addClass('hide');
             $('.list-broadband-panel').addClass('hide');  
 			$('.list-population-panel').addClass('hide'); 

@@ -611,6 +611,20 @@ var insight_ly = {
 			tooltip: 'Percentage of households with at least 1 of 4 housing problems: overcrowding, high housing costs, or lack of kitchen or plumbing facilities.',
 			name: 'Severe Housing',
 			suffix: '%'
+		},
+		in_poorfair: {
+			column: 'poor_fair_health_pct',
+			unit: 'perc',
+			min: 0,
+			max: 40,
+			multiple: 1,
+			zindex: 90,
+			step: 2,
+			values: [16, 22],
+			label: '% Poor/Fair',
+			tooltip: 'Percentage of adults reporting fair or poor health (age-adjusted).',
+			name: 'Poor/Fair Health',
+			suffix: '%'			
 		}
 	},	
 	count: {
@@ -958,6 +972,33 @@ var health_ly = {
 		max: '>70',
 		label: '# Hospital Stays',
 		tooltip: 'Number of preventable hospital stays per 1,000 people.'
+	},
+	hh_sick_days: {
+		column: 'poor_physical_health_days_within_last_30_days',
+		style: 'health_sec_sickdays',
+		unit: 'days',
+		min: '<40',
+		max: '>70',
+		label: '# Sick Days',
+		tooltip: 'Average number of physically unhealthy days reported in past 30 days (age-adjusted).'
+	},
+	hh_diabetes_rate: {
+		column: 'diabetes_pct',
+		style: 'health_sec_diabetes',
+		unit: 'perc',
+		min: '<40',
+		max: '>70',
+		label: '% Diabetes',
+		tooltip: 'Percentage of adults with diabetes.'
+	},
+	hh_severe_housing: {
+		column: 'severe_housing_problems',
+		style: 'health_sec_sevhousing',
+		unit: 'perc',
+		min: '<40',
+		max: '>70',
+		label: '% Severe Housing',
+		tooltip: 'Percentage of households with at least 1 of 4 housing problems: overcrowding, high housing costs, or lack of kitchen or plumbing facilities.'
 	}
 }
 

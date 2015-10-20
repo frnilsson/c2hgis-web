@@ -3121,9 +3121,10 @@ a.gen-passcode {
 .select-pop { width: 150px !important; display: inline-block;}
 
 /* tooltip */
-.in-tooltip, .hh-tooltip { color: #848484; display: inline-block; font-size: 16px !important; }
+.in-tooltip, .hh-tooltip, .bb-tooltip { color: #848484; display: inline-block; font-size: 16px !important; }
 .in-tooltip  { padding-right: 3px;}
 .hh-tooltip  { padding-left: 3px;}
+.bb-tooltip  { padding-left: 3px;}
 
 .tooltip-inner {  min-width: 220px; }
 

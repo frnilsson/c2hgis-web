@@ -39,8 +39,8 @@
 					</div>
 					<ul aria-hidden="true" id="menu-primary" class="nav navbar-nav nav-offcanvas-right">
 						<li class="active">
-							<a aria-controls="browse-by-category" data-toggle="tab" href="index.html">
-								<div class="text-prefix">Phase II</div>
+							<a aria-controls="browse-by-category" href="index.html">
+								<div class="text-prefix">Phase II Maps</div>
 								<strong class="title-emphasis">Connect2Health</strong>
 							</a>
 						</li>
@@ -247,7 +247,8 @@
                                             </div>
                                         </div>
 									</div>
-                                    <hr class="panel-hr"/> 									
+                                    <hr class="panel-hr"/> 	
+									<h4 class="panel-sec-heading">Introduction</h4>
 									<!--
 									<div class="row">
 										<div class="col-md-12">
@@ -256,7 +257,7 @@
                                     </div>
 									-->
                                     <div class="row">
-										<div class="col-md-12">
+										<div class="col-md-12 state-insights-text">
                                             <!-- <div class="col-sm-6 insight-sec-heading">
 												<h4 class="panel-sec-heading">Select Location: </h4>											    
                                             </div>
@@ -270,9 +271,17 @@
 													<option value="VA">Virginia</option>
 												</select>
 											</div> -->
-                                            The Broadband-Health Snapshot maps help to generate insights about the space at the intersection of connectivity and health. Phase I of these maps were made for the first state to which the Connect2Health taskforce visited as part of its Beyond the Beltway series. Since then, these maps have been developed to include the rest of the nation in the current phase (Phase II). Additional tools to generate insights are upcoming as part of Phase III.
+                                            The Broadband-Health Snapshot maps help to generate insights about the space at the intersection of connectivity and health. 
+											<br/><br/>
+											Phase I of these maps were made for the first state to which the Connect2Health taskforce visited as part of its Beyond the Beltway series. 
+											<br/><br/>
+											Since then, these maps have been developed to include the rest of the nation in the current phase (Phase II). Additional tools to generate insights are upcoming as part of Phase III.
+										</div>
+										<div class="col-md-12" id="">
+											<a href='introduction.html' class="full-insights-link">Read More</a>
 										</div>
                                     </div>
+									<!--
 									<div class="row" style="display:none;">
 										<div class="col-md-12 state-insights-text" id="state-insights">
 											This is the brief description of the <b>Nationwide</b> insight map. Please click the more link to see the full insights. This is the brief description of the <b>Nationwide</b> insight map. Please click the more link to see the full insights. 
@@ -283,6 +292,7 @@
 											<a href='insights.html' class="full-insights-link">View Full Insights</a>
 										</div>
 									</div>
+									-->
                                 </div>
 								
 								<!-- Health Tab  **************************************************************** -->
@@ -467,7 +477,8 @@
 								
                                 <div class="panel-data list-broadband-panel hide">       
 									 <div class="row">
-                                        <div class="col-md-12 layer-drop-lab">Broadband Availability:</div>
+                                        <div class="col-md-12 layer-drop-lab">Broadband Availability: <i class="fa fa-question bb-tooltip" id="bb-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i></div>
+										
                                      </div>
 									 <br />
                                      <div class="row">
@@ -648,8 +659,8 @@
                                                 <div class="row">
                                                     <div class="col-xs-10">   
                                                         <select id="pop-sec-type" class="selectpicker select-pop">
-                                                            <option value="pop_density" selected="selected">Density</option>
-                                                            <option value="pop_urbanrural">Urban/Rural</option>                                                    
+                                                            <option value="pop_urbanrural" selected="selected">Urban/Rural</option>    
+															<option value="pop_density">Density</option>                                                                                                            
                                                             <option value="pop_age">Age</option>
         													<option value="pop_unemploy">Unemployment</option>
         													<option value="pop_edu">Education</option>

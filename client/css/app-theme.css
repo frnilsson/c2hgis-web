@@ -3060,7 +3060,7 @@ a.gen-passcode {
 }
 
 #health-stats-div {
-	height: 200px;
+	height: 180px;
 	overflow-y: auto;
 }
 
@@ -3071,6 +3071,11 @@ a.gen-passcode {
 
 #insights-stats-div {
 
+}
+
+#pop-stats-div {
+	height: 190px;
+	overflow-y: auto;
 }
 
 

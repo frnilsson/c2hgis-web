@@ -866,6 +866,7 @@ function getGeocode(search_input) {
     }); 
 }   
 
+
 var pop_ly = {
 	pop_density: {
 		column: 'pop_density',
@@ -874,8 +875,48 @@ var pop_ly = {
 		min: '<25',
 		max: '>250',
 		zindex: 90,
-		label: '',
+		label: 'Population per sq km',
 		tooltip: 'Population density per square kilometer.'
+	},
+	pop_urbanrural: {
+		column: 'rural_pct',
+		style: 'pop_urbanrural',
+		unit: 'perc',
+		min: '<10',
+		max: '>50',
+		zindex: 90,
+		label: '% Rural',
+		tooltip: 'Percentage of population living in a rural area.'
+	},
+	pop_age: {
+		column: 'age_over_65_pct',
+		style: 'pop_age',
+		unit: 'perc',
+		min: '<12',
+		max: '>16',
+		zindex: 90,
+		label: '% Over 65',
+		tooltip: 'Percentage of population ages 65 and older.'
+	},
+	pop_unemploy: {
+		column: 'unemployment',
+		style: 'pop_unemploy',
+		unit: 'perc',
+		min: '<5',
+		max: '>8',
+		zindex: 90,
+		label: '% Unemployed',
+		tooltip: 'Percentage of population ages 16 and older unemployed but seeking work.'
+	},
+	pop_edu: {
+		column: 'some_college',
+		style: 'pop_edu',
+		unit: 'perc',
+		min: '<60',
+		max: '>70',
+		zindex: 90,
+		label: '% Some College',
+		tooltip: 'Percentage of adults ages 25-44 with some post-secondary education.'
 	}
 }
 
@@ -930,7 +971,7 @@ function updatePopLegend() {
 var health_ly = {
 	hh_pcppc: {
 		column: 'pcp_per_capita',
-		style: 'health_sec_pcppc',
+		style: 'health_sec_pcpacc',
 		unit: 'p100000',
 		min: '>90',
 		max: '<60',
@@ -968,7 +1009,7 @@ var health_ly = {
 		column: 'preventable_hospital_stays_per_1000',
 		style: 'health_sec_preventhosp',
 		unit: 'p1000',
-		min: '<40',
+		min: '<50',
 		max: '>70',
 		label: '# Hospital Stays',
 		tooltip: 'Number of preventable hospital stays per 1,000 people.'
@@ -977,8 +1018,8 @@ var health_ly = {
 		column: 'poor_physical_health_days_within_last_30_days',
 		style: 'health_sec_sickdays',
 		unit: 'days',
-		min: '<40',
-		max: '>70',
+		min: '<3',
+		max: '>4',
 		label: '# Sick Days',
 		tooltip: 'Average number of physically unhealthy days reported in past 30 days (age-adjusted).'
 	},
@@ -986,8 +1027,8 @@ var health_ly = {
 		column: 'diabetes_pct',
 		style: 'health_sec_diabetes',
 		unit: 'perc',
-		min: '<40',
-		max: '>70',
+		min: '<8',
+		max: '>12',
 		label: '% Diabetes',
 		tooltip: 'Percentage of adults with diabetes.'
 	},
@@ -995,8 +1036,8 @@ var health_ly = {
 		column: 'severe_housing_problems',
 		style: 'health_sec_sevhousing',
 		unit: 'perc',
-		min: '<40',
-		max: '>70',
+		min: '<12.5',
+		max: '>20',
 		label: '% Severe Housing',
 		tooltip: 'Percentage of households with at least 1 of 4 housing problems: overcrowding, high housing costs, or lack of kitchen or plumbing facilities.'
 	}

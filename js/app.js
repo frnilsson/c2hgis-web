@@ -356,6 +356,21 @@ var in_units = {
 	}
 };
 
+var broadband_ly = {
+	wn_dl: {
+		tooltip: 'Percent of population with access to 25 mbps advertised wireline download speeds.'
+	},	
+	wn_ul: {
+		tooltip: 'Percent of population with access to 3 mbps advertised wireline upload speeds.'
+	},
+	ws_dl: {
+		tooltip: 'Percent of population with access to 25 mbps advertised wireless download speeds.'
+	},	
+	ws_ul: {
+		tooltip: 'Percent of population with access to 3 mbps advertised wireless upload speeds.'
+	}
+};
+
 var insight_ly = {
 	broadband: {
 		in_bb_access: {
@@ -1096,8 +1111,8 @@ function setBroadbandCombo() {
 	var type =  $('.broadband-type:checked').val();
 	var dir = $('.broadband-dir:checked').val();
 	
-	//console.log(' type : '+ type  );
-	//console.log(' dir : '+ dir );
+	console.log(' type : '+ type  );
+	console.log(' dir : '+ dir );
 	
 	if (map.hasLayer(map_overlays['broadband_ov'])) {
 		map.removeLayer(map_overlays['broadband_ov']);
@@ -1109,7 +1124,12 @@ function setBroadbandCombo() {
 		layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
 		styles: [''+ geo_space +':bb_combo_'+ type +'_'+ dir +'_state', ''+ geo_space +':bb_combo_'+ type +'_'+ dir +'_county']
 	}).setZIndex('999').addTo(map);	
-
+	
+	
+	var broadband_tooltip = broadband_ly[type +'_'+ dir].tooltip;
+	
+	$( '#bb-tooltip-broadband' ).attr( 'title', broadband_tooltip ).tooltip('fixTitle');	
+	
 }
 
 function setCount() {
@@ -1950,7 +1970,7 @@ function clearClickFeature() {
 	 
 	 $(".selectpicker").selectpicker({});
 	 
-	 $('.in-tooltip, .hh-tooltip').tooltip();
+	 $('.in-tooltip, .hh-tooltip, .bb-tooltip').tooltip();
 	
 	$('#carousel-bb').bind('slid.bs.carousel', function (e) {
 		//console.log('slide event!');

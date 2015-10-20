@@ -3279,8 +3279,19 @@ p sup{
   font-weight: bold;
 }
 img.timeline {
-    border: 2px solid gray;
-    border-radius: 10px;
+    /*border: 2px solid gray;
+    border-radius: 10px;*/
     margin: 5px;
     padding: 10px;
 }
+
+#data-source-link { border-top: 6px solid #ffcc44; padding: 10px; margin: 10px;  box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.14);}
+
+#data-source-text  {  }
+
+#data-source-link h2 { margin-top: 0; }
+#data-source-link ul { padding: 0; }
+
+#data-source-link-table td { height: 60px; padding-right: 10px;}
+
+.citations { padding-left: 30px; font-size: 13px;}

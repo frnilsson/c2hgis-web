@@ -9,10 +9,11 @@
 */
 
 /*** Development geoserver ***/
-
+/*
 var geo_host = 'http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com';
 var geo_space = 'c2hgis';
 var geo_output = 'application/json';
+*/
 
 /*** ST geoserver ***/
 /*
@@ -22,11 +23,11 @@ var geo_output = 'json';
 */
 
 /*** Production geoserver ***/
-/*
+
 var geo_host = 'https://www.broadbandmap.gov/geoserver';
 var geo_space = 'fcc';
 var geo_output = 'json';
-*/
+
 
 var geo_type = 'state';
 //var geo_type = 'national';
@@ -648,7 +649,7 @@ function setDownloadLinks() {
 		download_filter = '&cql_filter=geography_id='+ geo_prop.geography_id;
 	}
 	
-	$('#download-data-json').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=application/json&typeName='+ geo_space +':'+ download_layer + download_filter );
+	$('#download-data-json').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=json&typeName='+ geo_space +':'+ download_layer + download_filter );
 	$('#download-data-xml').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=GML3&typeName='+ geo_space +':'+ download_layer + download_filter );
 	$('#download-data-shp').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=shape-zip&typeName='+ geo_space +':'+ download_layer + download_filter );
 	$('#download-data-kml').attr('href', geo_host + '/' + geo_space + '/wms/kml?layers='+ geo_space +':'+ download_layer );

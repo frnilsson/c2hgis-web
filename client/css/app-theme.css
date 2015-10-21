@@ -371,13 +371,7 @@ blockquote {
       #menu-primary .text-prefix {
         font-size: 12px;
       }
-    }
-    @media screen and (max-width: 991px) {
-      /* line 209, ../scss/ui-components/_header.scss */
-      #menu-primary .text-prefix {
-        text-transform: lowercase;
-      }
-    }
+    }    
     @media screen and (min-width: 768px) and (max-width: 991px) {
       /* line 209, ../scss/ui-components/_header.scss */
       #menu-primary .text-prefix {
@@ -385,7 +379,7 @@ blockquote {
         margin-bottom: 4px;
         line-height: 1;
       }
-    }
+    }    
     /* line 223, ../scss/ui-components/_header.scss */
     #menu-primary .title-emphasis {
       font-size: 1.5em;
@@ -3275,6 +3269,9 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 
 .state-insight-icon {
 	height: 32px;
+}
+h2 {
+  display: inline-block;
 }
 h3, h4 {
   font-weight: bold;

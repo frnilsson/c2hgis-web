@@ -128,8 +128,7 @@ function createMap() {
 		var zoom = map.getZoom();	
 		
 		getData();
-	});	
-	 
+	});		 
 }
 
 function getCurrentLocation(load) {
@@ -578,18 +577,22 @@ function processData(data) {
 	//console.log('processData : ' + JSON.stringify(data)  );	
 	
 	if (data.features){
-	
-		if (data.totalFeatures == 1){
+		
+		//console.log('data.features.length : ' + data.features.length  );	
+		
+		if (data.features.length == 1){
 		
 			var geography_id = data.features[0].properties.geography_id;
 			
+			//console.log('geography_id : ' + JSON.stringify(geography_id)  );	
+			
 			if (geo_id !== geography_id) {
 			
-				geo_id = geography_id;
-				
-				geo_data = data;
-				
+				geo_id = geography_id;				
+				geo_data = data;				
 				geo_prop = geo_data.features[0].properties;
+				
+				//console.log('geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );	
 				
 				// ***********************************	
 				

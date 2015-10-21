@@ -86,15 +86,22 @@ function createMap() {
 			position: 'topleft'
 		})
 		.addTo(map);  
-		    
+		
+	/*
     var wms_border = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
          format: 'image/png',
          transparent: true,
          layers: ''+ geo_space +':border',
 		 zIndex: 999
-     });        
+     });    
+	*/
 	 
 	 //wms_border.addTo(map);	
+	
+	
+	map.on('moveend', function() {
+		setHash();
+	});
 	
 	map.on('zoomend', function() {
 		
@@ -121,6 +128,8 @@ function createMap() {
 		}			
 		
 		//console.log(' geo_type : ' + geo_type );		
+		
+		setHash();
 	});
 		
 	map.on('click', function(e) {
@@ -132,93 +141,7 @@ function createMap() {
 		
 		getData();
 	});	
-	
-    // current location
-    $('#btn-geo-current').click(function(e) {
-        getCurrentLocation(false);
-        return false;
-    });
-    
-    $('#input-geo-search').on('click', function(e) {
-        e.preventDefault();
-        var search_input = $('#input-geo-location').val();    
-        getGeocode(search_input);
-    });
-
-    $(document).keypress(function(e) {      
-        if (e.which === 13) {
-            var search_input = $('#input-geo-location').val();            
-            getGeocode(search_input);
-        }
-    });
-     
-    // nationwide
-    $('#btn-geo-nation').on('click', function() {
-        setNationwide();
-    });  
-	
-	// select state
-    $('#insight-select-state').on('change', function() {
-	
-        var state_sel = $('#insight-select-state').val();		
-
-		// updateInsightContent(state_sel);		
-
-		if (state_sel == "nationwide") {
-			setNationwide();
-		}
-		else {
-			setState(state_sel);
-		}
-    }); 
-	
-	// select count
-    $('#select-in-count').on('change', function() {
-	
-        var count_sel = $('#select-in-count').val();		
-		//console.log(' count_sel : ' + count_sel );
-		
-		if (count_sel != "") {
-			setCount();
-			updateStats();
-		}
-		else {
-			if (map.hasLayer(map_overlays['in_count'])) {
-				map.removeLayer(map_overlays['in_count']);
-			}
-			$( '.in-cnt-legend-box').css('display', 'none');
-		}
-    }); 
-	
-	// select health
-	$('#health-sec-type').on('change', function() {
-		
-		setHealthSec();			
-    }); 
-			
-	// select broadband
-	$('.broadband-type').on('change', function() {
-	
-        bb_combo_type = $(this).val();		
-		//console.log(' bb_combo_type : ' + bb_combo_type );
-		
-		setBroadbandCombo();	
-    }); 
-	
-	// select population
-	$('#pop-sec-type').on('change', function() {
-		
-		setPopSec();			
-    }); 
-	
-	$('.broadband-dir').on('change', function() {
-	
-        bb_combo_dir = $(this).val();		
-		//console.log(' bb_combo_dir : ' + bb_combo_dir );
-		
-		setBroadbandCombo();		
-    }); 
-			 
+	 
 }
 
 function getCurrentLocation(load) {
@@ -341,7 +264,7 @@ function setNationwide() {
 //**************************************************************************
 // slider functions
 
-function updateSlider(type) {
+function updateSlider(type, def) {
 	
 	var dropdown = $( '#select-in-'+ type ).val();	
 
@@ -349,6 +272,10 @@ function updateSlider(type) {
 	var max = insight_ly[type][dropdown].max;
 	var step = insight_ly[type][dropdown].step;
 	var values = insight_ly[type][dropdown].values;
+	
+	if (!def) {
+		def = values;
+	}
 	
 	//console.log(' min : ' + min );
 	//console.log(' max : ' + max );
@@ -359,14 +286,16 @@ function updateSlider(type) {
 		min: min,
 		max: max,
 		step: step,
-		values: values,
-		slide: function( event, slider ) {
+		values: def,
+		stop: function( event, slider ) {
 		
-			setSliderMap(type, slider.values[ 0 ], slider.values[ 1 ]);
+			setSliderMap(type, slider.values[ 0 ], slider.values[ 1 ]);	
+			
+			setHash();			
 		}
 	});
 	
-	setSliderMap(type, values[0], values[1]);	
+	setSliderMap(type, def[0], def[1]);	
 }
 	
 function createSlider() {
@@ -379,10 +308,10 @@ function createSlider() {
         var cur_type = $(this).attr('id').split('-')[2];		
 		//console.log(' cur_type : ' + cur_type );
 		
-		updateSlider(cur_type);	
+		updateSlider(cur_type);			
+		updateStats();	
 		
-		updateStats();
-		
+		setHash();
     });	
 }
 
@@ -442,7 +371,7 @@ function setSliderMap(type, low, high) {
 		 transparent: true,
 		 cql_filter: filter,
 		 layers: [''+ geo_space +':c2hgis_'+ type],
-	 }).setZIndex(zindex).addTo(map);				
+	 }).setZIndex(zindex).addTo(map);			
 	
 }
 
@@ -504,6 +433,8 @@ function setHealthSec() {
 		}).setZIndex('999').addTo(map);
 		
 		updateHealthLegend();
+		
+		setHash();
 	}
 }
 
@@ -528,10 +459,11 @@ function setBroadbandCombo() {
 		styles: ['bb_combo_'+ type +'_'+ dir +'_state', 'bb_combo_'+ type +'_'+ dir +'_county']
 	}).setZIndex('999').addTo(map);	
 	
-	
 	var broadband_tooltip = broadband_ly[type +'_'+ dir].tooltip;
 	
 	$( '#bb-tooltip-broadband' ).attr( 'title', broadband_tooltip ).tooltip('fixTitle');	
+	
+	setHash();
 	
 }
 
@@ -557,6 +489,8 @@ function setPopSec() {
 		}).setZIndex('999').addTo(map);
 		
 		updatePopLegend();
+		
+		setHash();
 	}
 }
 
@@ -634,7 +568,7 @@ function updatePopLegend() {
 }
 	
 
-	//**************************************************************************
+//**************************************************************************
 // data functions
 
 function getData() {	
@@ -657,7 +591,7 @@ function getData() {
 
 function processData(data) {
 		
-	//console.log('processData : ' + JSON.stringify(data) );
+	console.log('processData : '  );
 	
 	if (data.features){
 	
@@ -722,6 +656,152 @@ function setDownloadLinks() {
 	$('#download-data-csv').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=csv&typeName='+ geo_space +':'+ download_layer + download_filter );
 }
 
+function setHash() {
+	
+	var hash = '';
+	
+	var lat = map.getCenter().lat;
+	var lng = map.getCenter().lng;	
+	
+	lat = Math.round(lat * 1000000) / 1000000;
+	lng = Math.round(lng * 1000000) / 1000000;
+	
+	var zoom = map.getZoom();	
+	
+	if ((lat) && (lng) && (zoom)) {
+		hash += '&ll='+ lat +','+ lng;
+		hash += '&z='+ zoom;
+	}
+	
+	if (cur_tab) {
+		hash += '&t='+ cur_tab;
+	}
+	
+	if (cur_tab === 'insights') {
+		var inb = $('#select-in-broadband').val();
+		var inh = $('#select-in-health').val();
+		var inc = $('#select-in-count').val();
+		
+		var slb = $('#slider-broadband').slider("values", 0) +','+ $('#slider-broadband').slider("values", 1);
+		var slh = $('#slider-health').slider("values", 0) +','+ $('#slider-health').slider("values", 1);
+		
+		console.log(' slb : ' + slb );
+		
+		if (inb) { hash += '&inb='+ inb; }
+		if (inh) { hash += '&inh='+ inh; }		
+		if (inc) { hash += '&inc='+ inc; }
+		
+		if (slb) { hash += '&slb='+ slb; }
+		if (slh) { hash += '&slh='+ slh; }
+	}
+	else if (cur_tab === 'health') {
+		var hhm = $('#health-sec-type').val();
+		
+		if (hhm) { hash += '&hhm='+ hhm; }
+	}
+	else if (cur_tab === 'broadband') {	
+		var bb_type =  $('.broadband-type:checked').val();
+		var bb_dir = $('.broadband-dir:checked').val();
+		
+		if ((bb_type) && (bb_dir)) { hash += '&bbm='+ bb_type +','+ bb_dir ; }
+	}
+	else if (cur_tab === 'population') {
+		var ppm = $('#pop-sec-type').val();
+		
+		if (ppm) { hash += '&ppm='+ ppm; }
+	}
+	
+	hash = hash.substring(1);
+	
+	window.location.hash = hash;
+	
+	console.log(' hash : ' + hash );
+}
+
+function loadHash() {
+	
+	var init_hash = (window.location.href.split('#')[1] || '');
+	
+	console.log(' init_hash : ' + init_hash );
+	
+	if (init_hash) {
+		
+		var hash_vars = init_hash.split('&');		
+		
+		var hash_obj = {};
+		
+		for (i=0; i < hash_vars.length; i++) {
+			var vars_arr = hash_vars[i].split('=');
+			hash_obj[vars_arr[0]] = vars_arr[1];
+		}		
+		
+		console.log(' hash_obj : ' + JSON.stringify(hash_obj) );
+		
+		if ((hash_obj.ll) && (hash_obj.z)) {
+			
+			var hash_lat = hash_obj.ll.split(',')[0];
+			var hash_lng = hash_obj.ll.split(',')[1];
+			var hash_zoom = hash_obj.z;
+		
+			map.setView([hash_lat, hash_lng], hash_zoom); 
+		}
+		
+		if (hash_obj.t) {
+		
+			cur_tab = hash_obj.t;			
+			generateMenu();
+		}		
+		
+		if (hash_obj.t === 'insights') {
+			
+			if (hash_obj.inb) { $('#select-in-broadband').val(hash_obj.inb); }
+			if (hash_obj.inh) { $('#select-in-health').val(hash_obj.inh); }		
+			if (hash_obj.inc) { $('#select-in-count').val(hash_obj.inc); }
+			
+			if (hash_obj.slb) {  
+				updateSlider('broadband', [hash_obj.slb.split(',')[0], hash_obj.slb.split(',')[1]]);
+			}
+			if (hash_obj.slh) {  				
+				updateSlider('health', [hash_obj.slh.split(',')[0], hash_obj.slh.split(',')[1]]);
+			}		
+		}
+		else if (hash_obj.t === 'health') {	
+			if (hash_obj.hhm) { 
+				$('#health-sec-type').val(hash_obj.hhm); 
+				
+				setHealthSec();
+			}			
+		}
+		else if (hash_obj.t === 'broadband') {	
+
+			if (hash_obj.bbm) { 
+				
+				var hash_type = hash_obj.bbm.split(',')[0];
+				var hash_dir = hash_obj.bbm.split(',')[1];
+				
+				console.log(' hash_type : ' + hash_type);
+				
+				$('#broadband-type-'+ hash_type ).prop('checked', true);
+				$('#broadband-dir-'+ hash_dir ).prop('checked', true);	
+				
+				$('.broadband-type' ).parent().removeClass("active");
+				$('.broadband-dir' ).parent().removeClass("active");
+				
+				$('#broadband-type-'+ hash_type ).parent().addClass("active");
+				$('#broadband-dir-'+ hash_dir ).parent().addClass("active");
+				
+				setBroadbandCombo();
+			}			
+		}
+		else if (hash_obj.t === 'population') {
+			if (hash_obj.ppm) { 
+				$('#pop-sec-type').val(hash_obj.ppm); 
+				
+				setPopSec();
+			}				
+		}		
+	}		
+}
 
 //**************************************************************************
 // insights functions
@@ -767,6 +847,10 @@ function updateInsightContent(state_sel) {
 // stats functions
 
 function updateStats() {
+	
+	//console.log(' updateStats : ' + );
+	
+	setHash();
 	
 	var geography_type = geo_prop.geography_type;
 	var geography_id = geo_prop.geography_id;
@@ -894,74 +978,56 @@ function formatStat(input, decimal) {
 	return output;	
 }
 
-function createStats() {
-	
-	if (cur_tab == 'health'){
-		
-	}	
-	else if (cur_tab == 'broadband'){
-		
-	}
-	else if (cur_tab == 'population'){
-		
-	}	
-}
-
 
 //**************************************************************************
 // menu functions
 
 function generateMenu(){
-	$('.layer-switch').on('click', 'a', function(e) {
+	
+	clearMap();
 
-        e.preventDefault();
-	
-		cur_tab = $(this).attr('id');
-	
-		clearMap();
-	
-        if (cur_tab === 'insights') {
-            $('.list-health-panel').addClass('hide');
-            $('.list-broadband-panel').addClass('hide'); 
-			$('.list-population-panel').addClass('hide'); 
-            $('.list-insight-panel').removeClass('hide'); 
-			
-			createSlider();
-			var count_sel = $('#select-in-count').val();
-			if (count_sel != "") {
-				setCount();
-			}
-        }
-        else if (cur_tab === 'health') {
-            $('.list-insight-panel').addClass('hide');
-            $('.list-broadband-panel').addClass('hide');  
-			$('.list-population-panel').addClass('hide'); 
-            $('.list-health-panel').removeClass('hide'); 
-			
-			setHealthSec();
-        }
-        else if (cur_tab === 'broadband') {
-            $('.list-health-panel').addClass('hide');
-            $('.list-insight-panel').addClass('hide');  
-			$('.list-population-panel').addClass('hide'); 
-            $('.list-broadband-panel').removeClass('hide');  			
-			
-			setBroadbandCombo();			
-        }
-		else if (cur_tab === 'population') {
-            $('.list-health-panel').addClass('hide');
-            $('.list-insight-panel').addClass('hide');   
-			$('.list-broadband-panel').addClass('hide'); 
-            $('.list-population-panel').removeClass('hide');  	
-			
-			setPopSec();
-        }
+	if (cur_tab === 'insights') {
+		$('.list-health-panel').addClass('hide');
+		$('.list-broadband-panel').addClass('hide'); 
+		$('.list-population-panel').addClass('hide'); 
+		$('.list-insight-panel').removeClass('hide'); 
 		
-		createCharts();
+		createSlider();
+		
+		var count_sel = $('#select-in-count').val();
+		if (count_sel != "") {
+			setCount();
+		}
+	}
+	else if (cur_tab === 'health') {
+		$('.list-insight-panel').addClass('hide');
+		$('.list-broadband-panel').addClass('hide');  
+		$('.list-population-panel').addClass('hide'); 
+		$('.list-health-panel').removeClass('hide'); 
+		
+		setHealthSec();
+	}
+	else if (cur_tab === 'broadband') {
+		$('.list-health-panel').addClass('hide');
+		$('.list-insight-panel').addClass('hide');  
+		$('.list-population-panel').addClass('hide'); 
+		$('.list-broadband-panel').removeClass('hide');  			
+		
+		setBroadbandCombo();			
+	}
+	else if (cur_tab === 'population') {
+		$('.list-health-panel').addClass('hide');
+		$('.list-insight-panel').addClass('hide');   
+		$('.list-broadband-panel').addClass('hide'); 
+		$('.list-population-panel').removeClass('hide');  	
+		
+		setPopSec();
+	}
+	
+	createCharts();
 
-        $('.layer-switch').find('li').removeClass('active');
-        $(this).parent('li').addClass('active');
-    });
+	$('.layer-switch').find('li').removeClass('active');
+	$('#'+ cur_tab).parent('li').addClass('active');    
  }
      
  //**************************************************************************
@@ -969,28 +1035,118 @@ function generateMenu(){
 
  $(document).ready(function() { 
 
-	 geo_prop = national_data.features[0].properties;
+	geo_prop = national_data.features[0].properties;	 
 	 
-	 createMap();
-     generateMenu();
+	createMap();
+	createSlider();	 
+
+	loadHash();
+	
+	// menu
+	$('.layer-switch').on('click', 'a', function(e) {	
+		e.preventDefault();
+		cur_tab = $(this).attr('id');	
+		generateMenu();			
+	});
 	 
-	 createSlider();
+	// current location
+	$('#btn-geo-current').click(function(e) {
+		getCurrentLocation(false);
+		return false;
+	});
+    
+    $('#input-geo-search').on('click', function(e) {
+        e.preventDefault();
+        var search_input = $('#input-geo-location').val();    
+        getGeocode(search_input);
+    });
+
+    $(document).keypress(function(e) {      
+        if (e.which === 13) {
+            var search_input = $('#input-geo-location').val();            
+            getGeocode(search_input);
+        }
+    });
+     
+    // nationwide
+    $('#btn-geo-nation').on('click', function() {
+        setNationwide();
+    });  
+	
+	// select state
+    $('#insight-select-state').on('change', function() {
+	
+        var state_sel = $('#insight-select-state').val();		
+
+		// updateInsightContent(state_sel);		
+
+		if (state_sel == "nationwide") {
+			setNationwide();
+		}
+		else {
+			setState(state_sel);
+		}
+    }); 
+	
+	// select count
+    $('#select-in-count').on('change', function() {
+	
+        var count_sel = $('#select-in-count').val();		
+		//console.log(' count_sel : ' + count_sel );
+		
+		if (count_sel != "") {
+			setCount();
+			updateStats();
+		}
+		else {
+			if (map.hasLayer(map_overlays['in_count'])) {
+				map.removeLayer(map_overlays['in_count']);
+			}
+			$( '.in-cnt-legend-box').css('display', 'none');
+		}
+    }); 
+	
+	// select health
+	$('#health-sec-type').on('change', function() {
+		
+		setHealthSec();			
+    }); 
+			
+	// select broadband
+	$('.broadband-type').on('change', function() {
+	
+        bb_combo_type = $(this).val();		
+		//console.log(' bb_combo_type : ' + bb_combo_type );
+		
+		setBroadbandCombo();	
+    }); 
+	
+	$('.broadband-dir').on('change', function() {
+	
+        bb_combo_dir = $(this).val();		
+		//console.log(' bb_combo_dir : ' + bb_combo_dir );
+		
+		setBroadbandCombo();		
+    }); 
+	
+	// select population
+	$('#pop-sec-type').on('change', function() {
+		
+		setPopSec();			
+    }); 
+	 	 
+	setCount();	 
+	updateStats();		 
+	setDownloadLinks();
 	 
-	 setCount();
-	 
-	 updateStats();	
-	 
-	 setDownloadLinks();
-	 
-	 $(".selectpicker").selectpicker({});
-	 
-	 $('.in-tooltip, .hh-tooltip, .bb-tooltip').tooltip();
+	$(".selectpicker").selectpicker({});
+
+	$('.in-tooltip, .hh-tooltip, .bb-tooltip').tooltip();
 	
 	$('#carousel-bb').bind('slid.bs.carousel', function (e) {
 		//console.log('slide event!');
 		createCharts();
 	});
     
-});  
-       
+});         
   

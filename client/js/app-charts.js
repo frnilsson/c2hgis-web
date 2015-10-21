@@ -48,8 +48,6 @@ function createCharts() {
 	
 	if (cur_tab == 'health'){	
 
-		updateStats();
-		
 		chart_obj.health.measurements.data = {
 			labels: ["Obesity", "Diabetes", "Smoking", "Excessive Drinking", "Physical Inactivity", "Severe Housing"],
 			datasets: [

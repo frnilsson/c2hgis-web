@@ -329,7 +329,7 @@ var insight_ly = {
 			suffix: ''
 		},
 		in_cnt_tele: {
-			layer: 'telehealth_cms',
+			layer: 'c2hgis_telehealth',
 			column: 'telehealth_beneficiary_total',
 			style: 'telehealth',
 			color: '#9d5978',

@@ -980,6 +980,8 @@ function generateMenu(){
 	 
 	 updateStats();	
 	 
+	 setDownloadLinks();
+	 
 	 $(".selectpicker").selectpicker({});
 	 
 	 $('.in-tooltip, .hh-tooltip, .bb-tooltip').tooltip();

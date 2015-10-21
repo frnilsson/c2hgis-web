@@ -83,7 +83,7 @@ function createMap() {
      baseTerrain = L.mapbox.tileLayer('fcc.k74cm3ol');
     
      L.control.scale({
-         position: 'bottomright'
+         position: 'bottomleft'
      }).addTo(map);
 
      //geocoder = L.mapbox.geocoder('mapbox.places-v1');

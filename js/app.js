@@ -8,13 +8,13 @@
   
 */
 
-var geo_host = 'http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com';
-var geo_space = 'c2hgis';
+//var geo_host = 'http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com';
+//var geo_space = 'c2hgis';'
+//var geo_output = 'application/json'
 
-//var geo_host = 'http://kyauk.fcc.gov:8010/geoserver';
-//var geo_space = 'fcc';
-
-var geo_output = 'application/json'
+var geo_host = 'http://kyauk.fcc.gov:8010/geoserver';
+var geo_space = 'fcc';
+var geo_output = 'json'
 
 var geo_type = 'state';
 //var geo_type = 'national';
@@ -85,19 +85,7 @@ function createMap() {
 		{
 			position: 'topleft'
 		})
-		.addTo(map);  
-		
-	/*
-    var wms_border = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
-         format: 'image/png',
-         transparent: true,
-         layers: ''+ geo_space +':border',
-		 zIndex: 999
-     });    
-	*/
-	 
-	 //wms_border.addTo(map);	
-	
+		.addTo(map);  		
 	
 	map.on('moveend', function() {
 		setHash();
@@ -318,8 +306,6 @@ function createSlider() {
 function setSliderMap(type, low, high) {	
 	
 	//console.log(' type : ' + type );
-	//console.log(' low : ' + low );
-	//console.log(' high : ' + high );
 	
 	var dropdown = $( '#select-in-'+ type ).val();
 	var column = insight_ly[type][dropdown].column;
@@ -330,8 +316,6 @@ function setSliderMap(type, low, high) {
 	var tooltip = insight_ly[type][dropdown].tooltip;
 	
 	//console.log(' dropdown : ' + dropdown );
-	//console.log(' column : ' + column );
-	//console.log(' zindex : ' + zindex );	
 	
 	var label_text = '';
 	
@@ -573,7 +557,7 @@ function updatePopLegend() {
 
 function getData() {	
 
-	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ geo_type +'&maxFeatures=1&outputFormat=text/javascript&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
+	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ geo_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
 	//console.log(' data_url : ' + data_url );
 	
@@ -591,7 +575,7 @@ function getData() {
 
 function processData(data) {
 		
-	console.log('processData : '  );
+	//console.log('processData : ' + JSON.stringify(data)  );	
 	
 	if (data.features){
 	
@@ -685,7 +669,7 @@ function setHash() {
 		var slb = $('#slider-broadband').slider("values", 0) +','+ $('#slider-broadband').slider("values", 1);
 		var slh = $('#slider-health').slider("values", 0) +','+ $('#slider-health').slider("values", 1);
 		
-		console.log(' slb : ' + slb );
+		//console.log(' slb : ' + slb );
 		
 		if (inb) { hash += '&inb='+ inb; }
 		if (inh) { hash += '&inh='+ inh; }		
@@ -715,14 +699,14 @@ function setHash() {
 	
 	window.location.hash = hash;
 	
-	console.log(' hash : ' + hash );
+	//console.log(' hash : ' + hash );
 }
 
 function loadHash() {
 	
 	var init_hash = (window.location.href.split('#')[1] || '');
 	
-	console.log(' init_hash : ' + init_hash );
+	//console.log(' init_hash : ' + init_hash );
 	
 	if (init_hash) {
 		
@@ -735,7 +719,7 @@ function loadHash() {
 			hash_obj[vars_arr[0]] = vars_arr[1];
 		}		
 		
-		console.log(' hash_obj : ' + JSON.stringify(hash_obj) );
+		//console.log(' hash_obj : ' + JSON.stringify(hash_obj) );
 		
 		if ((hash_obj.ll) && (hash_obj.z)) {
 			
@@ -764,22 +748,25 @@ function loadHash() {
 			if (hash_obj.slh) {  				
 				updateSlider('health', [hash_obj.slh.split(',')[0], hash_obj.slh.split(',')[1]]);
 			}		
+			
+			setCount();			
 		}
 		else if (hash_obj.t === 'health') {	
 			if (hash_obj.hhm) { 
-				$('#health-sec-type').val(hash_obj.hhm); 
 				
+				$('#health-sec-type').val(hash_obj.hhm); 				
+			
 				setHealthSec();
 			}			
 		}
 		else if (hash_obj.t === 'broadband') {	
 
-			if (hash_obj.bbm) { 
+			if (hash_obj.bbm) { 				
 				
 				var hash_type = hash_obj.bbm.split(',')[0];
 				var hash_dir = hash_obj.bbm.split(',')[1];
 				
-				console.log(' hash_type : ' + hash_type);
+				//console.log(' hash_type : ' + hash_type);
 				
 				$('#broadband-type-'+ hash_type ).prop('checked', true);
 				$('#broadband-dir-'+ hash_dir ).prop('checked', true);	
@@ -794,7 +781,8 @@ function loadHash() {
 			}			
 		}
 		else if (hash_obj.t === 'population') {
-			if (hash_obj.ppm) { 
+			if (hash_obj.ppm) { 				
+				
 				$('#pop-sec-type').val(hash_obj.ppm); 
 				
 				setPopSec();
@@ -1038,7 +1026,8 @@ function generateMenu(){
 	geo_prop = national_data.features[0].properties;	 
 	 
 	createMap();
-	createSlider();	 
+	createSlider();	
+	setCount();	
 
 	loadHash();
 	
@@ -1133,9 +1122,8 @@ function generateMenu(){
 	$('#pop-sec-type').on('change', function() {
 		
 		setPopSec();			
-    }); 
-	 	 
-	setCount();	 
+    }); 	 
+	 
 	updateStats();		 
 	setDownloadLinks();
 	 

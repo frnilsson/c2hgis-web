@@ -1,7 +1,8 @@
-var geo_host = 'http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com';
-var geo_space = 'c2hgis';
-//var geo_host = 'http://kyauk.fcc.gov:8010/geoserver';
-//var geo_space = 'fcc';
+//var geo_host = 'http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com';
+//var geo_space = 'c2hgis';
+
+var geo_host = 'http://kyauk.fcc.gov:8010/geoserver';
+var geo_space = 'fcc';
 var geo_output = 'application/json'
 
 var geo_type = 'state';
@@ -810,9 +811,7 @@ function setSliderMap(type, low, high) {
 		 format: 'image/png',
 		 transparent: true,
 		 cql_filter: filter,
-		 //layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
 		 layers: [''+ geo_space +':c2hgis_'+ type],
-		 //styles: [''+ geo_space +':'+ type +'_state', ''+ geo_space +':'+ type +'_county']
 	 }).setZIndex(zindex).addTo(map);				
 	
 }
@@ -953,7 +952,7 @@ function setPopSec() {
 			format: 'image/png',
 			transparent: true,
 			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-			styles: [''+ geo_space +':'+ pop_style +'_state', ''+ geo_space +':'+ pop_style +'_county']
+			styles: [ pop_style +'_state', pop_style +'_county']
 		}).setZIndex('999').addTo(map);
 		
 		updatePopLegend();
@@ -1074,7 +1073,7 @@ function setHealthSec() {
 			format: 'image/png',
 			transparent: true,
 			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-			styles: [''+ geo_space +':'+ health_style +'_state', ''+ geo_space +':'+ health_style +'_county']
+			styles: [''+ health_style +'_state', ''+ health_style +'_county']
 		}).setZIndex('999').addTo(map);
 		
 		updateHealthLegend();
@@ -1122,7 +1121,7 @@ function setBroadbandCombo() {
 		format: 'image/png',
 		transparent: true,
 		layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-		styles: [''+ geo_space +':bb_combo_'+ type +'_'+ dir +'_state', ''+ geo_space +':bb_combo_'+ type +'_'+ dir +'_county']
+		styles: ['bb_combo_'+ type +'_'+ dir +'_state', 'bb_combo_'+ type +'_'+ dir +'_county']
 	}).setZIndex('999').addTo(map);	
 	
 	
@@ -1153,11 +1152,11 @@ function setCount() {
 		}
 		
 		var count_layers = [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'];
-		var count_styles = [''+ geo_space +':count_'+ count_style +'_state', ''+ geo_space +':count_'+ count_style +'_county'];
+		var count_styles = ['count_'+ count_style +'_state', 'count_'+ count_style +'_county'];
 		
 		if (count_layer != 'c2hgis') {
 			count_layers = ''+ geo_space +':' + count_layer;
-			count_styles = ''+ geo_space +':count_' + count_style;
+			count_styles = 'count_' + count_style;
 		}
 		
 		//console.log(' count_layers : ' + count_layers );	

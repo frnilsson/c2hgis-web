@@ -417,7 +417,7 @@ function setHealthSec(adv_selection) {
 	//console.log("adv_selection : "+adv_selection);
 
 	var filter = '';
-
+	var adv_tooltip = 'Select';
 	if(adv_selection != null) {
 		var selection =  adv_selection.split('#');
 		var layer = selection[0];
@@ -432,11 +432,13 @@ function setHealthSec(adv_selection) {
 		filter = filter + ';' + filter;
 		//filter = 'advdl_gr25000k>=90 AND advdl_gr25000k<=100;advdl_gr25000k>=90 AND advdl_gr25000k<=100';
 		//console.log('adv filter: '+filter);
+		adv_tooltip = $("#adv-select-in-broadband option[value='"+adv_selection+"']").text();
 	}
 	else {
 		$('#adv-select-in-broadband').val("");
-		$('.selectpicker').selectpicker('refresh')
-	}
+		$('.selectpicker').selectpicker('refresh')			
+	}	
+	$('#adv-select-broadband-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
 	if (health_ly[health_type]) {
 	
 		var health_style = health_ly[health_type].style;
@@ -1148,8 +1150,13 @@ function generateMenu(){
 	
 	// select health
 	$('#health-sec-type').on('change', function() {
-		
-		setHealthSec(null);			
+		var adv_sel = $('#adv-select-in-broadband').val();		
+		if (adv_sel != "") {
+			setHealthSec(adv_sel);
+		}	
+		else {
+			setHealthSec(null);	
+		}				
     }); 
 
     // select health

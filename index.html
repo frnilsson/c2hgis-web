@@ -344,7 +344,7 @@
 											<td><span class="square-sym health-sym-5" style="background-color: #ba0c0c; "></span></td>
 										</tr>
 										<tr>
-											<td class="square-label health-label-min">< 1,000</td>  
+											<td class="square-label health-label-min">&lt; 1,000</td>  
 											<td colspan="3" class="health-table-label"></td>                                                                                 
 											<td class="square-label health-label-max">> 10,000</td>
 										</tr>
@@ -354,30 +354,37 @@
                                     
                                     <div id="adv-select-broadband-section">
                                         <div class="row"> 
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-5">
                                                 <div class="layer-drop-lab layer-drop-lab-health">
-                                                     Broadband:
+                                                     Broadband Filter:
                                                 </div>
                                             </div>                                           
-                                            <div class="col-sm-8">
-                                                <select id="adv-select-in-broadband" class="selectpicker select-advanced">
-                                                    <option value="">- Select Filter -</option>
-                                                    <option value="in_bb_access#0_30">Broadband Access 0-30</option>
-                                                    <option value="in_bb_access#30_60">Broadband Access 30-60</option>
-                                                    <option value="in_bb_access#60_100">Broadband Access 60+</option>                                                    
-                                                    <option value="in_bb_wn_access#0_30">WN Broadband Access 0-30</option>
-                                                    <option value="in_bb_wn_access#30_60">WN Broadband Access 30-60</option>
-                                                    <option value="in_bb_wn_access#60_100">WN Broadband Access 60+</option>
-                                                    <option value="in_bb_ws_access#0_30">WS Broadband Access 0-30</option>
-                                                    <option value="in_bb_ws_access#30_60">WS Broadband Access 30-60</option>
-                                                    <option value="in_bb_ws_access#60_100">WS Broadband Access 60+</option>
-                                                    <option value="in_bb_dl_speed#0_6">Advertised DL Speed &#60; 6</option>
-                                                    <option value="in_bb_dl_speed#6_9">Advertised DL Speed 6-9</option>
-                                                    <option value="in_bb_dl_speed#9_11">Advertised DL Speed 9+</option>
-                                                    <option value="in_bb_ul_speed#0_6">Advertised UL Speed &#60; 6</option>
-                                                    <option value="in_bb_ul_speed#6_9">Advertised UL Speed 6-9</option>
-                                                    <option value="in_bb_ul_speed#9_11">Advertised UL Speed 9+</option>
-                                                </select>
+                                            <div class="col-sm-7">
+                                                <div class="row">
+                                                    <div class="col-xs-10">
+                                                        <select id="adv-select-in-broadband" class="selectpicker select-advanced">
+                                                            <option value="">(Select)</option>
+                                                            <option value="in_bb_access#0_30">Broadband Access 0-30</option>
+                                                            <option value="in_bb_access#30_60">Broadband Access 30-60</option>
+                                                            <option value="in_bb_access#60_100">Broadband Access 60+</option>                                                    
+                                                            <option value="in_bb_wn_access#0_30">WN Broadband Access 0-30</option>
+                                                            <option value="in_bb_wn_access#30_60">WN Broadband Access 30-60</option>
+                                                            <option value="in_bb_wn_access#60_100">WN Broadband Access 60+</option>
+                                                            <option value="in_bb_ws_access#0_30">WS Broadband Access 0-30</option>
+                                                            <option value="in_bb_ws_access#30_60">WS Broadband Access 30-60</option>
+                                                            <option value="in_bb_ws_access#60_100">WS Broadband Access 60+</option>
+                                                            <option value="in_bb_dl_speed#0_6">Advertised DL Speed &#60; 6</option>
+                                                            <option value="in_bb_dl_speed#6_9">Advertised DL Speed 6-9</option>
+                                                            <option value="in_bb_dl_speed#9_11">Advertised DL Speed 9+</option>
+                                                            <option value="in_bb_ul_speed#0_6">Advertised UL Speed &#60; 6</option>
+                                                            <option value="in_bb_ul_speed#6_9">Advertised UL Speed 6-9</option>
+                                                            <option value="in_bb_ul_speed#9_11">Advertised UL Speed 9+</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-2 slider-tooltip-div">
+                                                        <i class="fa fa-question hh-tooltip" id="adv-select-broadband-tooltip" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                    </div>
+                                                </div>
                                             </div>                                            
                                         </div>
                                     </div>

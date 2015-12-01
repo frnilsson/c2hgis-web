@@ -2945,7 +2945,7 @@ a.gen-passcode {
 
 /* ============== new CSS related to maps starts ============== */
 
-#map { height: 666px; }
+#map { height: 730px; }
 .map-container { position: relative; margin-top: 8px; }
 
 .btn-geo { border: 1px solid rgba(0, 0, 0, 0.4); border-radius: 3px; left: 10px; padding: 2px; position: absolute; width: 28px; height: 26px; background: #ffffff; }
@@ -3106,7 +3106,7 @@ a.gen-passcode {
 
 .slider-label { border:0; color:#f6931f; font-weight:bold; display: inline-block; padding-left: 5px; line-height: 30px}
 .select-insight { width: 185px !important; display: inline-block;}
-.select-advanced { width: 225px !important; display: inline-block;}
+.select-advanced { width: 185px !important; display: inline-block;}
 
 
 .slider-bar { margin: 8px 0px; }

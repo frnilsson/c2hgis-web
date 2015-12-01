@@ -409,10 +409,34 @@ function setCount() {
 	}
 }
 																	
-function setHealthSec() {
+function setHealthSec(adv_selection) {
 
 	var health_type = $('#health-sec-type').val();
-	
+
+	//console.log("health_type : "+health_type);
+	//console.log("adv_selection : "+adv_selection);
+
+	var filter = '';
+
+	if(adv_selection != null) {
+		var selection =  adv_selection.split('#');
+		var layer = selection[0];
+		var ranges = selection[1].split('_');
+		var low = ranges[0];
+		var high = ranges[1];
+		//console.log('layer:'+layer+',low:'+low+',high:'+high);
+		
+		var column = insight_ly['broadband'][layer].column;
+		//console.log('column:'+column);
+		filter = column + '>=' + low + ' AND ' + column + '<=' + high;
+		filter = filter + ';' + filter;
+		//filter = 'advdl_gr25000k>=90 AND advdl_gr25000k<=100;advdl_gr25000k>=90 AND advdl_gr25000k<=100';
+		//console.log('adv filter: '+filter);
+	}
+	else {
+		$('#adv-select-in-broadband').val("");
+		$('.selectpicker').selectpicker('refresh')
+	}
 	if (health_ly[health_type]) {
 	
 		var health_style = health_ly[health_type].style;
@@ -421,17 +445,28 @@ function setHealthSec() {
 			map.removeLayer(map_overlays['health_ov']);
 		}
 		
-		map_overlays['health_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
-			format: 'image/png',
-			transparent: true,
-			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-			styles: [''+ health_style +'_state', ''+ health_style +'_county']
-		}).setZIndex('999').addTo(map);
-		
+		if(filter != '') {
+			map_overlays['health_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
+				format: 'image/png',
+				transparent: true,
+				cql_filter: filter,
+				layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
+				styles: [''+ health_style +'_state', ''+ health_style +'_county']
+			}).setZIndex('999').addTo(map);
+		}
+		else {
+			map_overlays['health_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
+				format: 'image/png',
+				transparent: true,
+				layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
+				styles: [''+ health_style +'_state', ''+ health_style +'_county']
+			}).setZIndex('999').addTo(map);
+		}
 		updateHealthLegend();
 		
 		setHash();
 	}
+	//console.log("adv menu:"+$('#adv-select-in-broadband').val());
 }
 
 function setBroadbandCombo() {
@@ -772,7 +807,7 @@ function loadHash() {
 				
 				$('#health-sec-type').val(hash_obj.hhm); 				
 			
-				setHealthSec();
+				setHealthSec(null);
 			}			
 		}
 		else if (hash_obj.t === 'broadband') {	
@@ -852,7 +887,7 @@ function updateInsightContent(state_sel) {
 
 function updateStats() {
 	
-	//console.log(' updateStats : ' + );
+	//console.log(' in updateStats');
 	
 	setHash();
 	
@@ -1009,7 +1044,7 @@ function generateMenu(){
 		$('.list-population-panel').addClass('hide'); 
 		$('.list-health-panel').removeClass('hide'); 
 		
-		setHealthSec();
+		setHealthSec(null);
 	}
 	else if (cur_tab === 'broadband') {
 		$('.list-health-panel').addClass('hide');
@@ -1114,7 +1149,18 @@ function generateMenu(){
 	// select health
 	$('#health-sec-type').on('change', function() {
 		
-		setHealthSec();			
+		setHealthSec(null);			
+    }); 
+
+    // select health
+	$('#adv-select-in-broadband').on('change', function() {
+		var adv_sel = $('#adv-select-in-broadband').val();		
+		if (adv_sel != "") {
+			setHealthSec(adv_sel);
+		}	
+		else {
+			setHealthSec(null);	
+		}
     }); 
 			
 	// select broadband

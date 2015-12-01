@@ -3106,6 +3106,8 @@ a.gen-passcode {
 
 .slider-label { border:0; color:#f6931f; font-weight:bold; display: inline-block; padding-left: 5px; line-height: 30px}
 .select-insight { width: 185px !important; display: inline-block;}
+.select-advanced { width: 225px !important; display: inline-block;}
+
 
 .slider-bar { margin: 8px 0px; }
 
@@ -3192,7 +3194,7 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 .layer-drop-lab {
 	color: #2c75d6;
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 16px;
 	vertical-align: middle;
 	line-height: 36px;
 }

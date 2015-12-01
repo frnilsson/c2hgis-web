@@ -309,30 +309,30 @@
 								<!-- Health Tab  **************************************************************** -->
                                 <div class="panel-data list-health-panel hide">
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="col-sm-5 layer-drop-lab layer-drop-lab-health">                                    
-												Health Measures: 
+                                        <div class="col-sm-5">
+                                            <div class="layer-drop-lab layer-drop-lab-health">
+											     Health Measures:
                                             </div>
-                                            <div class="col-sm-7">
-                                                <div class="row">
-                                                    <div class="col-xs-10">                                    
-                                                        <select id="health-sec-type" class="selectpicker select-health">
-                                                            <option value="hh_pcppc" selected="selected">Physician Access</option>                                                                                                      
-        													<!--<option value="hh_prematured">Premature Death</option>-->
-                                                            <option value="hh_preventhosp">Preventable Hospital</option>
-        													<option value="hh_sick_days">Sick Days</option>
-        													<option value="hh_obesity">Obesity Rate</option>										
-        													<option value="hh_diabetes_rate">Diabetes</option>			
-        													<option value="hh_poorfair">Poor/Fair Health</option>  
-        													<option value="hh_severe_housing">Severe Housing</option>														
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-xs-2 slider-tooltip-div">
-                                                        <i class="fa fa-question hh-tooltip" id="hh-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
-                                                    </div>
-                                                </div>																								
-                                            </div>
-                                        </div>										
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <div class="row">
+                                                <div class="col-xs-10">                                    
+                                                    <select id="health-sec-type" class="selectpicker select-health">
+                                                        <option value="hh_pcppc" selected="selected">Physician Access</option>                                                                                                      
+    													<!--<option value="hh_prematured">Premature Death</option>-->
+                                                        <option value="hh_preventhosp">Preventable Hospital</option>
+    													<option value="hh_sick_days">Sick Days</option>
+    													<option value="hh_obesity">Obesity Rate</option>										
+    													<option value="hh_diabetes_rate">Diabetes</option>			
+    													<option value="hh_poorfair">Poor/Fair Health</option>  
+    													<option value="hh_severe_housing">Severe Housing</option>														
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-2 slider-tooltip-div">
+                                                    <i class="fa fa-question hh-tooltip" id="hh-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                </div>
+                                            </div>																								
+                                        </div>
 									</div>	
 									<br />
 									<table class="legend-table-square">
@@ -349,7 +349,40 @@
 											<td class="square-label health-label-max">> 10,000</td>
 										</tr>
 									</table>
-									<hr class="panel-hr"/>
+
+                                    <hr class="panel-hr"/>
+                                    
+                                    <div id="adv-select-broadband-section">
+                                        <div class="row"> 
+                                            <div class="col-sm-4">
+                                                <div class="layer-drop-lab layer-drop-lab-health">
+                                                     Broadband:
+                                                </div>
+                                            </div>                                           
+                                            <div class="col-sm-8">
+                                                <select id="adv-select-in-broadband" class="selectpicker select-advanced">
+                                                    <option value="">- Select Filter -</option>
+                                                    <option value="in_bb_access#0_30">Broadband Access 0-30</option>
+                                                    <option value="in_bb_access#30_60">Broadband Access 30-60</option>
+                                                    <option value="in_bb_access#60_100">Broadband Access 60+</option>                                                    
+                                                    <option value="in_bb_wn_access#0_30">WN Broadband Access 0-30</option>
+                                                    <option value="in_bb_wn_access#30_60">WN Broadband Access 30-60</option>
+                                                    <option value="in_bb_wn_access#60_100">WN Broadband Access 60+</option>
+                                                    <option value="in_bb_ws_access#0_30">WS Broadband Access 0-30</option>
+                                                    <option value="in_bb_ws_access#30_60">WS Broadband Access 30-60</option>
+                                                    <option value="in_bb_ws_access#60_100">WS Broadband Access 60+</option>
+                                                    <option value="in_bb_dl_speed#0_6">Advertised DL Speed &#60; 6</option>
+                                                    <option value="in_bb_dl_speed#6_9">Advertised DL Speed 6-9</option>
+                                                    <option value="in_bb_dl_speed#9_11">Advertised DL Speed 9+</option>
+                                                    <option value="in_bb_ul_speed#0_6">Advertised UL Speed &#60; 6</option>
+                                                    <option value="in_bb_ul_speed#6_9">Advertised UL Speed 6-9</option>
+                                                    <option value="in_bb_ul_speed#9_11">Advertised UL Speed 9+</option>
+                                                </select>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+									
+                                    <hr class="panel-hr"/>
 									<h4 class="geog-name panel-sec-heading"></h4>
 									<div class="row" id="health-stats-div">									
 										<div class="col-md-12">

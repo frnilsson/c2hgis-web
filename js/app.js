@@ -500,7 +500,7 @@ function setBroadbandCombo(adv_selection) {
 		filter = filter + ';' + filter;
 		//filter = 'advdl_gr25000k>=90 AND advdl_gr25000k<=100;advdl_gr25000k>=90 AND advdl_gr25000k<=100';
 		console.log('adv filter: '+filter);
-		adv_tooltip = $("#adv-select-in-broadband option[value='"+adv_selection+"']").text();
+		adv_tooltip = $("#adv-select-in-health option[value='"+adv_selection+"']").text();
 	}
 	else {
 		$('#adv-select-in-health').val("");

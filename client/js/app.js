@@ -107,14 +107,15 @@ function createMap() {
 	map.on('zoomend', function() {
 		
 		var zoom = map.getZoom();
+		console.log("zoomed:"+zoom);
 		
-		if (zoom < 7 ) {
-			new_geo_type = 'state';	
-			zoom_type = 'state';			
+		if (zoom > 4 ) {
+			new_geo_type = 'county';	
+			zoom_type = 'county';			
 		}
-		else if (zoom >= 7 ) {
-			new_geo_type = 'county';
-			zoom_type = 'county';
+		else if (zoom <= 4 ) {
+			new_geo_type = 'state';
+			zoom_type = 'state';
 		}
 		
 		updateCountLegend();		
@@ -128,13 +129,13 @@ function createMap() {
 			geo_type = new_geo_type;			
 		}			
 		
-		//console.log(' geo_type : ' + geo_type );		
+		console.log(' geo_type : ' + geo_type );		
 		
 		setHash();
 	});
 		
 	map.on('click', function(e) {
-		//console.log(' e.latlng : ' + e.latlng );
+		console.log(' e.latlng : ' + e.latlng );
 		
 		geo_lat = e.latlng.lat;
 		geo_lng = e.latlng.lng;		
@@ -178,7 +179,7 @@ function getGeocode(search_input) {
 
     var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
 		
-    //console.log('geocode_url : '+ geocode_url );  
+    console.log('geocode_url : '+ geocode_url );  
     
     $.ajax({
         type: 'GET',
@@ -186,7 +187,7 @@ function getGeocode(search_input) {
         dataType: 'json',
         success: function(data) {
 
-            //console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
+            console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
                         
             if (data.features[0]) {                      
                 
@@ -210,7 +211,7 @@ function getGeocode(search_input) {
 
 function clearMap() {
 
-	//console.log(' clearMap ! '  );
+	console.log(' clearMap ! '  );
 	
 	for (var k in map_overlays) {
 		
@@ -222,7 +223,7 @@ function clearMap() {
 
 function clearClickFeature() {
 
-	//console.log(' clearClickFeature ! '  );
+	console.log(' clearClickFeature ! '  );
 
 	for (var i = 0; i < click_data.length; i++){
 		
@@ -277,9 +278,9 @@ function updateSlider(type, def) {
 		def = values;
 	}
 	
-	//console.log(' min : ' + min );
-	//console.log(' max : ' + max );
-	//console.log(' step : ' + step );	
+	console.log(' min : ' + min );
+	console.log(' max : ' + max );
+	console.log(' step : ' + step );	
 	
 	$( '#slider-'+ type ).slider({
 		range: true,
@@ -306,7 +307,7 @@ function createSlider() {
 	$('.select-insight').on('change', function() {
 	
         var cur_type = $(this).attr('id').split('-')[2];		
-		//console.log(' cur_type : ' + cur_type );
+		console.log(' cur_type : ' + cur_type );
 		
 		updateSlider(cur_type);			
 		updateStats();	
@@ -317,7 +318,7 @@ function createSlider() {
 
 function setSliderMap(type, low, high) {	
 	
-	//console.log(' type : ' + type );
+	console.log(' type : ' + type );
 	
 	var dropdown = $( '#select-in-'+ type ).val();
 	var column = insight_ly[type][dropdown].column;
@@ -327,7 +328,7 @@ function setSliderMap(type, low, high) {
 	var label = insight_ly[type][dropdown].label;
 	var tooltip = insight_ly[type][dropdown].tooltip;
 	
-	//console.log(' dropdown : ' + dropdown );
+	console.log(' dropdown : ' + dropdown );
 	
 	var label_text = '';
 	
@@ -351,7 +352,7 @@ function setSliderMap(type, low, high) {
 	var filter = column + '>=' + low + ' AND ' + column + '<=' + high;
 	filter = filter + ';' + filter;
 
-	//console.log(' filter : ' + filter );	
+	console.log(' filter : ' + filter );	
 	
 	//var cur_layer = map_overlays['in_'+ type];
 
@@ -379,7 +380,7 @@ function setCount() {
 
 	var type = $('#select-in-count').val();
 	
-	//console.log(' setCount type : ' + type );
+	console.log(' setCount type : ' + type );
 
 	if (insight_ly.count[type]) {
 		
@@ -413,8 +414,8 @@ function setHealthSec(adv_selection) {
 
 	var health_type = $('#health-sec-type').val();
 
-	//console.log("health_type : "+health_type);
-	//console.log("adv_selection : "+adv_selection);
+	console.log("health_type : "+health_type);
+	console.log("adv_selection : "+adv_selection);
 
 	var filter = '';
 	var adv_tooltip = 'Select';
@@ -424,14 +425,14 @@ function setHealthSec(adv_selection) {
 		var ranges = selection[1].split('_');
 		var low = ranges[0];
 		var high = ranges[1];
-		//console.log('layer:'+layer+',low:'+low+',high:'+high);
+		console.log('layer:'+layer+',low:'+low+',high:'+high);
 		
 		var column = insight_ly['broadband'][layer].column;
-		//console.log('column:'+column);
+		console.log('column:'+column);
 		filter = column + '>=' + low + ' AND ' + column + '<=' + high;
 		filter = filter + ';' + filter;
 		//filter = 'advdl_gr25000k>=90 AND advdl_gr25000k<=100;advdl_gr25000k>=90 AND advdl_gr25000k<=100';
-		//console.log('adv filter: '+filter);
+		console.log('adv filter: '+filter);
 		adv_tooltip = $("#adv-select-in-broadband option[value='"+adv_selection+"']").text();
 	}
 	else {
@@ -468,29 +469,69 @@ function setHealthSec(adv_selection) {
 		
 		setHash();
 	}
-	//console.log("adv menu:"+$('#adv-select-in-broadband').val());
+	console.log("adv menu:"+$('#adv-select-in-broadband').val());
 }
 
-function setBroadbandCombo() {
+function setBroadbandCombo(adv_selection) {
 	
-	//console.log(' setBroadbandCombo : '  );
+	console.log(' setBroadbandCombo : '  );
 	
 	var type =  $('.broadband-type:checked').val();
 	var dir = $('.broadband-dir:checked').val();
 	
-	//console.log(' type : '+ type  );
-	//console.log(' dir : '+ dir );
+	console.log(' type : '+ type  );
+	console.log(' dir : '+ dir );
+
+	console.log("adv_selection : "+adv_selection);
+
+	var filter = '';
+	var adv_tooltip = 'Select';
+	if(adv_selection != null) {
+		var selection =  adv_selection.split('#');
+		var layer = selection[0];
+		var ranges = selection[1].split('_');
+		var low = ranges[0];
+		var high = ranges[1];
+		console.log('layer:'+layer+',low:'+low+',high:'+high);
+		
+		var column = insight_ly['health'][layer].column;
+		console.log('column:'+column);
+		filter = column + '>=' + low + ' AND ' + column + '<=' + high;
+		filter = filter + ';' + filter;
+		//filter = 'advdl_gr25000k>=90 AND advdl_gr25000k<=100;advdl_gr25000k>=90 AND advdl_gr25000k<=100';
+		console.log('adv filter: '+filter);
+		adv_tooltip = $("#adv-select-in-broadband option[value='"+adv_selection+"']").text();
+	}
+	else {
+		$('#adv-select-in-health').val("");
+		$('.selectpicker').selectpicker('refresh')			
+	}	
+	$('#adv-select-health-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
+
 	
 	if (map.hasLayer(map_overlays['broadband_ov'])) {
 		map.removeLayer(map_overlays['broadband_ov']);
 	}	
 	
-	map_overlays['broadband_ov'] = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
-		format: 'image/png',
-		transparent: true,
-		layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-		styles: ['bb_combo_'+ type +'_'+ dir +'_state', 'bb_combo_'+ type +'_'+ dir +'_county']
-	}).setZIndex('999').addTo(map);	
+
+	if(filter != '') {
+		map_overlays['broadband_ov'] = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
+			format: 'image/png',
+			transparent: true,
+			cql_filter: filter,
+			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
+			styles: ['bb_combo_'+ type +'_'+ dir +'_state', 'bb_combo_'+ type +'_'+ dir +'_county']
+		}).setZIndex('999').addTo(map);	
+	}
+	else {
+		map_overlays['broadband_ov'] = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
+			format: 'image/png',
+			transparent: true,
+			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
+			styles: ['bb_combo_'+ type +'_'+ dir +'_state', 'bb_combo_'+ type +'_'+ dir +'_county']
+		}).setZIndex('999').addTo(map);	
+	}	
+
 	
 	var broadband_tooltip = broadband_ly[type +'_'+ dir].tooltip;
 	
@@ -504,7 +545,7 @@ function setPopSec() {
 
 	var pop_type = $('#pop-sec-type').val();
 	
-	//console.log('pop_type : '+ pop_type );  
+	console.log('pop_type : '+ pop_type );  
 	
 	if (pop_ly[pop_type]) {
 	
@@ -533,7 +574,7 @@ function setPopSec() {
 
 function updateCountLegend() {
 	
-	//console.log(' count_type : ' + count_type );
+	console.log(' count_type : ' + count_type );
 	
 	var count_type = $('#select-in-count').val();	
 	
@@ -608,7 +649,7 @@ function getData() {
 
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ geo_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	//console.log(' data_url : ' + data_url );
+	console.log(' data_url : ' + data_url );
 	
 	$.ajax({
 		type: 'GET',
@@ -624,17 +665,17 @@ function getData() {
 
 function processData(data) {
 		
-	//console.log('processData : ' + JSON.stringify(data)  );	
+	console.log('processData : ' + JSON.stringify(data)  );	
 	
 	if (data.features){
 		
-		//console.log('data.features.length : ' + data.features.length  );	
+		console.log('data.features.length : ' + data.features.length  );	
 		
 		if (data.features.length == 1){
 		
 			var geography_id = data.features[0].properties.geography_id;
 			
-			//console.log('geography_id : ' + JSON.stringify(geography_id)  );	
+			console.log('geography_id : ' + JSON.stringify(geography_id)  );	
 			
 			if (geo_id !== geography_id) {
 			
@@ -642,7 +683,7 @@ function processData(data) {
 				geo_data = data;				
 				geo_prop = geo_data.features[0].properties;
 				
-				//console.log('geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );	
+				console.log('geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );	
 				
 				// ***********************************	
 				
@@ -658,13 +699,13 @@ function processData(data) {
 					
 					click_feature.on('click', function(e) {
 						
-						//console.log(' click_feature e.latlng : ' + e.latlng );
+						console.log(' click_feature e.latlng : ' + e.latlng );
 						
 						geo_lat = e.latlng.lat;
 						geo_lng = e.latlng.lng;		
 						var zoom = map.getZoom();
 						
-						//console.log(' geo_lat : ' + geo_lat );					
+						console.log(' geo_lat : ' + geo_lat );					
 						
 						getData();
 					});
@@ -722,7 +763,7 @@ function setHash() {
 		var slb = $('#slider-broadband').slider("values", 0) +','+ $('#slider-broadband').slider("values", 1);
 		var slh = $('#slider-health').slider("values", 0) +','+ $('#slider-health').slider("values", 1);
 		
-		//console.log(' slb : ' + slb );
+		console.log(' slb : ' + slb );
 		
 		if (inb) { hash += '&inb='+ inb; }
 		if (inh) { hash += '&inh='+ inh; }		
@@ -752,14 +793,14 @@ function setHash() {
 	
 	window.location.hash = hash;
 	
-	//console.log(' hash : ' + hash );
+	console.log(' hash : ' + hash );
 }
 
 function loadHash() {
 	
 	var init_hash = (window.location.href.split('#')[1] || '');
 	
-	//console.log(' init_hash : ' + init_hash );
+	console.log(' init_hash : ' + init_hash );
 	
 	if (init_hash) {
 		
@@ -772,7 +813,7 @@ function loadHash() {
 			hash_obj[vars_arr[0]] = vars_arr[1];
 		}		
 		
-		//console.log(' hash_obj : ' + JSON.stringify(hash_obj) );
+		console.log(' hash_obj : ' + JSON.stringify(hash_obj) );
 		
 		if ((hash_obj.ll) && (hash_obj.z)) {
 			
@@ -819,7 +860,7 @@ function loadHash() {
 				var hash_type = hash_obj.bbm.split(',')[0];
 				var hash_dir = hash_obj.bbm.split(',')[1];
 				
-				//console.log(' hash_type : ' + hash_type);
+				console.log(' hash_type : ' + hash_type);
 				
 				$('#broadband-type-'+ hash_type ).prop('checked', true);
 				$('#broadband-dir-'+ hash_dir ).prop('checked', true);	
@@ -830,7 +871,7 @@ function loadHash() {
 				$('#broadband-type-'+ hash_type ).parent().addClass("active");
 				$('#broadband-dir-'+ hash_dir ).parent().addClass("active");
 				
-				setBroadbandCombo();
+				setBroadbandCombo(null);
 			}			
 		}
 		else if (hash_obj.t === 'population') {
@@ -889,7 +930,7 @@ function updateInsightContent(state_sel) {
 
 function updateStats() {
 	
-	//console.log(' in updateStats');
+	console.log(' in updateStats');
 	
 	setHash();
 	
@@ -917,7 +958,7 @@ function updateStats() {
 	var health_sel = $('#select-in-health').val();
 	var count_sel = $('#select-in-count').val();
 	
-	//console.log(' count_sel : ' + count_sel );	
+	console.log(' count_sel : ' + count_sel );	
 
 	var broadband_stat_value, health_stat_value, count_stat_value;
 	
@@ -1054,7 +1095,7 @@ function generateMenu(){
 		$('.list-population-panel').addClass('hide'); 
 		$('.list-broadband-panel').removeClass('hide');  			
 		
-		setBroadbandCombo();			
+		setBroadbandCombo(null);			
 	}
 	else if (cur_tab === 'population') {
 		$('.list-health-panel').addClass('hide');
@@ -1134,7 +1175,7 @@ function generateMenu(){
     $('#select-in-count').on('change', function() {
 	
         var count_sel = $('#select-in-count').val();		
-		//console.log(' count_sel : ' + count_sel );
+		console.log(' count_sel : ' + count_sel );
 		
 		if (count_sel != "") {
 			setCount();
@@ -1159,7 +1200,7 @@ function generateMenu(){
 		}				
     }); 
 
-    // select health
+    // advanced broadband select
 	$('#adv-select-in-broadband').on('change', function() {
 		var adv_sel = $('#adv-select-in-broadband').val();		
 		if (adv_sel != "") {
@@ -1169,22 +1210,33 @@ function generateMenu(){
 			setHealthSec(null);	
 		}
     }); 
+
+    // advanced broadband select
+	$('#adv-select-in-health').on('change', function() {
+		var adv_sel = $('#adv-select-in-health').val();	
+		if (adv_sel != "") {
+			setBroadbandCombo(adv_sel);
+		}	
+		else {
+			setBroadbandCombo(null);	
+		}
+    }); 
 			
 	// select broadband
 	$('.broadband-type').on('change', function() {
 	
         bb_combo_type = $(this).val();		
-		//console.log(' bb_combo_type : ' + bb_combo_type );
+		console.log(' bb_combo_type : ' + bb_combo_type );
 		
-		setBroadbandCombo();	
+		setBroadbandCombo(null);	
     }); 
 	
 	$('.broadband-dir').on('change', function() {
 	
         bb_combo_dir = $(this).val();		
-		//console.log(' bb_combo_dir : ' + bb_combo_dir );
+		console.log(' bb_combo_dir : ' + bb_combo_dir );
 		
-		setBroadbandCombo();		
+		setBroadbandCombo(null);		
     }); 
 	
 	// select population
@@ -1201,7 +1253,7 @@ function generateMenu(){
 	$('.in-tooltip, .hh-tooltip, .bb-tooltip').tooltip();
 	
 	$('#carousel-bb').bind('slid.bs.carousel', function (e) {
-		//console.log('slide event!');
+		console.log('slide event!');
 		createCharts();
 	});
     

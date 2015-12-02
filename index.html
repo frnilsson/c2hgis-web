@@ -570,7 +570,41 @@
                                             <td></td>                                   
                                             <td class="square-label square-label-max">100%</td>
                                         </tr>
-                                    </table>	
+                                    </table>
+
+                                    <hr class="panel-hr"/>
+                                    
+                                    <div id="adv-select-health-section">
+                                        <div class="row"> 
+                                            <div class="col-sm-5">
+                                                <div class="layer-drop-lab layer-drop-lab-health">
+                                                     Health Filter:
+                                                </div>
+                                            </div>                                           
+                                            <div class="col-sm-7">
+                                                <div class="row">
+                                                    <div class="col-xs-10">
+                                                        <select id="adv-select-in-health" class="selectpicker select-advanced">
+                                                            <option value="">(Select)</option>
+                                                            <option value="in_pcp_access#0_0.00065">PCP per 100,000 (0-65)</option>
+                                                            <option value="in_pcp_access#0.00065_0.001">PCP per 100,000 (65-100)</option>
+                                                            <option value="in_pcp_access#0.001_0.002">PCP per 100,000 (100+)</option>
+                                                            <option value="in_prv_hosp#0_50">Preventable Hosp per 1000 people (0-50)</option>
+                                                            <option value="in_prv_hosp#50_50">Preventable Hosp per 1000 people (50-100)</option>
+                                                            <option value="in_prv_hosp#100_150">Preventable Hosp per 1000 people (100+)</option>
+                                                            <option value="in_sick_days#0_3">Unhealthy days in last 30 days (0-3)</option>
+                                                            <option value="in_sick_days#3_6">Unhealthy days in last 30 days (3-6)</option>
+                                                            <option value="in_sick_days#6_10">Unhealthy days in last 30 days (6+)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-2 slider-tooltip-div">
+                                                        <i class="fa fa-question hh-tooltip" id="adv-select-health-tooltip" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+
 									<hr class="panel-hr"/>
 									<h4 class="geog-name panel-sec-heading"></h4>
 									<div class="row" id="broadband-stats-div">									

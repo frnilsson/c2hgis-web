@@ -308,7 +308,7 @@
 								
 								<!-- Health Tab  **************************************************************** -->
                                 <div class="panel-data list-health-panel hide">
-                                    <div class="row">
+                                    <div class="row row-space">
                                         <div class="col-sm-5">
                                             <div class="layer-drop-lab layer-drop-lab-health">
 											     Health Measures:
@@ -333,9 +333,8 @@
                                                 </div>
                                             </div>																								
                                         </div>
-									</div>	
-									<br />
-									<table class="legend-table-square">
+									</div>										
+									<table class="legend-table-square row-space">
 										<tr>
 											<td><span class="square-sym health-sym-1" style="background-color: #fffc1e; "></span></td>
 											<td><span class="square-sym health-sym-2" style="background-color: #f1cd1a; "></span></td>
@@ -362,23 +361,23 @@
                                             <div class="col-sm-7">
                                                 <div class="row">
                                                     <div class="col-xs-10">
-                                                        <select id="adv-select-in-broadband" class="selectpicker select-advanced">
+                                                        <select id="adv-select-broadband" class="selectpicker select-advanced advanced-broadband">
                                                             <option value="">(Select)</option>
-                                                            <option value="in_bb_access#0_30">Broadband Access 0-30</option>
-                                                            <option value="in_bb_access#30_60">Broadband Access 30-60</option>
-                                                            <option value="in_bb_access#60_100">Broadband Access 60+</option>                                                    
-                                                            <option value="in_bb_wn_access#0_30">WN Broadband Access 0-30</option>
-                                                            <option value="in_bb_wn_access#30_60">WN Broadband Access 30-60</option>
-                                                            <option value="in_bb_wn_access#60_100">WN Broadband Access 60+</option>
-                                                            <option value="in_bb_ws_access#0_30">WS Broadband Access 0-30</option>
-                                                            <option value="in_bb_ws_access#30_60">WS Broadband Access 30-60</option>
-                                                            <option value="in_bb_ws_access#60_100">WS Broadband Access 60+</option>
-                                                            <option value="in_bb_dl_speed#0_6">Advertised DL Speed &#60; 6</option>
-                                                            <option value="in_bb_dl_speed#6_9">Advertised DL Speed 6-9</option>
-                                                            <option value="in_bb_dl_speed#9_11">Advertised DL Speed 9+</option>
-                                                            <option value="in_bb_ul_speed#0_6">Advertised UL Speed &#60; 6</option>
-                                                            <option value="in_bb_ul_speed#6_9">Advertised UL Speed 6-9</option>
-                                                            <option value="in_bb_ul_speed#9_11">Advertised UL Speed 9+</option>
+                                                            <option value="in_bb_access$0_30">Broadband Access 0-30</option>
+                                                            <option value="in_bb_access$30_60">Broadband Access 30-60</option>
+                                                            <option value="in_bb_access$60_100">Broadband Access 60+</option>                                                    
+                                                            <option value="in_bb_wn_access$0_30">WN Broadband Access 0-30</option>
+                                                            <option value="in_bb_wn_access$30_60">WN Broadband Access 30-60</option>
+                                                            <option value="in_bb_wn_access$60_100">WN Broadband Access 60+</option>
+                                                            <option value="in_bb_ws_access$0_30">WS Broadband Access 0-30</option>
+                                                            <option value="in_bb_ws_access$30_60">WS Broadband Access 30-60</option>
+                                                            <option value="in_bb_ws_access$60_100">WS Broadband Access 60+</option>
+                                                            <option value="in_bb_dl_speed$0_6">Advertised DL Speed &#60; 6</option>
+                                                            <option value="in_bb_dl_speed$6_9">Advertised DL Speed 6-9</option>
+                                                            <option value="in_bb_dl_speed$9_11">Advertised DL Speed 9+</option>
+                                                            <option value="in_bb_ul_speed$0_6">Advertised UL Speed &#60; 6</option>
+                                                            <option value="in_bb_ul_speed$6_9">Advertised UL Speed 6-9</option>
+                                                            <option value="in_bb_ul_speed$9_11">Advertised UL Speed 9+</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-xs-2 slider-tooltip-div">
@@ -527,12 +526,10 @@
 								<!-- Broadband Tab  **************************************************************** -->
 								
                                 <div class="panel-data list-broadband-panel hide">       
-									 <div class="row">
+									 <div class="row row-space">
                                         <div class="col-md-12 layer-drop-lab">Broadband Availability: <i class="fa fa-question bb-tooltip" id="bb-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i></div>
-										
-                                     </div>
-									 <br />
-                                     <div class="row">
+                                     </div>									 
+                                     <div class="row row-space">
                                         <div class="col-md-6">                                                     
                                             <div id="broadband-type-group" class="btn-group" data-toggle="buttons">
                                                   <label class="btn btn-primary active">
@@ -553,9 +550,8 @@
                                                   </label>                                              
                                             </div>
                                         </div>  
-                                    </div>
-									<br />
-									<table class="legend-table-square">
+                                    </div>									
+									<table class="legend-table-square row-space">
                                         <tr>
                                             <td><span class="square-sym" style="background-color: #fffc1e; "></span></td>
                                             <td><span class="square-sym" style="background-color: #cad942; "></span></td>
@@ -584,26 +580,26 @@
                                             <div class="col-sm-7">
                                                 <div class="row">
                                                     <div class="col-xs-10">
-                                                        <select id="adv-select-in-health" class="selectpicker select-advanced">
+                                                        <select id="adv-select-health" class="selectpicker select-advanced advanced-health">
                                                             <option value="">(Select)</option>
-                                                            <option value="in_pcp_access#0_0.00065">PCP per 100,000 (0-65)</option>
-                                                            <option value="in_pcp_access#0.00065_0.001">PCP per 100,000 (65-100)</option>
-                                                            <option value="in_pcp_access#0.001_0.002">PCP per 100,000 (100+)</option>
-                                                            <option value="in_prv_hosp#0_50">Preventable Hosp per 1000 people (0-50)</option>
-                                                            <option value="in_prv_hosp#50_50">Preventable Hosp per 1000 people (50-100)</option>
-                                                            <option value="in_prv_hosp#100_150">Preventable Hosp per 1000 people (100+)</option>
-                                                            <option value="in_sick_days#0_3">Unhealthy days in last 30 days (0-3)</option>
-                                                            <option value="in_sick_days#3_6">Unhealthy days in last 30 days (3-6)</option>
-                                                            <option value="in_sick_days#6_10">Unhealthy days in last 30 days (6+)</option>
-                                                            <option value="in_obs_rate#0_25">Obesity rate (0-25%)</option>
-                                                            <option value="in_obs_rate#25_35">Obesity rate (25-35%)</option>
-                                                            <option value="in_obs_rate#35_50">Obesity rate (35%+)</option>
-                                                            <option value="in_diabetes_rate#0_5">Diabetes rate (0-5%)</option>
-                                                            <option value="in_diabetes_rate#5_10">Diabetes rate (5-10%)</option>
-                                                            <option value="in_diabetes_rate#10_20">Diabetes rate (10%+)</option>
-                                                            <option value="in_poorfair#0_15">Fair/Poor health (0-15%)</option>
-                                                            <option value="in_poorfair#15_30">Fair/Poor health (15-30%)</option>
-                                                            <option value="in_poorfair#30_40">Fair/Poor health (30%+)</option>
+                                                            <option value="in_pcp_access$0_0.00065">PCP per 100,000 (0-65)</option>
+                                                            <option value="in_pcp_access$0.00065_0.001">PCP per 100,000 (65-100)</option>
+                                                            <option value="in_pcp_access$0.001_0.002">PCP per 100,000 (100+)</option>
+                                                            <option value="in_prv_hosp$0_50">Preventable Hosp per 1000 people (0-50)</option>
+                                                            <option value="in_prv_hosp$50_50">Preventable Hosp per 1000 people (50-100)</option>
+                                                            <option value="in_prv_hosp$100_150">Preventable Hosp per 1000 people (100+)</option>
+                                                            <option value="in_sick_days$0_3">Unhealthy days in last 30 days (0-3)</option>
+                                                            <option value="in_sick_days$3_6">Unhealthy days in last 30 days (3-6)</option>
+                                                            <option value="in_sick_days$6_10">Unhealthy days in last 30 days (6+)</option>
+                                                            <option value="in_obs_rate$0_25">Obesity rate (0-25%)</option>
+                                                            <option value="in_obs_rate$25_35">Obesity rate (25-35%)</option>
+                                                            <option value="in_obs_rate$35_50">Obesity rate (35%+)</option>
+                                                            <option value="in_diabetes_rate$0_5">Diabetes rate (0-5%)</option>
+                                                            <option value="in_diabetes_rate$5_10">Diabetes rate (5-10%)</option>
+                                                            <option value="in_diabetes_rate$10_20">Diabetes rate (10%+)</option>
+                                                            <option value="in_poorfair$0_15">Fair/Poor health (0-15%)</option>
+                                                            <option value="in_poorfair$15_30">Fair/Poor health (15-30%)</option>
+                                                            <option value="in_poorfair$30_40">Fair/Poor health (30%+)</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-xs-2 slider-tooltip-div">
@@ -744,7 +740,7 @@
 								
 								<!-- Demographics Tab  **************************************************************** -->
 								<div class="panel-data list-population-panel hide">   
-									<div class="row">
+									<div class="row row-space">
                                         <div class="col-md-12">
                                             <div class="col-sm-6 layer-drop-lab layer-drop-lab-pop">                                    
 												Demographics Data: 
@@ -766,9 +762,8 @@
                                                 </div>
                                             </div>
                                         </div>										
-									</div>	
-									<br />
-									<table class="legend-table-square">
+									</div>										
+									<table class="legend-table-square row-space">
 										<tr>
 											<td><span class="square-sym pop-sym-1" style="background-color: #fffc1e; "></span></td>
 											<td><span class="square-sym pop-sym-2" style="background-color: #cdec20; "></span></td>

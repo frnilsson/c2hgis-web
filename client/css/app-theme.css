@@ -2945,7 +2945,7 @@ a.gen-passcode {
 
 /* ============== new CSS related to maps starts ============== */
 
-#map { height: 730px; }
+#map { height: 720px; }
 .map-container { position: relative; margin-top: 8px; }
 
 .btn-geo { border: 1px solid rgba(0, 0, 0, 0.4); border-radius: 3px; left: 10px; padding: 2px; position: absolute; width: 28px; height: 26px; background: #ffffff; }
@@ -3215,7 +3215,7 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 }
 
 .panel-data {
-  padding: 10px 0px;
+  padding: 5px 0px;
 }
 .selection-row {
   padding: 5px 12px 10px 0px;  
@@ -3304,3 +3304,7 @@ img.timeline {
 #data-source-link-table td { height: 60px; padding-right: 10px;}
 
 .citations { padding-left: 30px; font-size: 13px;}
+
+.row-space {
+  padding-bottom: 10px;
+}

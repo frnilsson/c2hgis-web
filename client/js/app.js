@@ -410,17 +410,18 @@ function setCount() {
 	}
 }
 																	
-function setHealthSec(adv_selection) {
+function setHealthSec() {
 
 	var health_type = $('#health-sec-type').val();
+	var adv_selection = $('#adv-select-broadband').val();
 
 	console.log("health_type : "+health_type);
 	console.log("adv_selection : "+adv_selection);
 
 	var filter = '';
 	var adv_tooltip = 'Select';
-	if(adv_selection != null) {
-		var selection =  adv_selection.split('#');
+	if(adv_selection) {
+		var selection =  adv_selection.split('$');
 		var layer = selection[0];
 		var ranges = selection[1].split('_');
 		var low = ranges[0];
@@ -430,15 +431,16 @@ function setHealthSec(adv_selection) {
 		var column = insight_ly['broadband'][layer].column;
 		console.log('column:'+column);
 		filter = column + '>=' + low + ' AND ' + column + '<=' + high;
-		filter = filter + ';' + filter;
-		//filter = 'advdl_gr25000k>=90 AND advdl_gr25000k<=100;advdl_gr25000k>=90 AND advdl_gr25000k<=100';
+		filter = filter + ';' + filter;		
 		console.log('adv filter: '+filter);
-		adv_tooltip = $("#adv-select-in-broadband option[value='"+adv_selection+"']").text();
+		adv_tooltip = $("#adv-select-broadband option[value='"+adv_selection+"']").text();
 	}
 	else {
-		$('#adv-select-in-broadband').val("");
-		$('.selectpicker').selectpicker('refresh')			
-	}	
+		$('#adv-select-broadband').val("");		
+	}
+
+	$('.advanced-health').selectpicker('refresh');
+
 	$('#adv-select-broadband-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
 	if (health_ly[health_type]) {
 	
@@ -469,15 +471,16 @@ function setHealthSec(adv_selection) {
 		
 		setHash();
 	}
-	console.log("adv menu:"+$('#adv-select-in-broadband').val());
+	console.log("adv menu:"+$('#adv-select-broadband').val());
 }
 
-function setBroadbandCombo(adv_selection) {
+function setBroadbandCombo() {
 	
 	console.log(' setBroadbandCombo : '  );
 	
 	var type =  $('.broadband-type:checked').val();
 	var dir = $('.broadband-dir:checked').val();
+	var adv_selection = $('#adv-select-health').val();	
 	
 	console.log(' type : '+ type  );
 	console.log(' dir : '+ dir );
@@ -486,8 +489,8 @@ function setBroadbandCombo(adv_selection) {
 
 	var filter = '';
 	var adv_tooltip = 'Select';
-	if(adv_selection != null) {
-		var selection =  adv_selection.split('#');
+	if(adv_selection) {
+		var selection =  adv_selection.split('$');
 		var layer = selection[0];
 		var ranges = selection[1].split('_');
 		var low = ranges[0];
@@ -497,17 +500,16 @@ function setBroadbandCombo(adv_selection) {
 		var column = insight_ly['health'][layer].column;
 		console.log('column:'+column);
 		filter = column + '>=' + low + ' AND ' + column + '<=' + high;
-		filter = filter + ';' + filter;
-		//filter = 'advdl_gr25000k>=90 AND advdl_gr25000k<=100;advdl_gr25000k>=90 AND advdl_gr25000k<=100';
+		filter = filter + ';' + filter;		
 		console.log('adv filter: '+filter);
-		adv_tooltip = $("#adv-select-in-health option[value='"+adv_selection+"']").text();
+		adv_tooltip = $("#adv-select-health option[value='"+adv_selection+"']").text();
 	}
 	else {
-		$('#adv-select-in-health').val("");
-		$('.selectpicker').selectpicker('refresh')			
+		$('#adv-select-health').val("");		
 	}	
-	$('#adv-select-health-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
 
+	$('.advanced-broadband').selectpicker('refresh')			
+	$('#adv-select-health-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
 	
 	if (map.hasLayer(map_overlays['broadband_ov'])) {
 		map.removeLayer(map_overlays['broadband_ov']);
@@ -774,14 +776,14 @@ function setHash() {
 	}
 	else if (cur_tab === 'health') {
 		var hhm = $('#health-sec-type').val();
-		
-		if (hhm) { hash += '&hhm='+ hhm; }
+		var advbb = $('#adv-select-broadband').val();
+		if (hhm) { hash += '&hhm='+ hhm + '&advbb=' + advbb; }
 	}
 	else if (cur_tab === 'broadband') {	
 		var bb_type =  $('.broadband-type:checked').val();
 		var bb_dir = $('.broadband-dir:checked').val();
-		
-		if ((bb_type) && (bb_dir)) { hash += '&bbm='+ bb_type +','+ bb_dir ; }
+		var advhl = $('#adv-select-health').val();
+		if ((bb_type) && (bb_dir)) { hash += '&bbm='+ bb_type +','+ bb_dir + '&advhl=' +advhl; }
 	}
 	else if (cur_tab === 'population') {
 		var ppm = $('#pop-sec-type').val();
@@ -845,12 +847,14 @@ function loadHash() {
 			
 			setCount();			
 		}
-		else if (hash_obj.t === 'health') {	
-			if (hash_obj.hhm) { 
-				
-				$('#health-sec-type').val(hash_obj.hhm); 				
-			
-				setHealthSec(null);
+		else if (hash_obj.t === 'health') {				
+			if (hash_obj.hhm) { 				
+				$('#health-sec-type').val(hash_obj.hhm); 	
+				console.log("hash_obj.advbb="+hash_obj.advbb);							
+				if(hash_obj.advbb){
+					$('#adv-select-broadband').val(hash_obj.advbb);			
+				}		
+				setHealthSec();
 			}			
 		}
 		else if (hash_obj.t === 'broadband') {	
@@ -870,8 +874,10 @@ function loadHash() {
 				
 				$('#broadband-type-'+ hash_type ).parent().addClass("active");
 				$('#broadband-dir-'+ hash_dir ).parent().addClass("active");
-				
-				setBroadbandCombo(null);
+				if(hash_obj.advhl){
+					$('#adv-select-health').val(hash_obj.advhl);	
+				}				
+				setBroadbandCombo();
 			}			
 		}
 		else if (hash_obj.t === 'population') {
@@ -1087,7 +1093,7 @@ function generateMenu(){
 		$('.list-population-panel').addClass('hide'); 
 		$('.list-health-panel').removeClass('hide'); 
 		
-		setHealthSec(null);
+		setHealthSec();
 	}
 	else if (cur_tab === 'broadband') {
 		$('.list-health-panel').addClass('hide');
@@ -1095,7 +1101,7 @@ function generateMenu(){
 		$('.list-population-panel').addClass('hide'); 
 		$('.list-broadband-panel').removeClass('hide');  			
 		
-		setBroadbandCombo(null);			
+		setBroadbandCombo();			
 	}
 	else if (cur_tab === 'population') {
 		$('.list-health-panel').addClass('hide');
@@ -1191,35 +1197,17 @@ function generateMenu(){
 	
 	// select health
 	$('#health-sec-type').on('change', function() {
-		var adv_sel = $('#adv-select-in-broadband').val();		
-		if (adv_sel != "") {
-			setHealthSec(adv_sel);
-		}	
-		else {
-			setHealthSec(null);	
-		}				
+		setHealthSec();						
     }); 
 
     // advanced broadband select
-	$('#adv-select-in-broadband').on('change', function() {
-		var adv_sel = $('#adv-select-in-broadband').val();		
-		if (adv_sel != "") {
-			setHealthSec(adv_sel);
-		}	
-		else {
-			setHealthSec(null);	
-		}
+	$('#adv-select-broadband').on('change', function() {
+		setHealthSec();		
     }); 
 
     // advanced broadband select
-	$('#adv-select-in-health').on('change', function() {
-		var adv_sel = $('#adv-select-in-health').val();	
-		if (adv_sel != "") {
-			setBroadbandCombo(adv_sel);
-		}	
-		else {
-			setBroadbandCombo(null);	
-		}
+	$('#adv-select-health').on('change', function() {
+		setBroadbandCombo();
     }); 
 			
 	// select broadband
@@ -1227,8 +1215,7 @@ function generateMenu(){
 	
         bb_combo_type = $(this).val();		
 		console.log(' bb_combo_type : ' + bb_combo_type );
-		
-		setBroadbandCombo(null);	
+		setBroadbandCombo();			
     }); 
 	
 	$('.broadband-dir').on('change', function() {
@@ -1236,7 +1223,7 @@ function generateMenu(){
         bb_combo_dir = $(this).val();		
 		console.log(' bb_combo_dir : ' + bb_combo_dir );
 		
-		setBroadbandCombo(null);		
+		setBroadbandCombo();		
     }); 
 	
 	// select population

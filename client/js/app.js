@@ -404,8 +404,8 @@ function setSliderMap(type, low, high) {
 		in_styles = ''+ type +'_auto';
 	} 
 	
-	console.log(' in_layers : ' + in_layers );
-	console.log(' in_styles : ' + in_styles );	
+	//console.log(' in_layers : ' + in_layers );
+	//console.log(' in_styles : ' + in_styles );	
 	
 	var wms_method = 'gwc/service/wms';
 	//var wms_method = 'wms';
@@ -424,18 +424,30 @@ function setSliderMap(type, low, high) {
 //**************************************************************************
 // section functions
 
+function removeCount() {
+	
+	$('#in-count-stat-name').text('');
+	$('#in-count-stat-value').text('');
+	
+	if (map.hasLayer(map_overlays['in_count'])) {
+		map.removeLayer(map_overlays['in_count']);
+	}
+	$( '.in-cnt-legend-box').css('display', 'none');
+	setHash();	
+}
+
 function setCount() {
 
 	var type = $('#select-in-count').val();
 	
-	console.log(' setCount type : ' + type );
-
+	//console.log(' setCount type : ' + type );	
+	
 	if (insight_ly.count[type]) {
 		
 		var count_layer = insight_ly.count[type].layer;
 		var count_style = insight_ly.count[type].style;	
 		
-		console.log(' count_layer : ' + count_layer );
+		//console.log(' count_layer : ' + count_layer );
 	
 		if (map.hasLayer(map_overlays['in_count'])) {
 			map.removeLayer(map_overlays['in_count']);
@@ -454,8 +466,8 @@ function setCount() {
 			count_styles = 'count_' + count_style;
 		}	
 		
-		console.log(' count_layers : ' + count_layers );
-		console.log(' count_styles : ' + count_styles );
+		//console.log(' count_layers : ' + count_layers );
+		//console.log(' count_styles : ' + count_styles );
 		
 		map_overlays['in_count'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
@@ -465,6 +477,9 @@ function setCount() {
 		}).setZIndex('999').addTo(map);		
 
 		updateCountLegend();
+	}
+	else {
+		removeCount();
 	}
 }
 																	
@@ -637,7 +652,7 @@ function updateCountLegend() {
 	
 	var count_type = $('#select-in-count').val();	
 	
-	if (count_type != '' && insight_ly.count[count_type][zoom_type]) {		
+	if ((count_type != '') && (count_type != 'none') && (insight_ly.count[count_type][zoom_type])) {		
 
 		var count_min = insight_ly.count[count_type][zoom_type].min;
 		var count_max = insight_ly.count[count_type][zoom_type].max;
@@ -711,9 +726,9 @@ function getData() {
 		data_type = zoom_layer_type;
 	} 
 	
-	console.log(' geo_type : ' + geo_type );
-	console.log(' zoom_layer_type : ' + zoom_layer_type );
-	console.log(' data_type : ' + data_type );	
+	//console.log(' geo_type : ' + geo_type );
+	//console.log(' zoom_layer_type : ' + zoom_layer_type );
+	//console.log(' data_type : ' + data_type );	
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ data_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
@@ -818,10 +833,10 @@ function setHash() {
 		hash += '&ll='+ lat +','+ lng;
 		hash += '&z='+ zoom;
 	}
-	
+			
 	if (cur_tab) {
 		hash += '&t='+ cur_tab;
-	}
+	}	
 	
 	if (cur_tab === 'insights') {
 		var inb = $('#select-in-broadband').val();
@@ -834,8 +849,14 @@ function setHash() {
 		//console.log(' slb : ' + slb );
 		
 		if (inb) { hash += '&inb='+ inb; }
-		if (inh) { hash += '&inh='+ inh; }		
-		if (inc) { hash += '&inc='+ inc; }
+		if (inh) { hash += '&inh='+ inh; }	
+		
+		if (inc) { 
+			hash += '&inc='+ inc; 
+		}
+		else {
+			hash += '&inc=none'; 
+		}		
 		
 		if (slb) { hash += '&slb='+ slb; }
 		if (slh) { hash += '&slh='+ slh; }
@@ -859,6 +880,10 @@ function setHash() {
 		var ppm = $('#pop-sec-type').val();
 		
 		if (ppm) { hash += '&ppm='+ ppm; }
+	}
+	
+	if (zoom_layer_type != 'auto') { 
+		hash += '&zlt='+ zoom_layer_type;
 	}
 	
 	hash = hash.substring(1);
@@ -896,6 +921,14 @@ function loadHash() {
 			map.setView([hash_lat, hash_lng], hash_zoom); 
 		}
 		
+		if (hash_obj.zlt) {			
+			zoom_layer_type = hash_obj.zlt;		
+			
+			$('#leaflet-zoom-layers-'+ zoom_layer_type ).prop('checked', true);				
+		}		
+		//console.log(' hash_obj.zlt : ' + hash_obj.zlt);
+		//console.log(' zoom_layer_type : ' + zoom_layer_type);		
+		
 		if (hash_obj.t) {
 		
 			cur_tab = hash_obj.t;			
@@ -905,8 +938,10 @@ function loadHash() {
 		if (hash_obj.t === 'insights') {
 			
 			if (hash_obj.inb) { $('#select-in-broadband').val(hash_obj.inb); }
-			if (hash_obj.inh) { $('#select-in-health').val(hash_obj.inh); }		
+			if (hash_obj.inh) { $('#select-in-health').val(hash_obj.inh); }	
+			
 			if (hash_obj.inc) { $('#select-in-count').val(hash_obj.inc); }
+			if (hash_obj.inc == 'none') { $('#select-in-count').val(''); }
 			
 			if (hash_obj.slb) {  
 				updateSlider('broadband', [hash_obj.slb.split(',')[0], hash_obj.slb.split(',')[1]]);
@@ -957,7 +992,7 @@ function loadHash() {
 				
 				setPopSec();
 			}				
-		}		
+		}					
 	}		
 }
 
@@ -1047,7 +1082,7 @@ function updateStats() {
 	
 	health_stat_value = formatStat((geo_prop[insight_ly.health[health_sel].column] * insight_ly.health[health_sel].multiple), 1) +' '+ insight_ly.health[health_sel].suffix;
 	
-	if (count_sel != '') {
+	if ((count_sel != '') && (count_sel != 'none')) {
 		count_stat_value = formatStat(geo_prop[insight_ly.count[count_sel].column]) +' '+ insight_ly.count[count_sel].suffix;
 	}
 	else {
@@ -1061,12 +1096,14 @@ function updateStats() {
 	$('#in-health-stat-name').text(insight_ly.health[health_sel].name +' : ');
 	$('#in-health-stat-value').text(health_stat_value);
 	
-	if (count_sel != '')
+	if ((count_sel != '') && (count_sel != 'none')) {
 		$('#in-count-stat-name').text(insight_ly.count[count_sel].name +' : ');
-	else 
+		$('#in-count-stat-value').text(count_stat_value);
+	}
+	else {
 		$('#in-count-stat-name').text('');
-
-	$('#in-count-stat-value').text(count_stat_value);
+		$('#in-count-stat-value').text('');
+	}
 	
 	// Health Stats
 	$('.geog-pcp').text(formatStat(geo_prop.pcp_total));
@@ -1153,7 +1190,7 @@ function generateMenu(){
 		createSlider();
 		
 		var count_sel = $('#select-in-count').val();
-		if (count_sel != "") {
+		if ((count_sel != '') && (count_sel != 'none')) {
 			setCount();
 		}
 	}
@@ -1255,15 +1292,12 @@ function generateMenu(){
         var count_sel = $('#select-in-count').val();		
 		//console.log(' count_sel : ' + count_sel );
 		
-		if (count_sel != "") {
+		if ((count_sel != '') && (count_sel != 'none')) {
 			setCount();
 			updateStats();
 		}
 		else {
-			if (map.hasLayer(map_overlays['in_count'])) {
-				map.removeLayer(map_overlays['in_count']);
-			}
-			$( '.in-cnt-legend-box').css('display', 'none');
+			removeCount();
 		}
     }); 
 	

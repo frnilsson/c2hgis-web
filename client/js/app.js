@@ -843,13 +843,17 @@ function setHash() {
 	else if (cur_tab === 'health') {
 		var hhm = $('#health-sec-type').val();
 		var advbb = $('#adv-select-broadband').val();
-		if (hhm) { hash += '&hhm='+ hhm + '&advbb=' + advbb; }
+		
+		if (hhm) { hash += '&hhm='+ hhm; }
+		if (advbb) { hash += '&advbb=' + advbb; }		
 	}
 	else if (cur_tab === 'broadband') {	
 		var bb_type =  $('.broadband-type:checked').val();
 		var bb_dir = $('.broadband-dir:checked').val();
 		var advhl = $('#adv-select-health').val();
-		if ((bb_type) && (bb_dir)) { hash += '&bbm='+ bb_type +','+ bb_dir + '&advhl=' +advhl; }
+		
+		if ((bb_type) && (bb_dir)) { hash += '&bbm='+ bb_type +','+ bb_dir; }
+		if (advhl) { hash += '&advhl=' +advhl; }
 	}
 	else if (cur_tab === 'population') {
 		var ppm = $('#pop-sec-type').val();
@@ -1179,6 +1183,8 @@ function generateMenu(){
 	}
 	
 	createCharts();
+	
+	setHash();
 
 	$('.layer-switch').find('li').removeClass('active');
 	$('#'+ cur_tab).parent('li').addClass('active');    

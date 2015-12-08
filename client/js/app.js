@@ -707,7 +707,7 @@ function updatePopLegend() {
 function getData() {	
 
 	var data_type = geo_type;
-	if (zoom_layer_type != 'auto') {
+	if ((zoom_layer_type != 'auto') && (cur_tab === 'insights')) {
 		data_type = zoom_layer_type;
 	} 
 	

@@ -807,7 +807,7 @@ function setDownloadLinks() {
 	
 	var download_filter = '';	
 	if (data_type != 'national') {	
-		download_filter = '&cql_filter=geography_id='+ geo_prop.geography_id;
+		download_filter = '&cql_filter=geography_id=\''+ geo_prop.geography_id + '\'';
 	}
 	
 	$('#download-data-json').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=json&typeName='+ geo_space +':'+ download_layer + download_filter );

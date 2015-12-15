@@ -122,11 +122,9 @@ function createMap() {
 		
     });	
 	
-	$('.leaflet-control-layers-toggle, .leaflet-control-layers').on('mouseover', function() {
-        if (cur_tab === 'insights') {
-			$('.leaflet-control-layers-separator').css('display', 'block');	
-			$('form.leaflet-control-layers-list-zoom').show();
-		}
+	$('.leaflet-control-layers-toggle, .leaflet-control-layers').on('mouseover', function() {        
+		$('.leaflet-control-layers-separator').css('display', 'block');	
+		$('form.leaflet-control-layers-list-zoom').show();	
     });	
 	
 	$('.leaflet-control-layers-toggle, .leaflet-control-layers').on('mouseout', function() {		
@@ -145,11 +143,11 @@ function createMap() {
 		var zoom = map.getZoom();
 		//console.log("zoomed:"+zoom);
 		
-		if (zoom > 6 ) {
+		if (zoom > 5 ) {
 			new_geo_type = 'county';	
 			zoom_type = 'county';			
 		}
-		else if (zoom <= 6 ) {
+		else if (zoom <= 5 ) {
 			new_geo_type = 'state';
 			zoom_type = 'state';
 		}
@@ -165,7 +163,7 @@ function createMap() {
 			geo_type = new_geo_type;			
 		}			
 		
-		//console.log(' geo_type : ' + geo_type );		
+		//console.log('createMap geo_type : ' + geo_type );		
 		
 		setHash();
 	});
@@ -404,8 +402,8 @@ function setSliderMap(type, low, high) {
 		in_styles = ''+ type +'_auto';
 	} 
 	
-	//console.log(' in_layers : ' + in_layers );
-	//console.log(' in_styles : ' + in_styles );	
+	//console.log('insights in_layers : ' + in_layers );
+	//console.log('insights in_styles : ' + in_styles );	
 	
 	var wms_method = 'gwc/service/wms';
 	//var wms_method = 'wms';
@@ -488,7 +486,7 @@ function setHealthSec() {
 	var health_type = $('#health-sec-type').val();
 	var adv_selection = $('#adv-select-broadband').val();
 
-	//console.log("health_type : "+health_type);
+	//console.log("zoom_type : "+zoom_type);
 	//console.log("adv_selection : "+adv_selection);
 
 	var filter = '';
@@ -522,22 +520,33 @@ function setHealthSec() {
 		if (map.hasLayer(map_overlays['health_ov'])) {
 			map.removeLayer(map_overlays['health_ov']);
 		}
+
+		var in_layers = [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'];
+		var in_styles = [''+ health_style +'_state', ''+ health_style +'_county'];	
+
+		if (zoom_layer_type != 'auto') {
+			in_layers = ''+ geo_space +':c2hgis_'+ zoom_layer_type;
+			in_styles = ''+ health_style + '_' + zoom_layer_type + '_all';
+		} 
+		//console.log('setHealthSec zoom_layer_type : ' + zoom_layer_type );
+		//console.log('setHealthSec in_layers : ' + in_layers );
+	    //console.log('setHealthSec in_styles : ' + in_styles );	
 		
 		if(filter != '') {
 			map_overlays['health_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
 				format: 'image/png',
 				transparent: true,
-				cql_filter: filter,
-				layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-				styles: [''+ health_style +'_state', ''+ health_style +'_county']
+				cql_filter: filter,				
+				layers: in_layers,				
+				styles: in_styles 
 			}).setZIndex('999').addTo(map);
 		}
 		else {
 			map_overlays['health_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
 				format: 'image/png',
 				transparent: true,
-				layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-				styles: [''+ health_style +'_state', ''+ health_style +'_county']
+				layers: in_layers,
+				styles: in_styles
 			}).setZIndex('999').addTo(map);
 		}
 		updateHealthLegend();
@@ -588,22 +597,29 @@ function setBroadbandCombo() {
 		map.removeLayer(map_overlays['broadband_ov']);
 	}	
 	
+	var in_layers = [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'];
+	var in_styles = ['bb_combo_'+ type +'_'+ dir +'_state', 'bb_combo_'+ type +'_'+ dir +'_county'];	
+
+	if (zoom_layer_type != 'auto') {
+		in_layers = ''+ geo_space +':c2hgis_'+ zoom_layer_type;
+		in_styles = ''+ 'bb_combo_'+ type +'_'+ dir +'_' + zoom_layer_type + '_all';
+	} 
 
 	if(filter != '') {
 		map_overlays['broadband_ov'] = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
 			transparent: true,
 			cql_filter: filter,
-			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-			styles: ['bb_combo_'+ type +'_'+ dir +'_state', 'bb_combo_'+ type +'_'+ dir +'_county']
+			layers: in_layers, 
+			styles: in_styles 
 		}).setZIndex('999').addTo(map);	
 	}
 	else {
 		map_overlays['broadband_ov'] = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
 			transparent: true,
-			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-			styles: ['bb_combo_'+ type +'_'+ dir +'_state', 'bb_combo_'+ type +'_'+ dir +'_county']
+			layers: in_layers, 
+			styles: in_styles
 		}).setZIndex('999').addTo(map);	
 	}	
 	
@@ -628,12 +644,20 @@ function setPopSec() {
 		if (map.hasLayer(map_overlays['pop_ov'])) {
 			map.removeLayer(map_overlays['pop_ov']);
 		}
+
+		var in_layers = [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'];
+		var in_styles = [ pop_style +'_state', pop_style +'_county'];	
+
+		if (zoom_layer_type != 'auto') {
+			in_layers = ''+ geo_space +':c2hgis_'+ zoom_layer_type;
+			in_styles = ''+ pop_style +'_' + zoom_layer_type + '_all';
+		} 
 		
 		map_overlays['pop_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
 			transparent: true,
-			layers: [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'], 
-			styles: [ pop_style +'_state', pop_style +'_county']
+			layers: in_layers, 
+			styles: in_styles
 		}).setZIndex('999').addTo(map);
 		
 		updatePopLegend();

@@ -143,11 +143,11 @@ function createMap() {
 		var zoom = map.getZoom();
 		//console.log("zoomed:"+zoom);
 		
-		if (zoom > 5 ) {
+		if (zoom > 6 ) {
 			new_geo_type = 'county';	
 			zoom_type = 'county';			
 		}
-		else if (zoom <= 5 ) {
+		else if (zoom <= 6 ) {
 			new_geo_type = 'state';
 			zoom_type = 'state';
 		}
@@ -746,7 +746,7 @@ function updatePopLegend() {
 function getData() {	
 
 	var data_type = geo_type;
-	if ((zoom_layer_type != 'auto') && (cur_tab === 'insights')) {
+	if (zoom_layer_type != 'auto') {
 		data_type = zoom_layer_type;
 	} 
 	

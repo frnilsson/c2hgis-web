@@ -314,7 +314,7 @@
 											     Health Measures:
                                             </div>
                                         </div>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-7 data-left">
                                             <div class="row">
                                                 <div class="col-xs-10">                                    
                                                     <select id="health-sec-type" class="selectpicker select-health">
@@ -358,42 +358,28 @@
                                                      Broadband Filter:
                                                 </div>
                                             </div>                                           
-                                            <div class="col-sm-7">
-                                                <div class="row">
-                                                    <div class="col-xs-10">
+                                            <div class="col-sm-7 data-left">
+                                                                                                
                                                         <select id="adv-select-broadband" class="selectpicker select-advanced advanced-broadband">
-                                                            <option value="">None</option>
-															<optgroup label="Broadband Access">
-																<option value="in_bb_access$0_30">< 30%</option>
-																<option value="in_bb_access$30_60">30-60%</option>
-																<option value="in_bb_access$60_100">> 60%</option>     
-															</optgroup>
-															<optgroup label="Wireline Access">
-																<option value="in_bb_wn_access$0_30">< 30%</option>
-																<option value="in_bb_wn_access$30_60">30-60%</option>
-																<option value="in_bb_wn_access$60_100">> 60%</option>     
-															</optgroup>
-															<optgroup label="Wireless Access">
-																<option value="in_bb_ws_access$0_30">< 30%</option>
-																<option value="in_bb_ws_access$30_60">30-60%</option>
-																<option value="in_bb_ws_access$60_100">> 60%</option>     
-															</optgroup>
-															<optgroup label="Download Speed">
-																<option value="in_bb_dl_speed$0_6">< 6 mbps</option>
-																<option value="in_bb_dl_speed$6_9">6 - 50 mbps</option>
-																<option value="in_bb_dl_speed$9_11">> 100 mbps</option>
-															</optgroup>
-															<optgroup label="Upload Speed">
-																<option value="in_bb_ul_speed$0_6">< 6 mbps
-																<option value="in_bb_ul_speed$6_9">6 - 50 mbps</option>
-																<option value="in_bb_ul_speed$9_11">> 100 mbps</option>
-															</optgroup>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-xs-2 slider-tooltip-div">
-                                                        <i class="fa fa-question hh-tooltip" id="adv-select-broadband-tooltip" data-toggle="tooltip" title="" tabindex="0"></i>
-                                                    </div>
-                                                </div>
+                                                            <option value="">None</option>															
+															<option value="in_bb_access$0_30">Broadband Access < 30%</option>
+															<option value="in_bb_access$30_60">Broadband Access 30-60%</option>
+															<option value="in_bb_access$60_100">Broadband Access > 60%</option>   
+															<option value="in_bb_wn_access$0_30">Wireline Access < 30%</option>
+															<option value="in_bb_wn_access$30_60">Wireline Access 30-60%</option>
+															<option value="in_bb_wn_access$60_100">Wireline Access > 60%</option>
+															<option value="in_bb_ws_access$0_30">Wireless Access < 30%</option>
+															<option value="in_bb_ws_access$30_60">Wireless Access 30-60%</option>
+															<option value="in_bb_ws_access$60_100">Wireless Access > 60%</option>
+															<option value="in_bb_dl_speed$0_6">Download Speed < 6 mbps</option>
+															<option value="in_bb_dl_speed$6_9">Download Speed 6 - 50 mbps</option>
+															<option value="in_bb_dl_speed$9_11">Download Speed > 100 mbps</option>
+															<option value="in_bb_ul_speed$0_6">Upload Speed < 6 mbps
+															<option value="in_bb_ul_speed$6_9">Upload Speed 6 - 50 mbps</option>
+															<option value="in_bb_ul_speed$9_11">Upload Speed > 100 mbps</option>
+															
+                                                        </select>                                                    
+                                                
                                             </div>                                            
                                         </div>
                                     </div>
@@ -587,47 +573,28 @@
                                                      Health Filter:
                                                 </div>
                                             </div>                                           
-                                            <div class="col-sm-7">
-                                                <div class="row">
-                                                    <div class="col-xs-10">
+                                            <div class="col-sm-7 data-left">
                                                         <select id="adv-select-health" class="selectpicker select-advanced advanced-health">
                                                             <option value="">None</option>
-															</optgroup>
-															<optgroup label="Physician Access">
-																<option value="in_pcp_access$0_0.00065">< 65</option>
-																<option value="in_pcp_access$0.00065_0.001">65 - 100</option>
-																<option value="in_pcp_access$0.001_0.002">> 100</option>
-															</optgroup>
-															<optgroup label="Preventable Hospital">
-																<option value="in_prv_hosp$0_50">< 50</option>
-																<option value="in_prv_hosp$50_50">50 - 100</option>
-																<option value="in_prv_hosp$100_150">> 100</option>
-															</optgroup>
-															<optgroup label="Sick Days">
-																<option value="in_sick_days$0_3">< 3</option>
-																<option value="in_sick_days$3_6">3 - 6</option>
-																<option value="in_sick_days$6_10">> 6</option>
-															</optgroup>
-															<optgroup label="Obesity Rate">
-																<option value="in_obs_rate$0_25">< 25%</option>
-																<option value="in_obs_rate$25_35">25 - 35%</option>
-																<option value="in_obs_rate$35_50">> 35%</option>
-															</optgroup>
-															<optgroup label="Diabetes">
-																<option value="in_diabetes_rate$0_5">< 5%</option>
-																<option value="in_diabetes_rate$5_10">5 - 10%</option>
-																<option value="in_diabetes_rate$10_20">10%</option>
-															</optgroup>
-															<optgroup label="Poor/Fair Health">
-																<option value="in_poorfair$0_15">< 15%</option>
-																<option value="in_poorfair$15_30">15 - 30%</option>
-																<option value="in_poorfair$30_40">> 30%</option>
-															</optgroup>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-xs-2 slider-tooltip-div">
-                                                        <i class="fa fa-question hh-tooltip" id="adv-select-health-tooltip" data-toggle="tooltip" title="" tabindex="0"></i>
-                                                    </div>
+																<option value="in_pcp_access$0_0.00065">Physician Access < 65</option>
+																<option value="in_pcp_access$0.00065_0.001">Physician Access 65 - 100</option>
+																<option value="in_pcp_access$0.001_0.002">Physician Access > 100</option>
+																<option value="in_prv_hosp$0_50">Preventable Hospital < 50</option>
+																<option value="in_prv_hosp$50_50">Preventable Hospital 50 - 100</option>
+																<option value="in_prv_hosp$100_150">Preventable Hospital > 100</option>
+																<option value="in_sick_days$0_3">Sick Days < 3</option>
+																<option value="in_sick_days$3_6">Sick Days 3 - 6</option>
+																<option value="in_sick_days$6_10">Sick Days > 6</option>
+																<option value="in_obs_rate$0_25">Obesity Rate < 25%</option>
+																<option value="in_obs_rate$25_35">Obesity Rate 25 - 35%</option>
+																<option value="in_obs_rate$35_50">Obesity Rate > 35%</option>
+																<option value="in_diabetes_rate$0_5">Diabetes < 5%</option>
+																<option value="in_diabetes_rate$5_10">Diabetes 5 - 10%</option>
+																<option value="in_diabetes_rate$10_20">Diabetes 10%</option>
+																<option value="in_poorfair$0_15">Poor/Fair Health < 15%</option>
+																<option value="in_poorfair$15_30">Poor/Fair Health 15 - 30%</option>
+																<option value="in_poorfair$30_40">Poor/Fair Health > 30%</option>															
+                                                        </select>                                       
                                                 </div>
                                             </div>                                            
                                         </div>

@@ -512,7 +512,8 @@ function setHealthSec() {
 
 	$('.advanced-health').selectpicker('refresh');
 
-	$('#adv-select-broadband-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
+	//$('#adv-select-broadband-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
+
 	if (health_ly[health_type]) {
 	
 		var health_style = health_ly[health_type].style;
@@ -591,7 +592,8 @@ function setBroadbandCombo() {
 	}	
 
 	$('.advanced-broadband').selectpicker('refresh')			
-	$('#adv-select-health-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
+	
+	//$('#adv-select-health-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
 	
 	if (map.hasLayer(map_overlays['broadband_ov'])) {
 		map.removeLayer(map_overlays['broadband_ov']);

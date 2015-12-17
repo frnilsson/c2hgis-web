@@ -9,18 +9,18 @@
 */
 
 /*** Development geoserver ***/
-/*
+
 var geo_host = 'http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com';
 var geo_space = 'c2hgis';
 var geo_output = 'application/json';
-*/
+
 
 /*** ST geoserver ***/
-
+/*
 var geo_host = 'http://kyauk.fcc.gov:8010/geoserver';
 var geo_space = 'fcc';
 var geo_output = 'json';
-
+*/
 
 /*** Production geoserver ***/
 /*
@@ -592,7 +592,7 @@ function setBroadbandCombo() {
 	}	
 
 	$('.advanced-broadband').selectpicker('refresh')			
-	
+
 	//$('#adv-select-health-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
 	
 	if (map.hasLayer(map_overlays['broadband_ov'])) {

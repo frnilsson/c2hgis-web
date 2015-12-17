@@ -13,7 +13,7 @@ var insight_ly = {
 		in_bb_access: {
 			column: 'advdl_gr25000k',
 			unit: 'perc',
-			min: 50,
+			min: 0,
 			max: 100,
 			multiple: 1,
 			zindex: 99,

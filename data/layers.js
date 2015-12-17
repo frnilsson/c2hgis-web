@@ -558,7 +558,7 @@ var bb_speed_tiers = {
 	},
 	5: {
 		range: '3 - 6',
-		min: '1.5',
+		min: '3',
 		max: '6'
 	},
 	6: {

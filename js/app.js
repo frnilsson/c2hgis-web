@@ -952,6 +952,7 @@ function loadHash() {
 		}		
 		//console.log(' hash_obj.zlt : ' + hash_obj.zlt);
 		//console.log(' zoom_layer_type : ' + zoom_layer_type);		
+		//console.log('hash_obj.inc='+hash_obj.inc);
 		
 		if (hash_obj.t) {
 		
@@ -965,7 +966,10 @@ function loadHash() {
 			if (hash_obj.inh) { $('#select-in-health').val(hash_obj.inh); }	
 			
 			if (hash_obj.inc) { $('#select-in-count').val(hash_obj.inc); }
-			if (hash_obj.inc == 'none') { $('#select-in-count').val(''); }
+			if (hash_obj.inc == 'none') { 
+				$('#select-in-count').val(''); 
+				$('.in-cnt-legend-box').css('display', 'none'); 
+			}
 			
 			if (hash_obj.slb) {  
 				updateSlider('broadband', [hash_obj.slb.split(',')[0], hash_obj.slb.split(',')[1]]);
@@ -1216,6 +1220,9 @@ function generateMenu(){
 		var count_sel = $('#select-in-count').val();
 		if ((count_sel != '') && (count_sel != 'none')) {
 			setCount();
+		}
+		else {
+			$('.in-cnt-legend-box').css('display', 'none'); 
 		}
 	}
 	else if (cur_tab === 'health') {

@@ -2968,7 +2968,6 @@ a.gen-passcode {
 /* charts */
 .charts-div { width:100%; min-height: 300px; margin: 0 auto; }
 
-
 /* responsive */
 @media only screen and (max-width : 320px) {
   #map { height: 67vh; min-height: 200px; }
@@ -3028,19 +3027,22 @@ a.gen-passcode {
 	.nav_link  { display: none; font-size: 18px;}
 	.container {padding-left: 5px; padding-right: 5px; }
 }
- @media (min-width: 992px) {
-	.container {padding-left: 0px; padding-right: 5px; }
+ @media (min-width: 992px) and (max-width : 1199px)  {
+  .container {padding-left: 0px; padding-right: 5px; }
+  .container { width: 960px;}
+  .panel-container { min-width: 420px}
+  .geo-container { max-width: 560px}
 }
-
-@media (min-width: 992px) and (max-width : 1199px) {
-	.geo-container { max-width: 580px;}
+ @media (min-width: 1200px) {
+  .container {padding-left: 0px; padding-right: 5px; }
+  .container { max-width: 1180px;}
+  .panel-container { min-width: 420px}
+  .geo-container { max-width: 780px}
 }
 .selectWidth {
   width: auto;
   margin-right: 5px;
 }
-
-.panel-container { min-width: 420px;}
 
 .panel-sec-heading {
 	color: #2c75d6;

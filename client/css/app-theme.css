@@ -41,7 +41,12 @@ h1 {
 }
 
 hr {
-    margin: 0;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #182357;
+    margin: 1em 0;
+    padding: 0; 
 }
 
 blockquote {
@@ -3312,4 +3317,17 @@ img.timeline {
 }
 .data-left {
   padding-left: 0px;
+}
+.nav>li>a{
+  padding: 10px 12px !important;
+}
+table.datatab {
+    border-collapse: collapse;
+}
+
+table.datatab, table.datatab th, table.datatab td {
+    border: 1px solid black;
+}
+table.datatab td {
+    padding: 10px;
 }

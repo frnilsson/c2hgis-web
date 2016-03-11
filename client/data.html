@@ -55,12 +55,12 @@
                             <strong class="title-emphasis">Connect2Health</strong>
                         </a>
                     </li>
-                </ul> 
+                </ul>
                 <div class="navbar-controls">
                     <a data-toggle-direction="right" data-toggle="offcanvas" class="btn navbar-btn btn-toggle-menu" type="button">
                         <span class="btn-inner btn-inner-menu"><span class="sr-only">Menu</span></span>
                     </a>
-                </div>                               
+                </div>                                
             </div>
         </div>
 		
@@ -84,12 +84,12 @@
                             </a>
                         </li>  
                         <li class="dropdown dropdown-left yamm-fw">
-                            <a href="community-engagement.html" class="dropdown-toggle active">
+                            <a href="community-engagement.html" class="dropdown-toggle">
                                 <span class="link-title dropdown-link-title">Community Engagement</span>
                             </a>
                         </li>
                         <li class="dropdown dropdown-left yamm-fw">
-                            <a href="data.html" class="dropdown-toggle">
+                            <a href="data.html" class="dropdown-toggle active">
                                 <span class="link-title dropdown-link-title">Data</span>
                             </a>
                         </li>                                                
@@ -111,25 +111,100 @@
         <main class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="main-content">
-                    	<h2>Community Engagement</h2>
-                        <img src="img/map-screen.png" width="400" class="alignright" alt="Map Page Screen" title="Map Page Screen">
+                    <div class="main-content">                    	
+                        
+							<h2>Data</h2>
+							<p> 
+							     The following table shows each broadband and health variable used in the Mapping Broadband and Health in America platform, its definition, and the data source.	
+                            </p>
+
+                            <table class="datatab">
+                                <tbody>
+                                    <tr>   
+                                        <td width="25%" nowrap><b>Broadband Measures</b></td>
+                                        <td><b>Definition</b></td>
+                                        <td><b>Data source</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><b>Broadband Availability</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Broadband Access</td>
+                                        <td>Percent of households (?) with fixed access to the Internet at a download speed of 25mbps and an upload speed of 3mbps <b>(confirm w/ devs)</b></td>
+                                        <td>NTIA & FCC’s National Broadband Map (link: <a href="http://www.broadbandmap.gov" target="_blank"> www.broadbandmap.gov</a>)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Download Speed</td>
+                                        <td>Most commonly advertised download speed in an area</td>
+                                        <td>NTIA & FCC’s National Broadband Map (link: <a href="http://www.broadbandmap.gov" target="_blank"> www.broadbandmap.gov</a>)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Upload Speed</td>
+                                        <td>The amount of data in megabits that can be uploaded per second (mbps)</td>
+                                        <td>NTIA & FCC’s National Broadband Map (link: <a href="http://www.broadbandmap.gov" target="_blank"> www.broadbandmap.gov</a>)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <table class="datatab">
+                                <tbody>
+                                    <tr>   
+                                        <td width="25%" nowrap><b>Health Measures</b></td>
+                                        <td><b>Definition</b></td>
+                                        <td><b>Data source</b></td>
+                                        <td><b>Health Estimate</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><b>Access to Care</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Physician Access</td>
+                                        <td>Number of primary care physicians per 100,000 people</td>
+                                        <td>Robert Wood Johnson Foundation’s County Health Rankings & Roadmaps (link: <a href="http://www.countyhealthrankings.org/" target="_blank">http://www.countyhealthrankings.org/</a> )</td>
+                                        <td>73.3 per 100,000 (Area Health Resource File / American Medical Association)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><b>Quality of Care</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Preventable Hospitalizations</td>
+                                        <td>Number of hospitalizations for ambulatory-care sensitive conditions per 1000 Medicare enrollees</td>
+                                        <td>Robert Wood Johnson Foundation’s County Health Rankings & Roadmaps (link: <a href="http://www.countyhealthrankings.org/" target="_blank">http://www.countyhealthrankings.org/</a> )</td>
+                                        <td>58.2 per 1000 (Darthmouth Atlas of Health Care, 2012)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sick Days</td>
+                                        <td>Average number of physically unhealthy days reported in past 30 days (Age-adjusted)</td>
+                                        <td>Robert Wood Johnson Foundation’s County Health Rankings & Roadmaps (link: <a href="http://www.countyhealthrankings.org/" target="_blank">http://www.countyhealthrankings.org/</a> )</td>
+                                        <td>3.6 days per month (Behavioral Risk Factor Surveillance System, 2006-2012)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><b>Health Behaviors</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Obesity</td>
+                                        <td>Percentage of adults reporting a body mass index (BMI) of 30 or more.</td>
+                                        <td>Robert Wood Johnson Foundation’s County Health Rankings & Roadmaps (link: <a href="http://www.countyhealthrankings.org/" target="_blank">http://www.countyhealthrankings.org/</a> )</td>
+                                        <td>27.4% (CDC Diabetes Interactive Atlas, 2011)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Diabetes</td>
+                                        <td>Percentage of adults reporting a diagnosis of diabetes.</td>
+                                        <td>Robert Wood Johnson Foundation’s County Health Rankings & Roadmaps (link: <a href="http://www.countyhealthrankings.org/" target="_blank">http://www.countyhealthrankings.org/</a> )</td>
+                                        <td>9.7% (CDC Diabetes Interactive Atlas, 2011)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Poor/Fair Health</td>
+                                        <td>Percentage of adults reporting fair or poor health (age-adjusted)</td>
+                                        <td>Robert Wood Johnson Foundation’s County Health Rankings & Roadmaps (link: <a href="http://www.countyhealthrankings.org/" target="_blank">http://www.countyhealthrankings.org/</a> )</td>
+                                        <td>15.8% (Behavioral Risk Factor Surveillance System, 2006-2012)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         <p>
-                            One of the goals of the <I>Mapping Broadband Health in America</I> tool is to elicit feedback on the best ways to understand the intersection of broadband, connectivity, and health and to look ahead to potential solutions to any gaps the tool reveals.  We recognize that the FCC is only one part of the broadband health ecosystem. The Connect2Health<sup>FCC</sup> Task Force welcomes your suggestions and feedback as we continue to develop and refine the tool.
-                        </p>
-                        <ul>
-                            <li>We particularly seek your input on the data and information contained in the maps, and on ways we can improve the user experience with the maps.</li>
-                            <li>What other data points would be useful to display?</li>
-                            <li>What additional resources can be used to gather this data? </li>
-                            <li>Are there other changes in methodology that would be helpful and informative?  </li>
-                        </ul>
-                        <p>
-                            You may ask questions or provide informal feedback by emailing <a href="mailto:engagec2h@fcc">engageC2H@fcc.gov</a>, with “Mapping” in the subject line. 
-                        </p>
-                        <p>
-                            Or, you can file more formal comments or submit additional data for the record via the FCC’s Electronic Comment Filing System, GN Docket XX-XXXX.
-                        </p>
-                    </div>
+							Learn more about our methodology.                
+						</p>
+					</div>
                 </div>                
             </div>
         </main>

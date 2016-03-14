@@ -354,6 +354,7 @@ var health_ly = {
 		unit: 'p100000',
 		min: '>90',
 		max: '<60',
+		ranges: '>90,80-90,70-80,60-70,<60',
 		label: 'PCP/100,000',
 		tooltip: 'Primary Care Physicians per 100,000 people.'
 	},
@@ -363,6 +364,7 @@ var health_ly = {
 		unit: 'perc',
 		min: '<10',
 		max: '>17.5',
+		ranges: '<10,10-12.5,12.5-15,15-17.5,>17.5',
 		label: '% Poor/Fair Health',
 		tooltip: 'Percentage of adults reporting fair or poor health (age-adjusted).'
 	},
@@ -372,6 +374,7 @@ var health_ly = {
 		unit: 'perc',
 		min: '<25',
 		max: '>32.5',
+		ranges: '<25,25-27.5,27.5-30,30-32.5,>32.5',
 		label: '% Obesity',
 		tooltip: 'Percentage of adults that report a BMI of 30 or more.'
 	},
@@ -381,6 +384,7 @@ var health_ly = {
 		unit: 'y100000',
 		min: '<5,000',
 		max: '>8,000',
+		ranges: '<5,000,*,*,*,>8,000',
 		label: '# Years Lost',
 		tooltip: 'Number of years lost due to premature death before age 75 per 100,000 people.'
 	},
@@ -390,6 +394,7 @@ var health_ly = {
 		unit: 'p1000',
 		min: '<50',
 		max: '>70',
+		ranges: '<50,50-57,57-62,62-70,>70',
 		label: '# Hospital Stays',
 		tooltip: 'Number of preventable hospital stays per 1,000 people.'
 	},
@@ -399,6 +404,7 @@ var health_ly = {
 		unit: 'days',
 		min: '<3',
 		max: '>4',
+		ranges: '<3,3-3.3,3.3-3.6,3.6-4,>4',
 		label: '# Sick Days',
 		tooltip: 'Average number of physically unhealthy days reported in past 30 days (age-adjusted).'
 	},
@@ -408,6 +414,7 @@ var health_ly = {
 		unit: 'perc',
 		min: '<8',
 		max: '>12',
+		ranges: '<8,8-9,9-10.5,10.5-12,>12',
 		label: '% Diabetes',
 		tooltip: 'Percentage of adults with diabetes.'
 	},
@@ -417,6 +424,7 @@ var health_ly = {
 		unit: 'perc',
 		min: '<12.5',
 		max: '>20',
+		ranges: '<12.5,12.5-15,15-17.5,17.5-20,>20',
 		label: '% Severe Housing',
 		tooltip: 'Percentage of households with at least 1 of 4 housing problems: overcrowding, high housing costs, or lack of kitchen or plumbing facilities.'
 	}
@@ -444,6 +452,7 @@ var pop_ly = {
 		unit: 'pkm',
 		min: '<25',
 		max: '>250',
+		ranges: '<25,25-50,50-100,100-250,>250',
 		zindex: 90,
 		label: 'Population per sq km',
 		tooltip: 'Population density per square kilometer.'
@@ -454,6 +463,7 @@ var pop_ly = {
 		unit: 'perc',
 		min: '<10',
 		max: '>50',
+		ranges: '<10,10-20,20-35,35-50,>50',
 		zindex: 90,
 		label: '% Rural',
 		tooltip: 'Percentage of population living in a rural area.'
@@ -464,6 +474,7 @@ var pop_ly = {
 		unit: 'perc',
 		min: '<12',
 		max: '>16',
+		ranges: '<12,12-13.5,13.5-14.5,14.5-16,>16',
 		zindex: 90,
 		label: '% Over 65',
 		tooltip: 'Percentage of population ages 65 and older.'
@@ -474,6 +485,7 @@ var pop_ly = {
 		unit: 'perc',
 		min: '<5',
 		max: '>8',
+		ranges: '<5,5-6,6-7,7-8,>8',
 		zindex: 90,
 		label: '% Unemployed',
 		tooltip: 'Percentage of population ages 16 and older unemployed but seeking work.'
@@ -484,6 +496,7 @@ var pop_ly = {
 		unit: 'perc',
 		min: '<60',
 		max: '>70',
+		ranges: '<60,60-63,63-66,66-70,>70',
 		zindex: 90,
 		label: '% Some College',
 		tooltip: 'Percentage of adults ages 25-44 with some post-secondary education.'

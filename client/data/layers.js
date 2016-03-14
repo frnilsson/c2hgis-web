@@ -20,7 +20,7 @@ var insight_ly = {
 			step: 5,
 			values: [90, 100],
 			label: '% Coverage',
-			tooltip: 'Percent of population with access to 25 mbps advertised download speeds.',
+			tooltip: 'Percent of population with access to fixed broadband 25mbps or higher advertised download speeds.',
 			name: 'Broadband Access',
 			suffix: '%'
 		},		

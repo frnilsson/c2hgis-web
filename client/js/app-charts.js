@@ -38,6 +38,11 @@ var chart_obj = {
 			chart: null,
 			data: null,
 			options: null
+		},
+		ruralurban: {
+			chart: null,
+			data: null,
+			options: null
 		}	
 	}	
 };
@@ -254,33 +259,86 @@ function createCharts() {
 			 $('#ch-legend-broadband-1').html( chart_obj.broadband.num_providers.chart.generateLegend() );		
 		}		
 	}
-	else if (cur_tab == 'population'){		
-		
-		chart_obj.population.gender.data = [
-		   {
-			  value: geo_prop.male_total,
-			  label: 'Male',
-			  color: '#05ad28'
-		   },
-		   {
-			  value: geo_prop.female_total,
-			  label: 'Female',
-			  color: '#fffc1e'
-		   }				   
-		];
-		
-		chart_obj.population.gender.options = {
-			animationEasing: 'easeOutQuart',
-			tooltipTemplate: '<%=label%>: <%= value.toLocaleString() %> (<%= Math.round(circumference / 6.283 * 1000) / 10 %>%)',
-			legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
-		};
+	else if (cur_tab == 'population'){
 
+		var current_slide = $('.carousel-inner-pop div.active').index() + 1;
+		
+		//console.log(' current_slide : ' + current_slide );	
+		if (chart_obj.broadband.dl_tiers.chart) {
+			chart_obj.broadband.dl_tiers.chart.destroy();
+		}
+		if (chart_obj.broadband.dl_tiers.chart) {
+			chart_obj.broadband.dl_tiers.chart.destroy();
+		}
+		if (chart_obj.broadband.num_providers.chart) {
+			chart_obj.broadband.num_providers.chart.destroy();
+		}
 		if (chart_obj.population.gender.chart) {
 			chart_obj.population.gender.chart.destroy();
 		}
-		chart_obj.population.gender.chart = new Chart(document.getElementById('ch-canvas-population-1').getContext('2d')).Doughnut(chart_obj.population.gender.data, chart_obj.population.gender.options);		
+		if (chart_obj.population.ruralurban.chart) {
+			chart_obj.population.ruralurban.chart.destroy();
+		}
 		
-		 $('#ch-legend-population-1').html( chart_obj.population.gender.chart.generateLegend() );	
+		// ***********************************************************
+		// chart - Download Tiers
+		
+		if (current_slide == 1) {		
+		
+			chart_obj.population.gender.data = [
+			   {
+				  value: geo_prop.male_total,
+				  label: 'Male',
+				  color: '#05ad28'
+			   },
+			   {
+				  value: geo_prop.female_total,
+				  label: 'Female',
+				  color: '#fffc1e'
+			   }				   
+			];
+			
+			chart_obj.population.gender.options = {
+				animationEasing: 'easeOutQuart',
+				tooltipTemplate: '<%=label%>: <%= value.toLocaleString() %> (<%= Math.round(circumference / 6.283 * 1000) / 10 %>%)',
+				legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
+			};
+
+			if (chart_obj.population.gender.chart) {
+				chart_obj.population.gender.chart.destroy();
+			}
+			chart_obj.population.gender.chart = new Chart(document.getElementById('ch-canvas-population-1').getContext('2d')).Doughnut(chart_obj.population.gender.data, chart_obj.population.gender.options);		
+			
+			 $('#ch-legend-population-1').html( chart_obj.population.gender.chart.generateLegend() );	
+		}
+		if (current_slide == 2) {		
+		
+			chart_obj.population.ruralurban.data = [
+			   {
+				  value: geo_prop.rural_total,
+				  label: 'Rural',
+				  color: '#05ad28'
+			   },
+			   {
+				  value: geo_prop.urban_total,
+				  label: 'Urban',
+				  color: '#fffc1e'
+			   }				   
+			];
+			
+			chart_obj.population.ruralurban.options = {
+				animationEasing: 'easeOutQuart',
+				tooltipTemplate: '<%=label%>: <%= value.toLocaleString() %> (<%= Math.round(circumference / 6.283 * 1000) / 10 %>%)',
+				legendTemplate : '<% for (var i = segments.length-1; i >= 0; i--){%><div style="background-color:<%=segments[i].fillColor%>; width: 16px; height: 16px; display: inline-block;"></div>&nbsp;<%=segments[i].label%> &nbsp; <%}%>'			
+			};
+
+			if (chart_obj.population.ruralurban.chart) {
+				chart_obj.population.ruralurban.chart.destroy();
+			}
+			chart_obj.population.ruralurban.chart = new Chart(document.getElementById('ch-canvas-population-2').getContext('2d')).Doughnut(chart_obj.population.ruralurban.data, chart_obj.population.ruralurban.options);		
+			
+			$('#ch-legend-population-2').html( chart_obj.population.ruralurban.chart.generateLegend() );	
+		}
 	}
 }
   

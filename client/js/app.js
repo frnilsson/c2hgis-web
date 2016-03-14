@@ -440,7 +440,7 @@ function setCount() {
 
 	var type = $('#select-in-count').val();
 	
-	//console.log(' setCount type : ' + type );	
+	console.log(' setCount type : ' + type );	
 	
 	if (insight_ly.count[type]) {
 		
@@ -488,8 +488,8 @@ function setHealthSec() {
 	var health_type = $('#health-sec-type').val();
 	var adv_selection = $('#adv-select-broadband').val();
 
-	//console.log("zoom_type : "+zoom_type);
-	//console.log("adv_selection : "+adv_selection);
+	console.log("setHealthSec zoom_type : "+zoom_type);
+	console.log("adv_selection : "+adv_selection);
 
 	var filter = '';
 	var adv_tooltip = 'Select';
@@ -705,6 +705,8 @@ function updateHealthLegend() {
 
 		var health_min = health_ly[health_type].min;
 		var health_max = health_ly[health_type].max;
+		var health_ranges = health_ly[health_type].ranges;
+		var health_ranges_array = health_ranges.split(',');
 		var health_label = health_ly[health_type].label;
 		var health_tooltip = health_ly[health_type].tooltip;
 		
@@ -712,6 +714,11 @@ function updateHealthLegend() {
 		$( '.health-label-max' ).html( health_max );
 		//$( '.circle-sym' ).css('background-color', count_color);		
 		
+		$('#health-sym-1').tooltip('hide').attr('data-original-title', health_ranges_array[0]);
+		$('#health-sym-2').tooltip('hide').attr('data-original-title', health_ranges_array[1]);
+		$('#health-sym-3').tooltip('hide').attr('data-original-title', health_ranges_array[2]);
+		$('#health-sym-4').tooltip('hide').attr('data-original-title', health_ranges_array[3]);
+		$('#health-sym-5').tooltip('hide').attr('data-original-title', health_ranges_array[4]);
 		$( '.in-cnt-legend-box').css('display', 'inline-block');	
 		
 		$( '#hh-tooltip-health' ).attr( 'title', health_tooltip ).tooltip('fixTitle');		
@@ -728,12 +735,19 @@ function updatePopLegend() {
 
 		var pop_min = pop_ly[pop_type].min;
 		var pop_max = pop_ly[pop_type].max;
+		var pop_ranges = pop_ly[pop_type].ranges;
+		var pop_ranges_array = pop_ranges.split(',');
 		var pop_label = pop_ly[pop_type].label;
 		var pop_tooltip = pop_ly[pop_type].tooltip;
 		
 		$( '.pop-label-min' ).html( pop_min );
 		$( '.pop-label-max' ).html( pop_max );
 		//$( '.circle-sym' ).css('background-color', count_color);		
+		$('#pop-sym-1').tooltip('hide').attr('data-original-title', pop_ranges_array[0]);
+		$('#pop-sym-2').tooltip('hide').attr('data-original-title', pop_ranges_array[1]);
+		$('#pop-sym-3').tooltip('hide').attr('data-original-title', pop_ranges_array[2]);
+		$('#pop-sym-4').tooltip('hide').attr('data-original-title', pop_ranges_array[3]);
+		$('#pop-sym-5').tooltip('hide').attr('data-original-title', pop_ranges_array[4]);
 		
 		$( '.in-cnt-legend-box').css('display', 'inline-block');	
 		
@@ -925,7 +939,7 @@ function loadHash() {
 	
 	var init_hash = (window.location.href.split('#')[1] || '');
 	
-	//console.log(' init_hash : ' + init_hash );
+	console.log('loadHash init_hash : ' + init_hash );
 	
 	if (init_hash) {
 		
@@ -938,7 +952,7 @@ function loadHash() {
 			hash_obj[vars_arr[0]] = vars_arr[1];
 		}		
 		
-		//console.log(' hash_obj : ' + JSON.stringify(hash_obj) );
+		console.log(' hash_obj : ' + JSON.stringify(hash_obj) );
 		
 		if ((hash_obj.ll) && (hash_obj.z)) {
 			
@@ -954,9 +968,9 @@ function loadHash() {
 			
 			$('#leaflet-zoom-layers-'+ zoom_layer_type ).prop('checked', true);				
 		}		
-		//console.log(' hash_obj.zlt : ' + hash_obj.zlt);
-		//console.log(' zoom_layer_type : ' + zoom_layer_type);		
-		//console.log('hash_obj.inc='+hash_obj.inc);
+		console.log(' hash_obj.zlt : ' + hash_obj.zlt);
+		console.log(' zoom_layer_type : ' + zoom_layer_type);		
+		console.log('hash_obj.inc='+hash_obj.inc);
 		
 		if (hash_obj.t) {
 		
@@ -987,7 +1001,7 @@ function loadHash() {
 		else if (hash_obj.t === 'health') {				
 			if (hash_obj.hhm) { 				
 				$('#health-sec-type').val(hash_obj.hhm); 	
-				//console.log("hash_obj.advbb="+hash_obj.advbb);							
+				console.log("hash_obj.advbb="+hash_obj.advbb);							
 				if(hash_obj.advbb){
 					$('#adv-select-broadband').val(hash_obj.advbb);			
 				}		
@@ -1271,7 +1285,9 @@ function generateMenu(){
  $(document).ready(function() { 
 
 	geo_prop = national_data.features[0].properties;	 
-	 
+
+	//console.log('ready init_hash : ' + init_hash );	 
+
 	createMap();
 	createSlider();	
 	setCount();	

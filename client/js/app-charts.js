@@ -84,7 +84,7 @@ function createCharts() {
 	}	
 	else if (cur_tab == 'broadband'){
 			
-		var current_slide = $('.carousel-inner div.active').index() + 1;
+		var current_slide = $('#carousel-bb .carousel-inner div.active').index() + 1;
 		
 		//console.log(' current_slide : ' + current_slide );	
 		
@@ -261,7 +261,7 @@ function createCharts() {
 	}
 	else if (cur_tab == 'population'){
 
-		var current_slide = $('.carousel-inner-pop div.active').index() + 1;
+		var current_slide = $('#carousel-pop .carousel-inner div.active').index() + 1;
 		
 		//console.log(' current_slide : ' + current_slide );	
 		if (chart_obj.broadband.dl_tiers.chart) {
@@ -283,7 +283,7 @@ function createCharts() {
 		// ***********************************************************
 		// chart - Download Tiers
 		
-		if (current_slide == 1) {		
+		if (current_slide == 2) {		
 		
 			chart_obj.population.gender.data = [
 			   {
@@ -307,11 +307,11 @@ function createCharts() {
 			if (chart_obj.population.gender.chart) {
 				chart_obj.population.gender.chart.destroy();
 			}
-			chart_obj.population.gender.chart = new Chart(document.getElementById('ch-canvas-population-1').getContext('2d')).Doughnut(chart_obj.population.gender.data, chart_obj.population.gender.options);		
+			chart_obj.population.gender.chart = new Chart(document.getElementById('ch-canvas-population-2').getContext('2d')).Doughnut(chart_obj.population.gender.data, chart_obj.population.gender.options);		
 			
-			 $('#ch-legend-population-1').html( chart_obj.population.gender.chart.generateLegend() );	
+			 $('#ch-legend-population-2').html( chart_obj.population.gender.chart.generateLegend() );	
 		}
-		if (current_slide == 2) {		
+		if (current_slide == 1) {		
 		
 			chart_obj.population.ruralurban.data = [
 			   {
@@ -335,9 +335,9 @@ function createCharts() {
 			if (chart_obj.population.ruralurban.chart) {
 				chart_obj.population.ruralurban.chart.destroy();
 			}
-			chart_obj.population.ruralurban.chart = new Chart(document.getElementById('ch-canvas-population-2').getContext('2d')).Doughnut(chart_obj.population.ruralurban.data, chart_obj.population.ruralurban.options);		
+			chart_obj.population.ruralurban.chart = new Chart(document.getElementById('ch-canvas-population-1').getContext('2d')).Doughnut(chart_obj.population.ruralurban.data, chart_obj.population.ruralurban.options);		
 			
-			$('#ch-legend-population-2').html( chart_obj.population.ruralurban.chart.generateLegend() );	
+			$('#ch-legend-population-1').html( chart_obj.population.ruralurban.chart.generateLegend() );	
 		}
 	}
 }

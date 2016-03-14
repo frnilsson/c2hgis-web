@@ -608,7 +608,7 @@ function setBroadbandCombo() {
 		in_layers = ''+ geo_space +':c2hgis_'+ zoom_layer_type;
 		in_styles = ''+ 'bb_combo_'+ type +'_'+ dir +'_' + zoom_layer_type + '_all';
 	} 
-	console.log("#in_layers="+in_layers+",filter="+filter);
+	//console.log("#in_layers="+in_layers+",filter="+filter);
 	if(filter != '') {
 		map_overlays['broadband_ov'] = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
@@ -1384,11 +1384,11 @@ function generateMenu(){
 	$('.in-tooltip, .hh-tooltip, .bb-tooltip').tooltip();
 	
 	$('#carousel-bb').bind('slid.bs.carousel', function (e) {
-		console.log('bb slide event!');
+		//console.log('bb slide event!');
 		createCharts();
 	});
 	$('#carousel-pop').bind('slid.bs.carousel', function (e) {
-		console.log('pop slide event!');
+		//console.log('pop slide event!');
 		createCharts();
 	});
     

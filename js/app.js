@@ -403,12 +403,13 @@ function setSliderMap(type, low, high) {
 		in_styles = ''+ type +'_auto';
 	} 
 	
-	//console.log('insights in_layers : ' + in_layers );
-	//console.log('insights in_styles : ' + in_styles );	
+	//console.log('map in_layers : ' + in_layers );
+	//console.log('map in_styles : ' + in_styles );	
 	
 	var wms_method = 'gwc/service/wms';
 	//var wms_method = 'wms';
 
+	//console.log('map link : ' + geo_host + '/' + geo_space + '/' + wms_method );
 	map_overlays['in_'+ type] = L.tileLayer.wms( geo_host + '/' + geo_space + '/' + wms_method +'?', {
 		 format: 'image/png',
 		 transparent: true,
@@ -607,7 +608,7 @@ function setBroadbandCombo() {
 		in_layers = ''+ geo_space +':c2hgis_'+ zoom_layer_type;
 		in_styles = ''+ 'bb_combo_'+ type +'_'+ dir +'_' + zoom_layer_type + '_all';
 	} 
-
+	console.log("#in_layers="+in_layers+",filter="+filter);
 	if(filter != '') {
 		map_overlays['broadband_ov'] = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
@@ -1175,13 +1176,15 @@ function updateStats() {
 	
 	// Population Stats
 	$('.geog-pop-total').text(formatStat(geo_prop.pop_2014) );	
-	$('.geog-pop-density').text(formatStat(geo_prop.pop_density, 1) + 'per sq km');
+	$('.geog-pop-density').text(formatStat(geo_prop.pop_density*0.621371, 2) + ' per sq. mile');
 	
 	$('.geog-pop-urban').text(formatStat(geo_prop.urban_total, 0) + '');
 	$('.geog-pop-rural').text(formatStat(geo_prop.rural_total, 0) + '');
 	
 	$('.geog-pop-male').text(formatStat(geo_prop.male_total, 0) + '');
-	$('.geog-pop-female').text(formatStat(geo_prop.female_total, 0) + '');	
+	$('.geog-pop-female').text(formatStat(geo_prop.female_total, 0) + '');
+	$('.geog-pop-over65').text(formatStat(geo_prop.age_over_65_pct, 2) + ' %');	
+	$('.geog-pop-somecollege').text(formatStat(geo_prop.some_college, 2) + ' %');	
 	$('.geog-pop-unemploy').text(formatStat(geo_prop.unemployment, 2) + ' %');	
 }
 
@@ -1381,7 +1384,11 @@ function generateMenu(){
 	$('.in-tooltip, .hh-tooltip, .bb-tooltip').tooltip();
 	
 	$('#carousel-bb').bind('slid.bs.carousel', function (e) {
-		//console.log('slide event!');
+		console.log('bb slide event!');
+		createCharts();
+	});
+	$('#carousel-pop').bind('slid.bs.carousel', function (e) {
+		console.log('pop slide event!');
 		createCharts();
 	});
     

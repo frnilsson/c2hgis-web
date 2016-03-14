@@ -439,9 +439,10 @@ function removeCount() {
 function setCount() {
 
 	var type = $('#select-in-count').val();
-	
-	console.log(' setCount type : ' + type );	
-	
+	//console.log(' setCount type : ' + type );	
+	if (type == '') {
+		return;
+	}
 	if (insight_ly.count[type]) {
 		
 		var count_layer = insight_ly.count[type].layer;
@@ -488,8 +489,8 @@ function setHealthSec() {
 	var health_type = $('#health-sec-type').val();
 	var adv_selection = $('#adv-select-broadband').val();
 
-	console.log("setHealthSec zoom_type : "+zoom_type);
-	console.log("adv_selection : "+adv_selection);
+	//console.log("setHealthSec zoom_type : "+zoom_type);
+	//console.log("adv_selection : "+adv_selection);
 
 	var filter = '';
 	var adv_tooltip = 'Select';
@@ -939,7 +940,7 @@ function loadHash() {
 	
 	var init_hash = (window.location.href.split('#')[1] || '');
 	
-	console.log('loadHash init_hash : ' + init_hash );
+	//console.log('loadHash init_hash : ' + init_hash );
 	
 	if (init_hash) {
 		
@@ -952,7 +953,7 @@ function loadHash() {
 			hash_obj[vars_arr[0]] = vars_arr[1];
 		}		
 		
-		console.log(' hash_obj : ' + JSON.stringify(hash_obj) );
+		//console.log(' hash_obj : ' + JSON.stringify(hash_obj) );
 		
 		if ((hash_obj.ll) && (hash_obj.z)) {
 			
@@ -968,9 +969,9 @@ function loadHash() {
 			
 			$('#leaflet-zoom-layers-'+ zoom_layer_type ).prop('checked', true);				
 		}		
-		console.log(' hash_obj.zlt : ' + hash_obj.zlt);
-		console.log(' zoom_layer_type : ' + zoom_layer_type);		
-		console.log('hash_obj.inc='+hash_obj.inc);
+		//console.log(' hash_obj.zlt : ' + hash_obj.zlt);
+		//console.log(' zoom_layer_type : ' + zoom_layer_type);		
+		//console.log('hash_obj.inc='+hash_obj.inc);
 		
 		if (hash_obj.t) {
 		
@@ -1001,7 +1002,7 @@ function loadHash() {
 		else if (hash_obj.t === 'health') {				
 			if (hash_obj.hhm) { 				
 				$('#health-sec-type').val(hash_obj.hhm); 	
-				console.log("hash_obj.advbb="+hash_obj.advbb);							
+				//console.log("hash_obj.advbb="+hash_obj.advbb);							
 				if(hash_obj.advbb){
 					$('#adv-select-broadband').val(hash_obj.advbb);			
 				}		
@@ -1286,11 +1287,13 @@ function generateMenu(){
 
 	geo_prop = national_data.features[0].properties;	 
 
-	//console.log('ready init_hash : ' + init_hash );	 
+	//console.log('ready init_hash : ' + (window.location.href.split('#')[1] || ''));	 
 
 	createMap();
-	createSlider();	
+	createSlider();		
 	setCount();	
+
+	//console.log('ready2 init_hash : ' + (window.location.href.split('#')[1] || ''));	 
 
 	loadHash();
 	

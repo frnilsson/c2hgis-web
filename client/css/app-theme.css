@@ -3337,3 +3337,6 @@ table.datatab, table.datatab th, table.datatab td {
 table.datatab td {
     padding: 10px;
 }
+.dropdown-menu {
+  z-index: 1001 !important;
+}

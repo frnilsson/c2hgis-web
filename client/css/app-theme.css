@@ -3174,6 +3174,8 @@ a.gen-passcode {
 .circle-label-max  { text-align: center !important; }
 .circle-label { font-size: 12px; }
 .circle-sym  { display: inline-block; border-radius: 50px; vertical-align: middle;  }
+.legend-sym  { display: inline-block; vertical-align: middle;  }
+.legend-label { font-size: 11px;}
 
 .legend-table-square { width: 100%; padding: 10px 0; }
 .legend-table-square tr td { width: 20%; text-align: center;}
@@ -3196,7 +3198,7 @@ filter-select { font-family: Arial,sans-serif; box-shadow: none; font-size: 12px
 .input-group-btn button:hover { border-color: #6699CC; background: #fff;}
 .input-group-btn button:focus { border-color: #6699CC; background: #fff;}
 .input-group-btn button { background: #FFF; border-radius: 0;  }
-.input-group-btn:first-child > .btn { border-left: none; padding-bottom: 5px; }
+.input-group-btn:first-child > .btn { padding-bottom: 5px; }
 .input-group-btn:last-child > .btn { margin-left: 5px; padding-bottom: 5px; }
 .input-group .divider { border-left: 1px solid #CCCCCC; height: 25px; position: absolute; top: 6px; z-index: 9; }
 

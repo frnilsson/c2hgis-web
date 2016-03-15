@@ -89,7 +89,7 @@ function createMap() {
          position: 'bottomleft'
      }).addTo(map);
 
-     //geocoder = L.mapbox.geocoder('mapbox.places-v1');
+    geocoder = L.mapbox.geocoder('mapbox.places-v1');
 	 
 	layerControl = new L.Control.Layers(
 		{
@@ -210,8 +210,9 @@ function getCurrentLocation(load) {
     return false;
 }
 
-function getGeocode(search_input) {
+function getGeocode() {
 
+	var search_input = $('#input-location').val();  
     var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
 		
     //console.log('geocode_url : '+ geocode_url );  
@@ -243,6 +244,10 @@ function getGeocode(search_input) {
         }
     }); 
 }   
+
+function searchLocation() {
+	getGeocode();
+}
 
 function clearMap() {
 
@@ -1310,16 +1315,14 @@ function generateMenu(){
 		return false;
 	});
     
-    $('#input-geo-search').on('click', function(e) {
+    $('#input-loc-search').on('click', function(e) {
         e.preventDefault();
-        var search_input = $('#input-geo-location').val();    
-        getGeocode(search_input);
+        getGeocode();
     });
 
     $(document).keypress(function(e) {      
-        if (e.which === 13) {
-            var search_input = $('#input-geo-location').val();            
-            getGeocode(search_input);
+        if (e.which === 13) {         
+            getGeocode();
         }
     });
      
@@ -1410,6 +1413,77 @@ function generateMenu(){
 		//console.log('pop slide event!');
 		createCharts();
 	});
-    
+
+	$("#input-search-switch").on('click', 'a', function(e) {
+		var search = $(e.currentTarget).data('value');
+		//console.log('search='+search);
+		e.preventDefault();	
+
+        $("#input-location").val('');
+		$("#input-county").val('');
+
+		if (search == 'county') {
+			$("#input-location").css('display', 'none');
+			$("#input-county").css('display', 'block');
+			$("#span-location-search").css('display', 'none');
+			$("#span-county-search").css('display', 'table-cell');
+			$("#btn-label").text('County');
+        }
+		else if (search == 'address') {
+			$("#input-county").css('display', 'none');
+			$("#input-location").css('display', 'block');
+			$("#span-county-search").css('display', 'none');
+			$("#span-location-search").css('display', 'table-cell');
+			$("#btn-label").text('Address');
+        }
+    });
+
+    $('#input-location').keypress(function (e) {
+	 var key = e.which;
+	 if(key == 13)  // the enter key code
+	  {
+	    $('#input-loc-search').click();
+	    return false;  
+	  }
+	}); 
+	
+	$('#input-county').keypress(function (e) {
+	 var key = e.which;
+	 if(key == 13)  // the enter key code
+	  {
+	    $('#input-county-search').click();
+	    return false;  
+	  }
+	});
+	
+	$( "#input-location" ).autocomplete({
+        source: function( request, response ) {
+			var location = request.term;
+			//var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
+	
+			geocoder.query(location, processAddress);
+			
+			function processAddress(err, data) {
+			
+				var f = data.results.features;
+				var addresses = [];
+				for (var i = 0; i < f.length; i++) {
+					addresses.push(f[i].place_name);
+				}
+				response(addresses);
+			}
+        },
+        minLength: 3,
+        select: function( event, ui ) {
+            setTimeout(function() {searchLocation();}, 200);
+        },
+        open: function() {
+			$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+			$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        }
+	});
+	
 });         
   

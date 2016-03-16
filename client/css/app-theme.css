@@ -3133,13 +3133,16 @@ a.gen-passcode {
 .hh-tooltip  { padding-left: 3px;}
 .bb-tooltip  { padding-left: 3px;}
 
-.tooltip-inner {  min-width: 220px; }
+.tooltip-inner {  width: auto; }
 
 .slider-tooltip-div {  line-height: 30px;}
 
 .tooltip { 
-  padding-right: 25px !important;
+  padding-right: 25px !important;  
 }
+.slider-tooltip-div .tooltip-inner {  
+  min-width: 220px;
+} 
 
 /* charts */
 .charts-div { width:100%; min-height: 300px; margin: 0 auto; }

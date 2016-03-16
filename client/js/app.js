@@ -142,9 +142,13 @@ function createMap() {
 	map.on('zoomend', function() {
 		
 		var zoom = map.getZoom();
-		console.log("zoomed:"+zoom);
-		
-		if (zoom > 6 ) {
+		//console.log("zoomed:"+zoom);
+
+		if(zoom <= 3) {
+			geo_type = 'national';
+			new_geo_type = 'national';			
+		}		
+		else if (zoom > 6 ) {
 			new_geo_type = 'county';	
 			zoom_type = 'county';			
 		}
@@ -152,6 +156,10 @@ function createMap() {
 			new_geo_type = 'state';
 			zoom_type = 'state';
 		}
+
+		//console.log("zoomed zoom_type:"+zoom_type);		
+		//console.log("zoomed geo_type:"+geo_type);		
+		//console.log("zoomed new_geo_type:"+new_geo_type);		
 		
 		updateCountLegend();		
 		
@@ -159,6 +167,7 @@ function createMap() {
 			
 			if (geo_type === 'county') {
 				geo_type = new_geo_type;
+				console.log("zoomed getData");		
 				getData();
 			}
 			geo_type = new_geo_type;			
@@ -170,8 +179,9 @@ function createMap() {
 	});
 		
 	map.on('click', function(e) {
-		//console.log(' e.latlng : ' + e.latlng );
-		
+		//console.log('map click e.latlng : ' + e.latlng );
+		geo_type = 'state';
+
 		geo_lat = e.latlng.lat;
 		geo_lng = e.latlng.lng;		
 		var zoom = map.getZoom();	
@@ -215,8 +225,8 @@ function getGeocode() {
 	var search_input = $('#input-location').val();  
     var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
 	
-	console.log("search_input:"+search_input);
-    console.log('geocode_url : '+ geocode_url );  
+	//console.log("search_input:"+search_input);
+    //console.log('geocode_url : '+ geocode_url );  
     
     $.ajax({
         type: 'GET',
@@ -224,7 +234,7 @@ function getGeocode() {
         dataType: 'json',
         success: function(data) {
 
-            console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
+            //console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
                         
             if (data.features[0]) {                      
                 
@@ -266,9 +276,9 @@ function getGeocodeCounty() {
 
 	var geocode_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=1&outputFormat=json&cql_filter=geography_id=%27' + county_code + '%27&format_options=callback:callbackData&callback=callbackData';
 	
-	console.log("search_county:"+search_input);
-	console.log("county_code:"+county_code);
-    console.log('geocode_url : '+ geocode_url );  
+	//console.log("search_county:"+search_input);
+	//console.log("county_code:"+county_code);
+    //console.log('geocode_url : '+ geocode_url );  
 
     $.ajax({
         type: 'GET',
@@ -296,12 +306,12 @@ function getGeocodeCounty() {
 				getData();         
             }
             else {
-                window.alert('Search results not found.');
+                window.alert('County not found.');
             }           
         },
         error: function (request, status, error) {
             
-            window.alert('Search results not found.');
+            window.alert('County not found.');
         }
     }); 
 }   
@@ -328,10 +338,10 @@ function clearMap() {
 
 function clearClickFeature() {
 
-	//console.log(' clearClickFeature ! '  );
+	//console.log('clearClickFeature !');
 
 	for (var i = 0; i < click_data.length; i++){
-		
+		console.log('clearClickFeature ='+click_data[i]);		
 		if (map.hasLayer(click_data[i])) {
 			map.removeLayer(click_data[i]);
 		}
@@ -358,9 +368,10 @@ function setNationwide() {
     map.setView([40, -95], 3);  
 	
 	geo_prop = national_data.features[0].properties;
-	 
-	clearClickFeature();
+
+	geo_type = 'national';
 	
+	clearClickFeature();	
 	createCharts();	 
 	updateStats();
 	setDownloadLinks();
@@ -839,7 +850,7 @@ function getData() {
 		data_type = zoom_layer_type;
 	} 
 	
-	console.log('getData geo_type : ' + geo_type );
+	//console.log('getData geo_type : ' + geo_type );
 	//console.log(' zoom_layer_type : ' + zoom_layer_type );
 	//console.log(' data_type : ' + data_type );	
 	
@@ -861,7 +872,8 @@ function getData() {
 
 function processData(data) {
 		
-	//console.log('processData : ' + JSON.stringify(data)  );	
+	//console.log('Inside processData : ' + JSON.stringify(data) );	
+	//console.log('inside processData');	
 	
 	if (data.features){
 		
@@ -1169,13 +1181,15 @@ function updateInsightContent(state_sel) {
 
 function updateStats() {
 	
-	//console.log(' in updateStats');
+	//console.log(' in updateStats: '+geo_prop.geography_type);
 	
 	setHash();
 	
 	var geography_type = geo_prop.geography_type;
 	var geography_id = geo_prop.geography_id;
 	var geography_desc = geo_prop.geography_desc;	
+	
+	//console.log('2 in updateStats: '+geo_prop.geography_type);
 
 	if (geography_type == 'county'){
 		var abbr = states_data[geography_id.substring(0,2)].abbr;
@@ -1396,6 +1410,11 @@ function generateMenu(){
         getGeocode();
     });
 
+    $('#input-county-search').on('click', function(e) {
+        e.preventDefault();
+        getGeocodeCounty();
+    });
+
     $(document).keypress(function(e) {      
         if (e.which === 13) {         
             getGeocode();
@@ -1564,11 +1583,11 @@ function generateMenu(){
 	$( "#input-county" ).autocomplete({
         source: function( request, response ) {
 			var county = request.term;
-			console.log("entered county:"+county);
+			//console.log("entered county:"+county);
 
 			var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=35&outputFormat=json&cql_filter=geography_desc+LIKE+%27' + county + '%25%27&format_options=callback:callbackData&callback=callbackData';
 	
-			console.log('county data_url : ' + data_url );
+			//console.log('county data_url : ' + data_url );
 			
 			$.ajax({
 				type: 'GET',
@@ -1577,7 +1596,7 @@ function generateMenu(){
 				dataType: 'jsonp',
 				jsonpCallback: 'callbackData',
 				success: function(data) {
-					console.log('before data='+data)
+					//console.log('before data='+data)
 					var ft = data.features;
 					var addresses = [];
 					for (var i = 0; i < ft.length; i++) {

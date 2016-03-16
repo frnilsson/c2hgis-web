@@ -341,7 +341,7 @@ function clearClickFeature() {
 	//console.log('clearClickFeature !');
 
 	for (var i = 0; i < click_data.length; i++){
-		console.log('clearClickFeature ='+click_data[i]);		
+		//console.log('clearClickFeature ='+click_data[i]);		
 		if (map.hasLayer(click_data[i])) {
 			map.removeLayer(click_data[i]);
 		}
@@ -366,6 +366,7 @@ function setState(state) {
 function setNationwide() {  
 
     map.setView([40, -95], 3);  
+    geo_id = null;
 	
 	geo_prop = national_data.features[0].properties;
 
@@ -856,7 +857,7 @@ function getData() {
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ data_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	//console.log(' data_url : ' + data_url );
+	//console.log('getData data_url : ' + data_url );
 	
 	$.ajax({
 		type: 'GET',
@@ -883,6 +884,7 @@ function processData(data) {
 		
 			var geography_id = data.features[0].properties.geography_id;
 			
+			//console.log('geo_id : ' + geo_id );	
 			//console.log('geography_id : ' + JSON.stringify(geography_id)  );	
 			
 			if (geo_id !== geography_id) {
@@ -891,7 +893,7 @@ function processData(data) {
 				geo_data = data;				
 				geo_prop = geo_data.features[0].properties;
 				
-				//console.log('geo_prop.adult_obesity_pct : ' + geo_prop.adult_obesity_pct  );	
+				//console.log('processData geo_type : ' + geo_type);	
 				
 				// ***********************************	
 				
@@ -904,7 +906,7 @@ function processData(data) {
 				if (geo_type != 'national') {
 
 					if(geo_type == 'county'){
-
+						//console.log("county view");
 						var geo_bounds = data.bbox;                
 		                if(geo_bounds){
 		                	map.fitBounds([

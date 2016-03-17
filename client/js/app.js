@@ -190,7 +190,11 @@ function createMap() {
 		
 	map.on('click', function(e) {
 		//console.log('map click e.latlng : ' + e.latlng );
-		geo_type = 'state';
+		//console.log('map click geo_type : ' + geo_type );
+		
+		if(geo_type == 'national'){
+			geo_type = 'state';	
+		}
 
 		geo_lat = e.latlng.lat;
 		geo_lng = e.latlng.lng;		

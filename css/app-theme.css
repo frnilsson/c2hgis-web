@@ -3118,7 +3118,7 @@ a.gen-passcode {
 #slider-broadband .ui-slider-range { background: #b2caf0; }
 #slider-health .ui-slider-range { background: #eab6b6; }
 
-.slider-label { border:0; color:#333333; font-weight:bold; display: inline-block; line-height: 30px}
+.slider-label { border:0; color:#222222; font-weight:bold; display: inline-block;}
 .select-insight { width: 185px !important; display: inline-block;}
 .select-advanced { width: 235px !important; display: inline-block;}
 

@@ -197,7 +197,7 @@ blockquote {
         width: 19%;
       }
       #app-title {
-        display: inline;
+        display: inline-block;
       }
     }
 

@@ -259,8 +259,7 @@ blockquote {
     /* line 125, ../scss/ui-components/_header.scss */
     #menu-primary {
       text-align: center;
-      height: 58px;
-      margin-right: 10px;
+      height: 58px;      
     }
     @media screen and (max-width: 991px) {
       /* line 125, ../scss/ui-components/_header.scss */
@@ -3050,6 +3049,7 @@ a.gen-passcode {
   .container { max-width: 1180px;}
   .panel-container { min-width: 420px}
   .geo-container { max-width: 780px}
+   #app-title { margin: 25px 0 0 40px !important;}
 }
 .selectWidth {
   width: auto;
@@ -3352,7 +3352,7 @@ table.datatab td {
 }
 #app-title {
   color: #FFF;
-  margin-bottom: 0px;
+  margin: 25px 0 0 10px;
 }
 #app-title h4{
   margin-bottom: 0px;
@@ -3360,6 +3360,7 @@ table.datatab td {
 }
 #app-title h5{
   margin-bottom: 0px;
-  font-size: 14px;
+  margin-top: 5px;
+  font-size: 12px;
   font-style: italic;
 }

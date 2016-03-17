@@ -196,6 +196,9 @@ blockquote {
       .navbar-header {
         width: 19%;
       }
+      #app-title {
+        display: inline;
+      }
     }
 
     /* line 100, ../scss/ui-components/_header.scss */
@@ -257,6 +260,7 @@ blockquote {
     #menu-primary {
       text-align: center;
       height: 58px;
+      margin-right: 10px;
     }
     @media screen and (max-width: 991px) {
       /* line 125, ../scss/ui-components/_header.scss */
@@ -266,6 +270,9 @@ blockquote {
         background: #13428b url(../img/bg-pattern-header.png);
         -webkit-box-shadow: inset 10px -40px 80px rgba(0, 0, 0, 0.3);
         box-shadow: inset 10px -40px 80px rgba(0, 0, 0, 0.3);
+      }
+      #app-title {
+        display: none;
       }
     }
     @media screen and (min-width: 768px) {
@@ -3342,4 +3349,17 @@ table.datatab td {
 }
 .dropdown-menu {
   z-index: 1001 !important;
+}
+#app-title {
+  color: #FFF;
+  margin-bottom: 0px;
+}
+#app-title h4{
+  margin-bottom: 0px;
+  font-size: 16px;
+}
+#app-title h5{
+  margin-bottom: 0px;
+  font-size: 14px;
+  font-style: italic;
 }

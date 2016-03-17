@@ -867,7 +867,7 @@ function getData() {
 	
 	//console.log('getData geo_type : ' + geo_type );
 	//console.log(' zoom_layer_type : ' + zoom_layer_type );
-	//console.log(' data_type : ' + data_type );	
+	//console.log('getData data_type : ' + data_type );	
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ data_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
@@ -888,8 +888,8 @@ function getData() {
 function processData(data) {
 		
 	//console.log('Inside processData : ' + JSON.stringify(data) );	
-	//console.log('inside processData');	
-	
+	//console.log('inside processData features: '+data.features.length);		
+
 	if (data.features){
 		
 		//console.log('data.features.length : ' + data.features.length  );	
@@ -919,7 +919,7 @@ function processData(data) {
 				// ***********************************		
 				if (geo_type != 'national') {
 
-					if(geo_type == 'county'){
+					if(geo_type == 'county' || geo_type == 'state'){
 						//console.log("county view");
 						var geo_bounds = data.bbox;                
 		                if(geo_bounds){
@@ -1584,11 +1584,17 @@ function generateMenu(){
 					//console.log('before data='+data)
 					var ft = data.features;
 					var autoresults = [];
-					for (var i = 0; i < ft.length; i++) {						
-						autoresults.push({
-							'label' : ''+ ft[i].place_name,
-							'value' : ft[i].geometry.coordinates
-						});
+					for (var i = 0; i < ft.length; i++) {			
+						if(ft[i].place_name.match(/United States$/)){
+							var type = 'county';
+							if(ft[i].id.startsWith("region")){
+								type = 'state';
+							}
+							autoresults.push({
+								'label' : ''+ ft[i].place_name,
+								'value' : new Array (ft[i].geometry.coordinates[0], ft[i].geometry.coordinates[1],type)
+							});
+						}
 					}					
 					//console.log( 'autoresults : ' + JSON.stringify(autoresults) );
 					response(autoresults);
@@ -1601,14 +1607,19 @@ function generateMenu(){
 			$("#input-location").val(ui.item.label);
 			
 			geo_type = 'county';
-			zoom_type = 'county';
-			
-			
+			zoom_type = 'county';	
+
+			if(ui.item.value[2] == 'state'){
+				geo_type = 'state';
+				zoom_type = 'state';			
+			}
+
 			geo_lng = ui.item.value[0];
 			geo_lat = ui.item.value[1];
 
 			//console.log("geo-lat:"+geo_lat); 
-			getData();   
+			getData();  
+
 		},
         select: function( event, ui ) {
 			event.preventDefault();
@@ -1618,17 +1629,20 @@ function generateMenu(){
 				
 				//console.log( 'ui : ' + JSON.stringify(ui) );
 				//console.log( 'ui.item.value : ' + ui.item.value );
-				
-				
+
 				geo_type = 'county';
 				zoom_type = 'county';
-				
+
+				if(ui.item.value[2] == 'state'){
+					geo_type = 'state';
+					zoom_type = 'state';			
+				}
 				
 				geo_lng = ui.item.value[0];
 				geo_lat = ui.item.value[1];
-	
+
+				getData();  
 				//console.log("geo-lat:"+geo_lat); 
-				getData();     
 				
 				//searchCounty();
 				

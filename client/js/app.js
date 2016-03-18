@@ -195,6 +195,9 @@ function createMap() {
 		if(geo_type == 'national'){
 			geo_type = 'state';	
 		}
+		if(zoom_type == 'county'){
+			geo_type = 'county';		
+		}
 
 		geo_lat = e.latlng.lat;
 		geo_lng = e.latlng.lng;		

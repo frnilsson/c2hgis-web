@@ -206,7 +206,7 @@ blockquote {
       margin: 0;
       height: auto;
     }
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 620px) {
       /* line 100, ../scss/ui-components/_header.scss */
       .navbar-brand {
         padding-top: 13px;
@@ -232,7 +232,10 @@ blockquote {
       #app-title {
         display: inline-block;
         width: 350px; 
-        margin: 8px 0 0 10px !important;
+        margin: 8px 0 0 12px !important;
+      }
+      #app-title h4{
+        font-size: 22px !important;
       }
       #app-title h5{
         display: none;
@@ -275,7 +278,10 @@ blockquote {
       #app-title {
         display: inline-block;
         width: 450px; 
-        margin: 8px 0 0 10px !important;
+        margin: 15px 0 0 10px !important;
+      }
+      #app-title h4{
+        font-size: 22px !important;
       }
     }
 
@@ -3064,9 +3070,17 @@ a.gen-passcode {
   .panel-container { min-width: 420px}
   .geo-container { max-width: 560px}
   #app-title { 
-    margin: 8px 0 0 30px !important;
+    margin: 15px 0 0 25px !important;
     width: 529px;
    }
+   #app-title h4{
+    font-size: 22px !important;
+   }
+} 
+@media (max-width: 1200px) {
+  #app-title h5{
+    display: none;
+  }
 }
  @media (min-width: 1200px) {
   .container {padding-left: 0px; padding-right: 5px; }
@@ -3074,7 +3088,7 @@ a.gen-passcode {
   .panel-container { min-width: 420px}
   .geo-container { max-width: 780px}
    #app-title { 
-    margin: 20px 0 0 40px !important;
+    margin: 10px 0 0 25px !important;
     width: 630px;
    }
 }
@@ -3379,11 +3393,12 @@ table.datatab td {
 }
 #app-title {
   color: #FFF;
-  margin: 25px 0 0 10px;
+  margin: 10px 0 0 25px;
 }
 #app-title h4{
   margin-bottom: 0px;
-  font-size: 18px;
+  font-size: 26px;
+  font-weight: normal;
 }
 #app-title h5{
   margin-bottom: 0px;

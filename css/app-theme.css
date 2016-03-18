@@ -206,6 +206,16 @@ blockquote {
       margin: 0;
       height: auto;
     }
+    @media screen and (max-width: 600px) {
+      /* line 100, ../scss/ui-components/_header.scss */
+      .navbar-brand {
+        padding-top: 13px;
+        padding-bottom: 13px;
+      }
+      #app-title {
+        display: none !important;
+      }
+    }
     @media screen and (min-width: 768px) {
       /* line 100, ../scss/ui-components/_header.scss */
       .navbar-brand {
@@ -218,6 +228,14 @@ blockquote {
       .navbar-brand {
         padding-top: 13px;
         padding-bottom: 13px;
+      }
+      #app-title {
+        display: inline-block;
+        width: 350px; 
+        margin: 8px 0 0 10px !important;
+      }
+      #app-title h5{
+        display: none;
       }
     }
 
@@ -254,6 +272,11 @@ blockquote {
         height: 38px;
         background: url(../img/fcc-logo-lg.png) 0 0 no-repeat;
       }
+      #app-title {
+        display: inline-block;
+        width: 450px; 
+        margin: 8px 0 0 10px !important;
+      }
     }
 
     /* line 125, ../scss/ui-components/_header.scss */
@@ -269,9 +292,6 @@ blockquote {
         background: #13428b url(../img/bg-pattern-header.png);
         -webkit-box-shadow: inset 10px -40px 80px rgba(0, 0, 0, 0.3);
         box-shadow: inset 10px -40px 80px rgba(0, 0, 0, 0.3);
-      }
-      #app-title {
-        display: none;
       }
     }
     @media screen and (min-width: 768px) {
@@ -3043,13 +3063,20 @@ a.gen-passcode {
   .container { width: 960px;}
   .panel-container { min-width: 420px}
   .geo-container { max-width: 560px}
+  #app-title { 
+    margin: 8px 0 0 30px !important;
+    width: 529px;
+   }
 }
  @media (min-width: 1200px) {
   .container {padding-left: 0px; padding-right: 5px; }
   .container { max-width: 1180px;}
   .panel-container { min-width: 420px}
   .geo-container { max-width: 780px}
-   #app-title { margin: 25px 0 0 40px !important;}
+   #app-title { 
+    margin: 20px 0 0 40px !important;
+    width: 630px;
+   }
 }
 .selectWidth {
   width: auto;
@@ -3356,11 +3383,11 @@ table.datatab td {
 }
 #app-title h4{
   margin-bottom: 0px;
-  font-size: 16px;
+  font-size: 18px;
 }
 #app-title h5{
   margin-bottom: 0px;
   margin-top: 5px;
-  font-size: 12px;
+  font-size: 14px;
   font-style: italic;
 }

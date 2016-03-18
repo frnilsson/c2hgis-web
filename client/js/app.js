@@ -139,7 +139,7 @@ function createMap() {
 	L.tileLayer.wms( geo_host + '/' + geo_space + '/' + wms_method +'?', {
 		 format: 'image/png',
 		 transparent: true,
-		 layers: 'c2hgis_state',
+		 layers: 'state2014',
 		 styles: 'state_border'
 	 }).setZIndex(55555555555555555555).addTo(map);		
 	
@@ -237,8 +237,13 @@ function getCurrentLocation(load) {
 function getGeocode() {
 
 	var search_input = $('#input-location').val();  
-    var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
-	
+	if (!/united states/i.test(search_input)){
+		search_input = search_input + ', United States';
+	}
+	//console.log('search_input : '+ search_input );  
+    
+	var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
+
 	//console.log("search_input:"+search_input);
     //console.log('geocode_url : '+ geocode_url );  
     
@@ -286,12 +291,16 @@ function getGeocodeCounty() {
 
 	geo_type = 'county';
 	var search_input = $('#input-county').val();  
-	var county_code = search_input.substring(search_input.lastIndexOf("(")+1, search_input.lastIndexOf(")"));
+	var county_name = search_input.split(',')[0];
+	var state_abbr = search_input.split(',')[1].toUpperCase();
+	var state_fips = states_abbr[state_abbr.trim()].fips;
 
-	var geocode_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=1&outputFormat=json&cql_filter=geography_id=%27' + county_code + '%27&format_options=callback:callbackData&callback=callbackData';
+	var cql_filter_str = 'geography_desc+ILIKE+%27' + county_name + '%27+AND+geography_id+LIKE+%27' + state_fips + '%25%27';
+
+	var geocode_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=1&outputFormat=json&cql_filter=' + cql_filter_str + '&format_options=callback:callbackData&callback=callbackData';
 	
 	//console.log("search_county:"+search_input);
-	//console.log("county_code:"+county_code);
+	//console.log("state_fips:"+state_fips);
     //console.log('geocode_url : '+ geocode_url );  
 
     $.ajax({
@@ -332,10 +341,6 @@ function getGeocodeCounty() {
 
 function searchLocation() {
 	getGeocode();
-}
-
-function searchCounty() {
-	getGeocodeCounty();
 }
 
 function clearMap() {

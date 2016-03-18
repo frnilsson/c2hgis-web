@@ -608,7 +608,18 @@ function setHealthSec() {
 		
 		var column = insight_ly['broadband'][layer].column;
 		//console.log('column:'+column);
-		filter = column + '>=' + low + ' AND ' + column + '<=' + high;
+		if(low == '0'){
+			filter = column + '<' + high;
+		}
+		else if (high == '0'){
+			filter = column + '>=' + low;
+		}
+		else if (low == high){
+			filter = column + '=' + low;
+		}
+		else{
+			filter = column + '>=' + low + ' AND ' + column + '<' + high;
+		}
 		filter = filter + ';' + filter;		
 		//console.log('adv filter: '+filter);
 		adv_tooltip = $("#adv-select-broadband option[value='"+adv_selection+"']").text();
@@ -689,7 +700,7 @@ function setBroadbandCombo() {
 		
 		var column = insight_ly['health'][layer].column;
 		//console.log('column:'+column);
-		filter = column + '>=' + low + ' AND ' + column + '<=' + high;
+		filter = column + '>=' + low + ' AND ' + column + '<' + high;
 		filter = filter + ';' + filter;		
 		//console.log('adv filter: '+filter);
 		adv_tooltip = $("#adv-select-health option[value='"+adv_selection+"']").text();

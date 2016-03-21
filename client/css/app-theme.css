@@ -213,7 +213,13 @@ blockquote {
         padding-bottom: 13px;
       }
       #app-title {
-        display: none !important;
+        width: 200px; 
+      }
+      #app-title h4{
+        font-size: 12px !important;
+      }
+      #app-title h5{
+        display: none;
       }
     }
     @media screen and (min-width: 768px) {
@@ -230,12 +236,11 @@ blockquote {
         padding-bottom: 13px;
       }
       #app-title {
-        display: inline-block;
-        width: 350px; 
+        display: inline-block;        
         margin: 8px 0 0 12px !important;
       }
       #app-title h4{
-        font-size: 22px !important;
+        font-size: 18px !important;
       }
       #app-title h5{
         display: none;
@@ -2027,6 +2032,9 @@ main {
     .station-meta li+li {
         padding-left: 5px;
     }
+    #app-title {
+      display: none;
+    }
 }
 
 .tabular-list {
@@ -3037,6 +3045,15 @@ a.gen-passcode {
   h2 { font-size: 14px; white-space: nowrap; font-weight: bold;}
   h4 { font-size: 12px; white-space: nowrap; font-weight: bold;}
   body { font-size: 12px; }
+  #app-title {
+    display: inline-block;        
+  }
+  #app-title h4{
+    font-size: 12px !important;
+  }
+  #app-title h5{
+    display: none;
+  }
 }
  @media only screen and (min-width : 570px) and (max-width : 669px) {
 	#map { height: 67vh; min-height: 200px; }
@@ -3160,7 +3177,7 @@ a.gen-passcode {
 #slider-health .ui-slider-range { background: #eab6b6; }
 
 .slider-label { border:0; color:#222222; font-weight:bold; display: inline-block;}
-.select-insight { width: 185px !important; display: inline-block;}
+.select-insight { width: 200px !important; display: inline-block;}
 .select-advanced { width: 235px !important; display: inline-block;}
 
 
@@ -3171,7 +3188,7 @@ a.gen-passcode {
 #select-in-cnt-div { display: inline-block; vertical-align: middle; line-height: 100%; height: 100%; }
 
 
-.select-health { width: 185px !important; display: inline-block;}
+.select-health { width: 200px !important; display: inline-block;}
 
 .select-pop { width: 150px !important; display: inline-block;}
 

@@ -173,7 +173,7 @@ function createMap() {
 		
 		updateCountLegend();		
 		
-		if (geo_type !== new_geo_type) {		
+		/*if (geo_type !== new_geo_type) {		
 			
 			if (geo_type === 'county') {
 				geo_type = new_geo_type;
@@ -181,8 +181,8 @@ function createMap() {
 				getData();
 			}
 			geo_type = new_geo_type;			
-		}			
-		
+		}	*/		
+		geo_type = new_geo_type;			
 		//console.log('createMap geo_type : ' + geo_type );		
 		
 		setHash();
@@ -202,7 +202,7 @@ function createMap() {
 		geo_lat = e.latlng.lat;
 		geo_lng = e.latlng.lng;		
 		var zoom = map.getZoom();	
-		
+		//console.log("click zoom:"+zoom);
 		getData();
 	});		 
 }

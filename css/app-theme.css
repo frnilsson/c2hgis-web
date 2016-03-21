@@ -3375,14 +3375,20 @@ img.timeline {
     padding: 10px;
 }
 
-#data-source-link { border-top: 6px solid #ffcc44; padding: 10px; margin: 10px;  box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.14);}
+.data-source-div { border-top: 6px solid #ffcc44; padding: 10px; margin: 10px;  box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.14);}
 
 #data-source-text  {  }
 
-#data-source-link h2 { margin-top: 0; }
-#data-source-link ul { padding: 0; }
-
-#data-source-link-table td { height: 60px; padding-right: 10px;}
+.data-source-div h2 { margin-top: 0; font-size: 26px;}
+.data-source-div ul { padding: 0; }
+.data-source-div-table tbody:before {
+    content: "-";
+    display: block;
+    line-height: 1em;
+    color: transparent;
+}
+.data-source-div-table th { margin-bottom: 10px;} 
+.data-source-div-table td { height: 60px; padding-right: 10px; vertical-align: top;}
 
 .citations { padding-left: 30px; font-size: 13px;}
 

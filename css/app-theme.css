@@ -3365,9 +3365,6 @@ img.aligncenter { display: block; margin-left: auto; margin-right: auto; }
 .alignright { float: right; }
 .alignleft { float: left; }
 .aligncenter { display: block; margin-left: auto; margin-right: auto; }
-p sup{
-  font-weight: bold;
-}
 img.timeline {
     /*border: 2px solid gray;
     border-radius: 10px;*/
@@ -3381,14 +3378,11 @@ img.timeline {
 
 .data-source-div h2 { margin-top: 0; font-size: 26px;}
 .data-source-div ul { padding: 0; }
-.data-source-div-table tbody:before {
-    content: "-";
-    display: block;
-    line-height: 1em;
-    color: transparent;
-}
-.data-source-div-table th { margin-bottom: 10px;} 
-.data-source-div-table td { height: 60px; padding-right: 10px; vertical-align: top;}
+.data-source-div-table th { padding-bottom: 5px;} 
+.data-source-div-table td { height: 60px; padding: 10px 10px 10px 0; vertical-align: top;}
+.data-source-div-table .botton-right {border-bottom: 1px solid #d3d3d3; border-right: 1px solid #d3d3d3; } 
+.data-source-div-table .left {border-left: 1px solid #d3d3d3; } 
+.data-source-div-table .left-space {padding-left: 10px; } 
 
 .citations { padding-left: 30px; font-size: 13px;}
 
@@ -3428,4 +3422,8 @@ table.datatab td {
   margin-top: 5px;
   font-size: 14px;
   font-style: italic;
+}
+a.external {
+  background: url(/img/external-link.png) center right no-repeat;
+  padding-right: 13px;
 }

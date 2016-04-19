@@ -794,6 +794,7 @@ blockquote {
     /* line 385, ../scss/ui-components/_header.scss */
     .menu-secondary {
       border: 0;
+	  margin-top: 9px;
     }
     @media screen and (min-width: 992px) {
       /* line 385, ../scss/ui-components/_header.scss */
@@ -801,6 +802,7 @@ blockquote {
         text-align: justify;
         /*max-width: 1075px;*/
         margin: 0 auto;
+		margin-top: 9px;
       }
       /* line 392, ../scss/ui-components/_header.scss */
       .menu-secondary:after {

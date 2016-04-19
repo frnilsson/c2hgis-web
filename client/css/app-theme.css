@@ -2180,10 +2180,11 @@ main {
    Tables
    ========================================================================== */
 
-table th {
-    border-bottom: 2px solid #d3d3d3;
+table th {    
     color: #000;
-    /*font-size: 12px;
+    /*
+    border-bottom: 2px solid #d3d3d3;
+    font-size: 12px;
     font-weight: bold;
     padding: 3px 0;
     text-align: left;*/
@@ -3105,7 +3106,7 @@ a.gen-passcode {
   .panel-container { min-width: 420px}
   .geo-container { max-width: 780px}
    #app-title { 
-    margin: 10px 0 0 25px !important;
+    margin: 5px 0 0 20px !important;
     width: 630px;
    }
 }
@@ -3378,8 +3379,11 @@ img.timeline {
 
 .data-source-div h2 { margin-top: 0; font-size: 26px;}
 .data-source-div ul { padding: 0; }
-.data-source-div-table th { padding-bottom: 5px;} 
+.data-source-div-table {border-top: 6px solid #ffcc44; padding: 10px; box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.14);}
+.data-source-div-table th { padding: 7px 10px; border-bottom: 1px solid #d3d3d3;} 
 .data-source-div-table td { height: 60px; padding: 10px 10px 10px 0; vertical-align: top;}
+.data-source-div-table .right {border-right: 1px solid #d3d3d3; } 
+.data-source-div-table .botton {border-bottom: 1px solid #d3d3d3; } 
 .data-source-div-table .botton-right {border-bottom: 1px solid #d3d3d3; border-right: 1px solid #d3d3d3; } 
 .data-source-div-table .left {border-left: 1px solid #d3d3d3; } 
 .data-source-div-table .left-space {padding-left: 10px; } 

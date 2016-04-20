@@ -154,7 +154,7 @@
                                 <li class="active"><a id="insights" href="#" class="active">Overview</a></li>
                                 <li><a id="broadband" href="#">Broadband</a></li>
                                 <li><a id="health" href="#">Health</a></li>
-								<li><a id="population" href="#">Demographic</a></li>  
+								<li><a id="population" href="#">Demographics</a></li>  
                             </ul>
                         </div>                        
                         <div>
@@ -163,9 +163,9 @@
 								<!-- Insights Tab  **************************************************************** -->							
 							
                                 <div class="panel-data list-insight-panel"> 
-                                    <div class="row">
-                                        <div class="col-sm-12 slider-label">
-                                            <b>Broadband Availability:</b>
+                                    <div class="row row-space">
+                                        <div class="col-sm-12 data-label">
+                                            Broadband Availability:
                                         </div>
                                     </div>                                               
 									<div class="row">
@@ -191,10 +191,9 @@
                                     <div class="row">
                                         <div id="slider-broadband" class="slider-bar"></div>
                                     </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-sm-12 slider-label">
-                                            <b>Health Measures:</b>
+                                    <div class="row row-space">
+                                        <div class="col-sm-12 data-label">
+                                            Health Measures:
                                         </div>
                                     </div>
                                     <div class="row">
@@ -229,10 +228,9 @@
                                     <div class="row">                                        
                                         <div id="slider-health" class="slider-bar"></div>
                                     </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-sm-12 slider-label">
-                                            <b>Data Overlays:</b>
+                                    <div class="row row-space">
+                                        <div class="col-sm-12 data-label">
+                                            Data Overlays:
                                         </div>
                                     </div>
 									<div id="in-cnt-div" class="row">
@@ -288,7 +286,7 @@
                                         </div>
                                         <div class="col-sm-6 legend-label">
                                             <span class="legend-sym" style="background-color: #FFF; height: 20px; width: 20px; border:1px solid gray;"></span>
-                                                <b>Not applicable</b>
+                                                <b>Neither</b>
                                         </div>
                                     </div>
 
@@ -322,14 +320,11 @@
 									
                                     <div class="row">
 										<div class="col-md-12 state-insights-text">
-                                            The Mapping Broadband Health in America tool is an interactive map created by the Connect2Health<sup>FCC</sup> Task Force in collaboration with FCC Information Technology.  It allows users to visualize, overlay and analyze broadband and health data at the national, state and county levels.  By using the mapping tool as a starting point for looking at the broadband and health sectors, you can see the path to a more connected, healthier country. <a href="background.html">More.</a>
+                                            The Mapping Broadband Health in America tool is an interactive map created by the Connect2Health<sup>FCC</sup> Task Force allows users to visualize, overlay and analyze broadband and health data at the national, state and county levels.  By using the mapping tool as a starting point for looking at the broadband and health sectors, you can see the path to a more connected, healthier country. <a href="background.html">More.</a>
 										</div>
 										<div class="col-md-12" id="">
-											Learn <a href='getting-started.html' class="full-insights-link">how to use</a> the map.
+											Learn <a href='getting-started.html' class="full-insights-link">how to use</a> the map. Read the <a class="external" href="https://www.fcc.gov/health/maps/faq" target="_blank">FAQs</a>.
 										</div>
-                                        <div class="col-md-12" id="">
-                                            <a href="https://www.fcc.gov/health/maps" target="_blank">FAQs</a>
-                                        </div>
                                     </div>
                                 </div>
 								
@@ -337,7 +332,7 @@
                                 <div class="panel-data list-health-panel hide">
                                     <div class="row row-space">
                                         <div class="col-sm-5">
-                                            <div class="layer-drop-lab layer-drop-lab-health">
+                                            <div class="data-label">
 											     Health Measures:
                                             </div>
                                         </div>
@@ -381,7 +376,7 @@
                                     <div id="adv-select-broadband-section">
                                         <div class="row"> 
                                             <div class="col-sm-5">
-                                                <div class="layer-drop-lab layer-drop-lab-health">
+                                                <div class="data-label">
                                                      Broadband Filter:
                                                 </div>
                                             </div>                                           
@@ -558,10 +553,10 @@
 								
                                 <div class="panel-data list-broadband-panel hide">       
 									 <div class="row row-space">
-                                        <div class="col-md-12 layer-drop-lab">Broadband Availability: <i class="fa fa-question bb-tooltip" id="bb-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i></div>
+                                        <div class="col-md-12 data-label">Broadband Availability: <i class="fa fa-question bb-tooltip" id="bb-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i></div>
                                      </div>									 
                                      <div class="row row-space">
-                                        <div class="col-md-6">                                                     
+                                        <div class="col-sm-6">                                                     
                                             <div id="broadband-type-group" class="btn-group" data-toggle="buttons">
                                                   <label class="btn btn-primary active">
                                                     <input class="show-layer broadband-type" type="radio" checked="checked" name="broadband-type" id="broadband-type-wn" value="wn" autocomplete="off"> Wireline
@@ -571,7 +566,7 @@
                                                   </label>                                              
                                             </div>
                                         </div>
-                                        <div class="col-md-6">                                               
+                                        <div class="col-sm-6">                                               
                                             <div id="broadband-dir-group" class="btn-group pull-right" data-toggle="buttons">
                                                   <label class="btn btn-primary active">
                                                     <input class="show-layer broadband-dir" type="radio" checked="checked" name="broadband-dir" id="broadband-dir-dl" value="dl" autocomplete="off"> Download
@@ -604,7 +599,7 @@
                                     <div id="adv-select-health-section">
                                         <div class="row"> 
                                             <div class="col-sm-5">
-                                                <div class="layer-drop-lab layer-drop-lab-health">
+                                                <div class="data-label">
                                                      Health Filter:
                                                 </div>
                                             </div>                                           
@@ -763,29 +758,29 @@
                                 </div>								
 								
 								<!-- Demographics Tab  **************************************************************** -->
-								<div class="panel-data list-population-panel hide">   
+								<div class="panel-data list-population-panel hide"> 
 									<div class="row row-space">
-                                        <div class="col-md-12">
-                                            <div class="col-sm-6 layer-drop-lab layer-drop-lab-pop">                                    
-												Demographic Data: 
-												</div>
-                                            <div class="col-sm-6">
-                                                <div class="row">
-                                                    <div class="col-xs-10">   
-                                                        <select id="pop-sec-type" class="selectpicker select-pop">
-                                                            <option value="pop_urbanrural" selected="selected">Rural</option>    
-															<option value="pop_density">Density</option>                                                                                                            
-                                                            <option value="pop_age">Age</option>
-        													<option value="pop_unemploy">Unemployment</option>
-        													<option value="pop_edu">Education</option>
-                                                        </select>					
-                                                    </div>
-                                                    <div class="col-xs-2 slider-tooltip-div">
-                                                        <i class="fa fa-question hh-tooltip" id="hh-tooltip-pop" data-toggle="tooltip" title="" tabindex="0"></i>
-                                                    </div>																			
-                                                </div>
+                                        <div class="col-sm-5">     
+                                            <div class="data-label">
+											    Demographic Data: 
                                             </div>
-                                        </div>										
+										</div>
+                                        <div class="col-sm-7 data-left">
+                                            <div class="row">
+                                                <div class="col-xs-10">   
+                                                    <select id="pop-sec-type" class="selectpicker select-pop">
+                                                        <option value="pop_urbanrural" selected="selected">Rural</option>    
+														<option value="pop_density">Density</option>                                                                                                            
+                                                        <option value="pop_age">Age</option>
+    													<option value="pop_unemploy">Unemployment</option>
+    													<option value="pop_edu">Education</option>
+                                                    </select>					
+                                                </div>
+                                                <div class="col-xs-2 slider-tooltip-div">
+                                                    <i class="fa fa-question hh-tooltip" id="hh-tooltip-pop" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                </div>																			
+                                            </div>
+                                        </div>				
 									</div>										
 									<table class="legend-table-square row-space">
 										<tr>

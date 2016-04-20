@@ -1229,7 +1229,7 @@ function updateStats() {
 	if (geography_type == 'county'){
 		var abbr = states_data[geography_id.substring(0,2)].abbr;
 
-		geography_desc += ', '+ abbr; 
+		geography_desc += ', '+ abbr + ' County'; 
 	}
 	else if (geography_type == 'national'){
 		geography_desc = 'Nationwide';

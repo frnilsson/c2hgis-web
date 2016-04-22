@@ -11,7 +11,7 @@
 /*** Development geoserver ***/
 
 
-var geo_host = 'http://c2hgis-geoserv-tc-dev01.elasticbeanstalk.com';
+var geo_host = 'http://gisp-geosrv-tc-dev.us-west-2.elasticbeanstalk.com';
 var geo_space = 'c2hgis';
 var geo_output = 'application/json';
 

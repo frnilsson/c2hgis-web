@@ -12,8 +12,8 @@
 
 
 var geo_host = 'http://gisp-geosrv-tc-dev.us-west-2.elasticbeanstalk.com';
-var geo_space = 'c2hgis';
-var geo_output = 'application/json';
+var geo_space = 'fcc';
+var geo_output = 'json';
 
 
 /*** ST geoserver ***/

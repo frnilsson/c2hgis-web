@@ -890,7 +890,7 @@ function getData() {
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ data_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	//console.log('getData data_url : ' + data_url );
+	console.log('getData data_url : ' + data_url );
 	
 	$.ajax({
 		type: 'GET',

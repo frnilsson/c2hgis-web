@@ -62,7 +62,7 @@ var insight_ly = {
 			step: 1,
 			values: [8, 11],
 			label: 'Download',
-			tooltip: 'Most commonly advertised download speed.',
+			tooltip: 'Most commonly advertised maximum download speed.',
 			name: 'Download Speed',
 			suffix: 'mbps'
 		},
@@ -76,7 +76,7 @@ var insight_ly = {
 			step: 1,
 			values: [5, 11],
 			label: 'Upload',
-			tooltip: 'Most commonly advertised upload speed.',
+			tooltip: 'Most commonly advertised maximum upload speed.',
 			name: 'Upload Speed',
 			suffix: 'mbps'
 		}		

@@ -10,18 +10,18 @@
 
 /*** Development geoserver ***/
 
-
+/*
 var geo_host = 'http://gisp-geosrv-tc-dev.us-west-2.elasticbeanstalk.com';
 var geo_space = 'fcc';
 var geo_output = 'json';
-
+*/
 
 /*** ST geoserver ***/
-/*
+
 var geo_host = 'http://kyauk.fcc.gov:8010/geoserver';
 var geo_space = 'fcc';
 var geo_output = 'json';
-*/
+
 
 /*** Production geoserver ***/
 /*

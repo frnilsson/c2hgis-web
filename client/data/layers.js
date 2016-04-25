@@ -11,7 +11,7 @@
 var insight_ly = {
 	broadband: {
 		in_bb_access: {
-			column: 'advdl_gr25000k',
+			column: 'pctpopwbbacc',
 			unit: 'perc',
 			min: 0,
 			max: 100,
@@ -20,7 +20,7 @@ var insight_ly = {
 			step: 5,
 			values: [90, 100],
 			label: '% Coverage',
-			tooltip: 'Percent of population with access to broadband 25mbps or higher advertised download speeds.',
+			tooltip: 'Percent of population with access to fixed broadband service at 25/3 mbps or higher advertised speeds.',
 			name: 'Broadband Access',
 			suffix: '%'
 		},		
@@ -53,7 +53,7 @@ var insight_ly = {
 			suffix: '%'
 		},
 		in_bb_dl_speed: {
-			column: 'most_common_dl',
+			column: 'mcds_tier',
 			unit: 'st',
 			min: 3,
 			max: 11,
@@ -67,7 +67,7 @@ var insight_ly = {
 			suffix: 'mbps'
 		},
 		in_bb_ul_speed: {
-			column: 'most_common_ul',
+			column: 'mcus_tier',
 			unit: 'st',
 			min: 3,
 			max: 11,

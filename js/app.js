@@ -890,7 +890,7 @@ function getData() {
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ data_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	console.log('getData data_url : ' + data_url );
+	//console.log('getData data_url : ' + data_url );
 	
 	$.ajax({
 		type: 'GET',
@@ -1216,7 +1216,7 @@ function updateInsightContent(state_sel) {
 
 function updateStats() {
 	
-	//console.log(' in updateStats: '+geo_prop.geography_type);
+	//console.log('in updateStats: '+geo_prop);
 	
 	setHash();
 	
@@ -1224,7 +1224,7 @@ function updateStats() {
 	var geography_id = geo_prop.geography_id;
 	var geography_desc = geo_prop.geography_desc;	
 	
-	//console.log('2 in updateStats: '+geo_prop.geography_type);
+	//console.log('in updateStats geography_id: '+geo_prop.geography_id);
 
 	if (geography_type == 'county'){
 		var abbr = states_data[geography_id.substring(0,2)].abbr;
@@ -1239,28 +1239,33 @@ function updateStats() {
 	
 	$('.geog-name').text(geography_desc);
 	$('.geog-pop').text(formatStat(geo_prop.pop_2014));
-	$('.geog-prov').text(formatStat(geo_prop.provider_count));	
+	$('.geog-prov').text(formatStat(geo_prop.provcount_c));	
 		
 	// Insight Stats		
 	var broadband_sel = $('#select-in-broadband').val();
 	var health_sel = $('#select-in-health').val();
 	var count_sel = $('#select-in-count').val();
-	
+	var pctpopwbbacc_1 = insight_ly.broadband[broadband_sel].column;
+
+	//console.log(' broadband_sel : ' + broadband_sel );	
 	//console.log(' count_sel : ' + count_sel );	
+	//console.log(' insight_ly.broadband[broadband_sel].column='+pctpopwbbacc_1);
+	//console.log(' pctpopwbbacc_1= '+geo_prop.ctdsgt15000kandlt25000k_hi);
 
 	var broadband_stat_value, health_stat_value, count_stat_value;
 	
 	if ((broadband_sel == 'in_bb_dl_speed') || (broadband_sel == 'in_bb_ul_speed')) {
-		broadband_stat_value = bb_speed_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range +' '+ insight_ly.broadband[broadband_sel].suffix;
+		broadband_stat_value = bb_speed_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range + insight_ly.broadband[broadband_sel].suffix;
 	}
 	else {
-		broadband_stat_value = formatStat(geo_prop[insight_ly.broadband[broadband_sel].column]) +' '+ insight_ly.broadband[broadband_sel].suffix;
+		//console.log('ELSE..................')
+		broadband_stat_value = formatStat(geo_prop[pctpopwbbacc_1]) + insight_ly.broadband[broadband_sel].suffix;
 	}		
 	
-	health_stat_value = formatStat((geo_prop[insight_ly.health[health_sel].column] * insight_ly.health[health_sel].multiple), 1) +' '+ insight_ly.health[health_sel].suffix;
+	health_stat_value = formatStat((geo_prop[insight_ly.health[health_sel].column] * insight_ly.health[health_sel].multiple), 1) + insight_ly.health[health_sel].suffix;
 	
 	if ((count_sel != '') && (count_sel != 'none')) {
-		count_stat_value = formatStat(geo_prop[insight_ly.count[count_sel].column]) +' '+ insight_ly.count[count_sel].suffix;
+		count_stat_value = formatStat(geo_prop[insight_ly.count[count_sel].column]) + insight_ly.count[count_sel].suffix;
 	}
 	else {
 		$( '.in-cnt-legend-box').css('display', 'none'); 
@@ -1305,19 +1310,20 @@ function updateStats() {
 	$('.geog-severehousing').text(formatStat(geo_prop.severe_housing_problems, 1) + '%');
 	
 	// Broadband Stats
-	$('.geog-provcount').text(formatStat(geo_prop.provider_count) );
+	$('.geog-provcount').text(formatStat(geo_prop.provcount_c) );
 	
-	$('.geog-combdl').text(formatStat(geo_prop.advdl_gr25000k, 1) + '%');
-	$('.geog-combul').text(formatStat(geo_prop.advul_gr3000k, 1) + '%');
-	$('.geog-wldl').text(formatStat(geo_prop.wireline_advdl_gr25000k, 1) + '%');
-	$('.geog-wlul').text(formatStat(geo_prop.wireline_advul_gr3000k, 1) + '%');
-	$('.geog-wsdl').text(formatStat(geo_prop.wireless_advdl_gr25000k, 1) + '%');
-	$('.geog-wsul').text(formatStat(geo_prop.wireless_advul_gr3000k, 1) + '%');	
+	//$('.geog-combdl').text(formatStat(geo_prop.advdl_gr25000k, 1) + '%');
+	//$('.geog-combul').text(formatStat(geo_prop.advul_gr3000k, 1) + '%');
+	$('.geog-wldl').text(formatStat(geo_prop.dsgteq25, 1) + '%');
+	$('.geog-wlul').text(formatStat(geo_prop.usgteq3, 1) + '%');
+	//$('.geog-wsdl').text(formatStat(geo_prop.wireless_advdl_gr25000k, 1) + '%');
+	//$('.geog-wsul').text(formatStat(geo_prop.wireless_advul_gr3000k, 1) + '%');	
 	
-	$('.geog-commondl').text((bb_speed_tiers[geo_prop.most_common_dl].range) + ' mbps');
-	$('.geog-commonul').text((bb_speed_tiers[geo_prop.most_common_ul].range) + ' mbps');
-	$('.geog-greatdl').text((bb_speed_tiers[geo_prop.greatest_dl].range) + ' mbps');
-	$('.geog-greatul').text((bb_speed_tiers[geo_prop.greatest_ul].range) + ' mbps');
+	// need to fix //$('.geog-commondl').text((bb_speed_tiers[geo_prop.most_common_dl].range) + ' mbps');
+	// need to fix //$('.geog-commonul').text((bb_speed_tiers[geo_prop.most_common_ul].range) + ' mbps');
+
+	//$('.geog-greatdl').text((bb_speed_tiers[geo_prop.greatest_dl].range) + ' mbps');
+	//$('.geog-greatul').text((bb_speed_tiers[geo_prop.greatest_ul].range) + ' mbps');
 	
 	// Population Stats
 	$('.geog-pop-total').text(formatStat(geo_prop.pop_2014) );	
@@ -1334,7 +1340,7 @@ function updateStats() {
 }
 
 function formatStat(input, decimal) {
-	
+	//console.log("input="+input);
 	var output = '';
 	
 	if ($.isNumeric( input )) {
@@ -1427,6 +1433,8 @@ function generateMenu(){
  $(document).ready(function() { 
 
 	geo_prop = national_data.features[0].properties;	 
+
+	//console.log("national_data geo_prop: "+JSON.stringify(geo_prop));
 
 	//console.log('ready init_hash : ' + (window.location.href.split('#')[1] || ''));	 
 

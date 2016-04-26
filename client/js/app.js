@@ -489,6 +489,10 @@ function setSliderMap(type, low, high) {
 	$( '#in-tooltip-'+ type ).attr( 'title', tooltip ).tooltip('fixTitle');
 
 	var filter = column + '>=' + low + ' AND ' + column + '<=' + high;
+	if(column == 'res_concxns_pct') {
+		filter = column + '>' + low + ' AND ' + column + '<=' + high;
+	}
+
 	filter = filter + ';' + filter;
 
 	//console.log(' filter : ' + filter );	
@@ -792,9 +796,8 @@ function setPopSec() {
 
 function updateCountLegend() {
 	
-	//console.log(' count_type : ' + count_type );
-	
 	var count_type = $('#select-in-count').val();	
+	//console.log(' count_type : ' + count_type );
 	
 	if ((count_type != '') && (count_type != 'none') && (insight_ly.count[count_type][zoom_type])) {		
 
@@ -1257,7 +1260,6 @@ function updateStats() {
 		broadband_stat_value = bb_speed_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range + insight_ly.broadband[broadband_sel].suffix;
 	}
 	else {
-		//console.log('ELSE..................')
 		broadband_stat_value = formatStat(geo_prop[insight_ly.broadband[broadband_sel].column]) + insight_ly.broadband[broadband_sel].suffix;
 	}		
 	

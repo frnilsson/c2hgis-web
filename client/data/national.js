@@ -135,7 +135,9 @@ var national_data = {
 				severe_housing_problems: 19.050508803229995,
 				physical_inactivity: 22.831444730832615,
 				food_insecurity: 15.897444220271543,
-				limited_access_to_healthy_foods: 5.668115636744761
+				limited_access_to_healthy_foods: 5.668115636744761,
+				dl_tiers: 9,
+				ul_tiers: 6
 			}
 		}
 	],

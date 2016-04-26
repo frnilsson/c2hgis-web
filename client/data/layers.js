@@ -23,6 +23,34 @@ var insight_ly = {
 			tooltip: 'Percent of population with access to fixed broadband service at 25/3 mbps or higher advertised speeds.',
 			name: 'Broadband Access',
 			suffix: '%'
+		},	
+		in_bb_rural_access: {
+			column: 'bpr_ruralpctwaccess',
+			unit: 'perc',
+			min: 0,
+			max: 100,
+			multiple: 1,
+			zindex: 99,
+			step: 5,
+			values: [90, 100],
+			label: '% Coverage',
+			tooltip: 'Percent of rural population with access to fixed broadband service at 25/3 mbps or higher advertised speeds.',
+			name: 'Rural Access',
+			suffix: '%'
+		},
+		in_bb_in_adoption: {
+			column: 'res_concxns_pct',
+			unit: 'perc',
+			min: 0,
+			max: 100,
+			multiple: 1,
+			zindex: 99,
+			step: 5,
+			values: [90, 100],
+			label: '% Coverage',
+			tooltip: 'Percent of households with fixed connections over 200 kbps.',
+			name: 'Internet Adoption',
+			suffix: '%'
 		},		
 		in_bb_wn_access: {
 			column: 'wireline_advdl_gr25000k',
@@ -53,28 +81,28 @@ var insight_ly = {
 			suffix: '%'
 		},
 		in_bb_dl_speed: {
-			column: 'mcds_tier',
+			column: 'dl_tiers',
 			unit: 'st',
-			min: 3,
-			max: 11,
+			min: 6,
+			max: 10,
 			multiple: 1,
 			zindex: 99,
 			step: 1,
-			values: [8, 11],
+			values: [9, 10],
 			label: 'Download',
 			tooltip: 'Most commonly advertised maximum download speed.',
 			name: 'Download Speed',
 			suffix: 'mbps'
 		},
 		in_bb_ul_speed: {
-			column: 'mcus_tier',
+			column: 'ul_tiers',
 			unit: 'st',
-			min: 3,
-			max: 11,
+			min: 1,
+			max: 10,
 			multiple: 1,
 			zindex: 99,
 			step: 1,
-			values: [5, 11],
+			values: [9, 10],
 			label: 'Upload',
 			tooltip: 'Most commonly advertised maximum upload speed.',
 			name: 'Upload Speed',
@@ -559,47 +587,52 @@ var states_in = {
 };
 
 var bb_speed_tiers = {
-	3: {
-		range: '< 1.5',
-		min: '< 1.5',
-		max: '< 1.5'
-	},
-	4:{
-		range: '1.5 - 3',
-		min: '1.5',
+	1: {
+		range: '1 - 3',
+		min: '1',
 		max: '3'
 	},
-	5: {
-		range: '3 - 6',
+	2: {
+		range: '3 - 4',
 		min: '3',
+		max: '4'
+	},
+	3:{
+		range: '4 - 6',
+		min: '4',
 		max: '6'
 	},
-	6: {
+	4: {
 		range: '6 - 10',
 		min: '6',
 		max: '10'
 	},
-	7: {
-		range: '10 - 25',
+	5: {
+		range: '10 - 15',
 		min: '10',
+		max: '15'
+	},
+	6: {
+		range: '15 - 25',
+		min: '15',
 		max: '25'
 	},
-	8: {
+	7: {
 		range: '25 - 50',
 		min: '25',
 		max: '50'
 	},
-	9: {
+	8: {
 		range: '50 - 100',
 		min: '50',
 		max: '100'
 	},
-	10: {
+	9: {
 		range: '100 - 1,000',
 		min: '100',
 		max: '1,000'
 	},
-	11: {
+	10: {
 		range: '> 1,000',
 		min: '> 1,000',
 		max: '> 1,000'

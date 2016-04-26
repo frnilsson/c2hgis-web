@@ -172,8 +172,8 @@
                                         <div class="col-xs-6">
                                             <select id="select-in-broadband" class="selectpicker select-insight">
                                                 <option value="in_bb_access">Broadband Access</option>
-												<!--<option value="in_bb_wn_access">Wireline Access</option>
-												<option value="in_bb_ws_access">Wireless Access</option>-->
+												<option value="in_bb_rural_access">Rural Access</option>
+												<option value="in_bb_in_adoption">Internet Adoption</option>
                                                 <option value="in_bb_dl_speed">Download Speed</option>
                                                 <option value="in_bb_ul_speed">Upload Speed</option>                                        
                                             </select>
@@ -270,23 +270,21 @@
 									</div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-sm-6 legend-label">
-                                            <span class="legend-sym" style="background-color: #b2caf0; height: 20px; width: 20px"></span>
-                                            <b>Broadband</b>
+                                        <div class="col-sm-3 legend-label">
+                                            <span class="legend-sym" style="background-color: #b2caf0; "></span>
+                                            <br/><b>Broadband</b>
                                         </div>                                        
-                                        <div class="col-sm-6 legend-label">
-                                            <span class="legend-sym" style="background-color: #9D90B5; height: 20px; width: 20px"></span>
-                                                <b>Broadband & Health</b>
+                                        <div class="col-sm-3 legend-label">
+                                            <span class="legend-sym" style="background-color: #eab6b6; "></span>
+                                            <br/><b>Health</b>
                                         </div>
-                                    </div>
-                                    <div class="row" style="margin-top:3px;">  
-                                        <div class="col-sm-6 legend-label">
-                                            <span class="legend-sym" style="background-color: #eab6b6; height: 20px; width: 20px"></span>
-                                                <b>Health</b>
+                                        <div class="col-sm-3 legend-label">
+                                            <span class="legend-sym" style="background-color: #9D90B5; "></span>
+                                            <br/><b>Broadband & Health</b>
                                         </div>
-                                        <div class="col-sm-6 legend-label">
-                                            <span class="legend-sym" style="background-color: #FFF; height: 20px; width: 20px; border:1px solid gray;"></span>
-                                                <b>Neither</b>
+                                        <div class="col-sm-3 legend-label">
+                                            <span class="legend-sym" style="background-color: #FFF; border:1px solid gray;"></span>
+                                            <br/><b>Neither</b>
                                         </div>
                                     </div>
 
@@ -576,7 +574,25 @@
                                                   </label>                                              
                                             </div>
                                         </div>  
-                                    </div>									
+                                    </div>	
+                                    <!--
+                                    <div class="row row-space">                             
+                                        <div id="broadband-type-group-new" class="col-sm-12 btn-group" data-toggle="buttons">
+                                                <label class="btn btn-primary col-sm-3">
+                                                    <input class="show-layer broadband-type" type="radio" name="fixed-broadband-type" id="broadband-type-access" value="access" autocomplete="off"> Access
+                                                  </label>
+                                                <label class="btn btn-primary active col-sm-3">
+                                                    <input class="show-layer broadband-type" type="radio" checked="checked" name="fixed-broadband-type" id="broadband-type-upload" value="ul" autocomplete="off"> Upload
+                                                </label>
+                                                <label class="btn btn-primary col-sm-3">
+                                                    <input class="show-layer broadband-type" type="radio" name="fixed-broadband-type" id="broadband-type-download" value="dl" autocomplete="off"> Download
+                                                </label> 
+                                                <label class="btn btn-primary col-sm-3">
+                                                    <input class="show-layer broadband-type" type="radio" name="fixed-broadband-type" id="broadband-type-adoption" value="adoption" autocomplete="off"> Adoption
+                                                </label>                                              
+                                        </div>
+                                    </div>  	
+                                    -->							
 									<table class="legend-table-square row-space">
                                         <tr>
                                             <td><span class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title="<20" ></span></td>

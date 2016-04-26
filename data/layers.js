@@ -326,7 +326,7 @@ var insight_ly = {
 		},
 		in_cnt_ip: {
 			layer: 'c2hgis',
-			column: 'provider_count',
+			column: 'provcount_c',
 			style: 'ip',
 			color: '#0050cc',
 			county: {

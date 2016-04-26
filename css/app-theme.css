@@ -4058,6 +4058,9 @@ a.gen-passcode {
 .legend-sym {
     display: inline-block;
     vertical-align: middle;
+    height: 20px;
+    width: 40px;
+    border-radius: 4px;
 }
 
 .legend-label {

@@ -481,7 +481,7 @@ function setSliderMap(type, low, high) {
 		}			
 	}
 	else {
-		label_text = Number(low*multiple).toLocaleString('en') +' - '+ Number(high*multiple).toLocaleString('en') +' '+ label;
+		label_text = Number(low*multiple).toLocaleString('en') +' - '+ Number(high*multiple).toLocaleString('en') + label;
 	}	
 
 	$( '#label-'+ type ).text( label_text );	
@@ -1224,12 +1224,13 @@ function updateStats() {
 	var geography_id = geo_prop.geography_id;
 	var geography_desc = geo_prop.geography_desc;	
 	
+	//console.log('in updateStats geography_type: '+geography_type);
 	//console.log('in updateStats geography_id: '+geo_prop.geography_id);
 
 	if (geography_type == 'county'){
 		var abbr = states_data[geography_id.substring(0,2)].abbr;
 
-		geography_desc += ', '+ abbr + ' County'; 
+		geography_desc += ', '+ abbr; 
 	}
 	else if (geography_type == 'national'){
 		geography_desc = 'Nationwide';
@@ -1245,13 +1246,11 @@ function updateStats() {
 	var broadband_sel = $('#select-in-broadband').val();
 	var health_sel = $('#select-in-health').val();
 	var count_sel = $('#select-in-count').val();
-	var pctpopwbbacc_1 = insight_ly.broadband[broadband_sel].column;
-
+	
 	//console.log(' broadband_sel : ' + broadband_sel );	
 	//console.log(' count_sel : ' + count_sel );	
-	//console.log(' insight_ly.broadband[broadband_sel].column='+pctpopwbbacc_1);
-	//console.log(' pctpopwbbacc_1= '+geo_prop.ctdsgt15000kandlt25000k_hi);
-
+	//console.log(' insight_ly.broadband[broadband_sel].column='+insight_ly.broadband[broadband_sel].column);
+	
 	var broadband_stat_value, health_stat_value, count_stat_value;
 	
 	if ((broadband_sel == 'in_bb_dl_speed') || (broadband_sel == 'in_bb_ul_speed')) {
@@ -1259,7 +1258,7 @@ function updateStats() {
 	}
 	else {
 		//console.log('ELSE..................')
-		broadband_stat_value = formatStat(geo_prop[pctpopwbbacc_1]) + insight_ly.broadband[broadband_sel].suffix;
+		broadband_stat_value = formatStat(geo_prop[insight_ly.broadband[broadband_sel].column]) + insight_ly.broadband[broadband_sel].suffix;
 	}		
 	
 	health_stat_value = formatStat((geo_prop[insight_ly.health[health_sel].column] * insight_ly.health[health_sel].multiple), 1) + insight_ly.health[health_sel].suffix;

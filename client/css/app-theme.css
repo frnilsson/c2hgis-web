@@ -3886,6 +3886,11 @@ a.gen-passcode {
     display: inline-block;
 }
 
+.select-advanced-2 {
+    width: 208px !important;
+    display: inline-block;
+}
+
 .slider-bar {
     margin: 8px 0px;
 }
@@ -4418,4 +4423,10 @@ a.external {
 }
 .text-center {
    text-align:center
+}
+.dropdown-header{
+    padding: 3px 10px;
+}
+.bootstrap-select.btn-group .dropdown-menu li a.opt {
+    padding-left: 18px !important;
 }

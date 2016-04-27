@@ -684,12 +684,10 @@ function setBroadbandCombo() {
 	//console.log(' setBroadbandCombo : '  );
 	
 	var type =  $('.broadband-type:checked').val();
-	var dir = $('.broadband-dir:checked').val();
+	//var dir = $('.broadband-dir:checked').val();
 	var adv_selection = $('#adv-select-health').val();	
 	
 	//console.log(' type : '+ type  );
-	//console.log(' dir : '+ dir );
-
 	//console.log("adv_selection : "+adv_selection);
 
 	var filter = '';
@@ -722,11 +720,11 @@ function setBroadbandCombo() {
 	}	
 	
 	var in_layers = [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'];
-	var in_styles = ['bb_combo_'+ type +'_'+ dir +'_state', 'bb_combo_'+ type +'_'+ dir +'_county'];	
+	var in_styles = ['bb_combo_' + type + '_state', 'bb_combo_' + type + '_county'];	
 
 	if (zoom_layer_type != 'auto') {
 		in_layers = ''+ geo_space +':c2hgis_'+ zoom_layer_type;
-		in_styles = ''+ 'bb_combo_'+ type +'_'+ dir +'_' + zoom_layer_type + '_all';
+		in_styles = ''+ 'bb_combo_'+ type + '_' + zoom_layer_type + '_all';
 	} 
 	//console.log("#in_layers="+in_layers+",filter="+filter);
 	if(filter != '') {
@@ -747,7 +745,7 @@ function setBroadbandCombo() {
 		}).setZIndex('999').addTo(map);	
 	}	
 	
-	var broadband_tooltip = broadband_ly[type +'_'+ dir].tooltip;
+	var broadband_tooltip = broadband_ly[type].tooltip;
 	
 	$( '#bb-tooltip-broadband' ).attr( 'title', broadband_tooltip ).tooltip('fixTitle');	
 	
@@ -1044,10 +1042,10 @@ function setHash() {
 	}
 	else if (cur_tab === 'broadband') {	
 		var bb_type =  $('.broadband-type:checked').val();
-		var bb_dir = $('.broadband-dir:checked').val();
+		//var bb_dir = $('.broadband-dir:checked').val();
 		var advhl = $('#adv-select-health').val();
 		
-		if ((bb_type) && (bb_dir)) { hash += '&bbm='+ bb_type +','+ bb_dir; }
+		if (bb_type) { hash += '&bbm='+ bb_type}
 		if (advhl) { hash += '&advhl=' +advhl; }
 	}
 	else if (cur_tab === 'population') {
@@ -1144,19 +1142,15 @@ function loadHash() {
 
 			if (hash_obj.bbm) { 				
 				
-				var hash_type = hash_obj.bbm.split(',')[0];
-				var hash_dir = hash_obj.bbm.split(',')[1];
+				var hash_type = hash_obj.bbm;
+				//var hash_dir = hash_obj.bbm.split(',')[1];
 				
 				//console.log(' hash_type : ' + hash_type);
 				
 				$('#broadband-type-'+ hash_type ).prop('checked', true);
-				$('#broadband-dir-'+ hash_dir ).prop('checked', true);	
-				
 				$('.broadband-type' ).parent().removeClass("active");
-				$('.broadband-dir' ).parent().removeClass("active");
 				
-				$('#broadband-type-'+ hash_type ).parent().addClass("active");
-				$('#broadband-dir-'+ hash_dir ).parent().addClass("active");
+				$('#broadband-type-'+ hash_type ).parent().addClass("active");				
 				if(hash_obj.advhl){
 					$('#adv-select-health').val(hash_obj.advhl);	
 				}				
@@ -1340,8 +1334,7 @@ function updateStats() {
 	$('.geog-pop-unemploy').text(formatStat(geo_prop.unemployment, 2) + ' %');	
 }
 
-function formatStat(input, decimal) {
-	//console.log("input="+input);
+function formatStat(input, decimal) {	
 	var output = '';
 	
 	if ($.isNumeric( input )) {
@@ -1535,14 +1528,6 @@ function generateMenu(){
         bb_combo_type = $(this).val();		
 		//console.log(' bb_combo_type : ' + bb_combo_type );
 		setBroadbandCombo();			
-    }); 
-	
-	$('.broadband-dir').on('change', function() {
-	
-        bb_combo_dir = $(this).val();		
-		//console.log(' bb_combo_dir : ' + bb_combo_dir );
-		
-		setBroadbandCombo();		
     }); 
 	
 	// select population

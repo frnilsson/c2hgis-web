@@ -470,6 +470,12 @@ var broadband_ly = {
 	},	
 	ws_ul: {
 		tooltip: 'Percent of population with access to 3 mbps advertised wireless upload speeds.'
+	},	
+	in_adoption: {
+		tooltip: 'Percent of households with fixed connections over 200 kbps.'
+	},	
+	rural_access: {
+		tooltip: 'Percent of rural population with access to fixed broadband service at 25/3 mbps or higher advertised speeds.'
 	}
 };
 

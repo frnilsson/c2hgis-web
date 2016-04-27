@@ -559,48 +559,28 @@
 								
                                 <div class="panel-data list-broadband-panel hide">       
 									 <div class="row row-space">
-                                        <div class="col-md-12 data-label">Broadband Availability: <i class="fa fa-question bb-tooltip" id="bb-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i></div>
+                                        <div class="col-xs-10 data-label">Fixed Broadband Availability:</div>
+                                        <div class="col-xs-2 slider-tooltip-div">
+                                            <i class="fa fa-question bb-tooltip" id="bb-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
+                                        </div>
                                      </div>									 
-                                     <div class="row row-space">
-                                        <div class="col-sm-6">                                                     
-                                            <div id="broadband-type-group" class="btn-group" data-toggle="buttons">
-                                                  <label class="btn btn-primary active">
-                                                    <input class="show-layer broadband-type" type="radio" checked="checked" name="broadband-type" id="broadband-type-wn" value="wn" autocomplete="off"> Wireline
-                                                  </label>
-                                                  <label class="btn btn-primary">
-                                                    <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-ws" value="ws" autocomplete="off"> Wireless
-                                                  </label>                                              
-                                            </div>
+                                     <div class="row row-space">                                                                                      
+                                        <div id="broadband-type-group" class="btn-group col-sm-12" data-toggle="buttons">
+                                            <label class="col-sm-3 btn btn-primary active">
+                                                <input class="show-layer broadband-type" type="radio" checked="checked" name="broadband-type" id="broadband-type-rural_access" value="rural_access" autocomplete="off"> Access
+                                            </label>
+                                            <label class="col-sm-3 btn btn-primary">
+                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-wn_dl" value="wn_dl" autocomplete="off"> Download
+                                            </label>
+                                            <label class="col-sm-3 btn btn-primary">
+                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-wn_ul" value="wn_ul" autocomplete="off"> Upload
+                                            </label>     
+                                            <label class="col-sm-3 btn btn-primary">
+                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-in_adoption" value="in_adoption" autocomplete="off"> Adoption
+                                            </label>                                                                            
                                         </div>
-                                        <div class="col-sm-6">                                               
-                                            <div id="broadband-dir-group" class="btn-group pull-right" data-toggle="buttons">
-                                                  <label class="btn btn-primary active">
-                                                    <input class="show-layer broadband-dir" type="radio" checked="checked" name="broadband-dir" id="broadband-dir-dl" value="dl" autocomplete="off"> Download
-                                                  </label>
-                                                  <label class="btn btn-primary">
-                                                    <input class="show-layer broadband-dir" type="radio" name="broadband-dir" id="broadband-dir-ul" value="ul" autocomplete="off"> Upload
-                                                  </label>                                              
-                                            </div>
-                                        </div>  
                                     </div>	
-                                    <!--
-                                    <div class="row row-space">                             
-                                        <div id="broadband-type-group-new" class="col-sm-12 btn-group" data-toggle="buttons">
-                                                <label class="btn btn-primary col-sm-3">
-                                                    <input class="show-layer broadband-type" type="radio" name="fixed-broadband-type" id="broadband-type-access" value="access" autocomplete="off"> Access
-                                                  </label>
-                                                <label class="btn btn-primary active col-sm-3">
-                                                    <input class="show-layer broadband-type" type="radio" checked="checked" name="fixed-broadband-type" id="broadband-type-upload" value="ul" autocomplete="off"> Upload
-                                                </label>
-                                                <label class="btn btn-primary col-sm-3">
-                                                    <input class="show-layer broadband-type" type="radio" name="fixed-broadband-type" id="broadband-type-download" value="dl" autocomplete="off"> Download
-                                                </label> 
-                                                <label class="btn btn-primary col-sm-3">
-                                                    <input class="show-layer broadband-type" type="radio" name="fixed-broadband-type" id="broadband-type-adoption" value="adoption" autocomplete="off"> Adoption
-                                                </label>                                              
-                                        </div>
-                                    </div>  	
-                                    -->							
+                                    						
 									<table class="legend-table-square row-space">
                                         <tr>
                                             <td><span class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title="<20" ></span></td>

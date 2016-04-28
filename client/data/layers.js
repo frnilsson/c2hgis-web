@@ -483,13 +483,13 @@ var pop_ly = {
 	pop_density: {
 		column: 'pop_density',
 		style: 'pop_density',
-		unit: 'pkm',
+		unit: 'pml',
 		min: '<25',
 		max: '>250',
 		ranges: '<25,25-50,50-100,100-250,>250',
 		zindex: 90,
-		label: 'Population per sq km',
-		tooltip: 'Population density per square kilometer.'
+		label: 'Population per sq. mile',
+		tooltip: 'Population density per square mile.'
 	},
 	pop_urbanrural: {
 		column: 'rural_pct',

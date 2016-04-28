@@ -474,8 +474,8 @@ var broadband_ly = {
 	in_adoption: {
 		tooltip: 'Percent of households with fixed connections over 200 kbps.'
 	},	
-	rural_access: {
-		tooltip: 'Percent of rural population with access to fixed broadband service at 25/3 mbps or higher advertised speeds.'
+	fixed_access: {
+		tooltip: 'Percent of population with access to fixed broadband service at 25/3 mbps or higher advertised speeds.'
 	}
 };
 

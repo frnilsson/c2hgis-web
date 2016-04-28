@@ -119,7 +119,7 @@ function createMap() {
 	
 	$('input[type=radio][name=leaflet-zoom-layers]').on('change', function() {	
         zoom_layer_type = $(this).attr('id').split('-')[3];		
-		//console.log((' zoom_layer_type : ' + zoom_layer_type );	
+		//console.log(' zoom_layer_type : ' + zoom_layer_type );	
 		
 		generateMenu();
 		
@@ -152,7 +152,7 @@ function createMap() {
 	map.on('zoomend', function() {
 		
 		var zoom = map.getZoom();
-		//console.log(("zoomed:"+zoom);
+		//console.log("zoomed:"+zoom);
 
 		if(zoom <= 3) {
 			geo_type = 'national';
@@ -167,9 +167,9 @@ function createMap() {
 			zoom_type = 'state';
 		}
 
-		//console.log(("zoomed zoom_type:"+zoom_type);		
-		//console.log(("zoomed geo_type:"+geo_type);		
-		//console.log(("zoomed new_geo_type:"+new_geo_type);		
+		//console.log("zoomed zoom_type:"+zoom_type);		
+		//console.log("zoomed geo_type:"+geo_type);		
+		//console.log("zoomed new_geo_type:"+new_geo_type);		
 		
 		updateCountLegend();		
 		
@@ -177,20 +177,20 @@ function createMap() {
 			
 			if (geo_type === 'county') {
 				geo_type = new_geo_type;
-				//console.log(("zoomed getData");		
+				//console.log("zoomed getData");		
 				getData();
 			}
 			geo_type = new_geo_type;			
 		}	*/		
 		geo_type = new_geo_type;			
-		//console.log(('createMap geo_type : ' + geo_type );		
+		//console.log('createMap geo_type : ' + geo_type );		
 		
 		setHash();
 	});
 		
 	map.on('click', function(e) {
-		//console.log(('map click e.latlng : ' + e.latlng );
-		//console.log(('map click geo_type : ' + geo_type );
+		//console.log('map click e.latlng : ' + e.latlng );
+		//console.log('map click geo_type : ' + geo_type );
 		
 		if(geo_type == 'national'){
 			geo_type = 'state';	
@@ -202,7 +202,7 @@ function createMap() {
 		geo_lat = e.latlng.lat;
 		geo_lng = e.latlng.lng;		
 		var zoom = map.getZoom();	
-		//console.log(("click zoom:"+zoom);
+		//console.log("click zoom:"+zoom);
 		getData();
 	});		 
 }
@@ -243,12 +243,12 @@ function getGeocode() {
 	if (!/united states/i.test(search_input)){
 		search_input = search_input + ', United States';
 	}
-	//console.log(('search_input : '+ search_input );  
+	//console.log('search_input : '+ search_input );  
     
 	var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
 
-	//console.log(("search_input:"+search_input);
-    //console.log(('geocode_url : '+ geocode_url );  
+	//console.log("search_input:"+search_input);
+    //console.log('geocode_url : '+ geocode_url );  
     
     $.ajax({
         type: 'GET',
@@ -256,7 +256,7 @@ function getGeocode() {
         dataType: 'json',
         success: function(data) {
 
-            //console.log(('geocode_url data : '+ JSON.stringify(data.features[0]) );    
+            //console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
                         
             if (data.features[0]) {                      
                 
@@ -276,7 +276,7 @@ function getGeocode() {
 
                 geo_lat = data.features[0].center[1];
 				geo_lng = data.features[0].center[0];	
-				//console.log(("geo-lat:"+geo_lat); 
+				//console.log("geo-lat:"+geo_lat); 
 				getData();         
             }
             else {
@@ -302,9 +302,9 @@ function getGeocodeCounty() {
 
 	var geocode_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=1&outputFormat=json&cql_filter=' + cql_filter_str + '&format_options=callback:callbackData&callback=callbackData';
 	
-	//console.log(("search_county:"+search_input);
-	//console.log(("state_fips:"+state_fips);
-    //console.log(('geocode_url : '+ geocode_url );  
+	//console.log("search_county:"+search_input);
+	//console.log("state_fips:"+state_fips);
+    //console.log('geocode_url : '+ geocode_url );  
 
     $.ajax({
         type: 'GET',
@@ -313,7 +313,7 @@ function getGeocodeCounty() {
         jsonpCallback: 'callbackData',
         success: function(data) {
 
-            //console.log(('geocode_url data : '+ JSON.stringify(data.features[0]) );    
+            //console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
                         
             if (data.features[0]) {                      
                 
@@ -328,7 +328,7 @@ function getGeocodeCounty() {
                 
                 geo_lat = data.features[0].properties.centroid.coordinates[1];
 				geo_lng = data.features[0].properties.centroid.coordinates[0];	
-				//console.log(("geo-lat:"+geo_lat); 
+				//console.log("geo-lat:"+geo_lat); 
 				getData();         
             }
             else {
@@ -348,7 +348,7 @@ function searchLocation() {
 
 function clearMap() {
 
-	//console.log((' clearMap ! '  );
+	//console.log(' clearMap ! '  );
 	
 	for (var k in map_overlays) {
 		
@@ -360,10 +360,10 @@ function clearMap() {
 
 function clearClickFeature() {
 
-	//console.log(('clearClickFeature !');
+	//console.log('clearClickFeature !');
 
 	for (var i = 0; i < click_data.length; i++){
-		//console.log(('clearClickFeature ='+click_data[i]);		
+		//console.log('clearClickFeature ='+click_data[i]);		
 		if (map.hasLayer(click_data[i])) {
 			map.removeLayer(click_data[i]);
 		}
@@ -417,9 +417,9 @@ function updateSlider(type, def) {
 		def = values;
 	}
 	
-	//console.log((' min : ' + min );
-	//console.log((' max : ' + max );
-	//console.log((' step : ' + step );	
+	//console.log(' min : ' + min );
+	//console.log(' max : ' + max );
+	//console.log(' step : ' + step );	
 	
 	$( '#slider-'+ type ).slider({
 		range: true,
@@ -446,7 +446,7 @@ function createSlider() {
 	$('.select-insight').on('change', function() {
 	
         var cur_type = $(this).attr('id').split('-')[2];		
-		//console.log((' cur_type : ' + cur_type );
+		//console.log(' cur_type : ' + cur_type );
 		
 		updateSlider(cur_type);			
 		updateStats();	
@@ -457,7 +457,7 @@ function createSlider() {
 
 function setSliderMap(type, low, high) {	
 	
-	//console.log(('setSliderMap type : ' + type );
+	//console.log('setSliderMap type : ' + type );
 	
 	var filter = '';
 	var demo_filter = '';
@@ -470,7 +470,7 @@ function setSliderMap(type, low, high) {
 	var label = insight_ly[type][dropdown].label;
 	var tooltip = insight_ly[type][dropdown].tooltip;
 	
-	//console.log((' dropdown : ' + dropdown );
+	//console.log(' dropdown : ' + dropdown );
 	
 	var label_text = '';
 	
@@ -496,7 +496,7 @@ function setSliderMap(type, low, high) {
 		filter = column + '>' + low + ' AND ' + column + '<=' + high;
 	}
 
-	demo_filter = getDemoFilter();
+	demo_filter = getDemoFilter('ov');
 
 	if(demo_filter != ''){
 		filter = filter + ' AND ' + demo_filter;
@@ -504,19 +504,21 @@ function setSliderMap(type, low, high) {
 
 	filter = filter + ';' + filter;
 
-	//console.log((' filter : ' + filter );	
+	//console.log(' filter : ' + filter );	
 
 	redoMap(type, filter, zindex); 
 	
 }
 
-function getDemoFilter(){
+function getDemoFilter(demo_type){
+
+	//console.log('getDemoFilter demo_type : '+demo_type);
 
 	var demo_filter = '';
 
-	var demo_selection = $('#adv-select-demographics').val();	
+	var demo_selection = $('#' + demo_type +'-select-demographics').val();	
 	
-	//console.log(('getDemoFilter demo_selection : '+demo_selection);
+	//console.log('getDemoFilter demo_selection : '+demo_selection);
 	
 	if(demo_selection) {
 		
@@ -530,16 +532,16 @@ function getDemoFilter(){
 		var column = pop_ly[layer].column;
 		demo_filter = column + '>=' + low + ' AND ' + column + '<' + high;		
 
-		//console.log(('demo column:'+column);
-		//console.log(('layer:'+layer+',low:'+low+',high:'+high);
+		//console.log('demo column:'+column);
+		//console.log('layer:'+layer+',low:'+low+',high:'+high);
 	}
-	//console.log(('demo_filter:'+demo_filter);
+	//console.log('demo_filter:'+demo_filter);
 	return demo_filter;
 }
 
 function redoMap(type, filter, zindex) {
 
-	//console.log(('in redoMap');
+	//console.log('in redoMap');
 
 	if (map.hasLayer(map_overlays['in_'+ type])) {
 		map.removeLayer(map_overlays['in_'+ type]);
@@ -553,13 +555,13 @@ function redoMap(type, filter, zindex) {
 		in_styles = ''+ type +'_auto';
 	} 
 	
-	//console.log(('map in_layers : ' + in_layers );
-	//console.log(('map in_styles : ' + in_styles );	
+	//console.log('map in_layers : ' + in_layers );
+	//console.log('map in_styles : ' + in_styles );	
 	
 	var wms_method = 'gwc/service/wms';
 	//var wms_method = 'wms';
 
-	//console.log(('map link : ' + geo_host + '/' + geo_space + '/' + wms_method );
+	//console.log('map link : ' + geo_host + '/' + geo_space + '/' + wms_method );
 	map_overlays['in_'+ type] = L.tileLayer.wms( geo_host + '/' + geo_space + '/' + wms_method +'?', {
 		 format: 'image/png',
 		 transparent: true,
@@ -587,7 +589,7 @@ function removeCount() {
 function setCount() {
 
 	var type = $('#select-in-count').val();
-	//console.log((' setCount type : ' + type );	
+	//console.log(' setCount type : ' + type );	
 	if (type == '') {
 		return;
 	}
@@ -596,7 +598,7 @@ function setCount() {
 		var count_layer = insight_ly.count[type].layer;
 		var count_style = insight_ly.count[type].style;	
 		
-		//console.log((' count_layer : ' + count_layer );
+		//console.log(' count_layer : ' + count_layer );
 	
 		if (map.hasLayer(map_overlays['in_count'])) {
 			map.removeLayer(map_overlays['in_count']);
@@ -615,8 +617,8 @@ function setCount() {
 			count_styles = 'count_' + count_style;
 		}	
 		
-		//console.log((' count_layers : ' + count_layers );
-		//console.log((' count_styles : ' + count_styles );
+		//console.log(' count_layers : ' + count_layers );
+		//console.log(' count_styles : ' + count_styles );
 		
 		map_overlays['in_count'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
@@ -632,40 +634,43 @@ function setCount() {
 	}
 }
 																	
-function setHealthSec() {
+function setupHealthTab() {
 
 	var health_type = $('#health-sec-type').val();
 	var adv_selection = $('#adv-select-broadband').val();
 
-	//console.log(("setHealthSec zoom_type : "+zoom_type);
-	//console.log(("adv_selection : "+adv_selection);
+	//console.log("setupHealthTab zoom_type : "+zoom_type);
+	//console.log("adv_selection : "+adv_selection);
 
 	var filter = '';
+	var adv_filter = '';
+	var demo_filter = getDemoFilter('hh');
 	var adv_tooltip = 'Select';
+	
 	if(adv_selection) {
 		var selection =  adv_selection.split('$');
 		var layer = selection[0];
 		var ranges = selection[1].split('_');
 		var low = ranges[0];
 		var high = ranges[1];
-		//console.log(('layer:'+layer+',low:'+low+',high:'+high);
+		//console.log('layer:'+layer+',low:'+low+',high:'+high);
 		
 		var column = insight_ly['broadband'][layer].column;
-		//console.log(('column:'+column);
+		//console.log('column:'+column);
 		if(low == '0'){
-			filter = column + '<' + high;
+			adv_filter = column + '<' + high;
 		}
 		else if (high == '0'){
-			filter = column + '>=' + low;
+			adv_filter = column + '>=' + low;
 		}
 		else if (low == high){
-			filter = column + '=' + low;
+			adv_filter = column + '=' + low;
 		}
 		else{
-			filter = column + '>=' + low + ' AND ' + column + '<' + high;
+			adv_filter = column + '>=' + low + ' AND ' + column + '<' + high;
 		}
-		filter = filter + ';' + filter;		
-		//console.log(('adv filter: '+filter);
+		//filter = filter + ';' + filter;		
+		//console.log('adv_filter: '+adv_filter);
 		adv_tooltip = $("#adv-select-broadband option[value='"+adv_selection+"']").text();
 	}
 	else {
@@ -675,6 +680,23 @@ function setHealthSec() {
 	$('.advanced-health').selectpicker('refresh');
 
 	//$('#adv-select-broadband-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
+
+	filter = adv_filter;
+
+	if(demo_filter != ''){
+		if(filter != ''){
+			filter = filter + ' AND ' + demo_filter;	
+		}
+		else {
+			filter = demo_filter;
+		}
+	}
+
+	if(filter != '') {
+		filter = filter + ';' + filter;
+	}
+
+	//console.log('final filter: '+filter);
 
 	if (health_ly[health_type]) {
 	
@@ -691,9 +713,9 @@ function setHealthSec() {
 			in_layers = ''+ geo_space +':c2hgis_'+ zoom_layer_type;
 			in_styles = ''+ health_style + '_' + zoom_layer_type + '_all';
 		} 
-		//console.log(('setHealthSec zoom_layer_type : ' + zoom_layer_type );
-		//console.log(('setHealthSec in_layers : ' + in_layers );
-	    //console.log(('setHealthSec in_styles : ' + in_styles );	
+		//console.log('setupHealthTab zoom_layer_type : ' + zoom_layer_type );
+		//console.log('setupHealthTab in_layers : ' + in_layers );
+	    //console.log('setupHealthTab in_styles : ' + in_styles );	
 		
 		if(filter != '') {
 			map_overlays['health_ov'] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
@@ -716,44 +738,64 @@ function setHealthSec() {
 		
 		setHash();
 	}
-	//console.log(("adv menu:"+$('#adv-select-broadband').val());
+	//console.log("adv menu:"+$('#adv-select-broadband').val());
 }
 
-function setBroadbandCombo() {
+function setupBroadbandTab() {
 	
-	//console.log((' setBroadbandCombo : '  );
+	//console.log(' setupBroadbandTab : '  );
 	
 	var type =  $('.broadband-type:checked').val();
 	//var dir = $('.broadband-dir:checked').val();
 	var adv_selection = $('#adv-select-health').val();	
+
+	var demo_filter = getDemoFilter('bb');
 	
-	//console.log((' type : '+ type  );
-	//console.log(("adv_selection : "+adv_selection);
+	//console.log(' type : '+ type  );
+	//console.log("adv_selection : "+adv_selection);
+	//console.log("demo_filter : "+demo_filter);
 
 	var filter = '';
+	var adv_filter = '';
 	var adv_tooltip = 'Select';
+
 	if(adv_selection) {
 		var selection =  adv_selection.split('$');
 		var layer = selection[0];
 		var ranges = selection[1].split('_');
 		var low = ranges[0];
 		var high = ranges[1];
-		//console.log(('layer:'+layer+',low:'+low+',high:'+high);
+		//console.log('layer:'+layer+',low:'+low+',high:'+high);
 		
 		var column = insight_ly['health'][layer].column;
-		//console.log(('column:'+column);
-		filter = column + '>=' + low + ' AND ' + column + '<' + high;
-		filter = filter + ';' + filter;		
-		//console.log(('adv filter: '+filter);
+		//console.log('column:'+column);
+		adv_filter = column + '>=' + low + ' AND ' + column + '<' + high;
+		//filter = filter + ';' + filter;		
+		//console.log('adv filter: '+adv_filter);
 		adv_tooltip = $("#adv-select-health option[value='"+adv_selection+"']").text();
 	}
 	else {
 		$('#adv-select-health').val("");		
-	}	
+	}
 
 	$('.advanced-broadband').selectpicker('refresh')			
 
-	//$('#adv-select-health-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');	
+	filter = adv_filter;
+
+	if(demo_filter != ''){
+		if(filter != ''){
+			filter = filter + ' AND ' + demo_filter;	
+		}
+		else {
+			filter = demo_filter;
+		}
+	}
+
+	if(filter != '') {
+		filter = filter + ';' + filter;
+	}
+
+	//console.log('final filter: '+filter);
 	
 	if (map.hasLayer(map_overlays['broadband_ov'])) {
 		map.removeLayer(map_overlays['broadband_ov']);
@@ -766,7 +808,7 @@ function setBroadbandCombo() {
 		in_layers = ''+ geo_space +':c2hgis_'+ zoom_layer_type;
 		in_styles = ''+ 'bb_combo_'+ type + '_' + zoom_layer_type + '_all';
 	} 
-	//console.log(("#in_layers="+in_layers+",filter="+filter);
+	//console.log("#in_layers="+in_layers+",filter="+filter);
 	if(filter != '') {
 		map_overlays['broadband_ov'] = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
@@ -795,24 +837,24 @@ function setBroadbandCombo() {
 
 function setDemographicFilter() {
 	
-	//console.log(('In setDemographicFilter');
+	//console.log('In setDemographicFilter');
 
-	var demo_filter = getDemoFilter();
+	var demo_filter = getDemoFilter('ov');
 
 	// Redo of Broadband Filter STARTS
 	var type = 'broadband';
 	var low = $('#slider-' + type).slider("values", 0);
 	var high = $('#slider-' + type).slider("values", 1);
 	
-	//console.log(('type : '+ type );
-	//console.log(('low : '+ low );
-	//console.log(('high : '+ high );
+	//console.log('type : '+ type );
+	//console.log('low : '+ low );
+	//console.log('high : '+ high );
 
 	var dropdown = $( '#select-in-'+ type ).val();
 	var column = insight_ly[type][dropdown].column;
 	var zindex = insight_ly[type][dropdown].zindex;
 	
-	//console.log((' dropdown : ' + dropdown );
+	//console.log(' dropdown : ' + dropdown );
 	
 	var filter = column + '>=' + low + ' AND ' + column + '<=' + high;
 	if(column == 'res_concxns_pct') {
@@ -825,7 +867,7 @@ function setDemographicFilter() {
 
 	filter = filter + ';' + filter;
 
-	//console.log((' filter : ' + filter );	
+	//console.log(' filter : ' + filter );	
 
 	redoMap(type, filter, zindex); 
 	// Redo of Broadband Filter ENDS
@@ -835,15 +877,15 @@ function setDemographicFilter() {
 	low = $('#slider-' + type).slider("values", 0);
 	high = $('#slider-' + type).slider("values", 1);
 	
-	//console.log(('type : '+ type );
-	//console.log(('low : '+ low );
-	//console.log(('high : '+ high );
+	//console.log('type : '+ type );
+	//console.log('low : '+ low );
+	//console.log('high : '+ high );
 
 	dropdown = $( '#select-in-'+ type ).val();
 	column = insight_ly[type][dropdown].column;
 	zindex = insight_ly[type][dropdown].zindex;
 	
-	//console.log((' dropdown : ' + dropdown );
+	//console.log(' dropdown : ' + dropdown );
 	
 	filter = column + '>=' + low + ' AND ' + column + '<=' + high;
 	
@@ -853,7 +895,7 @@ function setDemographicFilter() {
 
 	filter = filter + ';' + filter;
 
-	//console.log((' filter : ' + filter );	
+	//console.log(' filter : ' + filter );	
 
 	redoMap(type, filter, zindex); 
 	// Redo of Health Filter ENDS
@@ -861,11 +903,11 @@ function setDemographicFilter() {
 	setHash();	
 }
 
-function setPopSec() {
+function setupPopTab() {
 
 	var pop_type = $('#pop-sec-type').val();
 	
-	//console.log(('pop_type : '+ pop_type );  
+	//console.log('pop_type : '+ pop_type );  
 	
 	if (pop_ly[pop_type]) {
 	
@@ -903,7 +945,7 @@ function setPopSec() {
 function updateCountLegend() {
 	
 	var count_type = $('#select-in-count').val();	
-	//console.log((' count_type : ' + count_type );
+	//console.log(' count_type : ' + count_type );
 	
 	if ((count_type != '') && (count_type != 'none') && (insight_ly.count[count_type][zoom_type])) {		
 
@@ -993,13 +1035,13 @@ function getData() {
 		data_type = zoom_layer_type;
 	} 
 	
-	//console.log(('getData geo_type : ' + geo_type );
-	//console.log((' zoom_layer_type : ' + zoom_layer_type );
-	//console.log(('getData data_type : ' + data_type );	
+	//console.log('getData geo_type : ' + geo_type );
+	//console.log(' zoom_layer_type : ' + zoom_layer_type );
+	//console.log('getData data_type : ' + data_type );	
 	
 	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ data_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
 	
-	//console.log(('getData data_url : ' + data_url );
+	//console.log('getData data_url : ' + data_url );
 	
 	$.ajax({
 		type: 'GET',
@@ -1015,19 +1057,19 @@ function getData() {
 
 function processData(data) {
 		
-	//console.log(('Inside processData : ' + JSON.stringify(data) );	
-	//console.log(('inside processData features: '+data.features.length);		
+	//console.log('Inside processData : ' + JSON.stringify(data) );	
+	//console.log('inside processData features: '+data.features.length);		
 
 	if (data.features){
 		
-		//console.log(('data.features.length : ' + data.features.length  );	
+		//console.log('data.features.length : ' + data.features.length  );	
 		
 		if (data.features.length == 1){
 		
 			var geography_id = data.features[0].properties.geography_id;
 			
-			//console.log(('geo_id : ' + geo_id );	
-			//console.log(('geography_id : ' + JSON.stringify(geography_id)  );	
+			//console.log('geo_id : ' + geo_id );	
+			//console.log('geography_id : ' + JSON.stringify(geography_id)  );	
 			
 			if (geo_id !== geography_id) {
 			
@@ -1035,7 +1077,7 @@ function processData(data) {
 				geo_data = data;				
 				geo_prop = geo_data.features[0].properties;
 				
-				//console.log(('processData geo_type : ' + geo_type);	
+				//console.log('processData geo_type : ' + geo_type);	
 				
 				// ***********************************	
 				
@@ -1048,7 +1090,7 @@ function processData(data) {
 				if (geo_type != 'national') {
 
 					if(geo_type == 'county' || geo_type == 'state'){
-						//console.log(("county view");
+						//console.log("county view");
 						var geo_bounds = data.bbox;                
 		                if(geo_bounds){
 		                	map.fitBounds([
@@ -1062,13 +1104,13 @@ function processData(data) {
 					
 					click_feature.on('click', function(e) {
 						
-						//console.log((' click_feature e.latlng : ' + e.latlng );
+						//console.log(' click_feature e.latlng : ' + e.latlng );
 						
 						geo_lat = e.latlng.lat;
 						geo_lng = e.latlng.lng;		
 						var zoom = map.getZoom();
 						
-						//console.log((' geo_lat : ' + geo_lat );					
+						//console.log(' geo_lat : ' + geo_lat );					
 						
 						getData();
 					});
@@ -1126,7 +1168,7 @@ function setHash() {
 		var slb = $('#slider-broadband').slider("values", 0) +','+ $('#slider-broadband').slider("values", 1);
 		var slh = $('#slider-health').slider("values", 0) +','+ $('#slider-health').slider("values", 1);
 		
-		//console.log((' slb : ' + slb );
+		//console.log(' slb : ' + slb );
 		
 		if (inb) { hash += '&inb='+ inb; }
 		if (inh) { hash += '&inh='+ inh; }	
@@ -1170,14 +1212,14 @@ function setHash() {
 	
 	window.location.hash = hash;
 	
-	//console.log((' hash : ' + hash );
+	//console.log(' hash : ' + hash );
 }
 
 function loadHash() {
 	
 	var init_hash = (window.location.href.split('#')[1] || '');
 	
-	//console.log(('loadHash init_hash : ' + init_hash );
+	//console.log('loadHash init_hash : ' + init_hash );
 	
 	if (init_hash) {
 		
@@ -1190,7 +1232,7 @@ function loadHash() {
 			hash_obj[vars_arr[0]] = vars_arr[1];
 		}		
 		
-		//console.log((' hash_obj : ' + JSON.stringify(hash_obj) );
+		//console.log(' hash_obj : ' + JSON.stringify(hash_obj) );
 		
 		if ((hash_obj.ll) && (hash_obj.z)) {
 			
@@ -1206,9 +1248,9 @@ function loadHash() {
 			
 			$('#leaflet-zoom-layers-'+ zoom_layer_type ).prop('checked', true);				
 		}		
-		//console.log((' hash_obj.zlt : ' + hash_obj.zlt);
-		//console.log((' zoom_layer_type : ' + zoom_layer_type);		
-		//console.log(('hash_obj.inc='+hash_obj.inc);
+		//console.log(' hash_obj.zlt : ' + hash_obj.zlt);
+		//console.log(' zoom_layer_type : ' + zoom_layer_type);		
+		//console.log('hash_obj.inc='+hash_obj.inc);
 		
 		if (hash_obj.t) {
 		
@@ -1239,11 +1281,11 @@ function loadHash() {
 		else if (hash_obj.t === 'health') {				
 			if (hash_obj.hhm) { 				
 				$('#health-sec-type').val(hash_obj.hhm); 	
-				//console.log(("hash_obj.advbb="+hash_obj.advbb);							
+				//console.log("hash_obj.advbb="+hash_obj.advbb);							
 				if(hash_obj.advbb){
 					$('#adv-select-broadband').val(hash_obj.advbb);			
 				}		
-				setHealthSec();
+				setupHealthTab();
 			}			
 		}
 		else if (hash_obj.t === 'broadband') {	
@@ -1253,7 +1295,7 @@ function loadHash() {
 				var hash_type = hash_obj.bbm;
 				//var hash_dir = hash_obj.bbm.split(',')[1];
 				
-				//console.log((' hash_type : ' + hash_type);
+				//console.log(' hash_type : ' + hash_type);
 				
 				$('#broadband-type-'+ hash_type ).prop('checked', true);
 				$('.broadband-type' ).parent().removeClass("active");
@@ -1262,7 +1304,7 @@ function loadHash() {
 				if(hash_obj.advhl){
 					$('#adv-select-health').val(hash_obj.advhl);	
 				}				
-				setBroadbandCombo();
+				setupBroadbandTab();
 			}			
 		}
 		else if (hash_obj.t === 'population') {
@@ -1270,7 +1312,7 @@ function loadHash() {
 				
 				$('#pop-sec-type').val(hash_obj.ppm); 
 				
-				setPopSec();
+				setupPopTab();
 			}				
 		}					
 	}		
@@ -1321,7 +1363,7 @@ function updateInsightContent(state_sel) {
 
 function updateStats() {
 	
-	//console.log(('in updateStats: '+geo_prop);
+	//console.log('in updateStats: '+geo_prop);
 	
 	setHash();
 	
@@ -1329,8 +1371,8 @@ function updateStats() {
 	var geography_id = geo_prop.geography_id;
 	var geography_desc = geo_prop.geography_desc;	
 	
-	//console.log(('in updateStats geography_type: '+geography_type);
-	//console.log(('in updateStats geography_id: '+geo_prop.geography_id);
+	//console.log('in updateStats geography_type: '+geography_type);
+	//console.log('in updateStats geography_id: '+geo_prop.geography_id);
 
 	if (geography_type == 'county'){
 		var abbr = states_data[geography_id.substring(0,2)].abbr;
@@ -1352,9 +1394,9 @@ function updateStats() {
 	var health_sel = $('#select-in-health').val();
 	var count_sel = $('#select-in-count').val();
 	
-	//console.log((' broadband_sel : ' + broadband_sel );	
-	//console.log((' count_sel : ' + count_sel );	
-	//console.log((' insight_ly.broadband[broadband_sel].column='+insight_ly.broadband[broadband_sel].column);
+	//console.log(' broadband_sel : ' + broadband_sel );	
+	//console.log(' count_sel : ' + count_sel );	
+	//console.log(' insight_ly.broadband[broadband_sel].column='+insight_ly.broadband[broadband_sel].column);
 	
 	var broadband_stat_value, health_stat_value, count_stat_value;
 	
@@ -1491,7 +1533,7 @@ function generateMenu(){
 		$('.list-population-panel').addClass('hide'); 
 		$('.list-health-panel').removeClass('hide'); 
 		
-		setHealthSec();
+		setupHealthTab();
 	}
 	else if (cur_tab === 'broadband') {
 		$('.list-health-panel').addClass('hide');
@@ -1499,7 +1541,7 @@ function generateMenu(){
 		$('.list-population-panel').addClass('hide'); 
 		$('.list-broadband-panel').removeClass('hide');  			
 		
-		setBroadbandCombo();			
+		setupBroadbandTab();			
 	}
 	else if (cur_tab === 'population') {
 		$('.list-health-panel').addClass('hide');
@@ -1507,7 +1549,7 @@ function generateMenu(){
 		$('.list-broadband-panel').addClass('hide'); 
 		$('.list-population-panel').removeClass('hide');  	
 		
-		setPopSec();
+		setupPopTab();
 	}
 	
 	createCharts();
@@ -1536,15 +1578,15 @@ function generateMenu(){
 
 	geo_prop = national_data.features[0].properties;	 
 
-	//console.log(("working on national_data"); //JSON.stringify(geo_prop));
+	//console.log("working on national_data"); //JSON.stringify(geo_prop));
 
-	//console.log(('ready init_hash : ' + (window.location.href.split('#')[1] || ''));	 
+	//console.log('ready init_hash : ' + (window.location.href.split('#')[1] || ''));	 
 
 	createMap();
 	createSlider();		
 	setCount();	
 
-	//console.log(('ready2 init_hash : ' + (window.location.href.split('#')[1] || ''));	 
+	//console.log('ready2 init_hash : ' + (window.location.href.split('#')[1] || ''));	 
 
 	loadHash();
 
@@ -1604,7 +1646,7 @@ function generateMenu(){
     $('#select-in-count').on('change', function() {
 	
         var count_sel = $('#select-in-count').val();		
-		//console.log((' count_sel : ' + count_sel );
+		//console.log(' count_sel : ' + count_sel );
 		
 		if ((count_sel != '') && (count_sel != 'none')) {
 			setCount();
@@ -1615,37 +1657,45 @@ function generateMenu(){
 		}
     }); 
 
-    $('#adv-select-demographics').on('change', function() {
+    $('#ov-select-demographics').on('change', function() {
 		setDemographicFilter();		
     }); 
 	
 	// select health
 	$('#health-sec-type').on('change', function() {
-		setHealthSec();						
+		setupHealthTab();						
     }); 
+
+    $('#hh-select-demographics').on('change', function() {
+		setupHealthTab();		
+    });
 
     // advanced broadband select
 	$('#adv-select-broadband').on('change', function() {
-		setHealthSec();		
+		setupHealthTab();		
     }); 
 
     // advanced broadband select
 	$('#adv-select-health').on('change', function() {
-		setBroadbandCombo();
+		setupBroadbandTab();
     }); 
+
+    $('#bb-select-demographics').on('change', function() {
+		setupBroadbandTab();		
+    });
 			
 	// select broadband
 	$('.broadband-type').on('change', function() {
 	
         bb_combo_type = $(this).val();		
-		//console.log((' bb_combo_type : ' + bb_combo_type );
-		setBroadbandCombo();			
+		//console.log(' bb_combo_type : ' + bb_combo_type );
+		setupBroadbandTab();			
     }); 
 	
 	// select population
 	$('#pop-sec-type').on('change', function() {
 		
-		setPopSec();			
+		setupPopTab();			
     }); 	 
 	 
 	updateStats();		 
@@ -1656,17 +1706,17 @@ function generateMenu(){
 	$('.in-tooltip, .hh-tooltip, .bb-tooltip').tooltip();
 	
 	$('#carousel-bb').bind('slid.bs.carousel', function (e) {
-		//console.log(('bb slide event!');
+		//console.log('bb slide event!');
 		createCharts();
 	});
 	$('#carousel-pop').bind('slid.bs.carousel', function (e) {
-		//console.log(('pop slide event!');
+		//console.log('pop slide event!');
 		createCharts();
 	});
 
 	$("#input-search-switch").on('click', 'a', function(e) {
 		var search = $(e.currentTarget).data('value');
-		//console.log(('search='+search);
+		//console.log('search='+search);
 		e.preventDefault();	
 
         $("#input-location").val('');
@@ -1709,18 +1759,18 @@ function generateMenu(){
 	$( "#input-location" ).autocomplete({
         source: function( request, response ) {
 			var search_input = request.term;
-			//console.log(("entered county:"+county);
+			//console.log("entered county:"+county);
 
 			var data_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
 	
-			//console.log(('location data_url : ' + data_url );
+			//console.log('location data_url : ' + data_url );
 			
 			$.ajax({
 				type: 'GET',
 				url: data_url,
 				dataType: 'json',
 				success: function(data) {
-					//console.log(('before data='+data)
+					//console.log('before data='+data)
 					var ft = data.features;
 					var autoresults = [];
 					for (var i = 0; i < ft.length; i++) {			
@@ -1735,7 +1785,7 @@ function generateMenu(){
 							});
 						}
 					}					
-					//console.log(( 'autoresults : ' + JSON.stringify(autoresults) );
+					//console.log( 'autoresults : ' + JSON.stringify(autoresults) );
 					response(autoresults);
 				}
 			});
@@ -1756,7 +1806,7 @@ function generateMenu(){
 			geo_lng = ui.item.value[0];
 			geo_lat = ui.item.value[1];
 
-			//console.log(("geo-lat:"+geo_lat); 
+			//console.log("geo-lat:"+geo_lat); 
 			getData();  
 
 		},
@@ -1766,8 +1816,8 @@ function generateMenu(){
 			
             setTimeout(function() {
 				
-				//console.log(( 'ui : ' + JSON.stringify(ui) );
-				//console.log(( 'ui.item.value : ' + ui.item.value );
+				//console.log( 'ui : ' + JSON.stringify(ui) );
+				//console.log( 'ui.item.value : ' + ui.item.value );
 
 				geo_type = 'county';
 				zoom_type = 'county';
@@ -1781,7 +1831,7 @@ function generateMenu(){
 				geo_lat = ui.item.value[1];
 
 				getData();  
-				//console.log(("geo-lat:"+geo_lat); 
+				//console.log("geo-lat:"+geo_lat); 
 				
 				//searchCounty();
 				
@@ -1799,11 +1849,11 @@ function generateMenu(){
 	$( "#input-county" ).autocomplete({
         source: function( request, response ) {
 			var county = request.term;
-			//console.log(("entered county:"+county);
+			//console.log("entered county:"+county);
 
 			var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=35&outputFormat=json&cql_filter=geography_desc+ILIKE+%27' + county + '%25%27&format_options=callback:callbackData&callback=callbackData';
 	
-			//console.log(('county data_url : ' + data_url );
+			//console.log('county data_url : ' + data_url );
 			
 			$.ajax({
 				type: 'GET',
@@ -1812,7 +1862,7 @@ function generateMenu(){
 				dataType: 'jsonp',
 				jsonpCallback: 'callbackData',
 				success: function(data) {
-					//console.log(('before data='+data)
+					//console.log('before data='+data)
 					var ft = data.features;
 					var autoresults = [];
 					for (var i = 0; i < ft.length; i++) {
@@ -1822,7 +1872,7 @@ function generateMenu(){
 							'value' : ft[i].properties.centroid.coordinates
 						});
 					}					
-					//console.log(( 'autoresults : ' + JSON.stringify(autoresults) );
+					//console.log( 'autoresults : ' + JSON.stringify(autoresults) );
 					response(autoresults);
 				}
 			});
@@ -1839,7 +1889,7 @@ function generateMenu(){
 			geo_lng = ui.item.value[0];
 			geo_lat = ui.item.value[1];
 
-			//console.log(("geo-lat:"+geo_lat); 
+			//console.log("geo-lat:"+geo_lat); 
 			getData();    
 			
 			
@@ -1850,8 +1900,8 @@ function generateMenu(){
 			
             setTimeout(function() {
 				
-				//console.log(( 'ui : ' + JSON.stringify(ui) );
-				//console.log(( 'ui.item.value : ' + ui.item.value );
+				//console.log( 'ui : ' + JSON.stringify(ui) );
+				//console.log( 'ui.item.value : ' + ui.item.value );
 				
 				
 				geo_type = 'county';
@@ -1861,7 +1911,7 @@ function generateMenu(){
 				geo_lng = ui.item.value[0];
 				geo_lat = ui.item.value[1];
 	
-				//console.log(("geo-lat:"+geo_lat); 
+				//console.log("geo-lat:"+geo_lat); 
 				getData();     
 				
 				//searchCounty();

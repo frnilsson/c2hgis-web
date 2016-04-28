@@ -4133,6 +4133,11 @@ a.gen-passcode {
     height: 36px;
 }
 
+.btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary {
+    background-color: #1E5194 !important;
+    letter-spacing: 1px;
+}
+
 filter-select {
     font-family: Arial, sans-serif;
     box-shadow: none;

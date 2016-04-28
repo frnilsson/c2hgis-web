@@ -1433,36 +1433,37 @@ function updateStats() {
 	}
 	
 	// Health Stats
+
 	$('.geog-pcp').text(formatStat(geo_prop.pcp_total));
 	$('.geog-dentists').text(formatStat(geo_prop.dentist_total));
 	$('.geog-mental').text(formatStat(geo_prop.mhp_total));
-	
 	$('.geog-poorfair').text(formatStat(geo_prop.poor_fair_health_total));
-	$('.geog-prematured').text(formatStat(geo_prop.years_lost_per_100000, 1) +' per 100,000');
-	$('.geog-prevhosp').text(formatStat(geo_prop.preventable_hospital_stays_per_1000, 1) +' per 1,000');	
-	$('.geog-injuryd').text(formatStat(geo_prop.injury_deaths_per_100000, 1) +' per 100,000');
-	$('.geog-sickdays').text(formatStat(geo_prop.poor_physical_health_days_within_last_30_days, 1) +' days per month');	
+
+	$('.geog-prematured').text(formatStatAppend(geo_prop.years_lost_per_100000, 1, ' per 100,000'));
+	$('.geog-prevhosp').text(formatStatAppend(geo_prop.preventable_hospital_stays_per_1000, 1, ' per 1,000'));	
+	$('.geog-injuryd').text(formatStatAppend(geo_prop.injury_deaths_per_100000, 1, ' per 100,000'));
+	$('.geog-sickdays').text(formatStatAppend(geo_prop.poor_physical_health_days_within_last_30_days, 1, ' days per month'));	
 	
-	$('.geog-longcommute').text(formatStat(geo_prop.long_commute_driving_alone, 1) +'%');
-	$('.geog-drivealone').text(formatStat(geo_prop.driving_alone_to_work, 1) +'%');
+	$('.geog-longcommute').text(formatStatAppend(geo_prop.long_commute_driving_alone, 1, '%'));
+	$('.geog-drivealone').text(formatStatAppend(geo_prop.driving_alone_to_work, 1, '%'));
 	
-	$('.geog-obes').text(formatStat(geo_prop.adult_obesity_pct, 1) + '%');
-	$('.geog-diab').text(formatStat(geo_prop.diabetes_pct, 1) + '%');
-	$('.geog-smok').text(formatStat(geo_prop.smoking_pct, 1) + '%');
-	$('.geog-drin').text(formatStat(geo_prop.drinking_pct, 1) + '%');
-	$('.geog-inac').text(formatStat(geo_prop.physical_inactivity, 1) + '%');
-	//$('.geog-inse').text(formatStat(geo_prop.physical_inactivity, 3) + '%');	
-	$('.geog-severehousing').text(formatStat(geo_prop.severe_housing_problems, 1) + '%');
+	$('.geog-obes').text(formatStatAppend(geo_prop.adult_obesity_pct, 1, '%'));
+	$('.geog-diab').text(formatStatAppend(geo_prop.diabetes_pct, 1, '%'));
+	$('.geog-smok').text(formatStatAppend(geo_prop.smoking_pct, 1, '%'));
+	$('.geog-drin').text(formatStatAppend(geo_prop.drinking_pct, 1, '%'));
+	$('.geog-inac').text(formatStatAppend(geo_prop.physical_inactivity, 1, '%'));
+	//$('.geog-inse').text(formatStatAppend(geo_prop.physical_inactivity, 3, '%'));	
+	$('.geog-severehousing').text(formatStatAppend(geo_prop.severe_housing_problems, 1, '%'));
 	
 	// Broadband Stats
 	$('.geog-provcount').text(formatStat(geo_prop.provcount_c) );
 	
-	//$('.geog-combdl').text(formatStat(geo_prop.advdl_gr25000k, 1) + '%');
-	//$('.geog-combul').text(formatStat(geo_prop.advul_gr3000k, 1) + '%');
-	$('.geog-wldl').text(formatStat(geo_prop.dsgteq25, 1) + '%');
-	$('.geog-wlul').text(formatStat(geo_prop.usgteq3, 1) + '%');
-	//$('.geog-wsdl').text(formatStat(geo_prop.wireless_advdl_gr25000k, 1) + '%');
-	//$('.geog-wsul').text(formatStat(geo_prop.wireless_advul_gr3000k, 1) + '%');	
+	//$('.geog-combdl').text(formatStat(geo_prop.advdl_gr25000k, 1, '%');
+	//$('.geog-combul').text(formatStat(geo_prop.advul_gr3000k, 1, '%');
+	$('.geog-wldl').text(formatStatAppend(geo_prop.dsgteq25, 1, '%'));
+	$('.geog-wlul').text(formatStatAppend(geo_prop.usgteq3, 1, '%'));
+	//$('.geog-wsdl').text(formatStat(geo_prop.wireless_advdl_gr25000k, 1, '%');
+	//$('.geog-wsul').text(formatStat(geo_prop.wireless_advul_gr3000k, 1, '%');	
 	
 	$('.geog-commondl').text((bb_speed_tiers[geo_prop.dl_tiers].range) + ' mbps');
 	$('.geog-commonul').text((bb_speed_tiers[geo_prop.ul_tiers].range) + ' mbps');
@@ -1472,16 +1473,16 @@ function updateStats() {
 	
 	// Population Stats
 	$('.geog-pop-total').text(formatStat(geo_prop.pop_2014) );	
-	$('.geog-pop-density').text(formatStat(geo_prop.pop_density*0.621371, 2) + ' per sq. mile');
+	$('.geog-pop-density').text(formatStatAppend(geo_prop.pop_density, 2, ' per sq. mile'));
 	
-	$('.geog-pop-urban').text(formatStat(geo_prop.urban_total, 0) + '');
-	$('.geog-pop-rural').text(formatStat(geo_prop.rural_total, 0) + '');
+	$('.geog-pop-urban').text(formatStat(geo_prop.urban_total, 0));
+	$('.geog-pop-rural').text(formatStat(geo_prop.rural_total, 0));
 	
-	$('.geog-pop-male').text(formatStat(geo_prop.male_total, 0) + '');
-	$('.geog-pop-female').text(formatStat(geo_prop.female_total, 0) + '');
-	$('.geog-pop-over65').text(formatStat(geo_prop.age_over_65_pct, 2) + ' %');	
-	$('.geog-pop-somecollege').text(formatStat(geo_prop.some_college, 2) + ' %');	
-	$('.geog-pop-unemploy').text(formatStat(geo_prop.unemployment, 2) + ' %');	
+	$('.geog-pop-male').text(formatStat(geo_prop.male_total, 0));
+	$('.geog-pop-female').text(formatStat(geo_prop.female_total, 0));
+	$('.geog-pop-over65').text(formatStatAppend(geo_prop.age_over_65_pct, 2, '%'));	
+	$('.geog-pop-somecollege').text(formatStatAppend(geo_prop.some_college, 2, '%'));	
+	$('.geog-pop-unemploy').text(formatStatAppend(geo_prop.unemployment, 2, '%'));	
 }
 
 function formatStat(input, decimal) {	
@@ -1497,10 +1498,15 @@ function formatStat(input, decimal) {
 		}		
 	}
 	else {
-		output = 'N/A ';
+		output = 'N/A';
 	}
 	
 	return output;	
+}
+
+function formatStatAppend(input, decimal, append){
+	var stat = formatStat(input, decimal);
+	return (stat == 'N/A') ? stat : (stat + append);
 }
 
 

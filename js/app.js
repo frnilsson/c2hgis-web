@@ -1164,7 +1164,8 @@ function setHash() {
 		var inb = $('#select-in-broadband').val();
 		var inh = $('#select-in-health').val();
 		var inc = $('#select-in-count').val();
-		
+		var dmf = $('#ov-select-demographics').val();
+
 		var slb = $('#slider-broadband').slider("values", 0) +','+ $('#slider-broadband').slider("values", 1);
 		var slh = $('#slider-health').slider("values", 0) +','+ $('#slider-health').slider("values", 1);
 		
@@ -1173,6 +1174,12 @@ function setHash() {
 		if (inb) { hash += '&inb='+ inb; }
 		if (inh) { hash += '&inh='+ inh; }	
 		
+		if (dmf) { 
+			hash += '&dmf='+ dmf; 
+		}
+		else {
+			hash += '&dmf=none'; 
+		}
 		if (inc) { 
 			hash += '&inc='+ inc; 
 		}
@@ -1182,21 +1189,36 @@ function setHash() {
 		
 		if (slb) { hash += '&slb='+ slb; }
 		if (slh) { hash += '&slh='+ slh; }
+
 	}
 	else if (cur_tab === 'health') {
 		var hhm = $('#health-sec-type').val();
 		var advbb = $('#adv-select-broadband').val();
-		
+		var dmf = $('#hh-select-demographics').val();
+
 		if (hhm) { hash += '&hhm='+ hhm; }
 		if (advbb) { hash += '&advbb=' + advbb; }		
+		if (dmf) { 
+			hash += '&dmf='+ dmf; 
+		}
+		else {
+			hash += '&dmf=none'; 
+		}
 	}
 	else if (cur_tab === 'broadband') {	
 		var bb_type =  $('.broadband-type:checked').val();
 		//var bb_dir = $('.broadband-dir:checked').val();
 		var advhl = $('#adv-select-health').val();
+		var dmf = $('#bb-select-demographics').val();
 		
 		if (bb_type) { hash += '&bbm='+ bb_type}
 		if (advhl) { hash += '&advhl=' +advhl; }
+		if (dmf) { 
+			hash += '&dmf='+ dmf; 
+		}
+		else {
+			hash += '&dmf=none'; 
+		}
 	}
 	else if (cur_tab === 'population') {
 		var ppm = $('#pop-sec-type').val();
@@ -1263,6 +1285,12 @@ function loadHash() {
 			if (hash_obj.inb) { $('#select-in-broadband').val(hash_obj.inb); }
 			if (hash_obj.inh) { $('#select-in-health').val(hash_obj.inh); }	
 			
+			
+			if (hash_obj.dmf) { $('#ov-select-demographics').val(hash_obj.dmf); }
+			if (hash_obj.dmf == 'none') { 
+				$('#ov-select-demographics').val(''); 
+			}
+			
 			if (hash_obj.inc) { $('#select-in-count').val(hash_obj.inc); }
 			if (hash_obj.inc == 'none') { 
 				$('#select-in-count').val(''); 
@@ -1284,9 +1312,14 @@ function loadHash() {
 				//console.log("hash_obj.advbb="+hash_obj.advbb);							
 				if(hash_obj.advbb){
 					$('#adv-select-broadband').val(hash_obj.advbb);			
-				}		
+				}	
+				if (hash_obj.dmf) { $('#hh-select-demographics').val(hash_obj.dmf); }
+				if (hash_obj.dmf == 'none') { 
+					$('#hh-select-demographics').val(''); 
+				}	
 				setupHealthTab();
-			}			
+			}	
+
 		}
 		else if (hash_obj.t === 'broadband') {	
 
@@ -1303,7 +1336,12 @@ function loadHash() {
 				$('#broadband-type-'+ hash_type ).parent().addClass("active");				
 				if(hash_obj.advhl){
 					$('#adv-select-health').val(hash_obj.advhl);	
-				}				
+				}	
+				
+				if (hash_obj.dmf) { $('#bb-select-demographics').val(hash_obj.dmf); }
+				if (hash_obj.dmf == 'none') { 
+					$('#bb-select-demographics').val(''); 
+				}	
 				setupBroadbandTab();
 			}			
 		}

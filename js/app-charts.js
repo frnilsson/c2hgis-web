@@ -94,6 +94,47 @@ function createCharts() {
 		if (chart_obj.broadband.num_providers.chart) {
 			chart_obj.broadband.num_providers.chart.destroy();
 		}
+
+		// ***********************************************************
+		// chart - Number of Providers
+		
+		if (current_slide == 1) {
+		
+			chart_obj.broadband.num_providers.data = {
+				labels: ["< 1", "< 2", "< 3", "< 4", "< 5", "< 6", "< 7", "< 8"],
+				datasets: [
+					{
+						label: "Number of Providers",
+						fillColor: "rgba(220,220,220,0.4)",
+						strokeColor: "rgba(0,80,204,1)",
+						pointColor: "rgba(0,80,204,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(220,220,220,1)",
+						data: [geo_prop.cumm_prov_c_1, geo_prop.cumm_prov_c_2, geo_prop.cumm_prov_c_3, geo_prop.cumm_prov_c_4, geo_prop.cumm_prov_c_5, geo_prop.cumm_prov_c_6, geo_prop.cumm_prov_c_7, geo_prop.cumm_prov_c_8]
+					}
+				]
+			};
+			
+			chart_obj.broadband.num_providers.options = {
+				//bezierCurve: false
+				pointHitDetectionRadius : 0,		
+				datasetFill : true,
+				scaleBeginAtZero: true,
+				tooltipTemplate: "<%if (label){%>Number of Providers <%=label%>: <%}%><%= value.toFixed(1) %>%",
+				legendTemplate : '<ul class="<%=name.toLowerCase()%>-legends" style="width: 100%; list-style-type: none;"><% for (var i=0; i<datasets.length; i++){%><li><div style="background-color:<%=datasets[i].strokeColor%>; width: 20px; height: 2px; display: inline-block; margin: 4px 0;"></div>&nbsp;<%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
+				
+			};
+
+			if (chart_obj.broadband.num_providers.chart) {
+				chart_obj.broadband.num_providers.chart.destroy();
+			}		
+			
+			chart_obj.broadband.num_providers.chart = new Chart(document.getElementById('ch-canvas-broadband-1').getContext('2d')).Line(chart_obj.broadband.num_providers.data, chart_obj.broadband.num_providers.options);		
+
+			 $('#ch-legend-broadband-1').html( chart_obj.broadband.num_providers.chart.generateLegend() );		
+		}	// end of current_slide == 1
+
 		
 		// ***********************************************************
 		// chart - Download Tiers
@@ -102,44 +143,29 @@ function createCharts() {
 		
 			chart_obj.broadband.dl_tiers.data = [
 			   {
-				  value: geo_prop.advdl_gr768k_lt1500k,
-				  label: '0.768 - 1.5',
-				  color: '#919190'
+				  value: geo_prop.pctdsgt15000kandlt25000k_hi,
+				  label: '15 - 25 mbps',
+				  color: '#5DA5DA'
 			   },
 			   {
-				  value: geo_prop.advdl_gr1500k_lt3000k,
-				  label: '1.5 - 3',
-				  color: '#dcdcc6'
+				  value: geo_prop.pctdsgt25000kandlt50000k_hi,
+				  label: '25 - 50 mbps',
+				  color: '#FA9D3A'
 			   },
 			   {
-				  value: geo_prop.advdl_gr3000k_lt6000k,
-				  label: '3 - 6',
-				  color: '#baf200'
+				  value: geo_prop.pctdsgt50000kandlt100000k_hi,
+				  label: '50 - 100 mbps',
+				  color: '#60BD68' 
 			   },
 			   {
-				  value: geo_prop.advdl_gr6000k_lt10000k,
-				  label: '6 - 10',
-				  color: '#baf200'
+				  value: geo_prop.pctdsgt100000kandlt1gig_hi,
+				  label: '100 mbps - 1 gigbps',
+				  color: '#B276B2'
 			   },
 			   {
-				  value: geo_prop.advdl_gr10000k_lt25000k,
-				  label: '10 - 25',
-				  color: '#5ae200'
-			   },
-			   {
-				  value: geo_prop.advdl_gr25000k_lt50000k,
-				  label: '25 - 50',
-				  color: '#0bb81d'
-			   },
-			   {
-				  value: geo_prop.advdl_gr50000k_lt100000k,
-				  label: '50 - 100',
-				  color: '#00807a'
-			   },
-			   {
-				  value: geo_prop.advdl_gr100000k_lt1gig,
-				  label: '100 - 1,000',
-				  color: '#0050cc'
+				  value: geo_prop.pctdsgt1gig_hi,
+				  label: '> 1 gigbps',
+				  color: '#F15854' 
 			   }
 			];
 			
@@ -164,44 +190,54 @@ function createCharts() {
 		
 			chart_obj.broadband.ul_tiers.data = [
 			   {
-				  value: geo_prop.advul_gr768k_lt1500k,
-				  label: '0.768 - 1.5',
-				  color: '#919190'
+				  value: geo_prop.pctusgt1000kandlt3000k_hi,
+				  label: '1 - 3 mbps',
+				  color: '#4D4D4D'
 			   },
 			   {
-				  value: geo_prop.advul_gr1500k_lt3000k,
-				  label: '1.5 - 3',
-				  color: '#dcdcc6'
+				  value: geo_prop.pctusgt3000kandlt4000k_hi,
+				  label: '3 - 4 mbps',
+				  color: '#5DA5DA'
 			   },
 			   {
-				  value: geo_prop.advul_gr3000k_lt6000k,
-				  label: '3 - 6',
-				  color: '#baf200'
+				  value: geo_prop.pctusgt4000kandlt6000k_hi,
+				  label: '4 - 6 mbps',
+				  color: '#FA9D3A'
 			   },
 			   {
-				  value: geo_prop.advul_gr6000k_lt10000k,
-				  label: '6 - 10',
-				  color: '#baf200'
+				  value: geo_prop.pctusgt6000kandlt10000k_hi,
+				  label: '6 - 10 mbps',
+				  color: '#60BD68'
 			   },
 			   {
-				  value: geo_prop.advul_gr10000k_lt25000k,
-				  label: '10 - 25',
-				  color: '#5ae200'
+				  value: geo_prop.pctusgt10000kandlt15000k_hi,
+				  label: '10 - 15 mbps',
+				  color: '#F17CB0'
 			   },
 			   {
-				  value: geo_prop.advul_gr25000k_lt50000k,
-				  label: '25 - 50',
-				  color: '#0bb81d'
+				  value: geo_prop.pctusgt15000kandlt25000k_hi,
+				  label: '15 - 25 mbps',
+				  color: '#B2912F'
 			   },
 			   {
-				  value: geo_prop.advul_gr50000k_lt100000k,
-				  label: '50 - 100',
-				  color: '#00807a'
+				  value: geo_prop.pctusgt25000kandlt50000k_hi,
+				  label: '25 - 50 mbps',
+				  color: '#B276B2'
 			   },
 			   {
-				  value: geo_prop.advul_gr100000k_lt1gig,
-				  label: '100 - 1,000',
-				  color: '#0050cc'
+				  value: geo_prop.pctusgt50000kandlt100000k_hi,
+				  label: '50 - 100 mbps',
+				  color: '#83E6D3'
+			   },
+			   {
+				  value: geo_prop.pctusgt100000kandlt1gig_hi,
+				  label: '100 mbps - 1 gigbps',
+				  color: '#DECF3F'
+			   },
+			   {
+				  value: geo_prop.pctusgt1gig_hi,
+				  label: '> 1 gbps',
+				  color: '#F15854'
 			   }
 			];
 			
@@ -217,47 +253,7 @@ function createCharts() {
 			chart_obj.broadband.ul_tiers.chart = new Chart(document.getElementById('ch-canvas-broadband-3').getContext('2d')).Doughnut(chart_obj.broadband.ul_tiers.data, chart_obj.broadband.ul_tiers.options);		
 			
 			 $('#ch-legend-broadband-3').html( 'Upload Speed Tiers' );
-		}
-		
-		// ***********************************************************
-		// chart - Number of Providers
-		
-		if (current_slide == 1) {
-		
-			chart_obj.broadband.num_providers.data = {
-				labels: ["> 1", "> 2", "> 3", "> 4", "> 5", "> 6", "> 7", "> 8"],
-				datasets: [
-					{
-						label: "Number of Providers",
-						fillColor: "rgba(220,220,220,0.4)",
-						strokeColor: "rgba(0,80,204,1)",
-						pointColor: "rgba(0,80,204,1)",
-						pointStrokeColor: "#fff",
-						pointHighlightFill: "#fff",
-						pointHighlightStroke: "rgba(220,220,220,1)",
-						data: [geo_prop.prov_gr1, geo_prop.prov_gr2, geo_prop.prov_gr3, geo_prop.prov_gr4, geo_prop.prov_gr5, geo_prop.prov_gr6, geo_prop.prov_gr7, geo_prop.prov_gr8]
-					}
-				]
-			};
-			
-			chart_obj.broadband.num_providers.options = {
-				//bezierCurve: false
-				pointHitDetectionRadius : 0,		
-				datasetFill : true,
-				scaleBeginAtZero: true,
-				tooltipTemplate: "<%if (label){%>Number of Providers <%=label%>: <%}%><%= value.toFixed(1) %>%",
-				legendTemplate : '<ul class="<%=name.toLowerCase()%>-legends" style="width: 100%; list-style-type: none;"><% for (var i=0; i<datasets.length; i++){%><li><div style="background-color:<%=datasets[i].strokeColor%>; width: 20px; height: 2px; display: inline-block; margin: 4px 0;"></div>&nbsp;<%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
-				
-			};
-
-			if (chart_obj.broadband.num_providers.chart) {
-				chart_obj.broadband.num_providers.chart.destroy();
-			}		
-			
-			chart_obj.broadband.num_providers.chart = new Chart(document.getElementById('ch-canvas-broadband-1').getContext('2d')).Line(chart_obj.broadband.num_providers.data, chart_obj.broadband.num_providers.options);		
-
-			 $('#ch-legend-broadband-1').html( chart_obj.broadband.num_providers.chart.generateLegend() );		
-		}		
+		}	
 	}
 	else if (cur_tab == 'population'){
 

@@ -145,27 +145,27 @@ function createCharts() {
 			   {
 				  value: geo_prop.pctdsgt15000kandlt25000k_hi,
 				  label: '15 - 25 mbps',
-				  color: '#5DA5DA'
+				  color: '#376AE8'
 			   },
 			   {
 				  value: geo_prop.pctdsgt25000kandlt50000k_hi,
 				  label: '25 - 50 mbps',
-				  color: '#FA9D3A'
+				  color: '#3D59D7'
 			   },
 			   {
 				  value: geo_prop.pctdsgt50000kandlt100000k_hi,
 				  label: '50 - 100 mbps',
-				  color: '#60BD68' 
+				  color: '#4348C5' 
 			   },
 			   {
 				  value: geo_prop.pctdsgt100000kandlt1gig_hi,
-				  label: '100 mbps - 1 gigbps',
-				  color: '#B276B2'
+				  label: '100 - 1,000 mbps',
+				  color: '#4937B4'
 			   },
 			   {
 				  value: geo_prop.pctdsgt1gig_hi,
-				  label: '> 1 gigbps',
-				  color: '#F15854' 
+				  label: '> 1,000 mbps',
+				  color: '#4F26A3' 
 			   }
 			];
 			
@@ -192,52 +192,52 @@ function createCharts() {
 			   {
 				  value: geo_prop.pctusgt1000kandlt3000k_hi,
 				  label: '1 - 3 mbps',
-				  color: '#4D4D4D'
+				  color: '#87FACA'
 			   },
 			   {
 				  value: geo_prop.pctusgt3000kandlt4000k_hi,
 				  label: '3 - 4 mbps',
-				  color: '#5DA5DA'
+				  color: '#71DAD6'
 			   },
 			   {
 				  value: geo_prop.pctusgt4000kandlt6000k_hi,
 				  label: '4 - 6 mbps',
-				  color: '#FA9D3A'
+				  color: '#5CBAE2'
 			   },
 			   {
 				  value: geo_prop.pctusgt6000kandlt10000k_hi,
 				  label: '6 - 10 mbps',
-				  color: '#60BD68'
+				  color: '#479AEE'
 			   },
 			   {
 				  value: geo_prop.pctusgt10000kandlt15000k_hi,
 				  label: '10 - 15 mbps',
-				  color: '#F17CB0'
+				  color: '#327BFA'
 			   },
 			   {
 				  value: geo_prop.pctusgt15000kandlt25000k_hi,
 				  label: '15 - 25 mbps',
-				  color: '#B2912F'
+				  color: '#376AE8'
 			   },
 			   {
 				  value: geo_prop.pctusgt25000kandlt50000k_hi,
 				  label: '25 - 50 mbps',
-				  color: '#B276B2'
+				  color: '#3D59D7'
 			   },
 			   {
 				  value: geo_prop.pctusgt50000kandlt100000k_hi,
 				  label: '50 - 100 mbps',
-				  color: '#83E6D3'
+				  color: '#4348C5'
 			   },
 			   {
 				  value: geo_prop.pctusgt100000kandlt1gig_hi,
-				  label: '100 mbps - 1 gigbps',
-				  color: '#DECF3F'
+				  label: '100 - 1,000 mbps',
+				  color: '#4937B4'
 			   },
 			   {
 				  value: geo_prop.pctusgt1gig_hi,
-				  label: '> 1 gbps',
-				  color: '#F15854'
+				  label: '> 1,000 mbps',
+				  color: '#4F26A3'
 			   }
 			];
 			

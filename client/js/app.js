@@ -81,7 +81,7 @@ function createMap() {
          })
          .setView([40, -95], 4);    
 
-     map.attributionControl.addAttribution('<a href="http://fcc.gov/health">FCC Connect2Health</a>');
+     map.attributionControl.addAttribution('<a href="http://fcc.gov">FCC</a>');
 
      baseStreet = L.mapbox.tileLayer('fcc.k74ed5ge').addTo(map);
      baseSatellite = L.mapbox.tileLayer('fcc.k74d7n0g');

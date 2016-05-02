@@ -237,10 +237,10 @@ blockquote {
     #app-title {
         width: 200px;
     }
-    #app-title h4 {
+    #app-title h2 {
         font-size: 12px !important;
     }
-    #app-title h5 {
+    #app-title h3 {
         display: none;
     }
 }
@@ -263,10 +263,10 @@ blockquote {
         display: inline-block;
         margin: 8px 0 0 12px !important;
     }
-    #app-title h4 {
+    #app-title h2 {
         font-size: 18px !important;
     }
-    #app-title h5 {
+    #app-title h3 {
         display: none;
     }
 }
@@ -317,7 +317,7 @@ blockquote {
         width: 450px;
         margin: 15px 0 0 10px !important;
     }
-    #app-title h4 {
+    #app-title h2 {
         font-size: 22px !important;
     }
 }
@@ -3611,10 +3611,10 @@ a.gen-passcode {
     #app-title {
         display: inline-block;
     }
-    #app-title h4 {
+    #app-title h2 {
         font-size: 12px !important;
     }
-    #app-title h5 {
+    #app-title h3 {
         display: none;
     }
 }
@@ -3724,13 +3724,13 @@ a.gen-passcode {
         margin: 15px 0 0 25px !important;
         width: 529px;
     }
-    #app-title h4 {
+    #app-title h2 {
         font-size: 22px !important;
     }
 }
 
 @media (max-width: 1200px) {
-    #app-title h5 {
+    #app-title h3 {
         display: none;
     }
 }
@@ -4399,17 +4399,18 @@ table.datatab td {
     margin: 10px 0 0 25px;
 }
 
-#app-title h4 {
-    margin-bottom: 0px;
+#app-title h2 {
+    margin: 10px 0 0;
     font-size: 26px;
     font-weight: normal;
 }
 
-#app-title h5 {
+#app-title h3 {
     margin-bottom: 0px;
     margin-top: 5px;
     font-size: 14px;
     font-style: italic;
+    font-weight: normal;
 }
 
 a.external {

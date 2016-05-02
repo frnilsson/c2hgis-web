@@ -1439,13 +1439,19 @@ function updateStats() {
 	var broadband_stat_value, health_stat_value, count_stat_value;
 	
 	if ((broadband_sel == 'in_bb_dl_speed') || (broadband_sel == 'in_bb_ul_speed')) {
-		broadband_stat_value = bb_speed_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range + insight_ly.broadband[broadband_sel].suffix;
+		broadband_stat_value = bb_speed_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range + ' ' + insight_ly.broadband[broadband_sel].suffix;
 	}
 	else {
 		broadband_stat_value = formatStat(geo_prop[insight_ly.broadband[broadband_sel].column]) + insight_ly.broadband[broadband_sel].suffix;
 	}		
 	
-	health_stat_value = formatStat((geo_prop[insight_ly.health[health_sel].column] * insight_ly.health[health_sel].multiple), 1) + insight_ly.health[health_sel].suffix;
+	health_stat_value = formatStat((geo_prop[insight_ly.health[health_sel].column] * insight_ly.health[health_sel].multiple), 1);
+	if(insight_ly.health[health_sel].suffix != '%'){
+		health_stat_value = health_stat_value + ' ' + insight_ly.health[health_sel].suffix;
+	} 
+	else {
+		health_stat_value = health_stat_value + insight_ly.health[health_sel].suffix;	
+	}
 	
 	if ((count_sel != '') && (count_sel != 'none')) {
 		count_stat_value = formatStat(geo_prop[insight_ly.count[count_sel].column]) + insight_ly.count[count_sel].suffix;

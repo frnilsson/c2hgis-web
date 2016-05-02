@@ -179,14 +179,12 @@
                                                 <option value="in_bb_ul_speed">Upload Speed</option>                                        
                                             </select>
                                         </div>
-                                        <div class="col-xs-6">
-                                             <div class="row">
-                                                <div class="col-xs-10 slider-label" id="label-broadband" style="color: #0050cc;">
-        									    </div>   
-                                                <div class="col-xs-2 slider-tooltip-div">
-                                                    <i class="fa fa-question in-tooltip" id="in-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
-                                                </div>
-                                            </div>
+                                        <div class="col-xs-6">                                             
+                                            <div class="col-xs-10 no-padding slider-label" id="label-broadband" style="color: #0050cc;">
+    									    </div>   
+                                            <div class="pull-right slider-tooltip-div">
+                                                <i class="fa fa-question in-tooltip" id="in-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
+                                            </div>                                            
                                         </div>                                        
                                     </div>
                                     <div class="row">
@@ -216,14 +214,12 @@
 												<!--<option value="in_phys_inactivity">Physical Inactivity</option>-->
         									</select>
                                         </div>
-                                        <div class="col-xs-6">
-                                             <div class="row">
-                                                <div class="col-xs-10 slider-label" id="label-health" style="color: #ba0c0c;">
-                                                </div>   
-                                                <div class="col-xs-2 slider-tooltip-div">
-                                                    <i class="fa fa-question in-tooltip" id="in-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
-                                                </div>
-                                            </div>
+                                        <div class="col-xs-6">                                             
+                                            <div class="col-xs-10 no-padding slider-label" id="label-health" style="color: #ba0c0c;">
+                                            </div>   
+                                            <div class="pull-right slider-tooltip-div">
+                                                <i class="fa fa-question in-tooltip" id="in-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
+                                            </div>                                            
                                         </div>                                         
                                     </div> 
                                     <div class="row row-space">                                        
@@ -235,7 +231,7 @@
                                                  Demographics Filter:
                                             </div>
                                         </div>                                           
-                                        <div class="col-sm-6 data-left">
+                                        <div class="col-sm-6 no-left">
                                             <select id="ov-select-demographics" class="selectpicker select-advanced-2 advanced-demographics">
                                                 <option value="" selected="selected">None </option>
                                                 <optgroup label="Majority/Minority rural pop">
@@ -323,22 +319,22 @@
 
 									<hr class="panel-hr"/>
 									<h4 class="geog-name panel-sec-heading"></h4>
-									<div class="row" id="insights-stats-div">
-                                        <div class="row col-sm-12">                                            
+									<div class="row">
+                                        <div class="row">                                            
                                             <div class="col-xs-7 text-right" id="in-broadband-stat-name">
                                                  Broadband Access :
                                             </div>
                                             <div class="col-xs-5" id="in-broadband-stat-value">                                                 
                                             </div>
                                         </div>
-										<div class="row col-sm-12">                                            
+										<div class="row">                                            
                                             <div class="col-xs-7 text-right" id="in-health-stat-name">
                                                  Physician Access :
                                             </div>
                                             <div class="col-xs-5" id="in-health-stat-value">                                                 
                                             </div>
                                         </div>
-										<div class="row col-sm-12">                                            
+										<div class="row">                                            
                                             <div class="col-xs-7 text-right" id="in-count-stat-name">
                                                  Population :
                                             </div>
@@ -362,29 +358,27 @@
 								<!-- Health Tab  **************************************************************** -->
                                 <div class="panel-data list-health-panel hide">
                                     <div class="row row-space">
-                                        <div class="col-sm-5">
+                                        <div class="col-xs-5">
                                             <div class="data-label">
 											     Health Measures:
                                             </div>
                                         </div>
-                                        <div class="col-sm-7 data-left">
-                                            <div class="row">
-                                                <div class="col-xs-10">                                    
-                                                    <select id="health-sec-type" class="selectpicker select-health">
-                                                        <option value="hh_pcppc" selected="selected">Physician Access</option>                                                                                                      
-    													<!--<option value="hh_prematured">Premature Death</option>-->
-                                                        <option value="hh_preventhosp">Preventable Hospitalization</option>
-    													<option value="hh_sick_days">Sick Days</option>
-    													<option value="hh_obesity">Obesity</option>										
-    													<option value="hh_diabetes_rate">Diabetes</option>			
-    													<option value="hh_poorfair">Poor/Fair Health</option>  
-    													<option value="hh_severe_housing">Severe Housing</option>														
-                                                    </select>
-                                                </div>
-                                                <div class="col-xs-2 slider-tooltip-div">
-                                                    <i class="fa fa-question hh-tooltip" id="hh-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
-                                                </div>
-                                            </div>																								
+                                        <div class="col-xs-7 no-left">                                            
+                                            <div class="col-xs-10 no-left">                                    
+                                                <select id="health-sec-type" class="selectpicker select-health">
+                                                    <option value="hh_pcppc" selected="selected">Physician Access</option>                                                                                                      
+													<!--<option value="hh_prematured">Premature Death</option>-->
+                                                    <option value="hh_preventhosp">Preventable Hospitalization</option>
+													<option value="hh_sick_days">Sick Days</option>
+													<option value="hh_obesity">Obesity</option>										
+													<option value="hh_diabetes_rate">Diabetes</option>			
+													<option value="hh_poorfair">Poor/Fair Health</option>  
+													<option value="hh_severe_housing">Severe Housing</option>														
+                                                </select>
+                                            </div>
+                                            <div class="pull-right slider-tooltip-div">
+                                                <i class="fa fa-question hh-tooltip" id="hh-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
+                                            </div>																				
                                         </div>
 									</div>										
 									<table class="legend-table-square row-space">
@@ -404,54 +398,52 @@
 
                                     <hr class="panel-hr"/>
                                     
-                                    <div id="adv-select-broadband-section">
-                                        <div class="row"> 
-                                            <div class="col-sm-5">
-                                                <div class="data-label">
-                                                     Broadband Filter:
-                                                </div>
-                                            </div>                                           
-                                            <div class="col-sm-7 data-left">
-                                                                                                
-                                                        <select id="adv-select-broadband" class="selectpicker select-advanced advanced-broadband">
-                                                            <option value="">None</option>															
-															<option value="in_bb_access$0_30">Broadband Access < 30%</option>
-															<option value="in_bb_access$30_60">Broadband Access 30-60%</option>
-															<option value="in_bb_access$60_80">Broadband Access 60-80%</option>   
-                                                            <option value="in_bb_access$80_100">Broadband Access > 80%</option>   
-                                                            <!--
-															<option value="in_bb_wn_access$0_30">Wireline Access < 30%</option>
-															<option value="in_bb_wn_access$30_60">Wireline Access 30-60%</option>
-															<option value="in_bb_wn_access$60_100">Wireline Access > 60%</option>
-															<option value="in_bb_ws_access$0_30">Wireless Access < 30%</option>
-															<option value="in_bb_ws_access$30_60">Wireless Access 30-60%</option>
-															<option value="in_bb_ws_access$60_100">Wireless Access > 60%</option>
-                                                            -->
-                                                            <option value="in_bb_dl_speed$7_0">Download Speed >= 25 mbps</option>
-                                                            <option value="in_bb_dl_speed$0_6">Download Speed < 25 mbps</option>
-                                                            <option value="in_bb_dl_speed$7_7">Download Speed 25 - 50 mbps</option>
-															<option value="in_bb_dl_speed$8_8">Download Speed 50 - 100 mbps</option>
-															<option value="in_bb_dl_speed$9_0">Download Speed > 100 mbps</option>
-															<option value="in_bb_ul_speed$2_0">Upload Speed >= 3 mbps
-															<option value="in_bb_ul_speed$0_2">Upload Speed < 3 mbps</option>
-															<option value="in_bb_ul_speed$2_5">Upload Speed 3 - 10 mbps</option>
-															<option value="in_bb_ul_speed$5_7">Upload Speed 10 - 25 mbps</option>
-                                                            <option value="in_bb_ul_speed$7_0">Upload Speed > 25 mbps</option>
-                                                        </select>                                                    
-                                                
-                                            </div>                                            
-                                        </div>
+                                    <div id="adv-select-broadband-section" class="row"> 
+                                        <div class="col-sm-5">
+                                            <div class="data-label">
+                                                 Broadband Filter:
+                                            </div>
+                                        </div>                                           
+                                        <div class="col-sm-7 no-left">
+                                                                                            
+                                                    <select id="adv-select-broadband" class="selectpicker select-advanced advanced-broadband">
+                                                        <option value="">None</option>															
+														<option value="in_bb_access$0_30">Broadband Access < 30%</option>
+														<option value="in_bb_access$30_60">Broadband Access 30-60%</option>
+														<option value="in_bb_access$60_80">Broadband Access 60-80%</option>   
+                                                        <option value="in_bb_access$80_100">Broadband Access > 80%</option>   
+                                                        <!--
+														<option value="in_bb_wn_access$0_30">Wireline Access < 30%</option>
+														<option value="in_bb_wn_access$30_60">Wireline Access 30-60%</option>
+														<option value="in_bb_wn_access$60_100">Wireline Access > 60%</option>
+														<option value="in_bb_ws_access$0_30">Wireless Access < 30%</option>
+														<option value="in_bb_ws_access$30_60">Wireless Access 30-60%</option>
+														<option value="in_bb_ws_access$60_100">Wireless Access > 60%</option>
+                                                        -->
+                                                        <option value="in_bb_dl_speed$7_0">Download Speed >= 25 mbps</option>
+                                                        <option value="in_bb_dl_speed$0_6">Download Speed < 25 mbps</option>
+                                                        <option value="in_bb_dl_speed$7_7">Download Speed 25 - 50 mbps</option>
+														<option value="in_bb_dl_speed$8_8">Download Speed 50 - 100 mbps</option>
+														<option value="in_bb_dl_speed$9_0">Download Speed > 100 mbps</option>
+														<option value="in_bb_ul_speed$2_0">Upload Speed >= 3 mbps
+														<option value="in_bb_ul_speed$0_2">Upload Speed < 3 mbps</option>
+														<option value="in_bb_ul_speed$2_5">Upload Speed 3 - 10 mbps</option>
+														<option value="in_bb_ul_speed$5_7">Upload Speed 10 - 25 mbps</option>
+                                                        <option value="in_bb_ul_speed$7_0">Upload Speed > 25 mbps</option>
+                                                    </select>                                                    
+                                            
+                                        </div>                                            
                                     </div>
 
                                     <hr class="panel-hr"/>
 
-                                    <div class="row row-space"> 
+                                    <div class="row"> 
                                         <div class="col-sm-6">
                                             <div class="data-label">
                                                  Demographics Filter:
                                             </div>
                                         </div>                                           
-                                        <div class="col-sm-6 data-left">
+                                        <div class="col-sm-6 no-left">
                                             <select id="hh-select-demographics" class="selectpicker select-advanced-2 advanced-demographics">
                                                 <option value="" selected="selected">None </option>
                                                 <optgroup label="Majority/Minority rural pop">
@@ -612,7 +604,9 @@
 									 <div class="row row-space">
                                         <div class="col-xs-10 data-label">Fixed Broadband Availability:</div>
                                         <div class="col-xs-2 slider-tooltip-div">
-                                            <i class="fa fa-question bb-tooltip" id="bb-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
+                                            <div class="pull-right">
+                                                <i class="fa fa-question bb-tooltip" id="bb-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
+                                            </div>
                                         </div>
                                      </div>									 
                                      <div class="row row-space">                                                                                      
@@ -651,48 +645,46 @@
 
                                     <hr class="panel-hr"/>
                                     
-                                    <div id="adv-select-health-section">
-                                        <div class="row"> 
-                                            <div class="col-sm-5">
-                                                <div class="data-label">
-                                                     Health Filter:
-                                                </div>
-                                            </div>                                           
-                                            <div class="col-sm-7 data-left">
-                                                        <select id="adv-select-health" class="selectpicker select-advanced advanced-health">
-                                                            <option value="">None</option>
-																<option value="in_pcp_access$0_0.0007">Physician Access < 70</option>
-																<option value="in_pcp_access$0.0007_0.001">Physician Access 70 - 100</option>
-																<option value="in_pcp_access$0.001_0.002">Physician Access > 100</option>
-																<option value="in_prv_hosp$0_60">Preventable Hospitalization < 60</option>
-																<option value="in_prv_hosp$60_100">Preventable Hospitalization 60 - 100</option>
-																<option value="in_prv_hosp$100_150">Preventable Hospitalization > 100</option>
-																<option value="in_sick_days$0_4">Sick Days < 4</option>
-																<option value="in_sick_days$4_6">Sick Days 4 - 6</option>
-																<option value="in_sick_days$6_10">Sick Days > 6</option>
-																<option value="in_obs_rate$0_30">Obesity < 30%</option>
-																<option value="in_obs_rate$30_35">Obesity 30 - 35%</option>
-																<option value="in_obs_rate$35_50">Obesity > 35%</option>
-																<option value="in_diabetes_rate$0_5">Diabetes < 5%</option>
-																<option value="in_diabetes_rate$5_10">Diabetes 5 - 10%</option>
-																<option value="in_diabetes_rate$10_20">Diabetes > 10%</option>
-																<option value="in_poorfair$0_15">Poor/Fair Health < 15%</option>
-																<option value="in_poorfair$15_30">Poor/Fair Health 15 - 30%</option>
-																<option value="in_poorfair$30_40">Poor/Fair Health > 30%</option>															
-                                                        </select>                                       
-                                            </div>                                            
-                                        </div>
+                                    <div id="adv-select-health-section" class="row"> 
+                                        <div class="col-sm-4">
+                                            <div class="data-label">
+                                                 Health Filter:
+                                            </div>
+                                        </div>                                           
+                                        <div class="col-sm-8">
+                                                    <select id="adv-select-health" class="selectpicker select-advanced-3 advanced-health">
+                                                        <option value="">None</option>
+															<option value="in_pcp_access$0_0.0007">Physician Access < 70</option>
+															<option value="in_pcp_access$0.0007_0.001">Physician Access 70 - 100</option>
+															<option value="in_pcp_access$0.001_0.002">Physician Access > 100</option>
+															<option value="in_prv_hosp$0_60">Preventable Hospitalization < 60</option>
+															<option value="in_prv_hosp$60_100">Preventable Hospitalization 60 - 100</option>
+															<option value="in_prv_hosp$100_150">Preventable Hospitalization > 100</option>
+															<option value="in_sick_days$0_4">Sick Days < 4</option>
+															<option value="in_sick_days$4_6">Sick Days 4 - 6</option>
+															<option value="in_sick_days$6_10">Sick Days > 6</option>
+															<option value="in_obs_rate$0_30">Obesity < 30%</option>
+															<option value="in_obs_rate$30_35">Obesity 30 - 35%</option>
+															<option value="in_obs_rate$35_50">Obesity > 35%</option>
+															<option value="in_diabetes_rate$0_5">Diabetes < 5%</option>
+															<option value="in_diabetes_rate$5_10">Diabetes 5 - 10%</option>
+															<option value="in_diabetes_rate$10_20">Diabetes > 10%</option>
+															<option value="in_poorfair$0_15">Poor/Fair Health < 15%</option>
+															<option value="in_poorfair$15_30">Poor/Fair Health 15 - 30%</option>
+															<option value="in_poorfair$30_40">Poor/Fair Health > 30%</option>															
+                                                    </select>                                       
+                                        </div>                                            
                                     </div>
 
                                     <hr class="panel-hr"/>
 
-                                    <div class="row row-space"> 
+                                    <div class="row"> 
                                         <div class="col-sm-6">
                                             <div class="data-label">
                                                  Demographics Filter:
                                             </div>
                                         </div>                                           
-                                        <div class="col-sm-6 data-left">
+                                        <div class="col-sm-6 no-left">
                                             <select id="bb-select-demographics" class="selectpicker select-advanced-2 advanced-demographics">
                                                 <option value="" selected="selected">None </option>
                                                 <optgroup label="Majority/Minority rural pop">
@@ -804,7 +796,7 @@
 											    Demographic Data: 
                                             </div>
 										</div>
-                                        <div class="col-sm-7 data-left">
+                                        <div class="col-sm-7 no-left">
                                             <div class="row">
                                                 <div class="col-xs-10">   
                                                     <select id="pop-sec-type" class="selectpicker select-pop">

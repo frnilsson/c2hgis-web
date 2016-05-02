@@ -576,8 +576,8 @@ function redoMap(type, filter, zindex) {
 
 function removeCount() {
 	
-	$('#in-count-stat-name').text('');
-	$('#in-count-stat-value').text('');
+	$('#in-count-stat-name').text('Population : ');
+	$('#in-count-stat-value').text(formatStat(geo_prop.pop_2014));
 	
 	if (map.hasLayer(map_overlays['in_count'])) {
 		map.removeLayer(map_overlays['in_count']);
@@ -1466,8 +1466,8 @@ function updateStats() {
 		$('#in-count-stat-value').text(count_stat_value);
 	}
 	else {
-		$('#in-count-stat-name').text('');
-		$('#in-count-stat-value').text('');
+		$('#in-count-stat-name').text('Population : ');
+		$('#in-count-stat-value').text(formatStat(geo_prop.pop_2014));
 	}
 	
 	// Health Stats

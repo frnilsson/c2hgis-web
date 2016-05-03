@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<!--
+ _____                             _   _____  _   _            _ _   _       _____ _____ _____ 
+/  __ \                           | | / __  \| | | |          | | | | |     |  __ \_   _/  ___|
+| /  \/ ___  _ __  _ __   ___  ___| |_`' / /'| |_| | ___  __ _| | |_| |__   | |  \/ | | \ `--. 
+| |    / _ \| '_ \| '_ \ / _ \/ __| __| / /  |  _  |/ _ \/ _` | | __| '_ \  | | __  | |  `--. \
+| \__/\ (_) | | | | | | |  __/ (__| |_./ /___| | | |  __/ (_| | | |_| | | | | |_\ \_| |_/\__/ /
+ \____/\___/|_| |_|_| |_|\___|\___|\__\_____/\_| |_/\___|\__,_|_|\__|_| |_|  \____/\___/\____/ 
+  
+-->
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connect2Health</title>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700|Lato:500" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">    
+    <link href="css/jcarousel.responsive.css" rel="stylesheet" />
+    <link href="css/icon-styles.css" rel="stylesheet">
+    <link href="css/app-theme.css" rel="stylesheet">
+    <link href="css/mapbox.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet"> 
+    <!--<link href="css/font-awesome.min.css" rel="stylesheet" >-->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
+
+    <link rel="stylesheet" href="css/bootstrap-select.min.css" />       
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page row-offcanvas row-offcanvas-right">
+        <header class="site-header">
+<div class="jumpLinks"> <a href="#skiptarget1" class="sr-only focusable">Skip to main content</a> <a href="#skiptarget3" class="sr-only focusable">Skip to footer and contact information</a> </div>
+    <nav role="navigation">
+        <div class="navbar navbar-default navbar-primary">
+            <div class="container">
+                <div class="navbar-header">
+                    <h1 class="navbar-brand">
+                  <a title="Home" href="http://fcc.gov" class="navbar-logo">
+                    <span class="sr-only">Federal Communications Commission</span>
+                  </a>
+                </h1>
+                </div>
+                <ul aria-hidden="true" id="menu-primary" class="nav navbar-nav nav-offcanvas-right">
+                    <li class="active">
+                        <a aria-controls="browse-by-category" href="index.html">
+                            <div class="text-prefix">Reports &amp; Research</div>
+                            <strong class="title-emphasis">Connect2Health</strong>
+                        </a>
+                    </li>
+                </ul>                
+            </div>
+        </div>
+		
+        <div aria-hidden="true" class="navbar-secondary navbar-default yamm nav-offcanvas nav-offcanvas-right">
+            <div id="menu-secondary" class="tab-content">
+                <div class="container tab-pane active" id="browse-by-category">
+                    <ul class="nav nav-tabs menu-secondary" role="navigation">
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="index.html" class="dropdown-toggle">
+                                    <span class="link-title dropdown-link-title">Interactive</span>
+                                </a>
+                            </li>
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="insights.html" class="dropdown-toggle active">
+                                    <span class="link-title dropdown-link-title">Insights</span>
+                                </a>
+                            </li>  
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="methodology.html" class="dropdown-toggle">
+                                    <span class="link-title dropdown-link-title">Methodology</span>
+                                </a>
+                            </li>                                                
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="data-sources.html" class="dropdown-toggle">
+                                    <span class="link-title dropdown-link-title">Data Sources</span>
+                                </a>
+                            </li>
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="community-engagement.html" class="dropdown-toggle">
+                                    <span class="link-title dropdown-link-title">Community Engagement</span>
+                                </a>
+                            </li>
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="task-force.html" class="dropdown-toggle">
+                                    <span class="dropdown-link-title link-title">Task Force</span>
+                                </a>
+                            </li>
+                        </ul>
+                    <!--.nav-tabs -->
+                </div>
+            </div>
+        </div>
+        <!-- .secondary-menu -->
+    </nav>
+</header>
+<div class="clearfix"></div>
+<a class="visuallyhidden" id="skiptarget1" tabindex="-1"></a>
+        <main class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="main-content">
+                    	<br/>
+						
+                        <h2>Preliminary Insights</h2>
+                        
+			            <p></p>
+                        <div class="panel-group" id="accordion-general" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="US-heading">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-general" href="#US" aria-expanded="false" aria-controls="general-collapse-1"><b>Nationwide Insights</b>&nbsp;<img src="img/icons/state-nationwide.png" class="state-insight-icon" /></a>
+                                    </h5>
+                                </div>
+                                <div id="US" class="panel-collapse collapse" role="tabpanel" aria-labelledby="US-heading">
+                                    <div class="panel-body">
+                                        <p>Because consumers rely on many different types of resources to manage their health and everyday lives, and as the focus broadens to include population health, it is becoming clear that future healthcare systems will not be confined to hospitals, nor will health services only be provided by physicians. Rather, through broadband-based tools clinicians, social services providers, pharmacies, grocery stores, and fitness centers, for example, can work collaboratively and seamlessly with each other (as well as with consumers and caregivers) to help individuals reduce disease, reach personal health goals, and otherwise optimize health outcomes – in a cohesive, interconnected health and care ecosystem.</p>
+                                        <p>These collaborative health and care ecosystems will be enabled by broadband network infrastructure that facilitates the “on demand” sharing of electronic information, facilitates the provision of “e”-services, and supports interactive communication among patients, consumers, and others assisting with their care needs. In this broadband-enabled world, everyone can be connected to the people, services, and information they need to get well and stay healthy.</p>
+                                        <p>To begin to understand the degree to which this future is emerging, and in order to identify potential gaps or issues, Task Force staff collected data about select broadband-based health and technology metrics in Virginia. The curated maps provide a summary of our ongoing research, observations, and preliminary insights. Because Virginia’s story, like that of our nation, continues to emerge and evolve each day, neither the maps nor the insights derived from them provide an exact representation of the actual state of affairs in the Commonwealth. They do, however, provide a snapshot or high-level overview of Virginia's health connectivity story. We also present data in the form of interactive maps that you can mix, match, and explore to generate your own insights under the tab entitled "Explore the Maps in Detail."</p>
+                                        <p>In the coming months, we plan to visit a number of other states and hope to share their narratives of health and connectivity. Join us as we journey and bring you the nation's health connectivity stories.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="FL-heading">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-general" href="#FL" aria-expanded="false" aria-controls="general-collapse-2"><b>Florida Insights</b>&nbsp;<img src="img/icons/state-florida.png" class="state-insight-icon" /></a>
+                                    </h5>
+                                </div>
+                                <div id="FL" class="panel-collapse collapse" role="tabpanel" aria-labelledby="FL-heading">
+                                    <div class="panel-body">
+                                        <p>Because consumers rely on many different types of resources to manage their health and everyday lives, and as the focus broadens to include population health, it is becoming clear that future healthcare systems will not be confined to hospitals, nor will health services only be provided by physicians. Rather, through broadband-based tools clinicians, social services providers, pharmacies, grocery stores, and fitness centers, for example, can work collaboratively and seamlessly with each other (as well as with consumers and caregivers) to help individuals reduce disease, reach personal health goals, and otherwise optimize health outcomes – in a cohesive, interconnected health and care ecosystem.</p>
+                                        <p>These collaborative health and care ecosystems will be enabled by broadband network infrastructure that facilitates the “on demand” sharing of electronic information, facilitates the provision of “e”-services, and supports interactive communication among patients, consumers, and others assisting with their care needs. In this broadband-enabled world, everyone can be connected to the people, services, and information they need to get well and stay healthy.</p>
+                                        <p>To begin to understand the degree to which this future is emerging, and in order to identify potential gaps or issues, Task Force staff collected data about select broadband-based health and technology metrics in Virginia. The curated maps provide a summary of our ongoing research, observations, and preliminary insights. Because Virginia’s story, like that of our nation, continues to emerge and evolve each day, neither the maps nor the insights derived from them provide an exact representation of the actual state of affairs in the Commonwealth. They do, however, provide a snapshot or high-level overview of Virginia's health connectivity story. We also present data in the form of interactive maps that you can mix, match, and explore to generate your own insights under the tab entitled "Explore the Maps in Detail."</p>
+                                        <p>In the coming months, we plan to visit a number of other states and hope to share their narratives of health and connectivity. Join us as we journey and bring you the nation's health connectivity stories.</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="MI-heading">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-general" href="#MI" aria-expanded="false" aria-controls="general-collapse-2"><b>Michigan Insights</b>&nbsp;<img src="img/icons/state-michigan.png" class="state-insight-icon" /></a>
+                                    </h5>
+                                </div>
+                                <div id="MI" class="panel-collapse collapse" role="tabpanel" aria-labelledby="MI-heading">
+                                    <div class="panel-body">
+                                        <p>Because consumers rely on many different types of resources to manage their health and everyday lives, and as the focus broadens to include population health, it is becoming clear that future healthcare systems will not be confined to hospitals, nor will health services only be provided by physicians. Rather, through broadband-based tools clinicians, social services providers, pharmacies, grocery stores, and fitness centers, for example, can work collaboratively and seamlessly with each other (as well as with consumers and caregivers) to help individuals reduce disease, reach personal health goals, and otherwise optimize health outcomes – in a cohesive, interconnected health and care ecosystem.</p>
+                                        <p>These collaborative health and care ecosystems will be enabled by broadband network infrastructure that facilitates the “on demand” sharing of electronic information, facilitates the provision of “e”-services, and supports interactive communication among patients, consumers, and others assisting with their care needs. In this broadband-enabled world, everyone can be connected to the people, services, and information they need to get well and stay healthy.</p>
+                                        <p>To begin to understand the degree to which this future is emerging, and in order to identify potential gaps or issues, Task Force staff collected data about select broadband-based health and technology metrics in Virginia. The curated maps provide a summary of our ongoing research, observations, and preliminary insights. Because Virginia’s story, like that of our nation, continues to emerge and evolve each day, neither the maps nor the insights derived from them provide an exact representation of the actual state of affairs in the Commonwealth. They do, however, provide a snapshot or high-level overview of Virginia's health connectivity story. We also present data in the form of interactive maps that you can mix, match, and explore to generate your own insights under the tab entitled "Explore the Maps in Detail."</p>
+                                        <p>In the coming months, we plan to visit a number of other states and hope to share their narratives of health and connectivity. Join us as we journey and bring you the nation's health connectivity stories.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="MS-heading">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-general" href="#MS" aria-expanded="false" aria-controls="general-collapse-2"><b>Mississippi Insights</b>&nbsp;<img src="img/icons/state-mississippi.png" class="state-insight-icon" /></a>
+                                    </h5>
+                                </div>
+                                <div id="MS" class="panel-collapse collapse" role="tabpanel" aria-labelledby="MS-heading">
+                                    <div class="panel-body">
+                                        <p>Because consumers rely on many different types of resources to manage their health and everyday lives, and as the focus broadens to include population health, it is becoming clear that future healthcare systems will not be confined to hospitals, nor will health services only be provided by physicians. Rather, through broadband-based tools clinicians, social services providers, pharmacies, grocery stores, and fitness centers, for example, can work collaboratively and seamlessly with each other (as well as with consumers and caregivers) to help individuals reduce disease, reach personal health goals, and otherwise optimize health outcomes – in a cohesive, interconnected health and care ecosystem.</p>
+                                        <p>These collaborative health and care ecosystems will be enabled by broadband network infrastructure that facilitates the “on demand” sharing of electronic information, facilitates the provision of “e”-services, and supports interactive communication among patients, consumers, and others assisting with their care needs. In this broadband-enabled world, everyone can be connected to the people, services, and information they need to get well and stay healthy.</p>
+                                        <p>To begin to understand the degree to which this future is emerging, and in order to identify potential gaps or issues, Task Force staff collected data about select broadband-based health and technology metrics in Virginia. The curated maps provide a summary of our ongoing research, observations, and preliminary insights. Because Virginia’s story, like that of our nation, continues to emerge and evolve each day, neither the maps nor the insights derived from them provide an exact representation of the actual state of affairs in the Commonwealth. They do, however, provide a snapshot or high-level overview of Virginia's health connectivity story. We also present data in the form of interactive maps that you can mix, match, and explore to generate your own insights under the tab entitled "Explore the Maps in Detail."</p>
+                                        <p>In the coming months, we plan to visit a number of other states and hope to share their narratives of health and connectivity. Join us as we journey and bring you the nation's health connectivity stories.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="OH-heading">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-general" href="#OH" aria-expanded="false" aria-controls="general-collapse-2"><b>Ohio Insights</b>&nbsp;<img src="img/icons/state-ohio.png" class="state-insight-icon" /></a>
+                                    </h5>
+                                </div>
+                                <div id="OH" class="panel-collapse collapse" role="tabpanel" aria-labelledby="OH-heading">
+                                    <div class="panel-body">
+                                        <p>Because consumers rely on many different types of resources to manage their health and everyday lives, and as the focus broadens to include population health, it is becoming clear that future healthcare systems will not be confined to hospitals, nor will health services only be provided by physicians. Rather, through broadband-based tools clinicians, social services providers, pharmacies, grocery stores, and fitness centers, for example, can work collaboratively and seamlessly with each other (as well as with consumers and caregivers) to help individuals reduce disease, reach personal health goals, and otherwise optimize health outcomes – in a cohesive, interconnected health and care ecosystem.</p>
+                                        <p>These collaborative health and care ecosystems will be enabled by broadband network infrastructure that facilitates the “on demand” sharing of electronic information, facilitates the provision of “e”-services, and supports interactive communication among patients, consumers, and others assisting with their care needs. In this broadband-enabled world, everyone can be connected to the people, services, and information they need to get well and stay healthy.</p>
+                                        <p>To begin to understand the degree to which this future is emerging, and in order to identify potential gaps or issues, Task Force staff collected data about select broadband-based health and technology metrics in Virginia. The curated maps provide a summary of our ongoing research, observations, and preliminary insights. Because Virginia’s story, like that of our nation, continues to emerge and evolve each day, neither the maps nor the insights derived from them provide an exact representation of the actual state of affairs in the Commonwealth. They do, however, provide a snapshot or high-level overview of Virginia's health connectivity story. We also present data in the form of interactive maps that you can mix, match, and explore to generate your own insights under the tab entitled "Explore the Maps in Detail."</p>
+                                        <p>In the coming months, we plan to visit a number of other states and hope to share their narratives of health and connectivity. Join us as we journey and bring you the nation's health connectivity stories.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="VA-heading">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-general" href="#VA" aria-expanded="false" aria-controls="general-collapse-2"><b>Virginia Insights</b>&nbsp;<img src="img/icons/state-virginia.png" class="state-insight-icon" /></a>
+                                    </h5>
+                                </div>
+                                <div id="VA" class="panel-collapse collapse" role="tabpanel" aria-labelledby="VA-heading">
+                                    <div class="panel-body">
+                                        <p>Because consumers rely on many different types of resources to manage their health and everyday lives, and as the focus broadens to include population health, it is becoming clear that future healthcare systems will not be confined to hospitals, nor will health services only be provided by physicians. Rather, through broadband-based tools clinicians, social services providers, pharmacies, grocery stores, and fitness centers, for example, can work collaboratively and seamlessly with each other (as well as with consumers and caregivers) to help individuals reduce disease, reach personal health goals, and otherwise optimize health outcomes – in a cohesive, interconnected health and care ecosystem.</p>
+                                        <p>These collaborative health and care ecosystems will be enabled by broadband network infrastructure that facilitates the “on demand” sharing of electronic information, facilitates the provision of “e”-services, and supports interactive communication among patients, consumers, and others assisting with their care needs. In this broadband-enabled world, everyone can be connected to the people, services, and information they need to get well and stay healthy.</p>
+                                        <p>To begin to understand the degree to which this future is emerging, and in order to identify potential gaps or issues, Task Force staff collected data about select broadband-based health and technology metrics in Virginia. The curated maps provide a summary of our ongoing research, observations, and preliminary insights. Because Virginia’s story, like that of our nation, continues to emerge and evolve each day, neither the maps nor the insights derived from them provide an exact representation of the actual state of affairs in the Commonwealth. They do, however, provide a snapshot or high-level overview of Virginia's health connectivity story. We also present data in the form of interactive maps that you can mix, match, and explore to generate your own insights under the tab entitled "Explore the Maps in Detail."</p>
+                                        <p>In the coming months, we plan to visit a number of other states and hope to share their narratives of health and connectivity. Join us as we journey and bring you the nation's health connectivity stories.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <br>                                            
+                    </div>
+                </div>                
+            </div>
+        </main>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-6">
+                                <a tabindex="-1" name="skiptarget3" id="skiptarget3" class="sr-only"></a>
+                                    <address class="contact-info">
+                                        Federal Communications Commission
+                                        <br> 445 12th Street SW, Washington, DC 20554
+                                        <br>
+                                    </address>
+                                    <ul class="contact-info contact-phone">
+                                        <li>
+                                            <a href="tel:+18882255322" class="phone-link">Phone: 1-888-225-5322</a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:+18888355322" class="phone-link">TTY: 1-888-835-5322</a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:+18444322275" class="phone-link">Videophone: 1-844-432-2275</a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:+18884185322" class="phone-link">Fax: 1-866-418-0232</a>
+                                        </li>
+                                    </ul>
+                                    <a href="#" class="contact-link btn-mobile">
+                                        Contact Us
+                                    </a>
+                                    <ul class="footer-links social-media-links">
+                                        <li>
+                                            <a title="" href="#" class="social-media twitter">Twitter</a>
+                                        </li>
+                                        <li>
+                                            <a title="" href="#" class="social-media facebook">Facebook</a>
+                                        </li>
+                                        <li>
+                                            <a title="" href="#" class="social-media youtube">Youtube</a>
+                                        </li>
+                                        <li>
+                                            <a title="" href="#" class="social-media flickr">Flickr</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12 col-sm-6">
+                                    <span class="fcc-seal hide-text">
+                                        Federal Communications Commission
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 visible-md-block visible-lg-block">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <ul class="footer-links footer-links-sitemap">
+                                        <li>
+                                            <a href="#">Website Policies &amp; Notices</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">FOIA</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">No Fear Act Data</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">FCC Digital Strategy</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Open Government Directive</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Plain Writing Act</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">RSS Feeds &amp; Email Updates</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Disability Rights</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-4">
+                                    <h4 class="footer-heading">Categories</h4>
+                                    <ul class="footer-links footer-links-categories">
+                                        <li>
+                                            <a href="#">About the FCC</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Proceedings &amp; Actions</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Licensing &amp; Databases</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Reports &amp; Research</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">News &amp; Events</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">For Consumers</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-4">
+                                    <h4 class="footer-heading">Bureaus &amp; Offices</h4>
+                                    <ul class="footer-links footer-links-bureaus-offices">
+                                        <li>
+                                            <a href="#">Consumer</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Enforcement</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">International</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Media</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Public Safety</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Wireless</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Wireline</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Offices</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-toolkit.min.js"></script>
+
+    
+   <script src="js/bootstrap-select.min.js"></script>   
+    
+    <script src="js/chart.js"></script>
+    
+    <!--<script src="./js/jquery.jcarousel.min.js"></script>
+    <script src="./js/jcarousel.responsive.js"></script>-->
+    <script src="js/jquery-color-animation-mainfile.js"></script>   
+
+    <script>
+        $(function(){
+            var hash = location.hash.replace("#","");
+            if (hash) {
+                var openInsight = '#' + hash ; 
+
+				//$('#US').collapse('hide');				
+                $(openInsight).collapse('show');
+            }
+			else {
+				$('#US').collapse('show');		
+			}
+        });
+    </script>
+
+</body>
+</html>

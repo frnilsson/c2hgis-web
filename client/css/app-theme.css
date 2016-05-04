@@ -4416,7 +4416,7 @@ table.datatab td {
 }
 
 a.external {
-    background: url(/img/external-link.png) center right no-repeat;
+    background: url(../img/external-link.png) center right no-repeat;
     padding-right: 14px;
 }
 

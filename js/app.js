@@ -8,20 +8,23 @@
   
 */
 
+
+
 /*** Development geoserver ***/
 
-/*
+var geo_request_type = 'json'; 
 var geo_host = 'http://gisp-geosrv-tc-dev.us-west-2.elasticbeanstalk.com';
 var geo_space = 'fcc';
-var geo_output = 'json';
-*/
+var geo_output = 'application/json';
+
 
 /*** ST geoserver ***/
-
+/*
+var geo_request_type = 'jsonp'; 
 var geo_host = 'http://kyauk.fcc.gov:8010/geoserver';
 var geo_space = 'fcc';
 var geo_output = 'json';
-
+*/
 
 /*** Production geoserver ***/
 /*
@@ -293,6 +296,7 @@ function getGeocode() {
 function getGeocodeCounty() {
 
 	geo_type = 'county';
+
 	var search_input = $('#input-county').val();  
 	var county_name = search_input.split(',')[0];
 	var state_abbr = search_input.split(',')[1].toUpperCase();
@@ -300,46 +304,89 @@ function getGeocodeCounty() {
 
 	var cql_filter_str = 'geography_desc+ILIKE+%27' + county_name + '%27+AND+geography_id+LIKE+%27' + state_fips + '%25%27';
 
-	var geocode_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=1&outputFormat=json&cql_filter=' + cql_filter_str + '&format_options=callback:callbackData&callback=callbackData';
+	var geocode_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=' + cql_filter_str;
 	
+	if(geo_request_type == 'jsonp'){
+		geocode_url = geocode_url + '&format_options=callback:callbackData';
+	}	
+
 	//console.log("search_county:"+search_input);
 	//console.log("state_fips:"+state_fips);
     //console.log('geocode_url : '+ geocode_url );  
 
-    $.ajax({
-        type: 'GET',
-        url: geocode_url,
-        dataType: 'jsonp',
-        jsonpCallback: 'callbackData',
-        success: function(data) {
+    if(geo_request_type == 'jsonp'){
+    	$.ajax({
+	        type: 'GET',
+	        url: geocode_url,
+	        dataType: geo_request_type,
+	        jsonpCallback: 'callbackData',
+	        success: function(data) {
 
-            //console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
-                        
-            if (data.features[0]) {                      
-                
-                var geo_bounds = data.features[0].bbox;
-                
-                if(geo_bounds){
-                	map.fitBounds([
-                    	[geo_bounds[1], geo_bounds[0]],
-                    	[geo_bounds[3], geo_bounds[2]]
-                	]);	
-                }
-                
-                geo_lat = data.features[0].properties.centroid.coordinates[1];
-				geo_lng = data.features[0].properties.centroid.coordinates[0];	
-				//console.log("geo-lat:"+geo_lat); 
-				getData();         
-            }
-            else {
-                window.alert('County not found.');
-            }           
-        },
-        error: function (request, status, error) {
-            
-            window.alert('County not found.');
-        }
-    }); 
+	            //console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
+	                        
+	            if (data.features[0]) {                      
+	                
+	                var geo_bounds = data.features[0].bbox;
+	                
+	                if(geo_bounds){
+	                	map.fitBounds([
+	                    	[geo_bounds[1], geo_bounds[0]],
+	                    	[geo_bounds[3], geo_bounds[2]]
+	                	]);	
+	                }
+	                
+	                geo_lat = data.features[0].properties.centroid.coordinates[1];
+					geo_lng = data.features[0].properties.centroid.coordinates[0];	
+					//console.log("geo-lat:"+geo_lat); 
+					getData();         
+	            }
+	            else {
+	                window.alert('County not found.');
+	            }           
+	        },
+	        error: function (request, status, error) {
+	            
+	            window.alert('County not found.');
+	        }
+	    }); 
+    }
+    else {
+    	$.ajax({
+	        type: 'GET',
+	        url: geocode_url,
+	        dataType: geo_request_type,	        
+	        success: function(data) {
+
+	            //console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
+	                        
+	            if (data.features[0]) {                      
+	                
+	                var geo_bounds = data.features[0].bbox;
+	                
+	                if(geo_bounds){
+	                	map.fitBounds([
+	                    	[geo_bounds[1], geo_bounds[0]],
+	                    	[geo_bounds[3], geo_bounds[2]]
+	                	]);	
+	                }
+	                
+	                geo_lat = data.features[0].properties.centroid.coordinates[1];
+					geo_lng = data.features[0].properties.centroid.coordinates[0];	
+					//console.log("geo-lat:"+geo_lat); 
+					getData();         
+	            }
+	            else {
+	                window.alert('County not found.');
+	            }           
+	        },
+	        error: function (request, status, error) {
+	            
+	            window.alert('County not found.');
+	        }
+	    }); 
+    }
+
+    
 }   
 
 function searchLocation() {
@@ -1039,25 +1086,41 @@ function getData() {
 	//console.log(' zoom_layer_type : ' + zoom_layer_type );
 	//console.log('getData data_type : ' + data_type );	
 	
-	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ data_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))&format_options=callback:callbackData';
+	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ data_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))';
 	
+	if(geo_request_type == 'jsonp'){
+		data_url = data_url + '&format_options=callback:callbackData';
+	}
 	//console.log('getData data_url : ' + data_url );
+
+	if(geo_request_type == 'jsonp'){
+		$.ajax({
+			type: 'GET',
+			url: data_url,
+			dataType: geo_request_type,			
+			jsonpCallback: 'callbackData',
+			success: function(data) {
+				processData(data);
+			}
+		});
+	}	
+	else {
+		$.ajax({
+			type: 'GET',
+			url: data_url,
+			dataType: geo_request_type,			
+			success: function(data) {
+				processData(data);
+			}
+		});
+
+	}
 	
-	$.ajax({
-		type: 'GET',
-		url: data_url,
-		//dataType: 'json',
-		dataType: 'jsonp',
-		jsonpCallback: 'callbackData',
-		success: function(data) {
-			processData(data);
-		}
-	});
 }
 
 function processData(data) {
 		
-	//console.log('Inside processData : ' + JSON.stringify(data) );	
+	//*//console.log('Inside processData : ' + JSON.stringify(data) ); *//
 	//console.log('inside processData features: '+data.features.length);		
 
 	if (data.features){
@@ -1901,31 +1964,57 @@ function generateMenu(){
 			var county = request.term;
 			//console.log("entered county:"+county);
 
-			var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=35&outputFormat=json&cql_filter=geography_desc+ILIKE+%27' + county + '%25%27&format_options=callback:callbackData&callback=callbackData';
-	
-			//console.log('county data_url : ' + data_url );
+			var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=35&outputFormat='+ geo_output +'&cql_filter=geography_desc+ILIKE+%27' + county + '%25%27';
 			
-			$.ajax({
-				type: 'GET',
-				url: data_url,
-				//dataType: 'json',
-				dataType: 'jsonp',
-				jsonpCallback: 'callbackData',
-				success: function(data) {
-					//console.log('before data='+data)
-					var ft = data.features;
-					var autoresults = [];
-					for (var i = 0; i < ft.length; i++) {
-						var abbr = states_data[ft[i].properties.geography_id.substring(0,2)].abbr;
-						autoresults.push({
-							'label' : ''+ ft[i].properties.geography_desc +', '+ abbr,
-							'value' : ft[i].properties.centroid.coordinates
-						});
-					}					
-					//console.log( 'autoresults : ' + JSON.stringify(autoresults) );
-					response(autoresults);
-				}
-			});
+			if(geo_request_type == 'jsonp'){
+				data_url = data_url + '&format_options=callback:callbackData';
+			}
+
+			//console.log('county autocomplete data_url : ' + data_url );
+
+			if(geo_request_type == 'jsonp'){
+				$.ajax({
+					type: 'GET',
+					url: data_url,
+					dataType: geo_request_type,
+					jsonpCallback: 'callbackData',
+					success: function(data) {
+						//console.log('before data='+data)
+						var ft = data.features;
+						var autoresults = [];
+						for (var i = 0; i < ft.length; i++) {
+							var abbr = states_data[ft[i].properties.geography_id.substring(0,2)].abbr;
+							autoresults.push({
+								'label' : ''+ ft[i].properties.geography_desc +', '+ abbr,
+								'value' : ft[i].properties.centroid.coordinates
+							});
+						}					
+						//console.log( 'autoresults : ' + JSON.stringify(autoresults) );
+						response(autoresults);
+					}
+				});
+			}
+			else {
+				$.ajax({
+					type: 'GET',
+					url: data_url,
+					dataType: geo_request_type,					
+					success: function(data) {
+						//console.log('before data='+data)
+						var ft = data.features;
+						var autoresults = [];
+						for (var i = 0; i < ft.length; i++) {
+							var abbr = states_data[ft[i].properties.geography_id.substring(0,2)].abbr;
+							autoresults.push({
+								'label' : ''+ ft[i].properties.geography_desc +', '+ abbr,
+								'value' : ft[i].properties.centroid.coordinates
+							});
+						}					
+						//console.log( 'autoresults : ' + JSON.stringify(autoresults) );
+						response(autoresults);
+					}
+				});
+			}	
         },
         minLength: 3,
 		focus: function(event, ui) {

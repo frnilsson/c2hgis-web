@@ -10,15 +10,23 @@
 
 
 
-/*** Development geoserver ***/
-
+/*** DEV GeoServer ***/
+/*
 var geo_request_type = 'json'; 
 var geo_host = 'http://gisp-geosrv-tc-dev.us-west-2.elasticbeanstalk.com';
 var geo_space = 'fcc';
 var geo_output = 'application/json';
+*/
+
+/*** TEST GeoServer ***/
+
+var geo_request_type = 'json'; 
+var geo_host = 'http://gisp-geosrv-tc-test.us-west-2.elasticbeanstalk.com';
+var geo_space = 'fcc';
+var geo_output = 'application/json';
 
 
-/*** ST geoserver ***/
+/*** ST GeoServer ***/
 /*
 var geo_request_type = 'jsonp'; 
 var geo_host = 'http://kyauk.fcc.gov:8010/geoserver';
@@ -26,7 +34,7 @@ var geo_space = 'fcc';
 var geo_output = 'json';
 */
 
-/*** Production geoserver ***/
+/*** PROD GeoServer ***/
 /*
 var geo_host = 'https://www.broadbandmap.gov/geoserver';
 var geo_space = 'fcc';

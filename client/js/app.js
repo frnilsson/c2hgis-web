@@ -88,7 +88,8 @@ function createMap() {
 	 
      map = L.mapbox.map('map', 'fcc.k74ed5ge', {
              attributionControl: true,
-             maxZoom: 19
+             maxZoom: 19,
+             minZoom: 3
          })
          .setView([40, -95], 4);    
 

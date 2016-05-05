@@ -1734,8 +1734,16 @@ function generateMenu(){
     });
 
     $('#input-county-search').on('click', function(e) {
+        var search_input = $('#input-county').val();
+
         e.preventDefault();
-        getGeocodeCounty();
+		
+		if (search_input.split(',')[1] === undefined) {
+			window.alert('Invalid input. Please modify your search term.');
+			$('#input-county').val('');
+		} else {
+			getGeocodeCounty();
+		}
     });
 
     $(document).keypress(function(e) {      

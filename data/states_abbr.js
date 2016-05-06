@@ -17,7 +17,7 @@ var states_abbr = {
                 
 	"AK": {
 		"name": "Alaska",
-		"fips": "03"
+		"fips": "02"
                 },		                
                 
 	"AZ": {
@@ -107,7 +107,7 @@ var states_abbr = {
 		"fips": "22"
                 },		
 				
-	"NE": {
+	"ME": {
 		"name": "Maine",
 		"fips": "23"
                 },	

@@ -255,12 +255,8 @@ function getGeocode() {
 	if (!/united states/i.test(search_input)){
 		search_input = search_input + ', United States';
 	}
-	//console.log('search_input : '+ search_input );  
-    
-	var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
 
-	//console.log("search_input:"+search_input);
-    //console.log('geocode_url : '+ geocode_url );  
+	var geocode_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/'+ encodeURIComponent(search_input) +'.json?access_token='+ mb_accessToken;
     
     $.ajax({
         type: 'GET',
@@ -268,9 +264,7 @@ function getGeocode() {
         dataType: 'json',
         success: function(data) {
 
-            //console.log('geocode_url data : '+ JSON.stringify(data.features[0]) );    
-                        
-            if (data.features[0]) {                      
+            if (data.features[0].place_name !== 'United States') {
                 
                 var geo_bounds = data.features[0].bbox;
                 
@@ -288,16 +282,16 @@ function getGeocode() {
 
                 geo_lat = data.features[0].center[1];
 				geo_lng = data.features[0].center[0];	
-				//console.log("geo-lat:"+geo_lat); 
+				
 				getData();         
             }
             else {
-                window.alert('Search results not found.');
+                window.alert('Location not found.');
             }           
         },
         error: function (request, status, error) {
             
-            window.alert('Search results not found.');
+            window.alert('Location not found.');
         }
     }); 
 }   
@@ -311,17 +305,13 @@ function getGeocodeCounty() {
 	var state_abbr = search_input.split(',')[1].toUpperCase();
 	var state_fips = states_abbr[state_abbr.trim()].fips;
 
-	var cql_filter_str = 'geography_desc+ILIKE+%27' + county_name + '%27+AND+geography_id+LIKE+%27' + state_fips + '%25%27';
+	var cql_filter_str = 'geography_desc+ILIKE+%27' + county_name.replace(/'/g, "%27%27") + '%27+AND+geography_id+LIKE+%27' + state_fips + '%25%27';
 
 	var geocode_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=' + cql_filter_str;
 	
 	if(geo_request_type == 'jsonp'){
 		geocode_url = geocode_url + '&format_options=callback:callbackData';
 	}	
-
-	//console.log("search_county:"+search_input);
-	//console.log("state_fips:"+state_fips);
-    //console.log('geocode_url : '+ geocode_url );  
 
     if(geo_request_type == 'jsonp'){
     	$.ajax({
@@ -1738,19 +1728,12 @@ function generateMenu(){
 
         e.preventDefault();
 		
-		if (search_input.split(',')[1] === undefined) {
-			window.alert('Invalid input. Please modify your search term.');
-			$('#input-county').val('');
-		} else {
+		if (search_input.split(',')[1] !== undefined) {
 			getGeocodeCounty();
+		} else {
+			window.alert('Please enter a valid county and state abbreviation.');
 		}
-    });
-
-    $(document).keypress(function(e) {      
-        if (e.which === 13) {         
-            getGeocode();
-        }
-    });
+    }); 
      
     // nationwide
     $('#btn-geo-nation').on('click', function() {

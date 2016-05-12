@@ -460,10 +460,10 @@ var health_ly = {
 
 var broadband_ly = {
 	wn_dl: {
-		tooltip: 'Percent of population with access to 25 mbps advertised wireline download speeds.'
+		tooltip: 'Percent of population with access to fixed broadband service at 25 mbps or higher advertised download speeds.'
 	},	
 	wn_ul: {
-		tooltip: 'Percent of population with access to 3 mbps advertised wireline upload speeds.'
+		tooltip: 'Percent of population with access to fixed broadband service at 3 mbps advertised upload speeds.'
 	},
 	ws_dl: {
 		tooltip: 'Percent of population with access to 25 mbps advertised wireless download speeds.'

@@ -34,11 +34,11 @@ var chart_obj = {
 		}
 	},
 	population: {
-		gender: {
+		/*gender: {
 			chart: null,
 			data: null,
 			options: null
-		},
+		},*/
 		ruralurban: {
 			chart: null,
 			data: null,
@@ -269,16 +269,17 @@ function createCharts() {
 		if (chart_obj.broadband.num_providers.chart) {
 			chart_obj.broadband.num_providers.chart.destroy();
 		}
+		/*
 		if (chart_obj.population.gender.chart) {
 			chart_obj.population.gender.chart.destroy();
-		}
+		}*/
 		if (chart_obj.population.ruralurban.chart) {
 			chart_obj.population.ruralurban.chart.destroy();
 		}
 		
 		// ***********************************************************
 		// chart - Download Tiers
-		
+		/*
 		if (current_slide == 2) {		
 		
 			chart_obj.population.gender.data = [
@@ -306,19 +307,19 @@ function createCharts() {
 			chart_obj.population.gender.chart = new Chart(document.getElementById('ch-canvas-population-2').getContext('2d')).Doughnut(chart_obj.population.gender.data, chart_obj.population.gender.options);		
 			
 			 $('#ch-legend-population-2').html( chart_obj.population.gender.chart.generateLegend() );	
-		}
+		}*/
 		if (current_slide == 1) {		
 		
 			chart_obj.population.ruralurban.data = [
 			   {
 				  value: geo_prop.rural_total,
 				  label: 'Rural',
-				  color: '#05ad28'
+				  color: '#71DAD6'
 			   },
 			   {
 				  value: geo_prop.urban_total,
 				  label: 'Urban',
-				  color: '#fffc1e'
+				  color: '#3D59D7'
 			   }				   
 			];
 			

@@ -11,20 +11,20 @@
 
 
 /*** DEV GeoServer ***/
-/*
+
 var geo_request_type = 'json'; 
 var geo_host = 'http://gisp-geosrv-tc-dev.us-west-2.elasticbeanstalk.com';
 var geo_space = 'fcc';
 var geo_output = 'application/json';
-*/
+
 
 /*** TEST GeoServer ***/
-
+/*
 var geo_request_type = 'json'; 
 var geo_host = 'http://gisp-geosrv-tc-test.us-west-2.elasticbeanstalk.com';
 var geo_space = 'fcc';
 var geo_output = 'application/json';
-
+*/
 
 /*** ST GeoServer ***/
 /*
@@ -213,8 +213,8 @@ function createMap() {
 
 		geo_lat = e.latlng.lat;
 		geo_lng = e.latlng.lng;		
-		var zoom = map.getZoom();	
-		//console.log("click zoom:"+zoom);
+		//var zoom = map.getZoom();	
+		////console.log("click zoom:"+zoom);
 		getData();
 	});		 
 }
@@ -1559,7 +1559,7 @@ function updateStats() {
 	$('.geog-drin').text(formatStatAppend(geo_prop.drinking_pct, 1, '%'));
 	$('.geog-inac').text(formatStatAppend(geo_prop.physical_inactivity, 1, '%'));
 	//$('.geog-inse').text(formatStatAppend(geo_prop.physical_inactivity, 3, '%'));	
-	$('.geog-severehousing').text(formatStatAppend(geo_prop.severe_housing_problems, 1, '%'));
+	//$('.geog-severehousing').text(formatStatAppend(geo_prop.severe_housing_problems, 1, '%'));
 	
 	// Broadband Stats
 	$('.geog-provcount').text(formatStat(geo_prop.provcount_c) );
@@ -1589,6 +1589,7 @@ function updateStats() {
 	$('.geog-pop-over65').text(formatStatAppend(geo_prop.age_over_65_pct, 2, '%'));	
 	$('.geog-pop-somecollege').text(formatStatAppend(geo_prop.some_college, 2, '%'));	
 	$('.geog-pop-unemploy').text(formatStatAppend(geo_prop.unemployment, 2, '%'));	
+	$('.geog-pop-medianhhinc').text(formatStat(geo_prop.medianhhinc, 0));	
 }
 
 function formatStat(input, decimal) {	

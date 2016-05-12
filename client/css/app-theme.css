@@ -3761,14 +3761,14 @@ a.gen-passcode {
 }
 
 .panel-sec-heading {
-    color: #2c75d6;
+    border: 0;
+    color: #266AD0;
+    /*#2c75d6;*/
     font-weight: bold;
-    font-size: 20px;
-    vertical-align: middle;
-    line-height: 30px;
-    padding: 0;
-    letter-spacing: 1px;
-    margin: 5px 0;
+    display: inline-block;    
+    margin-top: 0px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
 }
 
 .panel-sec-sub {
@@ -3791,7 +3791,7 @@ a.gen-passcode {
 #insights-stats-div {}
 
 #pop-stats-div {
-    height: 190px;
+    height: 240px;
     overflow-y: auto;
     margin-right: 0px;
 }
@@ -3881,7 +3881,8 @@ a.gen-passcode {
 }
 
 .select-advanced {
-    width: 230px !important;
+    width: 100% !important;
+    min-width: 230px;
     display: inline-block;
 }
 
@@ -3891,7 +3892,8 @@ a.gen-passcode {
 }
 
 .select-advanced-3 {
-    width: 250px !important;
+    width: 100% !important;
+    min-width: 250px;
     display: inline-block;
 }
 
@@ -3916,7 +3918,8 @@ a.gen-passcode {
 }
 
 .select-pop {
-    width: 205px !important;
+    width: 100% !important;
+    min-width: 205px;
     display: inline-block;
 }
 
@@ -4132,9 +4135,14 @@ a.gen-passcode {
     height: 36px;
 }
 
+.btn-primary {
+    letter-spacing: 0.5px;
+}
 .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary {
     background-color: #1E5194 !important;
-    letter-spacing: 1px;
+}
+.btn-primary.active,.btn-primary:active {
+    font-weight: bold;
 }
 
 filter-select {
@@ -4245,11 +4253,6 @@ filter-select {
     font-size: 20px;
     vertical-align: middle;
     line-height: 35px;
-}
-
-.btn-primary.active,
-.btn-primary:active {
-    font-weight: bold;
 }
 
 .state-insight-icon {
@@ -4432,6 +4435,9 @@ a.external {
 .bootstrap-select.btn-group .dropdown-menu li a.opt {
     padding-left: 18px !important;
 }
+.col-sm-12 .col-xs-7 {
+     padding-right: 0px !important;
+}
 .no-left {
     padding-left: 0px !important;
 }
@@ -4441,4 +4447,8 @@ a.external {
 .no-padding {
     padding-left: 0px !important;
     padding-right: 0px !important;
+}
+.bb-subtype {
+    font-size: 12px !important;
+    display: block;
 }

@@ -463,7 +463,7 @@ var broadband_ly = {
 		tooltip: 'Percent of population with access to fixed broadband service at 25 mbps or higher advertised download speeds.'
 	},	
 	wn_ul: {
-		tooltip: 'Percent of population with access to fixed broadband service at 3 mbps advertised upload speeds.'
+		tooltip: 'Percent of population with access to fixed broadband service at 3 mbps or higher advertised upload speeds.'
 	},
 	ws_dl: {
 		tooltip: 'Percent of population with access to 25 mbps advertised wireless download speeds.'
@@ -644,3 +644,20 @@ var bb_speed_tiers = {
 		max: '> 1,000'
 	}
 };
+var bb_adoption_tiers = {
+	1: {
+		range: '0 - 20'
+	},
+	2: {
+		range: '20 - 40'
+	},
+	3: {
+		range: '40 - 60'
+	},
+	4: {
+		range: '60 - 80'
+	},
+	5: {
+		range: '80 - 100'
+	}
+}	

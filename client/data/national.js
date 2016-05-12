@@ -24,7 +24,7 @@ var national_data = {
 				geography_type: "national",
 				geography_id: "99",
 				geography_desc: "national",
-				res_concxns_pct: 85.3,
+				res_concxns_pct: 5,
 				pctpopwbbacc: 90.2,
 				pctpopwobbacc: 9.8,
 				pctds0_hi: 0,

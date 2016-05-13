@@ -3773,8 +3773,9 @@ a.gen-passcode {
 
 .panel-sec-sub {
     color: #888888;
-    font-size: 18px;
+    font-size: 16px;
     text-decoration: underline;
+    font-weight: bold;
 }
 
 #health-stats-div {

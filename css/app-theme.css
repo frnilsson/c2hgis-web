@@ -3786,6 +3786,7 @@ a.gen-passcode {
 #broadband-stats-div {
     height: 160px;
     overflow-y: auto;
+    margin-right: 0px;
 }
 
 #insights-stats-div {}

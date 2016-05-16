@@ -225,31 +225,7 @@
                                     <div class="row row-space">                                        
                                         <div id="slider-health" class="slider-bar"></div>
                                     </div>
-                                    <div class="row row-space"> 
-                                        <div class="col-sm-5">
-                                            <div class="data-label">
-                                                 <label for="ov-select-demographics">Rural Filter:</label>
-                                            </div>
-                                        </div>                                           
-                                        <div class="col-sm-7 no-left">
-                                            <select id="ov-select-demographics" class="selectpicker select-advanced advanced-demographics">
-                                                <option value="" selected="selected">None </option>
-                                                <optgroup label="Majority/Minority rural pop">
-                                                    <option value="pop_urbanrural$0_50">Less than 50% rural pop. </option>
-                                                    <option value="pop_urbanrural$50_100.1">Greater than 50% rural pop. </option>
-                                                </optgroup>
-                                                <optgroup label="Rural pop quintiles">
-                                                    <option value="pop_urbanrural$0_20" data-content="0 &leq; rural pop. &lt; 20%"></option>
-                                                    <option value="pop_urbanrural$20_40" data-content="20% &leq; rural pop. &lt; 40%"></option>
-                                                    <option value="pop_urbanrural$40_60" data-content="40% &leq; rural pop. &lt; 60%"></option>
-                                                    <option value="pop_urbanrural$60_80" data-content="60% &leq; rural pop. &lt; 80%"></option>
-                                                    <option value="pop_urbanrural$80_100.1" data-content="80% &leq; rural pop. &leq; 100%"></option>
-                                                </optgroup>
-                                            </select>
-                                        </div>                                            
-                                    </div>
-                                    <br/>
-                                    <div class="row row-space">
+                                    <div class="row row-space" style="margin-top:10px;">
                                         <div class="col-sm-3 legend-label">
                                             <div class="text-center">
                                                 <span class="legend-sym" style="background-color: #b2caf0; "></span>
@@ -274,6 +250,30 @@
                                                 <br/>Neither
                                             </div>
                                         </div>
+                                    </div>
+                                    <hr class="panel-hr"/>
+                                    <div class="row row-space"> 
+                                        <div class="col-sm-5">
+                                            <div class="data-label">
+                                                 <label for="ov-select-demographics">Rural Filter:</label>
+                                            </div>
+                                        </div>                                           
+                                        <div class="col-sm-7 no-left">
+                                            <select id="ov-select-demographics" class="selectpicker select-advanced advanced-demographics">
+                                                <option value="" selected="selected">None </option>
+                                                <optgroup label="Majority/Minority rural pop">
+                                                    <option value="pop_urbanrural$0_50">Less than 50% rural pop. </option>
+                                                    <option value="pop_urbanrural$50_100.1">Greater than 50% rural pop. </option>
+                                                </optgroup>
+                                                <optgroup label="Rural pop quintiles">
+                                                    <option value="pop_urbanrural$0_20" data-content="0 &leq; rural pop. &lt; 20%"></option>
+                                                    <option value="pop_urbanrural$20_40" data-content="20% &leq; rural pop. &lt; 40%"></option>
+                                                    <option value="pop_urbanrural$40_60" data-content="40% &leq; rural pop. &lt; 60%"></option>
+                                                    <option value="pop_urbanrural$60_80" data-content="60% &leq; rural pop. &lt; 80%"></option>
+                                                    <option value="pop_urbanrural$80_100.1" data-content="80% &leq; rural pop. &leq; 100%"></option>
+                                                </optgroup>
+                                            </select>
+                                        </div>                                            
                                     </div>
                                     <div class="row row-space">
                                         <div class="col-sm-12 data-label">
@@ -758,7 +758,7 @@
                                         </div>                                
                                         <div class="row col-sm-12">                                            
                                             <div class="col-xs-7 text-right">
-                                                 Adoption Percentile :
+                                                 Adoption :
                                             </div>
                                             <div class="col-xs-5 geog-adoptpct">                                                 
                                             </div>

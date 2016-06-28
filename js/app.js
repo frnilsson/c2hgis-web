@@ -11,20 +11,20 @@
 
 
 /*** DEV GeoServer ***/
-/*
+
 var geo_request_type = 'json'; 
 var geo_host = 'http://gisp-geosrv-tc-dev.us-west-2.elasticbeanstalk.com';
 var geo_space = 'fcc';
 var geo_output = 'application/json';
-*/
+
 
 /*** TEST GeoServer ***/
-
+/*
 var geo_request_type = 'json'; 
 var geo_host = 'https://geo.fcc.gov';
 var geo_space = 'fcc';
 var geo_output = 'application/json';
-
+*/
 
 /*** ST GeoServer ***/
 /*
@@ -766,7 +766,7 @@ function setupBroadbandTab() {
 
 	var demo_filter = getDemoFilter('bb');
 	
-	//console.log(' type : '+ type  );
+	//console.log('checked type : '+ type  );
 	//console.log("adv_selection : "+adv_selection);
 	//console.log("demo_filter : "+demo_filter);
 
@@ -823,7 +823,8 @@ function setupBroadbandTab() {
 		in_layers = ''+ geo_space +':c2hgis_'+ zoom_layer_type;
 		in_styles = ''+ 'bb_combo_'+ type + '_' + zoom_layer_type + '_all';
 	} 
-	//console.log("#in_layers="+in_layers+",filter="+filter);
+	//console.log("#in_layers="+in_layers);
+	//console.log("#in_styles="+in_styles);
 	if(filter != '') {
 		map_overlays['broadband_ov'] = L.tileLayer.wms( geo_host + '/' + geo_space + '/wms?', {
 			format: 'image/png',
@@ -1153,6 +1154,8 @@ function setDownloadLinks() {
 	if (data_type != 'national') {	
 		download_filter = '&cql_filter=geography_id=\''+ geo_prop.geography_id + '\'';
 	}
+
+	//console.log('download links : geo_space='+geo_space+', download_layer='+download_layer+', download_filter='+download_filter);
 	
 	$('#download-data-json').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=json&typeName='+ geo_space +':'+ download_layer + download_filter );
 	$('#download-data-xml').attr('href', geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=1&outputFormat=GML3&typeName='+ geo_space +':'+ download_layer + download_filter );
@@ -1462,6 +1465,9 @@ function updateStats() {
 	
 	if ((broadband_sel == 'in_bb_dl_speed') || (broadband_sel == 'in_bb_ul_speed')) {
 		broadband_stat_value = bb_speed_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range + ' ' + insight_ly.broadband[broadband_sel].suffix;
+	}
+	else if (broadband_sel == 'in_bb_in_adoption'){
+		broadband_stat_value = bb_adoption_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range + insight_ly.broadband[broadband_sel].suffix;
 	}
 	else {
 		broadband_stat_value = formatStat(geo_prop[insight_ly.broadband[broadband_sel].column]) + insight_ly.broadband[broadband_sel].suffix;

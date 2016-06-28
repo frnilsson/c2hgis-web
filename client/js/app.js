@@ -11,20 +11,20 @@
 
 
 /*** DEV GeoServer ***/
-
+/*
 var geo_request_type = 'json'; 
 var geo_host = 'http://gisp-geosrv-tc-dev.us-west-2.elasticbeanstalk.com';
 var geo_space = 'fcc';
 var geo_output = 'application/json';
-
+*/
 
 /*** TEST GeoServer ***/
-/*
+
 var geo_request_type = 'json'; 
 var geo_host = 'https://geo.fcc.gov';
 var geo_space = 'fcc';
 var geo_output = 'application/json';
-*/
+
 
 /*** ST GeoServer ***/
 /*

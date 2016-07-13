@@ -459,9 +459,10 @@ function createSlider() {
 	updateSlider('health');
 	
 	$('.select-insight').on('change', function() {
-	
-        var cur_type = $(this).attr('id').split('-')[2];		
-		//console.log(' cur_type : ' + cur_type );
+		//console.log('on change of insight: '+$(this).attr('id'));
+		var select_id = $(this).attr('id');
+        var cur_type = select_id.split('-')[2];		
+		//console.log('insight cur_type : ' + cur_type );
 		
 		updateSlider(cur_type);			
 		updateStats();	
@@ -874,7 +875,7 @@ function setDemographicFilter() {
 	
 	var filter = column + '>=' + low + ' AND ' + column + '<=' + high;
 	if(column == 'res_concxns_pct') {
-		filter = column + '>' + high + ' AND ' + column + '<=' + high;
+		filter = column + '>' + low + ' AND ' + column + '<=' + high;
 	}
 
 	if(demo_filter != ''){

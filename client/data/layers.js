@@ -114,7 +114,7 @@ var insight_ly = {
 			column: 'pcp_per_capita',
 			unit: 'p100000',
 			min: 0,
-			max: 0.0048,
+			max: 0.005,
 			multiple: 100000,
 			zindex: 90,
 			step: 0.0002,

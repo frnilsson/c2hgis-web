@@ -57,7 +57,7 @@ function createCharts() {
 			labels: ["Obesity", "Diabetes", "Smoking", "Excessive Drinking", "Physical Inactivity", "Severe Housing"],
 			datasets: [
 				{
-					label: "Health Behaviors",
+					label: "Health Behaviors", 
 					fillColor: "rgba(220,220,220,0.2)",
 					strokeColor: "rgba(186,12,12,0.5)",
 					pointColor: "rgba(186,12,12,1)",

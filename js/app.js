@@ -36,9 +36,10 @@ var geo_output = 'json';
 
 /*** PROD GeoServer ***/
 /*
-var geo_host = 'https://www.broadbandmap.gov/geoserver';
+var geo_request_type = 'json';
+var geo_host = 'https://geo.fcc.gov';
 var geo_space = 'fcc';
-var geo_output = 'json';
+var geo_output = 'application/json';
 */
 
 var wms_method = 'gwc/service/wms';

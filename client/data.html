@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<!--
+ _____                             _   _____  _   _            _ _   _       _____ _____ _____ 
+/  __ \                           | | / __  \| | | |          | | | | |     |  __ \_   _/  ___|
+| /  \/ ___  _ __  _ __   ___  ___| |_`' / /'| |_| | ___  __ _| | |_| |__   | |  \/ | | \ `--. 
+| |    / _ \| '_ \| '_ \ / _ \/ __| __| / /  |  _  |/ _ \/ _` | | __| '_ \  | | __  | |  `--. \
+| \__/\ (_) | | | | | | |  __/ (__| |_./ /___| | | |  __/ (_| | | |_| | | | | |_\ \_| |_/\__/ /
+ \____/\___/|_| |_|_| |_|\___|\___|\__\_____/\_| |_/\___|\__,_|_|\__|_| |_|  \____/\___/\____/ 
+  
+-->
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/vnd.microsoft.icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connect2HealthFCC - Mapping Broadband Health in America</title>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700|Lato:500" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">    
+    <link href="css/jcarousel.responsive.css" rel="stylesheet" />
+    <link href="css/icon-styles.css" rel="stylesheet">
+    <link href="css/app-theme.css" rel="stylesheet">
+    <link href="css/mapbox.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet"> 
+    <!--<link href="css/font-awesome.min.css" rel="stylesheet" >-->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
+
+    <link rel="stylesheet" href="css/bootstrap-select.min.css" />       
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page row-offcanvas row-offcanvas-right">
+        <header class="site-header">
+<div class="jumpLinks"> <a href="#skiptarget1" class="sr-only focusable">Skip to main content</a> <a href="#skiptarget3" class="sr-only focusable">Skip to footer and contact information</a> </div>
+    <nav role="navigation">
+        <div class="navbar navbar-default navbar-primary">
+            <div class="container">
+                <div class="navbar-header">
+                    <h1 class="navbar-brand">
+                  <a title="Home" href="http://fcc.gov" class="navbar-logo">
+                    <span class="sr-only">Federal Communications Commission</span>
+                  </a>
+                </h1>
+                </div>
+                <ul aria-hidden="true" id="menu-primary" class="nav navbar-nav nav-offcanvas-right">
+                    <li class="active">
+                        <a aria-controls="browse-by-category" href="index.html">
+						<!--<div class="text-prefix">FCC Initiatives</div>-->
+                            <strong class="title-emphasis">Connect2Health<sup>FCC</sup></strong>
+                        </a>
+                    </li>
+                </ul>
+                <div id="app-title">
+                    <h2>Mapping Broadband Health in America</h2>
+                    <h3>Everyone connected... to the people, services and information they need to get well and stay healthy.</h3>
+                </div>
+                <div class="navbar-controls">
+                    <a data-toggle-direction="right" data-toggle="offcanvas" class="btn navbar-btn btn-toggle-menu" type="button">
+                        <span class="btn-inner btn-inner-menu"><span class="sr-only">Menu</span></span>
+                    </a>
+                </div>                                 
+            </div>
+        </div>
+		
+        <div aria-hidden="true" class="navbar-secondary navbar-default yamm nav-offcanvas nav-offcanvas-right">
+            <div id="menu-secondary" class="tab-content">
+                <div class="container tab-pane active" id="browse-by-category">
+                    <ul class="nav nav-tabs menu-secondary" role="navigation">            
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="index.html" class="dropdown-toggle">
+                                <span class="link-title dropdown-link-title">Map</span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="background.html" class="dropdown-toggle">
+                                <span class="link-title dropdown-link-title">Background</span>
+                            </a>
+                        </li>  
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="getting-started.html" class="dropdown-toggle">
+                                <span class="link-title dropdown-link-title">Getting Started</span>
+                            </a>
+                        </li>  
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="community-engagement.html" class="dropdown-toggle">
+                                <span class="link-title dropdown-link-title">Community Engagement</span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="data.html" class="dropdown-toggle active">
+                                <span class="link-title dropdown-link-title">Data</span>
+                            </a>
+                        </li>                                                
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="about.html" class="dropdown-toggle">
+                                <span class="dropdown-link-title link-title">About C2HFCC</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--.nav-tabs -->
+                </div>
+            </div>
+        </div>
+        <!-- .secondary-menu -->
+    </nav>
+</header>
+<div class="clearfix"></div>
+<a class="visuallyhidden" id="skiptarget1" tabindex="-1"></a>
+        <main class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="main-content">                    	
+                        
+							<h2>Data</h2>
+							<p> 
+							     The following table shows each broadband and health variable used in the Mapping Broadband Health in America platform, its definition, and the data source. Proportions for broadband access statistics are calculated using 2014 demographic data from GeoLytics, E. Brunswick, NJ. Additional information about the demographic data from the <a class="external" href="http://www.census.gov/2010census" target="_blank">U.S. Census Bureau</a> is available on its website. Learn more about the <a class="external" href="https://www.fcc.gov/health/maps/methodology" target="_blank">methodology</a>.
+                            </p>
+
+                            <br/>
+					<!--<h4 style="float: left;">Broadband</h4><span style="float: right;">Data Provider: FCC Form 477, December, 2014 (Version 2 released 3/16/16)</span>-->
+					<h3 class="pull-left">Broadband</h3><div class="pull-right" style="margin: 25px 0 10px 0;"><strong>Data Provider:</strong> <a href="https://www.fcc.gov/general/broadband-deployment-data-fcc-form-477" class="external" target="_blank">FCC Form 477, December, 2014 (Version 2 released 3/16/16)</a></div>
+                            <table class="data-source-div-table ">
+                                <thead>
+                                        <th nowrap class="left-space">Measures </th>
+                                        <th nowrap class="left-space">Definition</th>
+                                </thead>
+                                <tbody>                                    
+                                    <tr>
+                                        <td class="botton-right left-space" width="30%">
+                                            <b>Broadband Access</b>
+                                        </td>
+                                        <td class="botton left-space" width="70%">
+                                            Percentage of population with fixed access to the Internet at speeds of 25 megabits per second (mbps) download and 3 mbps upload or higher
+                                        </td>                                     
+                                    </tr>
+                                    <tr>
+                                        <td class="botton-right left-space">
+                                            <b>Rural Access</b>
+                                        </td>
+                                        <td class="botton left-space">
+                                            Percentage of rural population in a county with fixed access to the Internet at speeds of 25 megabits per second (mbps) download and 3 mbps upload or higher
+                                        </td>                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="botton-right left-space">
+                                            <b>Internet Adoption</b>
+                                        </td>
+                                        <td class="botton left-space">
+                                            The number of residential fixed connections to the Internet over 200 kilobits per second (kbps) per 1000 households (as a percentage)
+                                        </td>                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="botton-right left-space">
+                                            <b>Download Speed</b>
+                                        </td>
+                                        <td class="botton left-space">
+                                            Most commonly advertised download speed in an area, where “download speed” is the amount of data in megabits that can be downloaded per second (mbps)
+                                        </td>                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="botton-right left-space">
+                                            <b>Upload Speed</b>
+                                        </td>
+                                        <td class="botton left-space">
+                                            Most commonly advertised upload speed in an area, where “upload speed” is the amount of data in megabits that can be uploaded per second (mbps)
+                                        </td>                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="botton-right left-space">
+                                            <b>Internet Providers</b>
+                                        </td>
+                                        <td class="botton left-space">
+                                            The number of entities providing residential Internet service in a geographic area (i.e., nation, state or county)
+                                        </td>   
+                                    </tr>
+                                       
+                                </tbody>
+                            </table>                            
+                            
+                            <br/>
+                           
+							
+							<h3 class="pull-left">Health</h3><div class="pull-right" style="margin: 25px 0 10px 0;"><strong>Data Provider:</strong> <a href="http://www.countyhealthrankings.org/" class="external" target="_blank">Robert Wood Johnson Foundation’s County Health Rankings & Roadmaps</a></div>
+							
+							
+                            <table class="data-source-div-table">
+                                <thead>
+                                    <th width="15%" nowrap class="left-space">Dimensions</th>
+                                    <th width="15%" nowrap class="left-space">Measures </th>
+                                    <th width="25%" nowrap class="left-space">Definition</th>
+                                    <th width="30%" nowrap class="left-space">Source</th>
+                                    <th width="15%" nowrap class="left-space">National Estimate</th>
+                                </thead>
+                                <tbody>                                    
+                                    <tr>
+                                        <td class="botton-right left-space"><b>Access to Care</b></td>
+                                        <td class="botton-right left-space"><b>Physician Access</b></td>
+                                        <td class="botton-right left-space">Number of primary care physicians per 100,000 people</td>
+                                        <td class="botton-right left-space"><a class="external" href="http://ahrf.hrsa.gov/" target="_blank">Area Health Resource File/ American Medical Association</a></td>
+                                        <td class="botton left-space">73.3 per 100,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="botton-right left-space"><b>Quality of Care</b></td>
+                                        <td class="botton-right left-space"><b>Preventable Hospitalizations</b></td>
+                                        <td class="botton-right left-space">Number of hospitalizations for ambulatory-care sensitive conditions per 1000 Medicare enrollees</td>
+                                        <td class="botton-right left-space"><a class="external" href="http://www.dartmouthatlas.org/" target="_blank">Dartmouth Atlas of Health Care</a></td>
+                                        <td class="botton left-space">58.2 per 1000</td>
+                                    </tr>                                    
+                                    <tr>
+                                        <td rowspan="5" class="right left-space"><b>Health Behaviors</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="botton-right left-space"><b>Sick Days</b></td>
+                                        <td class="botton-right left-space">Average number of physically unhealthy days reported in past 30 days (age-adjusted)</td>
+                                        <td class="botton-right left-space"><a class="external" href="http://www.cdc.gov/brfss/" target="_blank">Behavioral Risk Factor Surveillance System</a></td>
+                                        <td class="botton left-space">3.6 days per month</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="botton-right left-space"><b>Obesity</b></td>
+                                        <td class="botton-right left-space">Percentage of adults reporting a body mass index (BMI) of 30 or more</td>
+                                        <td class="botton-right left-space"><a class="external" href="http://www.cdc.gov/diabetes/atlas/countydata/atlas.html" target="_blank">CDC Diabetes Interactive Atlas</a></td>
+                                        <td class="botton left-space">27.4%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="botton-right left-space"><b>Diabetes</b></td>
+                                        <td class="botton-right left-space">Percentage of adults reporting a diagnosis of diabetes</td>
+                                        <td class="botton-right left-space"><a class="external" href="http://www.cdc.gov/diabetes/atlas/countydata/atlas.html" target="_blank">CDC Diabetes Interactive Atlas</a></td>
+                                        <td class="botton left-space">9.7%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="right left-space"><b>Poor/Fair Health</b></td>
+                                        <td class="right left-space">Percentage of adults reporting fair or poor health (age-adjusted)</td>
+                                        <td class="right left-space"><a class="external" href="http://www.cdc.gov/brfss/" target="_blank">Behavioral Risk Factor Surveillance System</a></td>
+                                        <td class="left-space">15.8%</td>
+                                    </tr>
+                                </tbody>
+                            </table>   
+                            <br/>                                                 
+					</div>
+                </div>                
+            </div>
+        </main>
+        <a class="sr-only" id="skiptarget3" tabindex="-1"></a>
+        <footer class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="nav-footer">
+                            <div class="footergriditems">
+                                <div class="grid-item">
+                                    <address>
+                                        Federal Communications Commission
+                                        <br> 445 12th Street SW, Washington, DC 20554
+                                    </address>
+                                    <ul class="footermenu footermenu__phone">
+                                        <li><a class="phone-link" href="tel:+18882255322">Phone: 1-888-225-5322</a></li>
+                                        <li><a class="phone-link" href="tel:+18888355322">TTY: 1-888-835-5322</a></li>
+                                        <li><a class="phone-link" href="tel:+18444322275">Videophone: 1-844-432-2275</a></li>
+                                        <li><a class="phone-link" href="tel:+18664180232">Fax: 1-866-418-0232</a></li>
+                                        <a class="contactus" href="https://www.fcc.gov/about/contact">Contact Us</a>
+                                    </ul>
+                                    <ul class="socialmediaicons">
+                                        <li><a class="link-ext social-media twitter" href="https://twitter.com/fcc">Twitter</a></li>
+                                        <li><a class="link-ext social-media facebook" href="https://www.facebook.com/FCC">Facebook</a></li>
+                                        <li><a class="link-ext social-media youtube" href="https://www.youtube.com/user/fccdotgovvideo">Youtube</a></li>
+                                        <li><a class="link-ext social-media flickr" href="https://www.flickr.com/photos/fccdotgov">Flickr</a></li>
+                                        <li><a class="link-ext social-media instagram" href="https://www.instagram.com/fcc">Instagram</a></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-item">
+                                    <ul class="footermenu footermenu__categories">
+                                        <li><a href="https://www.fcc.gov/general/website-notices">Website Policies &amp; Notices</a></li>
+                                        <li><a href="https://www.fcc.gov/general/foia-0">FOIA</a></li>
+                                        <li><a href="https://www.fcc.gov/general/no-fear-act-data">No Fear Act Data</a></li>
+                                        <li><a href="https://www.fcc.gov/digitalstrategy">FCC Digital Strategy</a></li>
+                                        <li><a href="https://www.fcc.gov/general/open-government-fcc">Open Government Directive</a></li>
+                                        <li><a href="https://www.fcc.gov/general/plain-writing-fcc">Plain Writing Act</a></li>
+                                        <li><a href="https://www.fcc.gov/general/rss-feeds-and-email-updates-fcc">RSS Feeds &amp; Email Updates</a></li>
+                                        <li><a href="https://www.fcc.gov/general/disability-rights-office">Disability Rights</a></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-item">
+                                    <ul class="footermenu footermenu__categories">
+                                        <li>CATEGORIES</li>
+                                        <li><a href="https://www.fcc.gov/about/overview">About the FCC</a></li>
+                                        <li><a href="https://www.fcc.gov/proceedings-actions">Proceedings &amp; Actions</a></li>
+                                        <li><a href="https://www.fcc.gov/licensing">Licensing &amp; Databases</a></li>
+                                        <li><a href="https://www.fcc.gov/reports-research">Reports &amp; Research</a></li>
+                                        <li><a href="https://www.fcc.gov/news-events">News &amp; Events</a></li>
+                                        <li><a href="https://www.fcc.gov/consumers">For Consumers</a></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-item">
+                                    <ul class="footermenu footermenu__bureaus">
+                                        <li>BUREAUS &amp; OFFICES</li>
+                                        <li><a href="https://www.fcc.gov/consumer-and-governmental-affairs#block-menu-block-4">Consumer</a></li>
+                                        <li><a href="https://www.fcc.gov/enforcement#block-menu-block-4">Enforcement</a></li>
+                                        <li><a href="https://www.fcc.gov/inspector-general">Inspector General</a></li>
+                                        <li><a href="https://www.fcc.gov/international#block-menu-block-4">International</a></li>
+                                        <li><a href="https://www.fcc.gov/media#block-menu-block-4">Media</a></li>
+                                        <li><a href="https://www.fcc.gov/public-safety-and-homeland-security#block-menu-block-4">Public Safety</a></li>
+                                        <li><a href="https://www.fcc.gov/wireless-telecommunications#block-menu-block-4">Wireless</a></li>
+                                        <li><a href="https://www.fcc.gov/wireline-competition#block-menu-block-4">Wireline</a></li>
+                                        <li><a href="https://www.fcc.gov/offices-bureaus#block-menu-block-4">Offices</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="fcc-seal">
+                                Federal Communications Commission
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+    </div>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-toolkit.min.js"></script>
+
+    
+   <script src="js/bootstrap-select.min.js"></script>   
+    
+    <script src="js/chart.js"></script>
+    
+    <!--<script src="./js/jquery.jcarousel.min.js"></script>
+    <script src="./js/jcarousel.responsive.js"></script>-->
+    <script src="js/jquery-color-animation-mainfile.js"></script>   
+    <script src="js/theme.js"></script>
+    <!-- END CODE FOR DEMO ONLY! DO NOT USE! -->
+
+
+
+</body></html>

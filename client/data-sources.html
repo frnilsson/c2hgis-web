@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<!--
+ _____                             _   _____  _   _            _ _   _       _____ _____ _____ 
+/  __ \                           | | / __  \| | | |          | | | | |     |  __ \_   _/  ___|
+| /  \/ ___  _ __  _ __   ___  ___| |_`' / /'| |_| | ___  __ _| | |_| |__   | |  \/ | | \ `--. 
+| |    / _ \| '_ \| '_ \ / _ \/ __| __| / /  |  _  |/ _ \/ _` | | __| '_ \  | | __  | |  `--. \
+| \__/\ (_) | | | | | | |  __/ (__| |_./ /___| | | |  __/ (_| | | |_| | | | | |_\ \_| |_/\__/ /
+ \____/\___/|_| |_|_| |_|\___|\___|\__\_____/\_| |_/\___|\__,_|_|\__|_| |_|  \____/\___/\____/ 
+  
+-->
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connect2HealthFCC - Mapping Broadband Health in America</title>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700|Lato:500" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">    
+    <link href="css/jcarousel.responsive.css" rel="stylesheet" />
+    <link href="css/icon-styles.css" rel="stylesheet">
+    <link href="css/app-theme.css" rel="stylesheet">
+    <link href="css/mapbox.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet"> 
+    <!--<link href="css/font-awesome.min.css" rel="stylesheet" >-->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
+
+    <link rel="stylesheet" href="css/bootstrap-select.min.css" />       
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page row-offcanvas row-offcanvas-right">
+        <header class="site-header">
+<div class="jumpLinks"> <a href="#skiptarget1" class="sr-only focusable">Skip to main content</a> <a href="#skiptarget3" class="sr-only focusable">Skip to footer and contact information</a> </div>
+    <nav role="navigation">
+        <div class="navbar navbar-default navbar-primary">
+            <div class="container">
+                <div class="navbar-header">
+                    <h1 class="navbar-brand">
+                  <a title="Home" href="http://fcc.gov" class="navbar-logo">
+                    <span class="sr-only">Federal Communications Commission</span>
+                  </a>
+                </h1>
+                </div>
+                <ul aria-hidden="true" id="menu-primary" class="nav navbar-nav nav-offcanvas-right">
+                    <li class="active">
+                        <a aria-controls="browse-by-category" href="index.html">
+                            <!--<div class="text-prefix">FCC Initiatives</div>-->
+                            <strong class="title-emphasis">Connect2Health<sup>FCC</sup></strong>
+                        </a>
+                    </li>
+                </ul>
+                <div id="app-title">
+                    <h4>Mapping Broadband Health in America</h4>
+                    <h5>Everyone connected... to the people, services and information they need to get well and stay healthy.</h5>
+                </div>
+                <div class="navbar-controls">
+                    <a data-toggle-direction="right" data-toggle="offcanvas" class="btn navbar-btn btn-toggle-menu" type="button">
+                        <span class="btn-inner btn-inner-menu"><span class="sr-only">Menu</span></span>
+                    </a>
+                </div>                                
+            </div>
+        </div>
+		
+        <div aria-hidden="true" class="navbar-secondary navbar-default yamm nav-offcanvas nav-offcanvas-right">
+            <div id="menu-secondary" class="tab-content">
+                    <div class="container tab-pane active" id="browse-by-category">
+                        <ul class="nav nav-tabs menu-secondary" role="navigation">
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="index.html" class="dropdown-toggle">
+                                    <span class="link-title dropdown-link-title">Interactive</span>
+                                </a>
+                            </li>
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="introduction.html" class="dropdown-toggle">
+                                    <span class="link-title dropdown-link-title">Introduction</span>
+                                </a>
+                            </li>  
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="community-engagement.html" class="dropdown-toggle">
+                                    <span class="link-title dropdown-link-title">Community Engagement</span>
+                                </a>
+                            </li>
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="data-sources.html" class="dropdown-toggle active">
+                                    <span class="link-title dropdown-link-title">Data Sources</span>
+                                </a>
+                            </li>                                                
+                            <li class="dropdown dropdown-left yamm-fw">
+                                <a href="about-us.html" class="dropdown-toggle">
+                                    <span class="dropdown-link-title link-title">About Us</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!--.nav-tabs -->
+                    </div>
+                </div>
+                <!-- .secondary-menu -->
+        </div>
+        <!-- .secondary-menu -->
+    </nav>
+</header>
+<div class="clearfix"></div>
+<a class="visuallyhidden" id="skiptarget1" tabindex="-1"></a>
+        <main class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="main-content">                    	
+                        <div class="pull-right" style="" id="data-source-link">
+							<h2>Data Links</h2>
+							<table id="data-source-link-table">
+								<tr>
+									<td>
+										<a href="http://www.broadbandmap.gov/" target="_blank"><img src="img/nbm-logo.png" width="100px" alt="National Broadband Map" title="National Broadband Map" /></a>
+									</td>
+									<td>
+										<b>Connectivity Data</b>
+										<br />
+										<a href="http://www.broadbandmap.gov/" target="_blank">National Broadband Map</a> from the <a href="https://www.fcc.gov/" target="_blank">FCC</a>.
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a href="http://www.census.gov/geo/maps-data/data/cbf/cbf_counties.html" target="_blank"><img src="img/census-logo.png" width="100px" alt="United States Census Bureau" title="United States Census Bureau" /></a>
+									</td>
+									<td>
+										<b>Population Data</b>
+										<br />
+										<a href="http://www.census.gov/geo/maps-data/data/cbf/cbf_counties.html" target="_blank">United States Census Bureau</a>.
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a href="http://www.countyhealthrankings.org/rankings/data/" target="_blank"><img src="img/rwjf-logo.png" width="100px" alt="RWJF County Health Rankings" title="RWJF County Health Rankings" /></a>
+									</td>
+									<td>
+										<b>Health Data</b>
+										<br />
+										<a href="http://www.countyhealthrankings.org/rankings/data/" target="_blank">RWJF County Health Rankings</a>.
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a href="https://www.cms.gov/Medicare/Medicare-General-Information/Telehealth/index.html" target="_blank"><img src="img/cms-logo.png" width="100px" alt="Center for Medicaid and Medicare Services" title="Center for Medicaid and Medicare Services" /></a>
+									</td>
+									<td>
+										<b>Telehealth Data</b>
+										<br />
+										<a href="https://www.cms.gov/Medicare/Medicare-General-Information/Telehealth/index.html" target="_blank">Center for Medicaid and Medicare Services</a>
+									</td>
+								</tr>	
+							</table>							
+                        </div>
+						
+							<h2>Broadband Data</h2>
+							<p> 
+								Broadband has a wide impact on the daily lives of individuals and communities. Broadband as well is a nuanced construct, including upload and download speeds and functional characteristics like number of providers in an area, actual versus advertised speeds, among others.  
+
+								Broadband data also gives an idea of what can be enabled and delivered through the broadband ecosystem of network, devices, and applications. For example, if there isn't sufficient competition in a particular region then prices may not be affordable to enable the network benefits for all consumers; or if network integrity or uptime is not high or consistent then they types of applications that can be used and therefore the broadband benefits that can be delivered to every consumer would be limited. This has implications on remote and real time monitoring of data and the emerging field of IoT, cloud computing, and integrated systems for health for individuals and communities.
+							</p>
+
+							<h2>Health Data</h2>
+							<p>
+								To get a picture of health in the US, we used data from the Robert Wood Johnson Foundation's County Health Rankings page, which is used widely by various agencies including local health departments to capture a baseline of population health and monitor its progression over time. A more extensive discussion on each of the measures shown below can be found on the RWJF website (see link above).
+							</p>
+							<h4>Population Health Outcomes:</h4>
+							<p>
+								The Obesity rate in a population represents a convergence of many clinical and non-clinical factors in a population. While the RWJF County Health Rankings considers obesity rate as a measure of 'health behavior', it can also be considered the outcome of multiple environmental, socio-economic, and clinical factors. In this case it's the outcome of many risk factors that could have been mitigated through primary prevention measures. In these maps obesity is defined as the percentage of the adult population that has a body mass index greater than or equal to 30. These data originally come from the National Center for Chronic Disease Prevention and Health Promotion (NCCDPHP) in the Centers for Disease Control and Prevention, which in turn develops modeled estimates of county-level obesity rates using data from the Behavioral Risk Factor Surveillance System (BRFSS). 
+							</p>
+							<p>
+								Health-related quality of life (HRQoL) is a multi-dimensional construct that relates to physical, mental, emotional and social functioning. It tries to capture the impact of health status on a person's quality of life. The CDC defines HRQoL as “an individual’s or group’s perceived physical and mental health over time”. These data are represented in the maps as 'fair or poor health', 'physically unhealthy days', and 'mentally unhealthy days' defined as the percent of adults reporting poor or fair health and the average number of physically and mentally unhealthy days reported per month. These data originally come from the Behavioral Risk Factor Surveillance System (BRFSS) data from the CDC.
+							</p>
+							<h4>Quality to Care:</h4>
+							<p>
+								'Preventable Hospital stays' and 'Diabetic Monitoring' are two metrics related to the quality of care that a population receives. Quality of care requires a multi-disciplinary and collaborative approach between patients, care-givers, clinicians, and many other parts of the community and health care system. Poor quality of care can lead to poor health outcomes. Quality of care is a major dimension of health delivery that can stand to benefit from broadband connectivity. 'Preventable Hospital Stays' is defined as the hospitalization rate for ambulatory-care sensitive conditions per 1,000 Medicare enrollee; 'Diabetic monitoring' measures the percentage of diabetic Medicare enrollees that receive HbA1c screening. Broadband connectivity can enable remote health monitoring; empower patients to monitor their own physiologic measures and share that data with care givers, health care system, and connected environments; and provide appropriate supports to allow individuals to engage in self-care within their communities.
+							</p>
+							<h4>Access to Care:</h4>
+							<p>
+								A population's ability to access quality care is related to better health outcomes. 'Access to care' means that physicians are present in the area, they are available, affordable, and the community has the means to pay for them (e.g. through insurance). To capture these measures, the RWJF acquired data from the Health Resources and Services Administration (HRSA), which in turn compiles data from the American Medical Association Master file, the National Provider Identification file, and from Census Population Estimates program to report primary care physician and dentist data at the county level. Data for the mental health provider measure was acquired from the National Provider Identification file which uses the National Plan & Provider Enumeration system to list each unique provider. The number of people that were uninsured were defined as 'the percentage of the population younger than age 65 without health insurance'. The data for this measure comes from the Census Bureau’s Small Area Health Insurance Estimates (SAHIE), which provide model-based estimates of health insurance coverage for all states and counties in the United States.
+							</p>
+							<h4>Socioeconomic Determinants:</h4>
+							<p>
+							Socioeconomic determinants 'reflect the social factors and physical conditions of the environment in which people are born, live, learn, play, work, and age. Also known as social and physical determinants of health, they impact a wide range of health, functioning, and quality-of-life outcomes.' (<a href="http://www.healthypeople.gov/2020/about/foundation-health-measures/Determinants-of-Health" target="_blank">www.healthypeople.gov/2020/about/foundation-health-measures/Determinants-of-Health</a>). Socioeconomic determinants like income are important because they permit access to health insurance and allow healthy lifestyle choices. Poorer families and individuals are more likely to live in unsafe and unhealthy environments, and have no or restricted healthy diet and exercise options. Consequently, adults in the highest income brackets are healthier than those in the middle class and will live, on average, more than six years longer than those with the lowest incomes; and mothers in low income brackets are more likely than those in higher income brackets to have pre-term or low birthweight babies. <sup>(<a href="#cite-1">1</a>, <a href="#cite-2">2</a>, <a href="#cite-3">3</a>)</sup> In general, poverty and income inequality have wide ranging impact on health, including risk of mortality. Connectivity has been identified as being a key factor in increasing access to many of the socioeconomic determinants of health. <sup>(<a href="#cite-4">4</a>, <a href="#cite-5">5</a>, <a href="#cite-6">6</a>, <a href="#cite-7">7</a>, <a href="#cite-8">8</a>)</sup> Broadband has the potential to increase access to many of the socioeconomic determinants directly or indirectly through a broader ecosystem of connectivity. Two measures from RWJF's County Health Rankings have been included: Children in Poverty and Income Inequality. 'Children in Poverty' is defined as the percentage of children living in poverty, as defined by the federal poverty threshold and is derived by RWJF based on data from the Census’ Small Area Income and Poverty Estimates (SAIPE). 'Income Inequality' is the ratio of household income at the 80th percentile level with that at the 20th percentile from the American Community Survey.
+							</p>
+							<h2>Citations</h2>
+							<ol class="citations">								
+								<li id="cite-1">
+									Braveman P, Egerter S, Barclay C. Income, wealth and health. Princeton: Robert Wood Johnson Foundation (RWJF); 2011. Exploring the Social Determinants of Health Issue Brief No. 4.
+								</li>
+								<li id="cite-2"> 
+									Aber JL, Bennett NG, Conley DC, Li JL. The effects of poverty on child health and development. Annu Rev Public Health. 1997;18:463-483.
+								</li>
+								<li id="cite-3">
+									Lynch J, Smith GD, Harper S, Hillemeier M. Is income inequality a determinant of population health? Part 2. U.S. National and regional trends in income inequality and age- and cause-specific mortality. Milbank Q. 2004;82(2):355-400.
+								</li>
+								<li id="cite-4">
+									Baum, Fran, Lareen Newman, and Katherine Biedrzycki. "Vicious cycles: digital technologies and determinants of health in Australia." Health Promotion International 29.2 (2014): 349-360. http://heapro.oxfordjournals.org/content/early/2012/11/09/heapro.das062.full#sec-13
+								</li>
+								<li id="cite-5">
+									Gibbons MC. A historical overview of health disparities and the potential of eHealth solutions. J Med Internet Res. 2005 Oct 4;7(5):e50.
+								</li>
+								<li id="cite-6">
+									Kontos E, Bennett G, Viswanath K. Barriers and Facilitators to Home Computer and Internet Use Among Urban Novice Computer Users of Low Socioeconomic Position. J Med Internet Res 2007;9(4):e31
+								</li>
+								<li id="cite-7">
+									Viswanath K. Science and society: the communications revolution and cancer control. Nat Rev Cancer 2005 Oct;5(10):828-835.
+								</li>
+								<li id="cite-8">
+									Viswanath K, Kreuter MW. Health Disparities, Communication Inequalities, and e-Health: A Commentary. American journal of preventive medicine. 2007;32(5 Suppl):S131-S133. doi:10.1016/j.amepre.2007.02.012.
+								</li>
+							</ol>                    
+						
+						
+					</div>
+                </div>                
+            </div>
+        </main>
+        <footer class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="nav-footer">
+                            <div class="footergriditems">
+                                <div class="grid-item">
+                                    <address>
+                                        Federal Communications Commission
+                                        <br> 445 12th Street SW, Washington, DC 20554
+                                    </address>
+                                    <ul class="footermenu footermenu__phone">
+                                        <li><a class="phone-link" href="tel:+18882255322">Phone: 1-888-225-5322</a></li>
+                                        <li><a class="phone-link" href="tel:+18888355322">TTY: 1-888-835-5322</a></li>
+                                        <li><a class="phone-link" href="tel:+18444322275">Videophone: 1-844-432-2275</a></li>
+                                        <li><a class="phone-link" href="tel:+18664180232">Fax: 1-866-418-0232</a></li>
+                                        <a class="contactus" href="https://www.fcc.gov/about/contact">Contact Us</a>
+                                    </ul>
+                                    <ul class="socialmediaicons">
+                                        <li><a class="link-ext social-media twitter" href="https://twitter.com/fcc">Twitter</a></li>
+                                        <li><a class="link-ext social-media facebook" href="https://www.facebook.com/FCC">Facebook</a></li>
+                                        <li><a class="link-ext social-media youtube" href="https://www.youtube.com/user/fccdotgovvideo">Youtube</a></li>
+                                        <li><a class="link-ext social-media flickr" href="https://www.flickr.com/photos/fccdotgov">Flickr</a></li>
+                                        <li><a class="link-ext social-media instagram" href="https://www.instagram.com/fcc">Instagram</a></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-item">
+                                    <ul class="footermenu footermenu__categories">
+                                        <li><a href="https://www.fcc.gov/general/website-notices">Website Policies &amp; Notices</a></li>
+                                        <li><a href="https://www.fcc.gov/general/foia-0">FOIA</a></li>
+                                        <li><a href="https://www.fcc.gov/general/no-fear-act-data">No Fear Act Data</a></li>
+                                        <li><a href="https://www.fcc.gov/digitalstrategy">FCC Digital Strategy</a></li>
+                                        <li><a href="https://www.fcc.gov/general/open-government-fcc">Open Government Directive</a></li>
+                                        <li><a href="https://www.fcc.gov/general/plain-writing-fcc">Plain Writing Act</a></li>
+                                        <li><a href="https://www.fcc.gov/general/rss-feeds-and-email-updates-fcc">RSS Feeds &amp; Email Updates</a></li>
+                                        <li><a href="https://www.fcc.gov/general/disability-rights-office">Disability Rights</a></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-item">
+                                    <ul class="footermenu footermenu__categories">
+                                        <li>CATEGORIES</li>
+                                        <li><a href="https://www.fcc.gov/about/overview">About the FCC</a></li>
+                                        <li><a href="https://www.fcc.gov/proceedings-actions">Proceedings &amp; Actions</a></li>
+                                        <li><a href="https://www.fcc.gov/licensing">Licensing &amp; Databases</a></li>
+                                        <li><a href="https://www.fcc.gov/reports-research">Reports &amp; Research</a></li>
+                                        <li><a href="https://www.fcc.gov/news-events">News &amp; Events</a></li>
+                                        <li><a href="https://www.fcc.gov/consumers">For Consumers</a></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-item">
+                                    <ul class="footermenu footermenu__bureaus">
+                                        <li>BUREAUS &amp; OFFICES</li>
+                                        <li><a href="https://www.fcc.gov/consumer-and-governmental-affairs#block-menu-block-4">Consumer</a></li>
+                                        <li><a href="https://www.fcc.gov/enforcement#block-menu-block-4">Enforcement</a></li>
+                                        <li><a href="https://www.fcc.gov/inspector-general">Inspector General</a></li>
+                                        <li><a href="https://www.fcc.gov/international#block-menu-block-4">International</a></li>
+                                        <li><a href="https://www.fcc.gov/media#block-menu-block-4">Media</a></li>
+                                        <li><a href="https://www.fcc.gov/public-safety-and-homeland-security#block-menu-block-4">Public Safety</a></li>
+                                        <li><a href="https://www.fcc.gov/wireless-telecommunications#block-menu-block-4">Wireless</a></li>
+                                        <li><a href="https://www.fcc.gov/wireline-competition#block-menu-block-4">Wireline</a></li>
+                                        <li><a href="https://www.fcc.gov/offices-bureaus#block-menu-block-4">Offices</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="fcc-seal">
+                                Federal Communications Commission
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+    </div>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-toolkit.min.js"></script>
+
+    
+   <script src="js/bootstrap-select.min.js"></script>   
+    
+    <script src="js/chart.js"></script>
+    
+    <!--<script src="./js/jquery.jcarousel.min.js"></script>
+    <script src="./js/jcarousel.responsive.js"></script>-->
+    <script src="js/jquery-color-animation-mainfile.js"></script>   
+    <script src="js/theme.js"></script>
+    <!-- END CODE FOR DEMO ONLY! DO NOT USE! -->
+
+
+
+</body></html>

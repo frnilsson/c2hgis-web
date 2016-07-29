@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<!--
+ _____                             _   _____  _   _            _ _   _       _____ _____ _____ 
+/  __ \                           | | / __  \| | | |          | | | | |     |  __ \_   _/  ___|
+| /  \/ ___  _ __  _ __   ___  ___| |_`' / /'| |_| | ___  __ _| | |_| |__   | |  \/ | | \ `--. 
+| |    / _ \| '_ \| '_ \ / _ \/ __| __| / /  |  _  |/ _ \/ _` | | __| '_ \  | | __  | |  `--. \
+| \__/\ (_) | | | | | | |  __/ (__| |_./ /___| | | |  __/ (_| | | |_| | | | | |_\ \_| |_/\__/ /
+ \____/\___/|_| |_|_| |_|\___|\___|\__\_____/\_| |_/\___|\__,_|_|\__|_| |_|  \____/\___/\____/ 
+  
+-->
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/vnd.microsoft.icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connect2HealthFCC - Mapping Broadband Health in America</title>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700|Lato:500" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">    
+    <link href="css/jcarousel.responsive.css" rel="stylesheet" />
+    <link href="css/icon-styles.css" rel="stylesheet">
+    <link href="css/app-theme.css" rel="stylesheet">
+    <link href="css/mapbox.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet"> 
+    <!--<link href="css/font-awesome.min.css" rel="stylesheet" >-->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
+
+    <link rel="stylesheet" href="css/bootstrap-select.min.css" />       
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page row-offcanvas row-offcanvas-right">
+        <header class="site-header">
+<div class="jumpLinks"> <a href="#skiptarget1" class="sr-only focusable">Skip to main content</a> <a href="#skiptarget3" class="sr-only focusable">Skip to footer and contact information</a> </div>
+    <nav role="navigation">
+        <div class="navbar navbar-default navbar-primary">
+            <div class="container">
+                <div class="navbar-header">
+                    <h1 class="navbar-brand">
+                  <a title="Home" href="http://fcc.gov" class="navbar-logo">
+                    <span class="sr-only">Federal Communications Commission</span>
+                  </a>
+                </h1>
+                </div>
+                <ul aria-hidden="true" id="menu-primary" class="nav navbar-nav nav-offcanvas-right">
+                    <li class="active">
+                        <a aria-controls="browse-by-category" href="index.html">
+                            <!--<div class="text-prefix">FCC Initiatives</div>-->
+                            <strong class="title-emphasis">Connect2Health<sup>FCC</sup></strong>
+                        </a>
+                    </li>
+                </ul>
+                <div id="app-title">
+                    <h2>Mapping Broadband Health in America</h2>
+                    <h3>Everyone connected... to the people, services and information they need to get well and stay healthy.</h3>
+                </div>
+                <div class="navbar-controls">
+                    <a data-toggle-direction="right" data-toggle="offcanvas" class="btn navbar-btn btn-toggle-menu" type="button">
+                        <span class="btn-inner btn-inner-menu"><span class="sr-only">Menu</span></span>
+                    </a>
+                </div>              
+            </div>
+        </div>
+		
+        <div aria-hidden="true" class="navbar-secondary navbar-default yamm nav-offcanvas nav-offcanvas-right">
+            <div id="menu-secondary" class="tab-content">
+                <div class="container tab-pane active" id="browse-by-category">
+                    <ul class="nav nav-tabs menu-secondary" role="navigation">            
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="index.html" class="dropdown-toggle">
+                                <span class="link-title dropdown-link-title">Map</span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="background.html" class="dropdown-toggle active">
+                                <span class="link-title dropdown-link-title">Background</span>
+                            </a>
+                        </li>  
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="getting-started.html" class="dropdown-toggle">
+                                <span class="link-title dropdown-link-title">Getting Started</span>
+                            </a>
+                        </li>  
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="community-engagement.html" class="dropdown-toggle">
+                                <span class="link-title dropdown-link-title">Community Engagement</span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="data.html" class="dropdown-toggle">
+                                <span class="link-title dropdown-link-title">Data</span>
+                            </a>
+                        </li>                                                
+                        <li class="dropdown dropdown-left yamm-fw">
+                            <a href="about.html" class="dropdown-toggle">
+                                <span class="dropdown-link-title link-title">About C2HFCC</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--.nav-tabs -->
+                </div>
+            </div>
+        </div>
+        <!-- .secondary-menu -->
+    </nav>
+</header>
+<div class="clearfix"></div>
+<a class="visuallyhidden" id="skiptarget1" tabindex="-1"></a>
+        <main class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="main-content">
+                    	<h2>Background</h2>
+                        <p>
+                            The Connect2Health<sup>FCC</sup> Task Force’s <I>Mapping Broadband Health in America</I> tool allows users to visualize, overlay and analyze broadband and health data at the national, state and county levels – informing policy prescriptions and investment decisions.
+                        </p>
+                        <p>
+                            The maps are an interactive experience, showing various pictures of the intersection between connectivity and health for every county in the United States. Users can generate customized maps that show broadband access, adoption and speed alongside various health measures (e.g., obesity, diabetes and physician access) in urban and rural areas.
+                        </p>
+                        <div align="center">
+                            <div style="width:80%" >
+                                <hr>
+                                <font color="#525D91">
+                                These maps can be used by both public and private sectors, and local communities, to identify opportunities and gaps in connected care.
+                                </font>
+                                <hr>
+                            </div>
+                        </div>
+                        <p>
+                            <h3 class="h4"><b>You can explore questions like:</b></h3>
+                        </p>
+                            <ul>
+                                <li>What is the relationship between connectivity and health?</li>
+                                <li>What is the chronic disease picture in higher vs. lower connectivity areas?</li>
+                                <li>Where can existing broadband infrastructure be leveraged now – by policymakers, entrepreneurs, or other stakeholders -- to help address physician shortages or high levels of chronic disease?</li>
+                                <li>Where do infrastructure gaps and poor health outcomes coincide – both at the national and county level – in order to better target and prioritize marketplace solutions and private sector investment?</li>
+                            </ul>                        
+                        <p>
+                            <h3 class="h4"><b>Key features of these maps:</b></h3> 
+                        </p>
+                            <ul>
+                                <li>Interactive data visualization tools</li>
+                                <li>Easily accessible statistics about connectivity and health at the national and state levels, to help ground the user experience</li>
+                                <li>Customizable zoom levels to state, county, or automatic</li>
+                                <li>Unique URLs created for each customized map to facilitate sharing and collaboration</li>
+                                <li>Support of open government and open data initiatives through APIs and downloadable data sets</li>
+                            </ul>
+                        
+                        <p>
+                            <h3 class="h4"><b>Potential benefits and uses:</b></h3> 
+                        </p>
+                            <ul> 
+                                <li>The maps will be a valuable tool for highlighting areas that might require some special attention. They will also help stakeholders identify the types of collaborations – public/private; network/applications and outreach/education – that may be needed to improve connectivity and health.</li>
+                                <li>For the FCC and other agencies, the maps can be used to characterize regions, patterns, and gaps to inform policy, regulatory actions or reforms.</li>
+                                <li>For the private sector, the maps can identify areas where entrepreneurial opportunities for enabling consumer health through broadband exist now.</li>
+                                <li>And, local communities may find the maps helpful as they allocate resources and focus efforts on leveraging broadband connectivity for health.</li>
+                                <li>Over time and with periodic data updates, the maps could also be used to assess continued progress in the connected health space.</li>
+                            </ul>
+                        <p>    
+                            <h3 class="h4"><b>Data sources:</b></h3>
+                        </p>
+                        <p>
+                            The broadband data is current as of December 2014 and comes from the Commission’s Form 477 data on residential fixed broadband deployment and residential fixed broadband subscribership. Proportions for broadband access statistics are calculated using 2014 demographic data from GeoLytics, E. Brunswick, NJ. The health data is drawn from the 2015 release of the Robert Wood Johnson Foundation County Health Rankings & Roadmap (which reflects data from the Health Resources and Services Administration, Dartmouth Atlas Project, American Medical Association, Centers for Disease Control and Prevention and other primary sources); and additional demographic data is from the U.S. Census Bureau. Learn more about the <a href="data.html">data</a> and <a class="external" href="https://www.fcc.gov/health/maps/methodology" target="_blank"> methodology</a>.
+                            <br/><br/>View our <a class="external" href="https://www.fcc.gov/health/maps/faq" target="_blank">FAQs</a>.
+                        </p>             
+                    </div>
+                </div>                
+            </div>
+        </main>
+        <a class="sr-only" id="skiptarget3" tabindex="-1"></a>
+        <footer class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="nav-footer">
+                            <div class="footergriditems">
+                                <div class="grid-item">
+                                    <address>
+                                        Federal Communications Commission
+                                        <br> 445 12th Street SW, Washington, DC 20554
+                                    </address>
+                                    <ul class="footermenu footermenu__phone">
+                                        <li><a class="phone-link" href="tel:+18882255322">Phone: 1-888-225-5322</a></li>
+                                        <li><a class="phone-link" href="tel:+18888355322">TTY: 1-888-835-5322</a></li>
+                                        <li><a class="phone-link" href="tel:+18444322275">Videophone: 1-844-432-2275</a></li>
+                                        <li><a class="phone-link" href="tel:+18664180232">Fax: 1-866-418-0232</a></li>
+                                        <a class="contactus" href="https://www.fcc.gov/about/contact">Contact Us</a>
+                                    </ul>
+                                    <ul class="socialmediaicons">
+                                        <li><a class="link-ext social-media twitter" href="https://twitter.com/fcc">Twitter</a></li>
+                                        <li><a class="link-ext social-media facebook" href="https://www.facebook.com/FCC">Facebook</a></li>
+                                        <li><a class="link-ext social-media youtube" href="https://www.youtube.com/user/fccdotgovvideo">Youtube</a></li>
+                                        <li><a class="link-ext social-media flickr" href="https://www.flickr.com/photos/fccdotgov">Flickr</a></li>
+                                        <li><a class="link-ext social-media instagram" href="https://www.instagram.com/fcc">Instagram</a></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-item">
+                                    <ul class="footermenu footermenu__categories">
+                                        <li><a href="https://www.fcc.gov/general/website-notices">Website Policies &amp; Notices</a></li>
+                                        <li><a href="https://www.fcc.gov/general/foia-0">FOIA</a></li>
+                                        <li><a href="https://www.fcc.gov/general/no-fear-act-data">No Fear Act Data</a></li>
+                                        <li><a href="https://www.fcc.gov/digitalstrategy">FCC Digital Strategy</a></li>
+                                        <li><a href="https://www.fcc.gov/general/open-government-fcc">Open Government Directive</a></li>
+                                        <li><a href="https://www.fcc.gov/general/plain-writing-fcc">Plain Writing Act</a></li>
+                                        <li><a href="https://www.fcc.gov/general/rss-feeds-and-email-updates-fcc">RSS Feeds &amp; Email Updates</a></li>
+                                        <li><a href="https://www.fcc.gov/general/disability-rights-office">Disability Rights</a></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-item">
+                                    <ul class="footermenu footermenu__categories">
+                                        <li>CATEGORIES</li>
+                                        <li><a href="https://www.fcc.gov/about/overview">About the FCC</a></li>
+                                        <li><a href="https://www.fcc.gov/proceedings-actions">Proceedings &amp; Actions</a></li>
+                                        <li><a href="https://www.fcc.gov/licensing">Licensing &amp; Databases</a></li>
+                                        <li><a href="https://www.fcc.gov/reports-research">Reports &amp; Research</a></li>
+                                        <li><a href="https://www.fcc.gov/news-events">News &amp; Events</a></li>
+                                        <li><a href="https://www.fcc.gov/consumers">For Consumers</a></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-item">
+                                    <ul class="footermenu footermenu__bureaus">
+                                        <li>BUREAUS &amp; OFFICES</li>
+                                        <li><a href="https://www.fcc.gov/consumer-and-governmental-affairs#block-menu-block-4">Consumer</a></li>
+                                        <li><a href="https://www.fcc.gov/enforcement#block-menu-block-4">Enforcement</a></li>
+                                        <li><a href="https://www.fcc.gov/inspector-general">Inspector General</a></li>
+                                        <li><a href="https://www.fcc.gov/international#block-menu-block-4">International</a></li>
+                                        <li><a href="https://www.fcc.gov/media#block-menu-block-4">Media</a></li>
+                                        <li><a href="https://www.fcc.gov/public-safety-and-homeland-security#block-menu-block-4">Public Safety</a></li>
+                                        <li><a href="https://www.fcc.gov/wireless-telecommunications#block-menu-block-4">Wireless</a></li>
+                                        <li><a href="https://www.fcc.gov/wireline-competition#block-menu-block-4">Wireline</a></li>
+                                        <li><a href="https://www.fcc.gov/offices-bureaus#block-menu-block-4">Offices</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="fcc-seal">
+                                Federal Communications Commission
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+    </div>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-toolkit.min.js"></script>
+
+    
+   <script src="js/bootstrap-select.min.js"></script>   
+    
+    <script src="js/chart.js"></script>
+    
+    <!--<script src="./js/jquery.jcarousel.min.js"></script>
+    <script src="./js/jcarousel.responsive.js"></script>-->
+    <script src="js/jquery-color-animation-mainfile.js"></script>   
+    <script src="js/theme.js"></script>
+    <!-- END CODE FOR DEMO ONLY! DO NOT USE! -->
+
+
+
+</body></html>

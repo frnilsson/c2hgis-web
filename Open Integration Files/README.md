@@ -25,7 +25,6 @@ var vetsdata=[
     "national_vet_pop": 7,
     "vets_all_include": 1
   },...
-
 ```
 
 3. SAVE YOUR DATA: Once you have the data in the correct format (see the diablity.js or the vetspop.js files as examples), save it as a JavaScript file to the &#39;data&#39; folder. You can open these files with notepad or any text editor.
@@ -73,7 +72,6 @@ var extsdata=OBJECT_NAME_W_GEOGRAPHIC_FEATURES;
 <!-- 
 To increase page load speed, the above scripts can be placed at the bottom of the <body> element
 --> 
-
 ```
 
 1. SET OPTION VALUES: This is where you define the variables in the dataset that you want displayed and the value levels that you want to use as selection options. The format for setting option values is:

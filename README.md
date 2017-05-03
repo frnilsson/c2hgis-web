@@ -7,7 +7,7 @@ The maps are an interactive experience, showing various pictures of the intersec
 These maps can be used by both public and private sectors, and local communities, to identify opportunities and gaps in connected care. 
 
 ### Screenshot
-![Alt text](/img/screenshot-home.png?raw=true "FCC Connect2Health")
+![alt text](https://raw.githubusercontent.com/FCC/c2hgis-web/dev/client/img/screenshot-home.png "FCC Connect2Health")
 
 ## Data sources
 The broadband data is current as of December 2014 and comes from the Commission’s Form 477 data on residential fixed broadband deployment and residential fixed broadband subscribership. Proportions for broadband access statistics are calculated using 2014 demographic data from GeoLytics, E. Brunswick, NJ. The health data is drawn from the 2015 release of the Robert Wood Johnson Foundation County Health Rankings & Roadmap (which reflects data from the Health Resources and Services Administration, Dartmouth Atlas Project, American Medical Association, Centers for Disease Control and Prevention and other primary sources); and additional demographic data is from the U.S. Census Bureau. Learn more about the data[] and methodology. 

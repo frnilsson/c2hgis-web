@@ -123,7 +123,7 @@ function createMap() {
 	// custom zoom layer control	
 	
 	var zoomLayerControl = ''+
-		'<form class="leaflet-control-layers-list-zoom" style="display: none;"><div class="leaflet-control-layers-zoom">'+
+		'<form class="leaflet-control-layers-list leaflet-control-layers-list-zoom"><div class="leaflet-control-layers-separator"></div><div class="leaflet-control-layers-zoom">'+
 			'<label><input type="radio" class="leaflet-control-layers-selector-zoom zoom-layers-control" name="leaflet-zoom-layers" id="leaflet-zoom-layers-auto" checked="checked"><span> Automatic</span></label>'+
 			'<label><input type="radio" class="leaflet-control-layers-selector-zoom zoom-layers-control" name="leaflet-zoom-layers" id="leaflet-zoom-layers-county"><span> County</span></label>'+
 			'<label><input type="radio" class="leaflet-control-layers-selector-zoom zoom-layers-control" name="leaflet-zoom-layers" id="leaflet-zoom-layers-state"><span> State</span></label>'+
@@ -139,17 +139,6 @@ function createMap() {
 		generateMenu();
 		
     });	
-	
-	$('.leaflet-control-layers-toggle, .leaflet-control-layers').on('mouseover', function() {        
-		$('.leaflet-control-layers-separator').css('display', 'block');	
-		$('form.leaflet-control-layers-list-zoom').show();	
-    });	
-	
-	$('.leaflet-control-layers-toggle, .leaflet-control-layers').on('mouseout', function() {		
-        $('.leaflet-control-layers-separator').css('display', 'none');	
-		$('form.leaflet-control-layers-list-zoom').hide();	
-    });	
-	
 	
 	L.tileLayer.wms( geo_host + '/' + geo_space + '/' + wms_method +'?', {
 		 format: 'image/png',

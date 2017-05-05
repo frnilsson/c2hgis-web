@@ -17,7 +17,7 @@ Download the extensibility files to your local environment. You will see one HTM
 
   There are many converters online that can help you convert your data into the JSON format (if your data is saved in CSV format then using a search engine to search for ‘csv to json’ can lead to many resources to convert your data into JSON format in a matter of seconds. Download or copy-and-paste your JSON-formatted data into a text file (e.g. notepad). At this point each row of your data would be between braces ( ‘{ }’ ); the name and value of each variable (column) corresponding to that row should be visible as well. The following is an example of how your data should look at this point (the specific names and values would depend on your data; the column with the county FIPS code should be named ‘countyFIPS’ prior to converting it to JSON format):
 
-    ```javascript
+```javascript
 [
   {
     "countyFIPS": "01001",
@@ -32,11 +32,11 @@ Download the extensibility files to your local environment. You will see one HTM
     "vets_all_include": 1
   },...
 ]
-    ```
+```
 
 2. NAME YOUR DATA: Assign your data objects to a variable. We have included two example files (**Disability Population Files; Veterans Population Files**). In the **Veterans Population Files** folder the data variable can be found in the **data** folder, in the **vetspop.js** file. There it's defined as:
 
-    ```javascript
+```javascript
 var vetsdata=[
   {
     "countyFIPS": "01001",
@@ -51,14 +51,14 @@ var vetsdata=[
     "vets_all_include": 1
   },...
 ]
-    ```
+```
 
 3. SAVE YOUR DATA: Once you have the data in the correct format (see the **disability.js** or the **vetspop.js** files as examples), save it as a JavaScript file to the **data** folder. You can open these files with notepad or any text editor.
 
 ### **(III) MODIFY THE HTML - the easy part...we have done all the coding for you!**
 Open the **extensible.html** file and scroll down to the Open Integration section...it comes with instructions in comments and looks like this:
 
-  ```html
+```html
 <!--
 (1) SET OPTION VALUES: The format for setting option values is: VARIABLENAME$LOWERBOUNDARY_UPPERBOUNDARY
 The code parses everything before the '$' sign as the variable name; and everything after the '$' sign as the numeric range.
@@ -98,7 +98,7 @@ var extsdata=OBJECT_NAME_W_GEOGRAPHIC_FEATURES;
 <!-- 
 To increase page load speed, the above scripts can be placed at the bottom of the <body> element
 --> 
-  ```
+```
 
 1. SET OPTION VALUES: This is where you define the variables in the dataset that you want displayed and the value levels that you want to use as selection options. The format for setting option values is: VARIABLENAME$LOWERBOUNDARY_UPPERBOUNDARY
 
@@ -106,7 +106,7 @@ To increase page load speed, the above scripts can be placed at the bottom of th
 
     Then if you want the first option to be to show all counties where veteran population is 0-5%, then '0' is the lower boundary and '5' is the upper boundary (separated by an underscore character:  _ )...the option value would be: vets_all_pct$0_5. You can modify the text between the <option></option> tags to let the user know what values they would be selecting. A completed example from **Veterans Population Files** is below ('vets_all_pct' and 'vets_all' are variables in the dataset in the **vetspops.js** data file):
 
-    ```html
+```html
 <div class="row row-space"> 
     <div class="col-sm-5">
         <div class="data-label">
@@ -134,37 +134,37 @@ To increase page load speed, the above scripts can be placed at the bottom of th
         </select>
     </div>                                            
 </div>
-    ```
+```
 
 2. ENTER PATH TO FILE WITH OBJECTS W/ GEOGRAPHIC FEATURES &amp; DATA: In the portion of the code in the &lt;script&gt; tags, modify the path to your data file by simply entering the name of your data file. To do this, replace the text “PATH_TO_DATA_OBJECT” with the name of the data file that you saved into the data folder: 
 
-    ```html
+```html
 <script src="data/PATH_TO_DATA_OBJECT.js"></script>
-    ```
+```
 
     For the example in **Veterans Population Files** you will see that the data file name is **vetspops.js** and is saved in the folder named **‘data’**. Therefore, the path in the &lt;script&gt; tags is changed to the following:
 
-    ```html
+```html
 <script src="data/vetspops.js"></script>
-    ```
+```
 
 3. LET THE PLATFORM KNOW THE NAME OF YOUR DATA OBJECTS: To do this, set the ‘extsdata' variable to equal to the name you gave your data object:
 
   For the example in the Veterans Population Files you will see that the data name is vetspops.js and is saved under the data folder. Therefore, the path in the &lt;script&gt; tags is changed to the following:  
 
-    ```html
+```html
 <script>
 var extsdata=OBJECT_NAME_W_GEOGRAPHIC_FEATURES;
 </script>
-    ```
+```
     
     In the example in the **Veterans Population Files** we gave the name ‘vetsdata’ to the data objects with veterans data (see above: (II) SAVE YOUR DATA IN THE CORRECT FORMAT; Step 2):
 
-    ```html
+```html
 <script>
 var extsdata=vetsdata;
 </script>
-    ```
+```
 
 You are done! Once the above steps are completed, you can rename and open the extensible.html file in your browser and you should see that a feature to manipulate your dataset has been added to the user interface. You should now be able to manipulate the map and see how the picture of connectivity and health changes based on varying levels of your data variable. 
 

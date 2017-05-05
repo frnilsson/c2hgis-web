@@ -1,11 +1,11 @@
-#**Open Integration – Getting Started**
+# **Open Integration – Getting Started**
 
 The purpose of an Open Integration architecture is to allow you to interface your data with the analytic tools of the Mapping Broadband Health in America platform (https://www.fcc.gov/reports-research/maps/connect2health) so you can examine the picture of connectivity and health with respect to datasets of interest to you. Simply put, it puts the power of this platform’s visual analytics into your hands and your data. This can be done quickly once your data is in the correct format. Steps I and II below help you get your data into the correct format. Once you have saved the data in the correct format, Step III shows you how to modify the code (HTML) in 3 easy steps to integrate your data into the platform interface. There are also completed examples (**Disability Population Files; Veterans Population Files**) that you can examine and modify.
 
-###**(I) DOWNLOAD EXTENSIBILITY FILES:** 
+### **(I) DOWNLOAD EXTENSIBILITY FILES:** 
 Download the extensibility files to your local environment. You will see one HTML file (**extensible.html**) and four folders (**css, data, img, js**). You should save your data to the **data** folder and you will only modify the HTML file (i.e. **extensible.html**).
 
-###**(II) SAVE YOUR DATA IN THE CORRECT FORMAT - This is the only hard part (we promise)!**
+### **(II) SAVE YOUR DATA IN THE CORRECT FORMAT - This is the only hard part (we promise)!**
 
 1. CONVERT YOUR DATA INTO A JAVASCRIPT OBJECT: Save your dataset as a JavaScript object. An easy way to do this is to convert your CSV or other format to JSON format first, and then assign it to a variable. Because you are going to be 'merging' datasets by county geo-ids, make sure your dataset has: 
     +	data at the county level
@@ -55,7 +55,7 @@ var vetsdata=[
 
 3. SAVE YOUR DATA: Once you have the data in the correct format (see the **disability.js** or the **vetspop.js** files as examples), save it as a JavaScript file to the **data** folder. You can open these files with notepad or any text editor.
 
-###**(III) MODIFY THE HTML - the easy part...we have done all the coding for you!**
+### **(III) MODIFY THE HTML - the easy part...we have done all the coding for you!**
 Open the **extensible.html** file and scroll down to the Open Integration section...it comes with instructions in comments and looks like this:
 
   ```html

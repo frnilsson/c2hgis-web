@@ -966,8 +966,9 @@
 								</div>								
                             </div>
                         </div>
-						<div id="download-data-div" class="pull-right">
-							Data Download: 
+						<div id="download-data-div">
+							Download <span class="geog-nameData"></span> Data: 
+                            <br>
 							<a id="download-data-json" href="" target="_blank">JSON</a>
 							|  
 							<a id="download-data-xml" href="" target="_blank">XML</a>
@@ -977,7 +978,33 @@
 							<a id="download-data-kml" href="" target="_blank">KML</a>							
 							|
 							<a id="download-data-csv" href="" target="_blank">CSV</a>
-						</div>	
+						</div>
+                        <div id="download-data-div" style="padding-top: 0">
+                            Download All States:
+                            <br> 
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=json&typeName=fcc:c2hgis_state" target="_blank">JSON</a>
+                            |  
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=GML3&typeName=fcc:c2hgis_state" target="_blank">XML</a>
+                            | 
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=shape-zip&typeName=fcc:c2hgis_state" target="_blank">SHP</a>
+                            | 
+                            <a href="https://geo.fcc.gov/fcc/wms/kml?mode=download&layers=fcc:c2hgis_state" target="_blank">KML</a>                           
+                            |
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=csv&typeName=fcc:c2hgis_state" target="_blank">CSV</a>
+                        </div> 
+                        <div id="download-data-div" style="padding-top: 0">
+                            Download All Counties:
+                            <br> 
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=json&typeName=fcc:c2hgis_county" target="_blank">JSON</a>
+                            |  
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=GML3&typeName=fcc:c2hgis_county" target="_blank">XML</a>
+                            | 
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=shape-zip&typeName=fcc:c2hgis_county" target="_blank">SHP</a>
+                            | 
+                            <a href="https://geo.fcc.gov/fcc/wms/kml?mode=download&layers=fcc:c2hgis_county" target="_blank">KML</a>                           
+                            |
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=csv&typeName=fcc:c2hgis_county" target="_blank">CSV</a>
+                        </div> 	
 					</div>   
 				</div>
 		    </div>

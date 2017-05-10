@@ -1412,9 +1412,11 @@ function updateStats() {
 		geography_desc = 'Nationwide';
 	}
 	
+	geography_descData = geography_desc;
 	geography_desc += ' Statistics:';
 	
 	$('.geog-name').text(geography_desc);
+	$('.geog-nameData').text(geography_descData);
 	$('.geog-pop').text(formatStat(geo_prop.pop_2014));
 	$('.geog-prov').text(formatStat(geo_prop.provcount_c));	
 		

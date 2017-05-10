@@ -12,7 +12,7 @@
 
 /*** GeoServer ***/
 var geo_request_type = 'json'; 
-var geo_host = 'http://gisp-geosrv-tc-test.us-west-2.elasticbeanstalk.com';
+var geo_host = 'https://geo.fcc.gov';
 var geo_space = 'fcc';
 var geo_output = 'application/json';
 
@@ -1438,7 +1438,7 @@ function updateStats() {
 	else {
 		broadband_stat_value = formatStat(geo_prop[insight_ly.broadband[broadband_sel].column]) + insight_ly.broadband[broadband_sel].suffix;
 	}		
-	
+
 	health_stat_value = formatStat((geo_prop[insight_ly.health[health_sel].column] * insight_ly.health[health_sel].multiple), 1);
 	if(insight_ly.health[health_sel].suffix != '%'){
 		health_stat_value = health_stat_value + ' ' + insight_ly.health[health_sel].suffix;
@@ -1475,7 +1475,7 @@ function updateStats() {
 	$('.geog-pcp').text(formatStat(geo_prop.pcp_total));
 	$('.geog-dentists').text(formatStat(geo_prop.dentist_total));
 	$('.geog-mental').text(formatStat(geo_prop.mhp_total));
-	$('.geog-poorfair').text(formatStat(geo_prop.poor_fair_health_total));
+	$('.geog-poorfair').text(formatStat(geo_prop.poor_fair_health_pct, 1) + '%');
 
 	$('.geog-prematured').text(formatStatAppend(geo_prop.years_lost_per_100000, 1, ' per 100,000'));
 	$('.geog-prevhosp').text(formatStatAppend(geo_prop.preventable_hospital_stays_per_1000, 1, ' per 1,000'));	

@@ -3778,7 +3778,16 @@ a.gen-passcode {
     font-weight: bold;
 }
 
-#health-stats-div {
+.stats-panel {
+    font-size: 13px;
+}
+
+.stats-panel .help-block {
+    font-size: 11px;
+    margin: 0 0 5px;
+}
+
+#health-stats-div {    
     height: 180px;
     overflow-y: auto;
     margin-right: 0px;

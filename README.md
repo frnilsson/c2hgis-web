@@ -1,6 +1,6 @@
 Connect2HealthFCC
 ======
-The **Connect2HealthFCC** Task Force’s Mapping Broadband Health in America tool allows users to visualize, overlay and analyze broadband and health data at the national, state and county levels – informing policy prescriptions and investment decisions.
+The Connect2HealthFCC Task Force’s mapping platform *Mapping Broadband Health in America 2017* allows users to visualize, overlay and analyze broadband and health data at the national, state and county levels – informing policy prescriptions and investment decisions.
 
 The maps are an interactive experience, showing various pictures of the intersection between connectivity and health for every county in the United States. Users can generate customized maps that show broadband access, adoption and speed alongside various health measures (e.g., obesity, diabetes and physician access) in urban and rural areas.
 
@@ -20,7 +20,7 @@ To run the site locally on your own computer (most helpful for previewing your o
 3. Start the local server, then visit `http://localhost:8080/client/index.html` in your browser to preview the site. You may need to change the port number depending on how your local server is setup.
 
 ## Download 
-* [Version 1.0.0](https://github.com/FCC/c2hgis-web/archive/v1.0.0.zip)
+* [Version 2.0.0](https://github.com/FCC/c2hgis-web/archive/v2.0.0.zip)
 
 ## Contact
 * e-mail: engagec2h@fcc.gov

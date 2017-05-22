@@ -7,7 +7,7 @@ The maps are an interactive experience, showing various pictures of the intersec
 These maps can be used by both public and private sectors, and local communities, to identify opportunities and gaps in connected care. 
 
 ### Screenshot
-![alt text](https://raw.githubusercontent.com/FCC/c2hgis-web/dev/client/img/screenshot-home.png "FCC Connect2Health")
+![alt text](https://raw.githubusercontent.com/FCC/c2hgis-web/gh-pages/img/screenshot-home.png "FCC Connect2Health")
 
 ## Data sources
 The broadband data is current as of December 2015 and comes from the Commission’s Form 477 data on residential fixed broadband deployment and residential fixed broadband subscribership. Proportions for broadband access statistics are calculated using 2014 demographic data from GeoLytics, E. Brunswick, NJ. The health data is drawn from the 2017 release of the Robert Wood Johnson Foundation County Health Rankings & Roadmap (which reflects data from the Health Resources and Services Administration, Dartmouth Atlas Project, American Medical Association, Centers for Disease Control and Prevention and other primary sources); and additional demographic data is from the U.S. Census Bureau. Learn more about the [data](https://fcc.github.io/c2hgis-web/data.html) and [methodology](https://www.fcc.gov/health/maps/methodology). 
@@ -20,7 +20,7 @@ To run the site locally on your own computer (most helpful for previewing your o
 3. Start the local server, then visit `http://localhost:8080/client/index.html` in your browser to preview the site. You may need to change the port number depending on how your local server is setup.
 
 ## Download 
-* [Version 2.0.0](https://github.com/FCC/c2hgis-web/archive/v2.0.0.zip)
+* [Version 1.2.0](https://github.com/FCC/c2hgis-web/archive/v1.2.0.zip)
 
 ## Contact
 * e-mail: engagec2h@fcc.gov

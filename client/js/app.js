@@ -10,37 +10,12 @@
 
 
 
-/*** DEV GeoServer ***/
-
-var geo_request_type = 'json'; 
-var geo_host = 'http://gisp-geosrv-tc-dev.us-west-2.elasticbeanstalk.com';
-var geo_space = 'fcc';
-var geo_output = 'application/json';
-
-
-/*** TEST GeoServer ***/
-/*
+/*** GeoServer ***/
 var geo_request_type = 'json'; 
 var geo_host = 'https://geo.fcc.gov';
 var geo_space = 'fcc';
 var geo_output = 'application/json';
-*/
 
-/*** ST GeoServer ***/
-/*
-var geo_request_type = 'jsonp'; 
-var geo_host = 'http://kyauk.fcc.gov:8010/geoserver';
-var geo_space = 'fcc';
-var geo_output = 'json';
-*/
-
-/*** PROD GeoServer ***/
-/*
-var geo_request_type = 'json';
-var geo_host = 'https://geo.fcc.gov';
-var geo_space = 'fcc';
-var geo_output = 'application/json';
-*/
 
 var wms_method = 'gwc/service/wms';
 
@@ -123,7 +98,7 @@ function createMap() {
 	// custom zoom layer control	
 	
 	var zoomLayerControl = ''+
-		'<form class="leaflet-control-layers-list-zoom" style="display: none;"><div class="leaflet-control-layers-zoom">'+
+		'<form class="leaflet-control-layers-list leaflet-control-layers-list-zoom"><div class="leaflet-control-layers-separator"></div><div class="leaflet-control-layers-zoom">'+
 			'<label><input type="radio" class="leaflet-control-layers-selector-zoom zoom-layers-control" name="leaflet-zoom-layers" id="leaflet-zoom-layers-auto" checked="checked"><span> Automatic</span></label>'+
 			'<label><input type="radio" class="leaflet-control-layers-selector-zoom zoom-layers-control" name="leaflet-zoom-layers" id="leaflet-zoom-layers-county"><span> County</span></label>'+
 			'<label><input type="radio" class="leaflet-control-layers-selector-zoom zoom-layers-control" name="leaflet-zoom-layers" id="leaflet-zoom-layers-state"><span> State</span></label>'+
@@ -139,17 +114,6 @@ function createMap() {
 		generateMenu();
 		
     });	
-	
-	$('.leaflet-control-layers-toggle, .leaflet-control-layers').on('mouseover', function() {        
-		$('.leaflet-control-layers-separator').css('display', 'block');	
-		$('form.leaflet-control-layers-list-zoom').show();	
-    });	
-	
-	$('.leaflet-control-layers-toggle, .leaflet-control-layers').on('mouseout', function() {		
-        $('.leaflet-control-layers-separator').css('display', 'none');	
-		$('form.leaflet-control-layers-list-zoom').hide();	
-    });	
-	
 	
 	L.tileLayer.wms( geo_host + '/' + geo_space + '/' + wms_method +'?', {
 		 format: 'image/png',
@@ -309,7 +273,7 @@ function getGeocodeCounty() {
 
 	var cql_filter_str = 'geography_desc+ILIKE+%27' + county_name.replace(/'/g, "%27%27") + '%27+AND+geography_id+LIKE+%27' + state_fips + '%25%27';
 
-	var geocode_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=' + cql_filter_str;
+	var geocode_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_201705_county&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=' + cql_filter_str;
 	
 	if(geo_request_type == 'jsonp'){
 		geocode_url = geocode_url + '&format_options=callback:callbackData';
@@ -621,7 +585,7 @@ function setCount() {
 			map.removeLayer(map_overlays['in_count']);
 		}
 		
-		var count_layers = [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'];
+		var count_layers = [''+ geo_space +':c2hgis_201705_state', ''+ geo_space +':c2hgis_201705_county'];
 		var count_styles = ['count_'+ count_style +'_state', 'count_'+ count_style +'_county'];
 		
 		if (zoom_layer_type != 'auto') {
@@ -723,7 +687,7 @@ function setupHealthTab() {
 			map.removeLayer(map_overlays['health_ov']);
 		}
 
-		var in_layers = [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'];
+		var in_layers = [''+ geo_space +':c2hgis_201705_state', ''+ geo_space +':c2hgis_201705_county'];
 		var in_styles = [''+ health_style +'_state', ''+ health_style +'_county'];	
 
 		if (zoom_layer_type != 'auto') {
@@ -818,7 +782,7 @@ function setupBroadbandTab() {
 		map.removeLayer(map_overlays['broadband_ov']);
 	}	
 	
-	var in_layers = [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'];
+	var in_layers = [''+ geo_space +':c2hgis_201705_state', ''+ geo_space +':c2hgis_201705_county'];
 	var in_styles = ['bb_combo_' + type + '_state', 'bb_combo_' + type + '_county'];	
 
 	if (zoom_layer_type != 'auto') {
@@ -935,7 +899,7 @@ function setupPopTab() {
 			map.removeLayer(map_overlays['pop_ov']);
 		}
 
-		var in_layers = [''+ geo_space +':c2hgis_state', ''+ geo_space +':c2hgis_county'];
+		var in_layers = [''+ geo_space +':c2hgis_201705_state', ''+ geo_space +':c2hgis_201705_county'];
 		var in_styles = [ pop_style +'_state', pop_style +'_county'];	
 
 		if (zoom_layer_type != 'auto') {
@@ -1058,8 +1022,8 @@ function getData(zoomCenter) {
 	//console.log(' zoom_layer_type : ' + zoom_layer_type );
 	//console.log('getData data_type : ' + data_type );	
 	
-	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_'+ data_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))';
-	
+	var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_201705_'+ data_type +'&maxFeatures=1&outputFormat='+ geo_output +'&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))';
+
 	if(geo_request_type == 'jsonp'){
 		data_url = data_url + '&format_options=callback:callbackData';
 		jsonpCallbackVal = 'callbackData';
@@ -1448,9 +1412,11 @@ function updateStats() {
 		geography_desc = 'Nationwide';
 	}
 	
+	geography_descData = geography_desc;
 	geography_desc += ' Statistics:';
 	
 	$('.geog-name').text(geography_desc);
+	$('.geog-nameData').text(geography_descData);
 	$('.geog-pop').text(formatStat(geo_prop.pop_2014));
 	$('.geog-prov').text(formatStat(geo_prop.provcount_c));	
 		
@@ -1474,7 +1440,7 @@ function updateStats() {
 	else {
 		broadband_stat_value = formatStat(geo_prop[insight_ly.broadband[broadband_sel].column]) + insight_ly.broadband[broadband_sel].suffix;
 	}		
-	
+
 	health_stat_value = formatStat((geo_prop[insight_ly.health[health_sel].column] * insight_ly.health[health_sel].multiple), 1);
 	if(insight_ly.health[health_sel].suffix != '%'){
 		health_stat_value = health_stat_value + ' ' + insight_ly.health[health_sel].suffix;
@@ -1511,7 +1477,7 @@ function updateStats() {
 	$('.geog-pcp').text(formatStat(geo_prop.pcp_total));
 	$('.geog-dentists').text(formatStat(geo_prop.dentist_total));
 	$('.geog-mental').text(formatStat(geo_prop.mhp_total));
-	$('.geog-poorfair').text(formatStat(geo_prop.poor_fair_health_total));
+	$('.geog-poorfair').text(formatStat(geo_prop.poor_fair_health_pct, 1) + '%');
 
 	$('.geog-prematured').text(formatStatAppend(geo_prop.years_lost_per_100000, 1, ' per 100,000'));
 	$('.geog-prevhosp').text(formatStatAppend(geo_prop.preventable_hospital_stays_per_1000, 1, ' per 1,000'));	
@@ -1938,7 +1904,7 @@ function generateMenu(){
 			var jsonpCallbackVal = false;
 			//console.log("entered county:"+county);
 
-			var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_county&maxFeatures=35&outputFormat='+ geo_output +'&cql_filter=geography_desc+ILIKE+%27' + county + '%25%27';
+			var data_url = geo_host +'/'+ geo_space +'/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName='+ geo_space +':c2hgis_201705_county&maxFeatures=35&outputFormat='+ geo_output +'&cql_filter=geography_desc+ILIKE+%27' + county + '%25%27';
 			
 			if(geo_request_type == 'jsonp'){
 				data_url = data_url + '&format_options=callback:callbackData';

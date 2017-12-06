@@ -528,11 +528,11 @@ function redoMap(type, filter, zindex) {
 		map.removeLayer(map_overlays['in_'+ type]);
 	}
 			
-	var in_layers = ''+ geo_space +':c2hgis_'+ type;
+	var in_layers = ''+ geo_space +':c2hgis_201705_'+ type;
 	var in_styles = '';	
 
 	if (zoom_layer_type != 'auto') {
-		in_layers = ''+ geo_space +':c2hgis_'+ zoom_layer_type;
+		in_layers = ''+ geo_space +':c2hgis_201705_'+ zoom_layer_type;
 		in_styles = ''+ type +'_auto';
 	} 
 	
@@ -1114,7 +1114,7 @@ function processData(data, zoomCenter) {
 function setDownloadLinks() {
 	
 	var data_type = geo_prop.geography_type;	
-	var download_layer = 'c2hgis_'+ data_type;
+	var download_layer = 'c2hgis_201705_'+ data_type;
 	
 	var download_filter = '';	
 	if (data_type != 'national') {	

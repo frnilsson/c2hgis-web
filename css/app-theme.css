@@ -105,6 +105,7 @@ blockquote {
 .navbar {
     margin-bottom: 0;
     border: 0;
+    border-radius: 0;
 }
 
 
@@ -3411,11 +3412,11 @@ a.gen-passcode {
 }
 
 .btn-geo {
-    border: 1px solid rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(0,0,0,.2);
     border-radius: 3px;
+    display: block;    
     left: 10px;
     padding: 2px;
-    position: absolute;
     width: 28px;
     height: 26px;
     background: #ffffff;
@@ -3434,6 +3435,27 @@ a.gen-passcode {
 .btn-geo-legend {
     top: 180px;
     z-index: 9;
+}
+
+.leaflet-touch .leaflet-control-fullscreen a {
+    background-position: 0 0;
+}
+
+.leaflet-touch.leaflet-fullscreen-on .leaflet-control-fullscreen a {
+    background-position: 0px -25px;
+}
+
+/* Position nationwide and geolocation buttons */
+.leaflet-control-layers-expanded {
+    position: absolute;
+    top: 65px;
+    width: 125px;
+    z-index: 801;
+}
+
+
+#btn-currentLoc {
+    margin-bottom: 10px;
 }
 
 .map-legend {
@@ -3744,7 +3766,7 @@ a.gen-passcode {
         max-width: 1180px;
     }
     .panel-container {
-        min-width: 420px
+        min-width: 415px
     }
     .geo-container {
         max-width: 780px
@@ -3872,6 +3894,7 @@ a.gen-passcode {
     display: inline-block;
     line-height: 32px;
     font-size: 13px;
+    white-space: nowrap;
 }
 
 .data-label {
@@ -4127,8 +4150,17 @@ a.gen-passcode {
     height: 36px;
 }
 
+.ui-autocomplete-input {
+    /*border-left: 0;*/
+    border-right: 0;
+}
+
 .input-group {
     width: 100%;
+}
+
+.input-group .dropdown-toggle {
+    border-right: 0;
 }
 
 .input-group .form-control:first-child {
@@ -4443,9 +4475,17 @@ a.external {
 .dropdown-header{
     padding: 3px 10px;
 }
+
+/* Bootstrap Select Plugin Style Overrides */
+.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+    font-size: 13px;
+}
+
 .bootstrap-select.btn-group .dropdown-menu li a.opt {
     padding-left: 18px !important;
 }
+
+
 .col-sm-12 .col-xs-7 {
      padding-right: 0px !important;
 }

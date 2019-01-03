@@ -1,0 +1,45 @@
+.tab-secondary {
+    background-color: #f2f2f2;
+    width: 100%;
+}
+
+.tab-secondary .btn {
+    border-radius: 0;
+    width: 50%;
+}
+
+.tab-secondary .btn+.btn {
+    margin-left: 0;
+}
+
+.tab-secondary .btn {
+    background-color: transparent;    
+}
+
+.tab-secondary .active {
+    background-color: #266AD0;    
+    color: #fff;
+    font-weight: 700;
+}
+
+.tab-secondary .active::after,
+.tab-secondary .selected::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: -1px;
+    margin-left: -10px;
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #266AD0 transparent transparent;
+    border-image: none;
+}
+
+.tab-secondary .btn:focus, .btn.focus, .btn.focus.active {
+    outline-style: dotted;
+    outline-width: 1px;
+}

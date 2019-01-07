@@ -12,7 +12,7 @@
 /*** PROD GeoServer ***/
 var geo_request_type = 'json';
 // var geo_host = 'https://geo.fcc.gov';
-var geo_host = 'http://gisp-geosrv-tc-test.us-west-2.elasticbeanstalk.com';
+var geo_host = 'http://gisp-geosrv-tc-dev.us-west-2.elasticbeanstalk.com';
 var geo_space = 'fcc';
 var geo_output = 'application/json';
 
@@ -1602,15 +1602,19 @@ function updateStats() {
     var geography_type = geo_prop.geography_type;
     var geography_id = geo_prop.geography_id;
     var geography_desc = geo_prop.geography_desc;
+    // console.log(geography_type)
+    var dsgteq25 = geo_prop.dsgteq25;
+    var usgteq3 = geo_prop.usgteq3;
 
 
     if (geography_type == 'county') {
         var abbr = states_data[geography_id.substring(0, 2)].abbr;
-
+        dsgteq25 = geo_prop.dsgteq25 * 100;
+        usgteq3 = geo_prop.usgteq3 * 100;
         geography_desc += ', ' + abbr;
     } else if (geography_type == 'national') {
         geography_desc = 'Nationwide';
-    }
+    } 
 
     geography_desc += ' Statistics:';
 
@@ -1702,8 +1706,8 @@ function updateStats() {
 
     //$('.geog-combdl').text(formatStat(geo_prop.advdl_gr25000k, 1, '%');
     //$('.geog-combul').text(formatStat(geo_prop.advul_gr3000k, 1, '%');
-    $('.geog-wldl').text(formatStatAppend(geo_prop.dsgteq25, 1, '%'));
-    $('.geog-wlul').text(formatStatAppend(geo_prop.usgteq3, 1, '%'));
+    $('.geog-wldl').text(formatStatAppend(dsgteq25, 1, '%'));
+    $('.geog-wlul').text(formatStatAppend(usgteq3, 1, '%'));
     //$('.geog-wsdl').text(formatStat(geo_prop.wireless_advdl_gr25000k, 1, '%');
     //$('.geog-wsul').text(formatStat(geo_prop.wireless_advul_gr3000k, 1, '%'); 
 
@@ -1712,6 +1716,9 @@ function updateStats() {
 
 
     // $('.geog-adoptpct').text((bb_adoption_tiers[geo_prop.res_concxns_pct].range) + '%');
+    // console.log(geo_prop.res_concxns_pct)
+    // console.log(geo_prop.dsgteq25)
+    // console.log(geo_prop.usgteq3)
     $('.geog-adoptpct').text((geo_prop.res_concxns_pct * 100) + '%');
 
 

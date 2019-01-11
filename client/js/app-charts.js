@@ -186,7 +186,7 @@ function createCharts() {
         // chart - Number of Providers
 
         if (current_slide == 1) {
-            var provData = [geo_prop.cumm_prov_c_1, geo_prop.cumm_prov_c_2, geo_prop.cumm_prov_c_3, geo_prop.cumm_prov_c_4, geo_prop.cumm_prov_c_5, geo_prop.cumm_prov_c_6, geo_prop.cumm_prov_c_7, geo_prop.cumm_prov_c_8];
+            var provData = [geo_prop.cumm_prov_c_1 * 100, geo_prop.cumm_prov_c_2 * 100, geo_prop.cumm_prov_c_3 * 100, geo_prop.cumm_prov_c_4 * 100, geo_prop.cumm_prov_c_5 * 100, geo_prop.cumm_prov_c_6 * 100, geo_prop.cumm_prov_c_7 * 100, geo_prop.cumm_prov_c_8 * 100];
 
             chart_obj.broadband.num_providers.data = {
                 labels: ["< 1", "< 2", "< 3", "< 4", "< 5", "< 6", "< 7", "< 8"],

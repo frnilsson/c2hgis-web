@@ -1602,19 +1602,17 @@ function updateStats() {
     var geography_type = geo_prop.geography_type;
     var geography_id = geo_prop.geography_id;
     var geography_desc = geo_prop.geography_desc;
-    // console.log(geography_type)
     var dsgteq25 = geo_prop.dsgteq25;
     var usgteq3 = geo_prop.usgteq3;
 
-
     if (geography_type == 'county') {
         var abbr = states_data[geography_id.substring(0, 2)].abbr;
+        geography_desc += ', ' + abbr;
         dsgteq25 = geo_prop.dsgteq25 * 100;
         usgteq3 = geo_prop.usgteq3 * 100;
-        geography_desc += ', ' + abbr;
     } else if (geography_type == 'national') {
         geography_desc = 'Nationwide';
-    } 
+    }
 
     geography_desc += ' Statistics:';
 
@@ -1715,12 +1713,7 @@ function updateStats() {
     $('.geog-commonul').text((bb_speed_tiers[geo_prop.ul_tiers].range) + ' mbps');
 
 
-    // $('.geog-adoptpct').text((bb_adoption_tiers[geo_prop.res_concxns_pct].range) + '%');
-    // console.log(geo_prop.res_concxns_pct)
-    // console.log(geo_prop.dsgteq25)
-    // console.log(geo_prop.usgteq3)
-    $('.geog-adoptpct').text((geo_prop.res_concxns_pct * 100) + '%');
-
+    $('.geog-adoptpct').text(geo_prop.res_concxns_pct + '%');
 
 
     //$('.geog-greatdl').text((bb_speed_tiers[geo_prop.greatest_dl].range) + ' mbps');

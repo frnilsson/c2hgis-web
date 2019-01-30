@@ -47,7 +47,19 @@ function createCharts() {
 
         // Opioid Behaviors spider chart
         chart_obj.health.measurements.data = {
-            labels: ["Overdose Deaths", "Opioid Prescriptions", "Overdose Trends", "Excessive Drinking", "Access to Mental Health Providers", "Broadband Access", "Internet Adoption"],
+            labels: [
+                "Heroin Deaths",
+                "Rx Opioid Deaths",
+                "Synthetic Opioid Deaths",
+                "All Opioid Deaths",
+                "All Drug Deaths",
+                "Mental Health Providers",
+                "Heroin Death Trends",
+                "Rx Opioid Death Trends",
+                "Synthetic Opioid Death Trends",
+                "Rx Rates",
+                "Rx Trends"
+            ],
             datasets: [{
                 label: "Opioid Behaviors",
                 backgroundColor: "rgba(220,220,220,0.2)",
@@ -56,7 +68,19 @@ function createCharts() {
                 pointBorderColor: "#fff",
                 pointHoverBackgroundColor: "#fff",
                 pointHoverBorderColor: "rgba(220,220,220,1)",
-                data: [geo_prop.adult_obesity_pct / 2, geo_prop.adult_obesity_pct, geo_prop.diabetes_pct, geo_prop.smoking_pct, geo_prop.drinking_pct, geo_prop.physical_inactivity, geo_prop.severe_housing_problems]
+                data: [
+                    geo_prop.heroin_age_adj_mortality_rate_norm,
+                    geo_prop.prescriptionopioids_age_adj_mortality_rate_norm,
+                    geo_prop.syntheticopioids_age_adj_mortality_rate_norm,
+                    geo_prop.anyopioids_age_adj_mortality_rate_norm,
+                    geo_prop.alldrugs_age_adj_mortality_rate_norm,
+                    geo_prop.mhp_total_norm,
+                    geo_prop.heroin_age_adj_mortality_rate_pct_change_norm,
+                    geo_prop.prescriptionopioids_age_adj_mortality_rate_pct_change_norm,
+                    geo_prop.syntheticopioids_age_adj_mortality_rate_pct_change_norm,
+                    geo_prop.opioid_prescribing_rate_norm,
+                    geo_prop.opioid_prescribing_rate_pct_change_norm
+                ]
             }]
         };
 

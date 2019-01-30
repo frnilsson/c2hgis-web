@@ -3948,6 +3948,11 @@ a.gen-passcode {
     display: inline-block;
 }
 
+.select-opioid {
+    width: 205px !important;
+    display: inline-block;
+}
+
 .select-advanced {
     width: 100% !important;
     min-width: 230px;

@@ -386,106 +386,131 @@ function setNationwide() {
 // slider functions
 
 function updateSlider(type, def) {    
-    var min = 0;
-    var max = 0;
-    var step = 0;
-    var values = 0;
-    var selectedOpFilter = '';
-    var nationAve = 0;
-    var selectBoxID = '#select-in-' + type;
-
     // Get selected opioid category and filter type
-    var opFilterCategory = $(selectBoxID).val();
-    var opFilterType = $(selectBoxID).find(':selected').data('filtertype');
-
-    if (insight_ly[type][opFilterCategory]) {
-        min = insight_ly[type][opFilterCategory].min;
-        // max = insight_ly[type][opFilterCategory].max;
-        step = insight_ly[type][opFilterCategory].step;
-        values = insight_ly[type][opFilterCategory].values;
-    }
+    var opFilterCategory = $('#select-in-' + type).val();
+    var nationAve = national_data['features'][0]['properties'][opFilterCategory.slice(3)];
+    var min;
+    var max;
+    var step;
+    var values;
 
     if (type === 'bbOpioid') {
-        // Update opioid filter slider for 'trends' related categories
-        if (opFilterType === 'trends') { console.log('opfilter type = trends')
+        var opFilterType = $('#select-in-bbOpioid').find(':selected').data('filtertype');
+
+        min = insight_ly['bbOpioid'][opFilterCategory][zoom_layer_type + 'Min'];
+        max = insight_ly['bbOpioid'][opFilterCategory][zoom_layer_type + 'Max'];
+        var label = insight_ly['bbOpioid'][opFilterCategory].label
+        var multiple = insight_ly['bbOpioid'][opFilterCategory].multiple
+        var labelRange = '';
+        var labelRangeVals = '';
+        var low;
+        var high;
+
+        if (opFilterType === 'trends') {
+            step = 50;
+            var selectedTrend = $('[name=bbOpioidTrendsFilter]:checked').val(); // increasing decreasing all
+            high = selectedTrend === 'increasing' ? 50 : selectedTrend === 'allTrends' ? max : max;
+
+            if (selectedTrend === 'increasing') {
+                min = 0;
+                low = min;
+            } else {
+                if (min < 0) {
+                    low = Math.floor(min/50) * 50;
+                } else {
+                    low = Math.ceil(min/50) * 50;
+                }
+                if (max < 0) {
+                    high = Math.floor(max/50)*50;
+                } else {
+                    high = Math.ceil(max/50) * 50;
+                }
+                high = low + 50;
+            }
+
             updateOpioidTrendsFilter();
 
-            // Hide the opioid filter range text
+            // Hide non-trends text
             $('.bbOpioid-slider').find('p').hide();
-
-            // Display the opioid trends filter range text
             $('.bbOpioid-slider').find('.slider-label').show();
 
             // Show slider and enable 'Increasing' radio button
             $('#bbOpioidTrendsFilter').show();
-            $('#bbOpioidTrendsFilter').find('.active').removeClass('active');
             $('#bbOpioid-increasing').prop('disabled', false);
-            $('#bbOpioid-increasing').parent('label').removeClass('disabled').addClass('active');
 
-            var maxLabel = Math.ceil(insight_ly[type][opFilterCategory][zoom_layer_type + 'Max']);
+            var maxLabel = Math.ceil(max);
+            var minLabel = formatStat(min, 0)
+            var maxCategoryVal = max;
+            max = Math.ceil(maxCategoryVal / 50) * 50;
 
-            var maxCategoryVal = insight_ly[type][opFilterCategory][zoom_layer_type + 'Max'];
-            max = Math.ceil(maxCategoryVal/50) * 50;             
-
-             // If max value < 0, hide the slider and disable 'Increasing' button
-            if (max <= 0) { console.log('max <= 0');
+            // If max value < 0, hide the slider and disable 'Increasing' button
+            if (max <= 0) {
+                console.log('max <= 0');
                 $('#slider-bbOpioid').closest('.row').hide();
                 $('#bbOpioid-increasing').prop('disabled', true);
                 $('#bbOpioid-increasing').parent('label').removeClass('active').addClass('disabled');
             } else {
-                $('#slider-bbOpioid').closest('.row').show();
+                if (selectedTrend !== 'decreasing') $('#slider-bbOpioid').closest('.row').show();
                 $('#bbOpioid-increasing').prop('disabled', false);
                 $('#bbOpioid-increasing').parent('label').removeClass('disabled');
                 step = 50;
-                values = [0, 50];
             }
-            
 
+            // $('.slider-bbOpiod-label.min').text(minLabel + '%');
             $('.slider-bbOpiod-label.max').text(maxLabel + '%');
         } else {
-            // Display slider if previusly hidden
-            $('#slider-bbOpioid').closest('.row').show();            
-
-            // Display the opioid filter range text
+            low = 0;
+            high = 1;
+            step = 0.5;
+            $('#slider-bbOpioid').closest('.row').show();
             $('.bbOpioid-slider').find('p').show();
-
-            // Hide the opioid trends filter range text
             $('.bbOpioid-slider').find('.slider-label').hide();
-
-            // Hide the opioids trends button group
             $('#bbOpioidTrendsFilter').hide();
 
-            // Get national average based on selected opioid filter              
-            selectedOpFilter = opFilterCategory.slice(3); // remove 'in_' prefix
-            nationAve = national_data.features[0].properties[selectedOpFilter];
-            
-            // Display national average
-            $('#label-nationalAverage').text(nationAve);
+            $('#label-nationalAverage').text(nationAve)
 
-            // Calculate slider max based on selected filter and national average
-            max = calcBBOpioidSliderMax(insight_ly[type][opFilterCategory], nationAve);
+            var label_text = Number(low * multiple).toLocaleString('en') + ' - ' + Number(high * multiple).toLocaleString('en') + label;
+            $('#label-' + type).text(label_text);
 
+            labelRange = low + 'x - ' + high + 'x ';
+            labelRangeVals = '(' + (low * nationAve).toFixed(1) + ' - ' + (high * nationAve).toFixed(1) + ')';
+
+            $('#label-bbOpRange').text(labelRange + labelRangeVals);
+
+            max = calcBBOpioidSliderMax(insight_ly['bbOpioid'][opFilterCategory], nationAve);
             $('.slider-bbOpiod-label.max').text(max + 'x');
+
+            $('.slider-bbOpiod-label.min').text('0x');
         }
+        values = [low, high]
+    } else if (type === 'opioid') {
+        min = insight_ly['opioid'][opFilterCategory][zoom_layer_type + 'Min']
+        max = insight_ly['opioid'][opFilterCategory][zoom_layer_type + 'Max']
+        step = insight_ly['opioid'][opFilterCategory]['step']
+        values = insight_ly[type][opFilterCategory][zoom_layer_type + 'Values']
     } else {
+        min = insight_ly[type][opFilterCategory].min;
         max = insight_ly[type][opFilterCategory].max;
+        step = insight_ly[type][opFilterCategory].step;
+        values = insight_ly[type][opFilterCategory].values;
     }
 
     if (!def) {
         def = values;
-    }
+        console.log('DEF: ' + def)
+    } else console.log('NO DEF')
 
     $('#slider-' + type).slider({
         range: true,
-        min: min,
+        min: type === 'bbOpioid' ? low : min,
         max: max,
         step: step,
         values: def,
+        slide: function(event, slider) {
+            // console.log(slider.values)
+        },
         stop: function(event, slider) {
-            console.log(slider.values[0], slider.values[1])
-
             setSliderMap(type, slider.values[0], slider.values[1], nationAve);
-
             setHash();
         }
     });
@@ -509,19 +534,6 @@ function createSlider() {
     updateSlider('opioid');
     updateSlider('bbOpioid');
 
-    $('.select-insight').on('change', function() {
-        var cur_type = $(this).attr('id').split('-')[2];
-
-        var metricsLabel = $(this).find(':selected').closest('optgroup').attr('label');
-        $('#opiodMetricsLabel').text(metricsLabel);
-
-        updateSlider(cur_type);
-        updateStats();
-
-        setHash();
-    });
-
-
     /* $('#ov-select-extend').on('change', function() {
          setDemographicFilter();
      });*/
@@ -541,13 +553,9 @@ function setSliderMap(type, low, high, nationAve) {
     var label_text = '';
     var labelRange = '';
     var labelRangeVals = '';
-    var selectBoxID = '#select-in-' + type;
 
     var dropdown = $('#select-in-' + type).val();
 
-    // Get selected opioid category and filter type
-    var opFilterCategory = $(selectBoxID).val();
-    var opFilterType = $(selectBoxID).find(':selected').data('filtertype');
 
     if (insight_ly[type][dropdown]) {
         column = insight_ly[type][dropdown].column;
@@ -573,16 +581,20 @@ function setSliderMap(type, low, high, nationAve) {
 
     // Update opioid filter range text
     if (type === 'bbOpioid') {
+        var opFilterType = $('#select-in-' + type).find(':selected').data('filtertype');
         if (opFilterType === 'trends') {
-            labelRange = low + '% - ' + high + '%';
+            var selectedTrend = $('[name=bbOpioidTrendsFilter]:checked').val(); //decreasing, increasing, all
+
+            labelRange = selectedTrend === 'decreasing' ? '<= 0%' : low + '% - ' + high + '%';
             $('#label-bbOpTrendsRange').text(labelRange);
         } else {
             labelRange = low + 'x - ' + high + 'x ';
             labelRangeVals = '(' + (low * nationAve).toFixed(1) + ' - ' + (high * nationAve).toFixed(1) + ')';
 
             $('#label-bbOpRange').text(labelRange + labelRangeVals);
+            low = (low * nationAve).toFixed(1);
+            high = (high * nationAve).toFixed(1);
         }
-        
     }
 
     // Update tooltip text
@@ -609,25 +621,26 @@ function setSliderMap(type, low, high, nationAve) {
 
 }
 
-function updateOpioidTrendsFilter() { console.log('updateOpioidTrendsFilter')
-    $('[name="bbOpioidTrendsFilter"]').on('change', function(){
-        console.log('descreasing radio click event')
-        console.log(this.value)
-        console.log(zoom_layer_type)
+function updateOpioidTrendsFilter() {
+    var minLabel = '';
+    var category = $('#select-in-bbOpioid').val();
+    var opTrendsFilterType = $('[name=bbOpioidTrendsFilter]:checked').val();
 
-        var opTrendsFilterType = this.value;
-        if (opTrendsFilterType === 'decreasing') {
-            $('#slider-bbOpioid').closest('.row').hide();
-        } else {
-            $('#slider-bbOpioid').closest('.row').show();
-        }
+    if (opTrendsFilterType === 'increasing') {
+        minLabel = 0;
+        $('#slider-bbOpioid').closest('.row').show();
+        $('#label-bbOpTrendsRange').show();
+    } else if (opTrendsFilterType === 'allTrends') {
+        minLabel = formatStat(insight_ly['bbOpioid'][category][zoom_layer_type + 'Min'], 0);
+        $('#slider-bbOpioid').closest('.row').show();
+        $('#label-bbOpTrendsRange').text(minLabel + '% - 50%');
+    } else {
+        minLabel = '';
+        $('#slider-bbOpioid').closest('.row').hide();
+        $('#label-bbOpTrendsRange').text('<= 0%');
+    }
 
-        if (opTrendsFilterType === 'decreasing' && zoom_layer_type === 'county') {
-             $('#bbOpioid-decreasing').parent('label').addClass('disabled');             
-        } else {
-            $('#bbOpioid-decreasing').parent('label').removeClass('disabled');
-        }
-    });
+    $('.slider-bbOpiod-label.min').text(minLabel + '%');
 
     // Prevent click event on disabled radio buttons
     $('.btn-group').on("click", ".disabled", function(event) {
@@ -830,6 +843,8 @@ function setupHealthTab() {
     }
 
     if (healthTabTheme == "health") {
+        curr_health_measure_type = 'health';
+
         if (health_ly[health_type]) {
             var health_style = health_ly[health_type].style;
 
@@ -873,6 +888,7 @@ function setupHealthTab() {
             setHash();
         }
     } else if (healthTabTheme == "opioid") {
+        curr_health_measure_type = 'opioid';
         if (opioid_ly[opioid_type]) {
             var opioid_style = opioid_ly[opioid_type].style;
 
@@ -886,13 +902,17 @@ function setupHealthTab() {
                 }
             }
 
-            var in_layers = ['' + geo_space + ':(c2hgis_201812_state', '' + geo_space + ':(c2hgis_201812_county'];
-            var in_styles = ['' + health_style + '_state', '' + health_style + '_county'];
+            // var in_layers = ['' + geo_space + ':(c2hgis_201812_state', '' + geo_space + ':(c2hgis_201812_county'];
+            // var in_styles = ['' + health_style + '_state', '' + health_style + '_county'];
+            //
+            // if (zoom_layer_type != 'auto') {
+            //     in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
+            //     in_styles = '' + health_style + '_' + zoom_layer_type + '_all';
+            // }
 
-            if (zoom_layer_type != 'auto') {
-                in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
-                in_styles = '' + health_style + '_' + zoom_layer_type + '_all';
-            }
+            var in_layers = zoom_layer_type === 'auto' ? ['' + geo_space + ':c2hgis_201812_state', '' + geo_space + ':c2hgis_201812_county'] : '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
+            var in_styles = '' + health_style;
+
             if (filter != '') {
                 map_overlays['health_ov'][map_overlays['health_ov'].length] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
                     format: 'image/png',
@@ -1156,12 +1176,12 @@ function updateOpioidLegend() {
 
     if (opioid_ly[opioid_type]) {
 
-        var opioid_min = opioid_ly[opioid_type].min;
-        var opioid_max = opioid_ly[opioid_type].max;
         var opioid_ranges = opioid_ly[opioid_type].ranges;
         var opioid_ranges_array = opioid_ranges.split(',');
+        var opioid_min = opioid_ranges_array[0];
+        var opioid_max = opioid_ranges_array.slice(-1)[0];
         var opioid_label = opioid_ly[opioid_type].label;
-        var opioid_tooltip = opioid_ly[opioid_type].tooltip;
+        var opioid_tooltip = insight_ly['opioid'][opioid_type].tooltip;
 
         $('.opioid-label-min').html(opioid_min);
         $('.opioid-label-max').html(opioid_max);
@@ -1614,10 +1634,11 @@ function updateStats() {
         geography_desc = 'Nationwide';
     }
 
+    $('.geog-nameData').text(geography_desc);
     geography_desc += ' Statistics:';
 
     $('.geog-name').text(geography_desc);
-    $('.geog-pop').text(formatStat(geo_prop.pop_2014));
+    $('.geog-pop').text(formatStat(geo_prop.pop_2016));
     $('.geog-prov').text(formatStat(geo_prop.provcount_c));
 
     // Insight Stats        
@@ -1632,7 +1653,7 @@ function updateStats() {
     if ((broadband_sel == 'in_bb_dl_speed') || (broadband_sel == 'in_bb_ul_speed')) {
         broadband_stat_value = bb_speed_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range + ' ' + insight_ly.broadband[broadband_sel].suffix;
     } else if (broadband_sel == 'in_bb_in_adoption') {
-        broadband_stat_value = bb_adoption_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range + insight_ly.broadband[broadband_sel].suffix;
+        broadband_stat_value = geo_prop[insight_ly.broadband[broadband_sel].column] + insight_ly.broadband[broadband_sel].suffix;
     } else {
         broadband_stat_value = formatStat(geo_prop[insight_ly.broadband[broadband_sel].column]) + insight_ly.broadband[broadband_sel].suffix;
     }
@@ -1720,7 +1741,7 @@ function updateStats() {
     //$('.geog-greatul').text((bb_speed_tiers[geo_prop.greatest_ul].range) + ' mbps');
 
     // Population Stats
-    $('.geog-pop-total').text(formatStat(geo_prop.pop_2014));
+    $('.geog-pop-total').text(formatStat(geo_prop.pop_2016));
     $('.geog-pop-density').text(formatStatAppend(geo_prop.pop_density, 2, ' per sq. mile'));
 
     $('.geog-pop-urban').text(formatStat(geo_prop.urban_total, 0));
@@ -1732,6 +1753,19 @@ function updateStats() {
     $('.geog-pop-somecollege').text(formatStatAppend(geo_prop.some_college, 2, '%'));
     $('.geog-pop-unemploy').text(formatStatAppend(geo_prop.unemployment, 2, '%'));
     $('.geog-pop-medianhhinc').text('$' + formatStat(geo_prop.medianhhinc, 0));
+
+    // Opioid stats
+    $('.geog-heroin-deaths').text(formatStatAppend(geo_prop.heroin_age_adj_mortality_rate, 1, ' per 100,000'));
+    $('.geog-rx-opioid-deaths').text(formatStatAppend(geo_prop.prescriptionopioids_age_adj_mortality_rate, 1, ' per 100,000'));
+    $('.geog-synthetic-opioid-deaths').text(formatStatAppend(geo_prop.syntheticopioids_age_adj_mortality_rate, 1, ' per 100,000'));
+    $('.geog-all-opioid-deaths').text(formatStatAppend(geo_prop.anyopioids_age_adj_mortality_rate, 1, ' per 100,000'));
+    $('.geog-all-drugs-deaths').text(formatStatAppend(geo_prop.alldrugs_age_adj_mortality_rate, 1, ' per 100,000'));
+    $('.geog-mental-health-providers').text(formatStatAppend(geo_prop.mhp_total, 1, ''));
+    $('.geog-heroin-death-trends').text(formatStatAppend(geo_prop.heroin_age_adj_mortality_rate_pct_change, 1, '%'));
+    $('.geog-rx-opioid-death-trends').text(formatStatAppend(geo_prop.prescriptionopioids_age_adj_mortality_rate_pct_change, 1, '%'));
+    $('.geog-synthetic-opioid-death-trends').text(formatStatAppend(geo_prop.syntheticopioids_age_adj_mortality_rate_pct_change, 1, '%'));
+    $('.geog-rx-rates').text(formatStatAppend(geo_prop.opioid_prescribing_rate, 1, ' per 100,000'));
+    $('.geog-rx-trends').text(formatStatAppend(geo_prop.opioid_prescribing_rate_pct_change, 1, '%'));
 }
 
 function formatStat(input, decimal) {
@@ -1739,7 +1773,7 @@ function formatStat(input, decimal) {
 
     if ($.isNumeric(input)) {
 
-        if (decimal) {
+        if (decimal || decimal == 0) {
             output = Number(input.toFixed(decimal)).toLocaleString('en');
         } else {
             output = input.toLocaleString('en');
@@ -2189,4 +2223,49 @@ $(document).ready(function() {
         }
     });    
 
+    // bb opioid trends slider
+    $('[name="bbOpioidTrendsFilter"]').on('change', function(){
+        var opTrendsFilterType = this.value;    // increasing decreasing all
+        var category = $('#select-in-bbOpioid').val();
+        var nationAve = national_data['features'][0]['properties'][category.slice(3)];
+        var min = opTrendsFilterType === 'increasing' ? 0 : insight_ly['bbOpioid'][category][zoom_layer_type + 'Min'];
+        var max = opTrendsFilterType === 'decreasing' ? insight_ly['bbOpioid'][category][zoom_layer_type + 'Max'] : 50;
+
+        if (opTrendsFilterType === 'increasing') minLabel = 0;
+        else if (opTrendsFilterType === 'allTrends') minLabel = formatStat(insight_ly['bbOpioid'][category][zoom_layer_type + 'Min'], 0);
+        else minLabel = '';
+        $('.slider-bbOpiod-label.min').text(minLabel + '%');
+
+
+        if (opTrendsFilterType === 'decreasing') {
+            $('#slider-bbOpioid').closest('.row').hide();
+            $('#label-bbOpTrendsRange').text('<= 0%');
+        } else {
+            $('#slider-bbOpioid').closest('.row').show();
+            $('#label-bbOpTrendsRange').text('0% - 50%')
+        }
+
+        if (opTrendsFilterType === 'decreasing' && zoom_layer_type === 'county') {
+            // add condition
+             $('#bbOpioid-decreasing').parent('label').addClass('disabled');
+        } else {
+            $('#bbOpioid-decreasing').parent('label').removeClass('disabled');
+        }
+        updateSlider('bbOpioid');
+    });
+
+    $('.select-insight').on('change', function() {
+        if ($(this).attr('id')) {
+            var cur_type = $(this).attr('id').split('-')[2];
+
+            if (cur_type === 'opioid') {
+                var metricsLabel = $(this).find(':selected').text();
+                $('#opiodMetricsLabel').text(metricsLabel);
+            }
+
+            updateSlider(cur_type);
+            updateStats();
+            setHash();
+        }
+    });
 });

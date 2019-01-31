@@ -271,7 +271,7 @@ function createCharts() {
                     }
                 },
                 legendCallback: function(chart) {
-                    return '<ul class="radar-legends" style="width: 100%; list-style-type: none;"><li><div style="background-color:rgba(186,12,12,0.5); width: 20px; height: 2px; display: inline-block; margin: 4px 0;"></div>&nbsp;Number of Providers</li></ul>'
+                    return '<ul class="radar-legends" style="width: 100%; list-style-type: none;"><li><div style="background-color:rgba(0,80,204,1); width: 20px; height: 2px; display: inline-block; margin: 4px 0;"></div>&nbsp;Number of Providers</li></ul>'
                 },
                 legend: {
                     display: false

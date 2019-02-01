@@ -493,8 +493,14 @@ function updateSlider(type, def) {
     } else if (type === 'opioid') {
         min = insight_ly['opioid'][opFilterCategory][zoom_layer_type + 'Min'];
         max = insight_ly['opioid'][opFilterCategory][zoom_layer_type + 'Max'];
-        step = insight_ly['opioid'][opFilterCategory]['step'];
+
+        // one decimal pt
+        if (min % 1 !== 0) min = Number(min.toFixed(1));
+        if (max % 1 !== 0) max = Number(max.toFixed(1));
+
+        step = 0.1;
         values = insight_ly[type][opFilterCategory][zoom_layer_type + 'Values'];
+
     } else {
         min = insight_ly[type][opFilterCategory].min;
         max = insight_ly[type][opFilterCategory].max;
@@ -533,13 +539,6 @@ function calcBBOpioidSliderMax(opFilter, nationAve) { // Calculate slider max va
     return sliderMax;
 }
 
-function createSlider() {
-    updateSlider('broadband');
-    updateSlider('health');
-    updateSlider('opioid');
-    updateSlider('bbOpioid');
-}
-
 function setSliderMap(type, low, high, nationAve) {    
 
     var filter = '';
@@ -573,7 +572,7 @@ function setSliderMap(type, low, high, nationAve) {
             label_text = bb_speed_tiers[low].range + ' mbps';
         }
     } else {
-        label_text = Number(low * multiple).toLocaleString('en') + ' - ' + Number(high * multiple).toLocaleString('en') + label;
+        label_text = Number(low * multiple).toFixed(1).toLocaleString('en') + ' - ' + Number(high * multiple).toFixed(1).toLocaleString('en') + label;
     }
 
     // Update slider range text
@@ -652,7 +651,7 @@ function getDemoFilter(demo_type) {
 
     var demo_selection = $('#' + demo_type + '-select-demographics').val();
 
-    if (demo_selection) {
+    if (demo_selection && demo_selection !== 'none') {
 
         var selection = demo_selection.split('$');
         var layer = selection[0];
@@ -663,15 +662,13 @@ function getDemoFilter(demo_type) {
 
         var column = pop_ly[layer].column;
         demo_filter = column + '>=' + low + ' AND ' + column + '<' + high;
-
-
     }
 
     return demo_filter;
 }
 
 function redoMap(type, filter, zindex) {
-    
+
     var in_layers = '' + geo_space + ':c2hgis_201812_' + type;
     var in_styles = '';    
     var opioidMeasure = $('#select-in-opioid').val();
@@ -709,7 +706,7 @@ function redoMap(type, filter, zindex) {
 
     });
 
-    if (zoom_layer_type != 'auto') {
+    if (zoom_layer_type !== 'auto') {
         // Add opioid health measure layer
         if (curr_health_measure_type === 'opioid' && type === 'bbOpioid') {
             in_styles = insight_ly['opioid'][opioidMeasure].style;
@@ -771,9 +768,10 @@ function removeCount() {
 function setCount() {
     var type = $('#select-in-count').val();
 
-    if (type == '') {
+    if (type === '' || type === 'none') {
         return;
     }
+
     if (insight_ly.count[type]) {
 
         var count_layer = insight_ly.count[type].layer;
@@ -1350,10 +1348,8 @@ function updateHealthMeasures(healthMeasureType) {
     } else if (healthMeasureType == "opioid") {
         $(".opioidMetrics").show();
         $(".healthMetrics").hide();
-    };
-};
-
-
+    }
+}
 
 function setHash() {
     var hash = '';
@@ -1380,88 +1376,82 @@ function setHash() {
     if (hmt) {
         hash += '&hmt=' + hmt;
     } else {
-        hash += '&hmt=opioid'
+        hash += '&hmt=opioid';
     }
 
-
     if (cur_tab === 'insights') {
+        // broadband selection
         var inb = $('#select-in-broadband').val();
-        var inh = $('#select-in-health').val();
-        var ino = $('#select-in-opioid').val();
+        var slb = $('#slider-broadband').slider("values", 0) + ',' + $('#slider-broadband').slider("values", 1);
+        hash += '&inb=' + inb;
+        hash += '&slb=' + slb;
+
+        // rural, data overlay selection
         var inc = $('#select-in-count').val();
         var dmf = $('#ov-select-demographics').val();
+        hash += '&inc=' + inc;
+        hash += '&dmf=' + dmf;
 
-        var slb = $('#slider-broadband').slider("values", 0) + ',' + $('#slider-broadband').slider("values", 1);
-        var slh = $('#slider-health').slider("values", 0) + ',' + $('#slider-health').slider("values", 1);
-        var slo = $('#slider-opioid').slider("values", 0) + ',' + $('#slider-opioid').slider("values", 1);
-        // var slbbOp = $('#slider-bbOpioid').slider("values", 0) + ',' + $('#slider-bbOpioid').slider("values", 1);
-
-        if (inb) { hash += '&inb=' + inb; }
-        if (inh) { hash += '&inh=' + inh; }
-        if (ino) { hash += '&ino=' + ino; }
-
-        if (dmf) {
-            hash += '&dmf=' + dmf;
-        } else {
-            hash += '&dmf=none';
-        }
-        if (inc) {
-            hash += '&inc=' + inc;
-        } else {
-            hash += '&inc=none';
-        }
-
-        if (slb) { hash += '&slb=' + slb; }
-        if (slh) { hash += '&slh=' + slh; }
-        if (slo) { hash += '&slo=' + slo; }
-        // if (slbbOp) { hash += '&slbbOp=' + slbbOp; }
-
-    } else if (cur_tab === 'health') {
-        var hhm = $('#health-sec-type').val();
-        var advbb = $('#adv-select-broadband').val();
-        var dmf = $('#hh-select-demographics').val();
-
-        if (hhm) { hash += '&hhm=' + hhm; }
-        if (advbb) { hash += '&advbb=' + advbb; }
-        if (dmf) {
-            hash += '&dmf=' + dmf;
-        } else {
-            hash += '&dmf=none';
+        // overview >> opioid
+        if (hmt === 'opioid') {
+            // opioid selection
+            var ino = $('#select-in-opioid').val();
+            var slo = $('#slider-opioid').slider("values", 0) + ',' + $('#slider-opioid').slider("values", 1);
+            hash += '&ino=' + ino;
+            hash += '&slo=' + slo;
+        } else if (hmt === 'health') {
+            // health selection
+            var inh = $('#select-in-health').val();
+            var slh = $('#slider-health').slider("values", 0) + ',' + $('#slider-health').slider("values", 1);
+            hash += '&inh=' + inh;
+            hash += '&slh=' + slh;
         }
     } else if (cur_tab === 'broadband') {
+        // fixed bb availability
         var bb_type = $('.broadband-type:checked').val();
-        var advhl = $('#adv-select-' + hmt).val();
-        var dmf = $('#bb-select-demographics').val();
+        if (bb_type) hash += '&bbm=' + bb_type;
 
-        if (bb_type) { hash += '&bbm=' + bb_type }
-        if (advhl) { hash += '&advhl=' + advhl; }
-        if (dmf) {
-            hash += '&dmf=' + dmf;
-        } else {
-            hash += '&dmf=none';
+        // rural
+        hash += '&dmf=' + $('#bb-select-demographics').val();
+
+        if (hmt === 'opioid') {
+            var ino = $('#select-in-bbOpioid').val();
+            var slo = $('#slider-bbOpioid').slider('values', 0) + ',' + $('#slider-bbOpioid').slider('values', 1);
+            hash += '&ino=' + ino;
+            hash += '&slo=' + slo;
+        } else if (hmt === 'health') {
+            hash += '&hhm=' + $('#adv-select-health').val();
         }
+
+    } else if (cur_tab === 'health') {
+        // broadband, rural
+        hash += '&advbb=' + $('#adv-select-broadband').val();
+        hash += '&dmf=' + $('#hh-select-demographics').val();
+
+        if (hmt === 'opioid') hash += '&ino=' + $('#opioid-sec-type').val();
+        else if (hmt === 'health') hash += '&hhm=' + $('#health-sec-type').val();
+
     } else if (cur_tab === 'population') {
         var ppm = $('#pop-sec-type').val();
 
         if (ppm) { hash += '&ppm=' + ppm; }
     }
 
-    if (zoom_layer_type != 'auto') {
+    if (zoom_layer_type !== 'auto') {
         hash += '&zlt=' + zoom_layer_type;
     }
 
     hash = hash.substring(1);
 
-    if ($('.health-measure-type:checked').val() == "health") {
+    if ($('.health-measure-type:checked').val() === "health") {
         $(".healthMetrics").show();
         $(".opioidMetrics").hide();
-    } else if ($('.health-measure-type:checked').val() == "opioid") {
+    } else if ($('.health-measure-type:checked').val() === "opioid") {
         $(".opioidMetrics").show();
         $(".healthMetrics").hide();
-    };
+    }
 
     window.location.hash = hash;
-
 }
 
 function loadHash() {
@@ -1469,7 +1459,6 @@ function loadHash() {
     var metricsLabel = ''; // Label for Opioid Measures drop-down
 
     if (init_hash) {
-
         var hash_vars = init_hash.split('&');
 
         var hash_obj = {};
@@ -1480,9 +1469,7 @@ function loadHash() {
             hash_obj[vars_arr[0]] = vars_arr[1];
         }
 
-
         if ((hash_obj.ll) && (hash_obj.z)) {
-
             var hash_lat = hash_obj.ll.split(',')[0];
             var hash_lng = hash_obj.ll.split(',')[1];
             var hash_zoom = hash_obj.z;
@@ -1492,18 +1479,16 @@ function loadHash() {
 
         if (hash_obj.zlt) {
             zoom_layer_type = hash_obj.zlt;
-
             $('#leaflet-zoom-layers-' + zoom_layer_type).prop('checked', true);
         }
 
 
         if (hash_obj.hmt && hash_obj.hmt === 'health' || hash_obj.hmt === 'opioid') {
             hm_type = hash_obj.hmt;
-            curr_health_measure_type = hm_type;;
+            curr_health_measure_type = hm_type;
         }
 
         if (hash_obj.t) {
-
             cur_tab = hash_obj.t;
             generateMenu();
         }
@@ -1526,16 +1511,14 @@ function loadHash() {
                 $('#opiodMetricsLabel').text(metricsLabel);
             }
 
-
-
             if (hash_obj.dmf) { $('#ov-select-demographics').val(hash_obj.dmf); }
-            if (hash_obj.dmf == 'none') {
-                $('#ov-select-demographics').val('');
-            }
+            // if (hash_obj.dmf == 'none') {
+            //     $('#ov-select-demographics').val('');
+            // }
 
             if (hash_obj.inc) { $('#select-in-count').val(hash_obj.inc); }
             if (hash_obj.inc == 'none') {
-                $('#select-in-count').val('');
+                // $('#select-in-count').val('');
                 $('.in-cnt-legend-box').css('display', 'none');
             }
 
@@ -1553,29 +1536,32 @@ function loadHash() {
 
             setCount();
         } else if (hash_obj.t === 'health') { // Health tab
-            if (hash_obj.hhm) {
-                var hash_type = hash_obj.bbm;
+            $('#health-measure-type-group').show();
+            $('#health-measure-type-' + hm_type).prop('checked', true);
+            $('.health-measure-type').parent().removeClass("active");
+            curr_health_measure_type = hm_type;
+            $('#health-measure-type-' + hm_type).parent().addClass("active");
 
-                // var hm_type = hash_obj.hmt;
-                $('#health-measure-type-' + hm_type).prop('checked', true);
-                $('.health-measure-type').parent().removeClass("active");
-                curr_health_measure_type = hm_type;
-                $('#health-measure-type-' + hm_type).parent().addClass("active");
-                $('#health-measure-type-group').show()
-
-                updateHealthMeasures(hm_type);
-
-                $('#health-sec-type').val(hash_obj.hhm);
-
-                if (hash_obj.advbb) {
-                    $('#adv-select-broadband').val(hash_obj.advbb);
-                }
-                if (hash_obj.dmf) { $('#hh-select-demographics').val(hash_obj.dmf); }
-                if (hash_obj.dmf == 'none') {
-                    $('#hh-select-demographics').val('');
-                }
-                setupHealthTab();
+            if (hash_obj.advbb) {
+                $('#adv-select-broadband').val(hash_obj.advbb);
             }
+            if (hash_obj.dmf) { $('#hh-select-demographics').val(hash_obj.dmf); }
+            if (hash_obj.dmf === 'none') {
+                $('#hh-select-demographics').val('');
+            }
+
+            if (hash_obj.hmt === 'opioid') {
+                if (hash_obj.ino) {
+                    $('#opioid-sec-type').val(hash_obj.ino);
+                }
+            } else if (hash_obj.hmt === 'health') {// chronic disease
+                if (hash_obj.hhm) {
+                    $('#health-sec-type').val(hash_obj.hhm);
+                }
+            }
+
+            updateHealthMeasures(hm_type);
+            setupHealthTab();
 
         } else if (hash_obj.t === 'broadband') { // Broadband tab
             if (hash_obj.bbm) {
@@ -1585,7 +1571,7 @@ function loadHash() {
                 $('.health-measure-type').parent().removeClass("active");
                 curr_health_measure_type = hm_type;
                 $('#health-measure-type-' + hm_type).parent().addClass("active");
-                $('#health-measure-type-group').show()
+                $('#health-measure-type-group').show();
                 
                 updateHealthMeasures(hm_type);
 
@@ -1593,14 +1579,13 @@ function loadHash() {
                 $('.broadband-type').parent().removeClass("active");
 
                 $('#broadband-type-' + hash_type).parent().addClass("active");
-                if (hash_obj.advhl) {
-                    $('#adv-select-' + curr_health_measure_type).val(hash_obj.advhl);
+
+                if (hash_obj.hhm) {
+                    $('#adv-select-health').val(hash_obj.hhm);
                 }
 
                 if (hash_obj.dmf) { $('#bb-select-demographics').val(hash_obj.dmf); }
-                if (hash_obj.dmf == 'none') {
-                    $('#bb-select-demographics').val('');
-                }
+
                 setupBroadbandTab();
             }
         } else if (hash_obj.t === 'population') {
@@ -1807,7 +1792,8 @@ function generateMenu() {
         $('.list-population-panel').addClass('hide');
         $('.list-insight-panel').removeClass('hide');
 
-        createSlider();
+        updateSlider('broadband');
+        updateSlider('opioid');
 
         var count_sel = $('#select-in-count').val();
         if ((count_sel != '') && (count_sel != 'none')) {
@@ -1864,15 +1850,21 @@ $(document).ready(function() {
 
     geo_prop = national_data.features[0].properties;
 
-
     createMap();
-    createSlider();
-    setCount();
+
+    // initialize sliders
+    $('#slider-bbOpioid').slider();
+    $('#slider-broadband').slider();
+    $('#slider-opioid').slider();
+    $('#slider-health').slider();
 
     // If hash exists then load hash variables; otherwise set the hash in the URL then load it.
     if (window.location.hash) {
         loadHash();
     } else {
+        updateSlider('broadband');
+        updateSlider('opioid');
+        setCount();
         setHash();
         loadHash();
     }

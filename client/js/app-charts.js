@@ -99,7 +99,7 @@ function createCharts() {
                             label += ': ';
                         }
                         // label += Math.round(tooltipItem.yLabel * 100) / 100;
-                        label += tooltipItem.yLabel.toFixed(1) + '%';
+                        label += tooltipItem.yLabel || tooltipItem.yLabel === 0 ? tooltipItem.yLabel.toFixed(1) + '%' : 'N/A';
                         return label;
                     }
                 }

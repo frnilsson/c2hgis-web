@@ -386,7 +386,7 @@ function setNationwide() {
 //**************************************************************************
 // slider functions
 
-function updateSlider(type, def) {    
+function updateSlider(type, def) {        
     // Get selected opioid category and filter type
     var opFilterCategory = $('#select-in-' + type).val();
     var nationAve = national_data['features'][0]['properties'][opFilterCategory.slice(3)];
@@ -601,7 +601,7 @@ function setSliderMap(type, low, high, nationAve) {
     // Update CQL filter statement
     filter = column + '>=' + low + ' AND ' + column + '<=' + high;
 
-    if (column == 'res_concxns_pct') {
+    if (column === 'res_concxns_pct') {
         filter = column + '>' + low + ' AND ' + column + '<=' + high;
     }
 
@@ -611,7 +611,7 @@ function setSliderMap(type, low, high, nationAve) {
         filter = filter + ' AND ' + demo_filter;
     }
 
-    filter = filter + ';' + filter;
+    filter = filter + ';' + filter;    
 
     redoMap(type, filter, zindex);
 
@@ -668,7 +668,7 @@ function getDemoFilter(demo_type) {
 }
 
 function redoMap(type, filter, zindex) {
-
+    
     var in_layers = '' + geo_space + ':c2hgis_201812_' + type;
     var in_styles = '';    
     var opioidMeasure = $('#select-in-opioid').val();
@@ -676,28 +676,35 @@ function redoMap(type, filter, zindex) {
     in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
 
     map.eachLayer(function(layer) {
-        // Remove opioid broadband layers
+        // Remove opioid broadband layer
         if (curr_health_measure_type === 'opioid' && type === 'broadband') {
             if (layer.options.styles && (layer.options.styles === 'opioid_broadband_auto' || layer.options.styles === 'broadband_auto')) {
-                map.removeLayer(layer);
+                map.removeLayer(layer);                
             }
         }
 
         // Remove opioid health layers
-        if (curr_health_measure_type === 'opioid' && type === 'opioid') {
+        if (curr_health_measure_type === 'opioid' && type === 'health') {
             if (layer.options.styles && (layer.options.styles === 'opioid_health_auto' || layer.options.styles === 'health_auto')) {
-                map.removeLayer(layer);
+                map.removeLayer(layer);                
             }
         }
 
-        // Remove health layers
+        // Remove opioid layer
+        if (curr_health_measure_type === 'opioid' && type === 'opioid') {
+            if (layer.options.styles && (layer.options.styles.includes('opioid') && layer.options.styles !== 'opioid_broadband_auto')) {
+                map.removeLayer(layer);                
+            }
+        }
+
+        // Remove health layer
         if (curr_health_measure_type === 'health' && type === 'health') {
             if (layer.options.styles && (layer.options.styles === 'health_auto' || layer.options.styles === 'opioid_health_auto')) {
                 map.removeLayer(layer);
             }
         }
 
-        // Remove health broadband layers
+        // Remove health broadband layer
         if (curr_health_measure_type === 'health' && type === 'broadband') {
             if (layer.options.styles && (layer.options.styles === 'broadband_auto' || layer.options.styles === 'opioid_broadband_auto')) {
                 map.removeLayer(layer);
@@ -708,17 +715,17 @@ function redoMap(type, filter, zindex) {
 
     if (zoom_layer_type !== 'auto') {
         // Add opioid health measure layer
-        if (curr_health_measure_type === 'opioid' && type === 'bbOpioid') {
-            in_styles = insight_ly['opioid'][opioidMeasure].style;
+        if (curr_health_measure_type === 'opioid' && type === 'opioid') {
+            in_styles = insight_ly['opioid'][opioidMeasure].style;            
         }
 
         // Add opioid broadband layer
         if (curr_health_measure_type === 'opioid' && type === 'broadband') {
-            in_styles = 'opioid_broadband_auto';
+            in_styles = 'opioid_broadband_auto';            
         }
 
         // Add opioid health layer
-        if (curr_health_measure_type === 'opioid' && (type === 'health' || type === 'opioid')) {
+        if (curr_health_measure_type === 'opioid' && (type === 'bbOpioid')) {            
             in_styles = 'opioid_health_auto';
         }
 
@@ -732,8 +739,7 @@ function redoMap(type, filter, zindex) {
             in_styles = 'broadband_auto';
         }
     }
-
-    // var wms_method = 'gwc/service/wms';
+    
     wms_method = 'wms';
     
     if (in_styles !== '') {
@@ -744,7 +750,7 @@ function redoMap(type, filter, zindex) {
             layers: in_layers,
             styles: in_styles,
         }).setZIndex(zindex).addTo(map);
-    }
+    }   
 
 }
 

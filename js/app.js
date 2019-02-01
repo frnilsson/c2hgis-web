@@ -673,9 +673,7 @@ function getDemoFilter(demo_type) {
 function redoMap(type, filter, zindex) {
     
     var in_layers = '' + geo_space + ':c2hgis_201812_' + type;
-    var in_styles = '';
-    // var isOpioidType = type === 'opioid' || type === 'bbOpioid';
-    // var selectedHealthMeasure = $('[name="health-measure-type"]:checked').val();
+    var in_styles = '';    
     var opioidMeasure = $('#select-in-opioid').val();
 
     in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
@@ -738,14 +736,9 @@ function redoMap(type, filter, zindex) {
         }
     }
 
-
-
     // var wms_method = 'gwc/service/wms';
     wms_method = 'wms';
-
-    //very long filters are going to hit http limits: http://osgeo-org.1560.x6.nabble.com/Maximum-CQL-filter-length-td5233821.html
-    // applyNewFilter(filter, type, in_layers, in_styles, geo_host, geo_space, wms_method, zindex);
-
+    
     if (in_styles !== '') {
         map_overlays['in_' + type][map_overlays['in_' + type].length] = L.tileLayer.wms(geo_host + '/' + geo_space + '/' + wms_method + '?', {
             format: 'image/png',

@@ -671,61 +671,83 @@ function getDemoFilter(demo_type) {
 }
 
 function redoMap(type, filter, zindex) {
-    //CHANGE ONCE OPIOID DATA IS UPLOADED: THIS CAN PULL UP THE RELEVANT MAP
-    // if (type == 'opioid' || type == 'bbOpioid') {
-    //     type = 'health'
-    // };
-
-    for (k = 0; k < map_overlays['in_' + type].length; k++) {
-        if (map.hasLayer(map_overlays['in_' + type][k])) {
-            map.removeLayer(map_overlays['in_' + type][k]);
-        }
-    }
-
+    
     var in_layers = '' + geo_space + ':c2hgis_201812_' + type;
-    var in_styles = '';
-    var isOpioidType = type === 'opioid' || type === 'bbOpioid';
-    var selectedHealthMeasure = $('[name="health-measure-type"]:checked').val();
+    var in_styles = '';    
     var opioidMeasure = $('#select-in-opioid').val();
 
-    if (zoom_layer_type != 'auto') {
-        in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
+    in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
 
-        if (curr_health_measure_type === 'opioid') {
-            if (type === 'health') {
-                in_styles = 'opioid_health_auto';
+    map.eachLayer(function(layer) {
+        // Remove opioid broadband layers
+        if (curr_health_measure_type === 'opioid' && type === 'broadband') {
+            if (layer.options.styles && (layer.options.styles === 'opioid_broadband_auto' || layer.options.styles === 'broadband_auto')) {
+                map.removeLayer(layer);
             }
-
-            if (type === 'broadband') {
-                in_styles = 'opioid_broadband_auto';
-            }
-
-            if (isOpioidType) {
-                type = 'opioid';
-
-                in_styles = insight_ly[type][opioidMeasure].style;
-            }
-        }  else {
-            in_styles = '' + type + '_auto';    
         }
-        
+
+        // Remove opioid health layers
+        if (curr_health_measure_type === 'opioid' && type === 'opioid') {
+            if (layer.options.styles && (layer.options.styles === 'opioid_health_auto' || layer.options.styles === 'health_auto')) {
+                map.removeLayer(layer);
+            }
+        }
+
+        // Remove health layers
+        if (curr_health_measure_type === 'health' && type === 'health') {
+            if (layer.options.styles && (layer.options.styles === 'health_auto' || layer.options.styles === 'opioid_health_auto')) {
+                map.removeLayer(layer);
+            }
+        }
+
+        // Remove health broadband layers
+        if (curr_health_measure_type === 'health' && type === 'broadband') {
+            if (layer.options.styles && (layer.options.styles === 'broadband_auto' || layer.options.styles === 'opioid_broadband_auto')) {
+                map.removeLayer(layer);
+            }
+        }
+
+    });
+
+    if (zoom_layer_type != 'auto') {
+        // Add opioid health measure layer
+        if (curr_health_measure_type === 'opioid' && type === 'bbOpioid') {
+            in_styles = insight_ly['opioid'][opioidMeasure].style;
+        }
+
+        // Add opioid broadband layer
+        if (curr_health_measure_type === 'opioid' && type === 'broadband') {
+            in_styles = 'opioid_broadband_auto';
+        }
+
+        // Add opioid health layer
+        if (curr_health_measure_type === 'opioid' && (type === 'health' || type === 'opioid')) {
+            in_styles = 'opioid_health_auto';
+        }
+
+        // Add health layer
+        if (curr_health_measure_type === 'health' && type === 'health') {
+            in_styles = 'health_auto';
+        }
+
+        // Add health broadband layer
+        if (curr_health_measure_type === 'health' && type === 'broadband') {
+            in_styles = 'broadband_auto';
+        }
     }
-
-
 
     // var wms_method = 'gwc/service/wms';
     wms_method = 'wms';
-
-    //very long filters are going to hit http limits: http://osgeo-org.1560.x6.nabble.com/Maximum-CQL-filter-length-td5233821.html
-    // applyNewFilter(filter, type, in_layers, in_styles, geo_host, geo_space, wms_method, zindex);
-
-    map_overlays['in_' + type][map_overlays['in_' + type].length] = L.tileLayer.wms(geo_host + '/' + geo_space + '/' + wms_method + '?', {
-        format: 'image/png',
-        transparent: true,
-        cql_filter: filter,
-        layers: in_layers,
-        styles: in_styles,
-    }).setZIndex(zindex).addTo(map);
+    
+    if (in_styles !== '') {
+        map_overlays['in_' + type][map_overlays['in_' + type].length] = L.tileLayer.wms(geo_host + '/' + geo_space + '/' + wms_method + '?', {
+            format: 'image/png',
+            transparent: true,
+            cql_filter: filter,
+            layers: in_layers,
+            styles: in_styles,
+        }).setZIndex(zindex).addTo(map);
+    }
 
 }
 

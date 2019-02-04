@@ -59,6 +59,7 @@ var zoom_to = false;
 var mb_accessToken = 'pk.eyJ1IjoiZmNjIiwiYSI6IlA5cThBQTQifQ.EbifLm_7JkQ1uI_0_qYEAA';
 
 var curr_health_measure_type;
+var healthMeasureChange = false;
 
 //**************************************************************************
 // map functions
@@ -674,7 +675,7 @@ function redoMap(type, filter, zindex) {
     var opioidMeasure = $('#select-in-opioid').val();
 
     in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
-
+    
     map.eachLayer(function(layer) {
         // Remove opioid broadband layer
         if (curr_health_measure_type === 'opioid' && type === 'broadband') {
@@ -722,12 +723,7 @@ function redoMap(type, filter, zindex) {
         // Add opioid broadband layer
         if (curr_health_measure_type === 'opioid' && type === 'broadband') {
             in_styles = 'opioid_broadband_auto';            
-        }
-
-        // Add opioid health layer
-        if (curr_health_measure_type === 'opioid' && (type === 'bbOpioid')) {            
-            in_styles = 'opioid_health_auto';
-        }
+        }        
 
         // Add health layer
         if (curr_health_measure_type === 'health' && type === 'health') {
@@ -751,6 +747,10 @@ function redoMap(type, filter, zindex) {
             styles: in_styles,
         }).setZIndex(zindex).addTo(map);
     }   
+
+    if (healthMeasureChange) {
+        updateOpioidMap(curr_health_measure_type);
+    }
 
 }
 
@@ -1985,7 +1985,9 @@ $(document).ready(function() {
         if (cur_tab == "broadband") {
             setupBroadbandTab();
         } else if (cur_tab == "insights") {
+            healthMeasureChange = true;
             updateSlider(curr_health_measure_type);
+            
         } else if (cur_tab == "health") {
             setupHealthTab();
         };

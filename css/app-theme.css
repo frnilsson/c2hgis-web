@@ -1586,7 +1586,7 @@ screen and (max-width: 767px) and (min-resolution: 2dppx) {
     top: 0;
     left: 57.2%;
     width: 42.8%;
-    background: url(../img/bg-pattern-gray.png);
+    /*background: url(../img/bg-pattern-gray.png);*/
     text-align: center;
 }
 
@@ -1601,7 +1601,7 @@ screen and (max-width: 767px) and (min-resolution: 2dppx) {
     left: 0;
     width: 120px;
     height: 274px;
-    background: url(../img/shadow-mask.png) 0 0 no-repeat;
+    /*background: url(../img/shadow-mask.png) 0 0 no-repeat;*/
 }
 
 @media screen and (max-width: 991px) {
@@ -1624,7 +1624,7 @@ screen and (max-width: 767px) and (min-resolution: 2dppx) {
 @media screen and (min-width: 992px) {
     /* line 761, ../scss/ui-components/_header.scss */
     .menu-secondary > .dropdown-toggle-for-consumers.open {
-        background: #f1f0ea url(../img/dropdown-consumer-toggle-bg.jpg) 0 0 no-repeat;
+        /*background: #f1f0ea url(../img/dropdown-consumer-toggle-bg.jpg) 0 0 no-repeat;*/
         background-size: cover;
     }
 }
@@ -1635,7 +1635,7 @@ screen and (max-width: 767px) and (min-resolution: 2dppx) {
         right: 0;
         margin-left: 0;
         margin-right: -62.5px;
-        background: #fff url(../img/dropdown-consumer-bg.jpg) 100% 100% no-repeat;
+        /*background: #fff url(../img/dropdown-consumer-bg.jpg) 100% 100% no-repeat;*/
         background-size: auto 100%;
     }
 }
@@ -1773,13 +1773,6 @@ footer,
     padding: 6px;
 }
 
-@media (min-width: @screen-sm-min) {
-    footer,
-    .docs-attribution {
-        padding: 0 40px;
-    }
-}
-
 @media print {
     footer,
     .docs-attribution {
@@ -1789,12 +1782,6 @@ footer,
 
 footer {
     margin-left: 0;
-}
-
-@media (min-width: @screen-sm-min) {
-    footer {
-        margin-left: 200px;
-    }
 }
 
 .footer {
@@ -1828,9 +1815,9 @@ footer {
     padding-bottom: 5px;
     padding-top: 10px;
     margin-bottom: 20px;
-    .h5 {
-        margin-bottom: 10px;
-    }
+}
+.docs-attribution .h5 {
+    margin-bottom: 10px;
 }
 
 @media all and (min-width: 46.8em) {
@@ -2750,7 +2737,7 @@ table.floatThead-table {
    ========================================================================== */
 
 .icon {
-    background: url("../img/icons-sprite.png") no-repeat 0px -16px transparent;
+    /*background: url("../img/icons-sprite.png") no-repeat 0px -16px transparent;*/
     cursor: pointer;
     display: inline-block;
     height: 16px;
@@ -2961,7 +2948,7 @@ table.floatThead-table {
 .browser .folder.county .icon,
 .browser .folder.pac .icon,
 .browser .folder.office .icon {
-    background: url("../img/icons-sprite.png") no-repeat -208px -32px transparent;
+    /*background: url("../img/icons-sprite.png") no-repeat -208px -32px transparent;*/
     display: inline-block;
     height: 32px;
     width: 32px;
@@ -3002,7 +2989,7 @@ table.floatThead-table {
 }
 
 .browser-path .sepr {
-    background: url("../img/icons-sprite.png") no-repeat -110px -62px transparent;
+    /*background: url("../img/icons-sprite.png") no-repeat -110px -62px transparent;*/
     display: inline-block;
     height: 16px;
     width: 16px;
@@ -3829,9 +3816,8 @@ a.gen-passcode {
     margin-right: 0px;
 }
 
-#download-data-div {
+.download-data-div {
     font-size: 11px;
-    color: #99999;
     padding: 15px 0;
 }
 
@@ -4542,3 +4528,44 @@ a.external {
     font-size: 12px !important;
     display: block;
 }
+
+#slider-opioid .ui-slider-range {
+    background: #964c8c;
+    height: 1em;
+    margin-top: -0.01em;
+}
+
+#slider-opioid .ui-slider-horizontal .ui-slider-range {
+    top: 0;
+    height: 100%;
+}
+
+#slider-opioid .ui-slider .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: .7em;
+    display: block;
+    border: 0;
+    background-position: 0 0;
+}
+
+.hiddenDD {
+    visibility: hidden;
+}
+
+.metrics {
+    display: none;
+}
+.option-border {
+    position: relative;
+    margin-bottom: 6px;
+}
+/*.option-border:before {*/
+    /*content: "";*/
+    /*position: absolute;*/
+    /*left: 18px;*/
+    /*bottom: 0;*/
+    /*height: 1px;*/
+    /*width: 50%;*/
+    /*border-bottom: 1px solid #e0e0e0;*/
+/*}*/

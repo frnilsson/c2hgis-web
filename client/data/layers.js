@@ -42,11 +42,11 @@ var insight_ly = {
 			column: 'res_concxns_pct',
 			unit: 'perc',
 			min: 0,
-			max: 5,
-			multiple: 20,
+			max: 100,
+			multiple: 1,
 			zindex: 99,
 			step: 1,
-			values: [4, 5],
+			values: [90, 100],
 			label: '% Coverage',
 			tooltip: 'Percent of households with fixed connections over 200 kbps.',
 			name: 'Internet Adoption',
@@ -311,16 +311,13 @@ var insight_ly = {
 		in_alldrugs_age_adj_mortality_rate: {
 			column: 'alldrugs_age_adj_mortality_rate',
 			unit: 'perc',
-			// min: 4,
-			// max: 116,
 			multiple: 1,
 			zindex: 90,
 			step: 2,
-			// values: [0, 20],
 			label: ' Deaths',
 			tooltip: 'Mortality Rate from All Drug Overdoses per 100,000 people.',
 			name: 'All Drugs Mortality Rate',
-			suffix: '%',
+			suffix: '',
 			stateMin: 8.1,
 			stateMax: 48.9,
 			stateValues: [8.1, 48.9],
@@ -362,7 +359,7 @@ var insight_ly = {
 			label: ' Deaths',
 			tooltip: 'Mortality Rate from Any Opiods Overdoses per 100,000 people.',
 			name: 'Any Opioids Mortality Rate',
-			suffix: '%',
+			suffix: '',
 			stateMin: 3.5,
 			stateMax: 42.1,
 			stateValues: [3.5, 42.1],
@@ -395,16 +392,13 @@ var insight_ly = {
 		in_syntheticopioids_age_adj_mortality_rate: {
 			column: 'syntheticopioids_age_adj_mortality_rate',
 			unit: 'perc',
-			// min: 0,
-			// max: 37,
 			multiple: 1,
 			zindex: 90,
 			step: 2,
-			// values: [0, 20],
 			label: ' Deaths',
 			tooltip: 'Mortality Rate from Synthetic Opiods Overdoses per 100,000 people.',
 			name: 'Synthetic Opioids Mortality Rate',
-			suffix: '%',
+			suffix: '',
 			stateMin: 0.7,
 			stateMax: 17.9,
 			stateValues: [0.7, 17.9],
@@ -416,12 +410,9 @@ var insight_ly = {
 		in_syntheticopioids_age_adj_mortality_rate_pct_change: {
 			column: 'syntheticopioids_age_adj_mortality_rate_pct_change',
 			unit: 'perc',
-			// min: -20,
-			// max: 2619,
 			multiple: 1,
 			zindex: 90,
 			step: 2,
-			// values: [100, 500],
 			label: '% Deaths',
 			tooltip: '% Change of Mortality Rate from Synthetic Drug Overdoses per 100,000 people.',
 			name: '% Change of Synthetic Opioids Mortality Rate',
@@ -437,16 +428,13 @@ var insight_ly = {
 		in_prescriptionopioids_age_adj_mortality_rate: {
 			column: 'prescriptionopioids_age_adj_mortality_rate',
 			unit: 'perc',
-			// min: 1,
-			// max: 96,
 			multiple: 1,
 			zindex: 90,
 			step: 2,
-			// values: [0, 20],
 			label: ' Deaths',
 			tooltip: 'Mortality Rate from Prescription Opioids Overdoses per 100,000 people.',
 			name: 'Prescription Opioids Mortality Rate',
-			suffix: '%',
+			suffix: '',
 			stateMin: 2.6,
 			stateMax: 26.8,
 			stateValues: [2.6, 26.8],
@@ -458,12 +446,9 @@ var insight_ly = {
 		in_prescriptionopioids_age_adj_mortality_rate_pct_change: {
 			column: 'prescriptionopioids_age_adj_mortality_rate_pct_change',
 			unit: 'perc',
-			// min: -62,
-			// max: 367,
 			multiple: 1,
 			zindex: 90,
 			step: 2,
-			// values: [100, 500],
 			label: '% Deaths',
 			tooltip: '% Change of Mortality Rate from Prescription Opioids Overdoses per 100,000 people.',
 			name: '% Change of Prescription Opioids Mortality Rate',
@@ -479,16 +464,13 @@ var insight_ly = {
 		in_heroin_age_adj_mortality_rate: {
 			column: 'heroin_age_adj_mortality_rate',
 			unit: 'perc',
-			// min: 0.3,
-			// max: 57,
 			multiple: 1,
 			zindex: 90,
 			step: 2,
-			// values: [0, 20],
 			label: ' Deaths',
 			tooltip: 'Mortality Rate from Heroin Overdoses per 100,000 people.',
 			name: 'Heroin Mortality Rate',
-			suffix: '%',
+			suffix: '',
 			stateMin: 0.3,
 			stateMax: 13.6,
 			stateValues: [0.3, 13.6],
@@ -500,12 +482,9 @@ var insight_ly = {
 		in_heroin_age_adj_mortality_rate_pct_change: {
 			column: 'heroin_age_adj_mortality_rate_pct_change',
 			unit: 'perc',
-			// min: -31,
-			// max: 800,
 			multiple: 1,
 			zindex: 90,
 			step: 2,
-			// values: [100, 500],
 			label: '% Deaths',
 			tooltip: '% Change of Mortality Rate from Heroin Drug Overdoses per 100,000 people.',
 			name: '% Change of Heroin Mortality Rate',
@@ -521,16 +500,13 @@ var insight_ly = {
 		in_opioid_prescribing_rate: {
 			column: 'opioid_prescribing_rate',
 			unit: 'perc',
-			// min: 0,
-			// max: 61,
 			multiple: 1,
 			zindex: 90,
 			step: 2,
-			// values: [0, 20],
-			label: ' Deaths',
+			label: ' Rx',
 			tooltip: 'Mortality Rate from Prescribing Opioids Overdoses per 100,000 people.',
 			name: 'Prescribing Mortality Rate',
-			suffix: '%',
+			suffix: '',
 			stateMin: 2.94,
 			stateMax: 7.46,
 			stateValues: [2.94, 7.46],
@@ -542,13 +518,10 @@ var insight_ly = {
 		in_opioid_prescribing_rate_pct_change: {
 			column: 'opioid_prescribing_rate_pct_change',
 			unit: 'perc',
-			// min: -100,
-			// max: 321,
 			multiple: 1,
 			zindex: 90,
 			step: 2,
-			// values: [100, 500],
-			label: '% Deaths',
+			label: ' Rx',
 			tooltip: '% Change of Mortality Rate from Prescribing Opioids Overdoses per 100,000 people.',
 			name: '% Change of Prescribing Mortality Rate',
 			suffix: '%',
@@ -850,7 +823,6 @@ var insight_ly = {
 	}
 };
 
-
 var health_ly = {
 	hh_pcppc: {
 		column: 'pcp_per_capita',
@@ -932,7 +904,7 @@ var health_ly = {
 		label: '% Severe Housing',
 		tooltip: 'Percentage of households with at least 1 of 4 housing problems: overcrowding, high housing costs, or lack of kitchen or plumbing facilities.'
 	}
-}
+};
 
 var opioid_ly = {
 	hh_diabetes_rate: {
@@ -1032,8 +1004,8 @@ var opioid_ly = {
 		min: '',
 		max: '',
 		ranges: '<3.8, 3.8-4.6, 4.6-5.5, 5.5-6.6, >6.6',
-		label: '',
-		tooltip: ''
+		label: '%',
+		tooltip: '%'
 	},
 	in_anyopioids_age_adj_mortality_rate: {
 		column: 'anyopioids_age_adj_mortality_rate',
@@ -1052,8 +1024,8 @@ var opioid_ly = {
 		min: '',
 		max: '',
 		ranges: '<2.5, 2.5-40.2, 40.2-102.6, 102.6-183.4, >183.4',
-		label: '',
-		tooltip: ''
+		label: '%',
+		tooltip: '%'
 	},
 	in_syntheticopioids_age_adj_mortality_rate: {
 		column: 'syntheticopioids_age_adj_mortality_rate',
@@ -1072,8 +1044,8 @@ var opioid_ly = {
 		min: '',
 		max: '',
 		ranges: '<27.2, 27.2-57.8, 57.8-126.9, 126.9-286, >286',
-		label: '',
-		tooltip: ''
+		label: '%',
+		tooltip: '%'
 	},
 	in_prescriptionopioids_age_adj_mortality_rate: {
 		column: 'prescriptionopioids_age_adj_mortality_rate',
@@ -1092,8 +1064,8 @@ var opioid_ly = {
 		min: '',
 		max: '',
 		ranges: '<-28, -28-10.9, 10.9-18, 18-46.7, >46.7',
-		label: '',
-		tooltip: ''
+		label: '%',
+		tooltip: '%'
 	},
 	in_heroin_age_adj_mortality_rate: {
 		column: 'heroin_age_adj_mortality_rate',
@@ -1112,8 +1084,8 @@ var opioid_ly = {
 		min: '',
 		max: '',
 		ranges: '<25.5, 25.5-94.4, 94.4-185, 185-250.3, >250.3',
-		label: '',
-		tooltip: ''
+		label: '%',
+		tooltip: '%'
 	},
 	in_opioid_prescribing_rate: {
 		column: 'opioid_prescribing_rate',
@@ -1132,11 +1104,10 @@ var opioid_ly = {
 		min: '',
 		max: '',
 		ranges: '<-21.9, -21.9-13.3, -13.3-7, -7-0.3, >0.3',
-		label: '',
-		tooltip: ''
+		label: '%',
+		tooltip: '%'
 	}
-}
-
+};
 
 var broadband_ly = {
 	wn_dl: {
@@ -1233,7 +1204,7 @@ var pop_ly = {
 		label: '% Some College',
 		tooltip: 'Percentage of adults ages 25-44 with some post-secondary education.'
 	}
-}
+};
 																		
 var in_units = {
 	perc: {
@@ -1342,20 +1313,3 @@ var bb_speed_tiers = {
 		max: '> 1,000'
 	}
 };
-var bb_adoption_tiers = {
-	1: {
-		range: '0 - 20'
-	},
-	2: {
-		range: '20 - 40'
-	},
-	3: {
-		range: '40 - 60'
-	},
-	4: {
-		range: '60 - 80'
-	},
-	5: {
-		range: '80 - 100'
-	}
-}	

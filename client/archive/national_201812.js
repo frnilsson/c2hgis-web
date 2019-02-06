@@ -22,7 +22,7 @@ var national_data = {
 			"geography_desc": "national",
 			"submission_cycle": "2018-12",
 			"centroid": null,
-			"res_concxns_pct": 50,
+			"res_concxns_pct": 82,
 			"pctpopwbbacc": 95.5,
 			"pctpopwobbacc": 4.5,
 			"pctds0_hi": 0,

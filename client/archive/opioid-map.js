@@ -15,8 +15,8 @@ function updateOpioidMap(curr_health_measure_type) {
         	bbLayer.options.styles = 'broadband_auto';
         	bbLayer.wmsParams.styles = 'broadband_auto';
 
-        	map.addLayer(healthLayer)
-        	map.addLayer(bbLayer)
+        	map.addLayer(healthLayer);
+        	map.addLayer(bbLayer);
         }
 
         // Add Opioid related layers

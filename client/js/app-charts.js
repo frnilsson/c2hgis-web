@@ -99,13 +99,13 @@ function createCharts() {
                             label += ': ';
                         }
                         // label += Math.round(tooltipItem.yLabel * 100) / 100;
-                        label += tooltipItem.yLabel || tooltipItem.yLabel === 0 ? tooltipItem.yLabel.toFixed(1) + '%' : 'N/A';
+                        label += tooltipItem.yLabel || tooltipItem.yLabel === 0 ? tooltipItem.yLabel.toFixed(2) + '': 'N/A';
                         return label;
                     }
                 }
             },
             legendCallback: function(chart) {
-                return '<ul class="radar-legends" style="width: 100%; list-style-type: none;"><li><div style="background-color:rgba(186,12,12,0.5); width: 20px; height: 2px; display: inline-block; margin: 4px 0;"></div>&nbsp;Opioid Behaviors</li></ul>'
+                return '<ul class="radar-legends" style="width: 100%; list-style-type: none;"><li><div style="background-color:rgba(186,12,12,0.5); width: 20px; height: 2px; display: inline-block; margin: 4px 0;"></div>&nbsp;Opioid Behaviors (Normalized)</li></ul>'
             },
             scale: {
                 ticks: {

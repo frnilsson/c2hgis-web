@@ -18,15 +18,15 @@ var geo_output = 'application/json';
 
 var wms_method = 'gwc/service/wms';
 
-var geo_type = 'state';
-//var geo_type = 'national';
+var zoom_layer_type = 'county';  // selected zoom
+var geo_type = 'county';         // calculated geog type based on zoom
 
-var zoom_type = 'state';
 var geo_lat = 40;
 var geo_lng = -93;
 
 var geo_id;
 
+var national_data;
 var geo_data;
 var geo_prop;
 
@@ -52,20 +52,32 @@ var map_overlays = {
     pop_ov: []
 };
 
-var zoom_layer_type = 'county';
-
-var zoom_to = false;
-
 var mb_accessToken = 'pk.eyJ1IjoiZmNjIiwiYSI6IlA5cThBQTQifQ.EbifLm_7JkQ1uI_0_qYEAA';
 
 var curr_health_measure_type;
 var healthMeasureChange = false;
 
 //**************************************************************************
-// map functions
+
+$(document).ready(function() {
+    // Set initial dataset (national)
+    try {
+        $.ajax({
+            type: 'GET',
+            url: geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=' + geo_space + ':c2hgis_201812_national_2017opioid&maxFeatures=1&outputFormat=' + geo_output,
+            success: function (resp) {
+                national_data = resp;
+                geo_prop = national_data['features'][0]['properties'];
+            }
+        }).then(function () {
+            init();
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 function createMap() {
-
     L.mapbox.accessToken = mb_accessToken;
 
     map = L.mapbox.map('map', 'fcc.k74ed5ge', {
@@ -112,13 +124,12 @@ function createMap() {
 
     L.control.customCtrl = function(opts) {
         return new L.Control.CustomCtrl(opts);
-    }
+    };
 
     L.control.customCtrl({ position: 'topleft' }).addTo(map);
 
     // Add full screen control
     L.control.fullscreen({ position: 'topleft' }).addTo(map);
-
 
     var zoomLayerControl = '<form class="leaflet-control-layers-list leaflet-control-layers-list-zoom"><div class="leaflet-control-layers-zoom">' +
         '<label><input type="radio" class="leaflet-control-layers-selector-zoom zoom-layers-control" name="leaflet-zoom-layers" id="leaflet-zoom-layers-auto" checked="checked"><span> Automatic</span></label>' +
@@ -134,17 +145,10 @@ function createMap() {
         if (zoom_layer_type === 'auto') {
             var zoom = map.getZoom();
 
-            if (zoom <= 3) {
-                // geo_type = 'national';
-                new_geo_type = 'national';
-            } else if (zoom > 3 && zoom <= 6) {
-                new_geo_type = 'state';
-                // zoom_type = 'state';
-            } else {
-                new_geo_type = 'county';
-                // zoom_type = 'county';
-            }
-
+            if (zoom <= 6) geo_type = 'state';
+            else geo_type = 'county';
+        } else {
+            geo_type = zoom_layer_type;
         }
 
         generateMenu();
@@ -169,50 +173,35 @@ function createMap() {
         styles: 'state_border'
     }).setZIndex(55555555555555555555).addTo(map);
 
-    // set hash
-
     map.on('moveend', function() {
         setHash();
     });
 
     map.on('zoomend', function() {
+        if (zoom_layer_type === 'auto') {
+            var zoom = map.getZoom();
 
-        var zoom = map.getZoom();
+            if (zoom <= 6) geo_type = 'state';
+            else geo_type = 'county';
 
-        if (zoom <= 3) {
-            geo_type = 'national';
-            new_geo_type = 'national';
-        } else if (zoom > 6) {
-            new_geo_type = 'county';
-            zoom_type = 'county';
-        } else if (zoom <= 6) {
-            new_geo_type = 'state';
-            zoom_type = 'state';
+            generateMenu();
         }
-
-        updateCountLegend();
-
-        geo_type = new_geo_type;
-
         setHash();
     });
 
     map.on('click', function(e) {
+        if (zoom_layer_type === 'auto') {
+            var zoom = map.getZoom();
 
-        if (geo_type == 'national') {
-            geo_type = 'state';
-        }
-        if (zoom_type == 'county') {
-            geo_type = 'county';
+            if (zoom <= 6) geo_type = 'state';
+            else geo_type = 'county';
         }
 
         geo_lat = e.latlng.lat;
         geo_lng = e.latlng.lng;
 
         getData(false);
-        
     });
-
 }
 
 function getCurrentLocation(load) {
@@ -248,7 +237,6 @@ function getCurrentLocation(load) {
 }
 
 function getGeocode() {
-
     var search_input = $('#input-location').val();
     if (!/united states/i.test(search_input)) {
         search_input = search_input + ', United States';
@@ -303,13 +291,12 @@ function getGeocodeCounty() {
 
     var cql_filter_str = 'geography_desc+ILIKE+%27' + county_name.replace(/'/g, "%27%27") + '%27+AND+geography_id+LIKE+%27' + state_fips + '%25%27';
 
-    var geocode_url = geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=' + geo_space + ':c2hgis_201812_county&maxFeatures=1&outputFormat=' + geo_output + '&cql_filter=' + cql_filter_str;
+    var geocode_url = geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=' + geo_space + ':c2hgis_201812_county_2017opioid&maxFeatures=1&outputFormat=' + geo_output + '&cql_filter=' + cql_filter_str;
 
     if (geo_request_type == 'jsonp') {
         geocode_url = geocode_url + '&format_options=callback:callbackData';
         jsonpCallbackVal = 'callbackData';
     }
-
 
     $.ajax({
         type: 'GET',
@@ -341,11 +328,6 @@ function getGeocodeCounty() {
             window.alert('County not found.');
         }
     });
-
-}
-
-function searchLocation() {
-    getGeocode();
 }
 
 function clearMap() {
@@ -357,7 +339,6 @@ function clearMap() {
         }
     }
 }
-
 
 function clearClickFeature() {
     for (var i = 0; i < click_data.length; i++) {
@@ -376,46 +357,37 @@ function setNationwide() {
 
     geo_prop = national_data.features[0].properties;
 
-    geo_type = 'national';
+    // orig_geo_type = geo_type;
+    // geo_type = 'national';
 
     clearClickFeature();
     createCharts();
     updateStats();
     setDownloadLinks();
+
+    // geo_type = orig_geo_type;
 }
 
-//**************************************************************************
-// slider functions
-
-function updateSlider(type, def) {        
-    // Get selected opioid category and filter type
+function updateSlider(type, def) {
+    // set slider and labels
     var opFilterCategory = $('#select-in-' + type).val();
-    var nationAve = national_data['features'][0]['properties'][opFilterCategory.slice(3)];
     var min;
     var max;
     var step;
     var values;
 
-    // recalculate zoom
-    if (zoom_layer_type === 'auto') {
-        var zoom = map.getZoom();
-        if (zoom >= 3) zoom_layer_type = 'state';
-        else zoom_layer_type = 'county';
-    }
-
+    // bbopioid slider
     if (type === 'bbOpioid') {
-        var opFilterType = $('#select-in-bbOpioid').find(':selected').data('filtertype');
+        var filterType = $('#select-in-bbOpioid').find(':selected').data('filtertype');  // trends or non trend
 
-        min = insight_ly['bbOpioid'][opFilterCategory][zoom_layer_type + 'Min'];
-        max = insight_ly['bbOpioid'][opFilterCategory][zoom_layer_type + 'Max'];
-        var label = insight_ly['bbOpioid'][opFilterCategory].label;
-        var multiple = insight_ly['bbOpioid'][opFilterCategory].multiple;
-        var labelRange = '';
-        var labelRangeVals = '';
+        min = insight_ly['opioid'][opFilterCategory][geo_type + 'Min'];
+        max = insight_ly['opioid'][opFilterCategory][geo_type + 'Max'];
+        var label = insight_ly['opioid'][opFilterCategory].label;
+        var multiple = insight_ly['opioid'][opFilterCategory].multiple;
         var low;
         var high;
 
-        if (opFilterType === 'trends') {
+        if (filterType === 'trends') {
             step = 50;
             var selectedTrend = $('[name=bbOpioidTrendsFilter]:checked').val(); // increasing decreasing all
             high = selectedTrend === 'increasing' ? 50 : selectedTrend === 'allTrends' ? max : max;
@@ -447,14 +419,17 @@ function updateSlider(type, def) {
             $('#bbOpioidTrendsFilter').show();
             $('#bbOpioid-increasing').prop('disabled', false);
 
+            // Labels
             var maxLabel = Math.ceil(max);
-            var minLabel = formatStat(min, 0);
             var maxCategoryVal = max;
             max = Math.ceil(maxCategoryVal / 50) * 50;
+            var minLabel = selectedTrend === 'increasing' ? 0 : selectedTrend === 'allTrends' ? formatStat(insight_ly['opioid'][opFilterCategory][geo_type + 'Min'], 0) : '';
+            $('.slider-bbOpiod-label.max').text(maxLabel + '%');
+            $('.slider-bbOpiod-label.min').text(minLabel + '%');
 
             // If max value < 0, hide the slider and disable 'Increasing' button
             if (max <= 0) {
-                $('#slider-bbOpioid').closest('.row').hide();
+                if (selectedTrend === 'increasing') $('#slider-bbOpioid').closest('.row').hide();
                 $('#bbOpioid-increasing').prop('disabled', true);
                 $('#bbOpioid-increasing').parent('label').removeClass('active').addClass('disabled');
             } else {
@@ -464,9 +439,8 @@ function updateSlider(type, def) {
                 step = 50;
             }
 
-            // $('.slider-bbOpiod-label.min').text(minLabel + '%');
-            $('.slider-bbOpiod-label.max').text(maxLabel + '%');
         } else {
+            var nationAve = national_data['features'][0]['properties'][opFilterCategory.slice(3)];
             low = 0;
             high = 1;
             step = 0.5;
@@ -480,29 +454,30 @@ function updateSlider(type, def) {
             var label_text = Number(low * multiple).toLocaleString('en') + ' - ' + Number(high * multiple).toLocaleString('en') + label;
             $('#label-' + type).text(label_text);
 
-            labelRange = low + 'x - ' + high + 'x ';
-            labelRangeVals = '(' + (low * nationAve).toFixed(1) + ' - ' + (high * nationAve).toFixed(1) + ')';
-
-            $('#label-bbOpRange').text(labelRange + labelRangeVals);
-
-            max = calcBBOpioidSliderMax(insight_ly['bbOpioid'][opFilterCategory], nationAve);
+            max = calcBBOpioidSliderMax(insight_ly['opioid'][opFilterCategory], nationAve);
             $('.slider-bbOpiod-label.max').text(max + 'x');
 
             $('.slider-bbOpiod-label.min').text('0x');
         }
         values = [low, high]
     } else if (type === 'opioid') {
-        min = insight_ly['opioid'][opFilterCategory][zoom_layer_type + 'Min'];
-        max = insight_ly['opioid'][opFilterCategory][zoom_layer_type + 'Max'];
+        // overview tab opioid
+        min = insight_ly['opioid'][opFilterCategory][geo_type + 'Min'];
+        max = insight_ly['opioid'][opFilterCategory][geo_type + 'Max'];
 
         // one decimal pt
         if (min % 1 !== 0) min = Number(min.toFixed(1));
         if (max % 1 !== 0) max = Number(max.toFixed(1));
 
         step = 0.1;
-        values = insight_ly[type][opFilterCategory][zoom_layer_type + 'Values'];
+        // values = insight_ly[type][opFilterCategory][geo_type + 'Values'];
+        values = [min, max];
+
+        var label = $('#select-in-opioid').find(':selected').text();
+        $('#opiodMetricsLabel').text(label);
 
     } else {
+        // broadband
         min = insight_ly[type][opFilterCategory].min;
         max = insight_ly[type][opFilterCategory].max;
         step = insight_ly[type][opFilterCategory].step;
@@ -519,10 +494,7 @@ function updateSlider(type, def) {
         max: max,
         step: step,
         values: def,
-        slide: function(event, slider) {
-            // console.log(slider.values)
-        },
-        stop: function(event, slider) {
+        stop: function (event, slider) {
             setSliderMap(type, slider.values[0], slider.values[1], nationAve);
             setHash();
         }
@@ -532,41 +504,41 @@ function updateSlider(type, def) {
 }
 
 function calcBBOpioidSliderMax(opFilter, nationAve) { // Calculate slider max value based on selected geography (state/county), selected filter, and national average
-    var stateOrCountyMax = opFilter[zoom_layer_type + 'Max'];
+    var stateOrCountyMax = opFilter[geo_type + 'Max'];
 
-    // Calculate max slider value based on selected opioid filter
-    var sliderMax = Math.ceil(stateOrCountyMax / nationAve);    
+    var sliderMax = Math.ceil((stateOrCountyMax / nationAve) * 2) / 2;
 
     return sliderMax;
 }
 
-function setSliderMap(type, low, high, nationAve) {    
-
-    var filter = '';
-    var demo_filter = '';
-
-    var column = 0;
-    var zindex = 0;
-    var unit = 0;
-    var multiple = 0;
-    var label = '';
-    var tooltip = '';
-    var label_text = '';
-    var labelRange = '';
-    var labelRangeVals = '';
-
+function setSliderMap(type, low, high, nationAve) {
     var dropdown = $('#select-in-' + type).val();
+    var ref = type === 'opioid' || type === 'bbOpioid' ? 'opioid' : type;
 
-    if (insight_ly[type][dropdown]) {
-        column = insight_ly[type][dropdown].column;
-        zindex = insight_ly[type][dropdown].zindex;
-        unit = insight_ly[type][dropdown].unit;
-        multiple = insight_ly[type][dropdown].multiple;
-        label = insight_ly[type][dropdown].label;
-        tooltip = insight_ly[type][dropdown].tooltip;
+    var column = insight_ly[ref][dropdown].column;
+    var zindex = insight_ly[ref][dropdown].zindex;
+    var unit = insight_ly[ref][dropdown].unit;
+    var multiple = insight_ly[ref][dropdown].multiple;
+    var label = insight_ly[ref][dropdown].label;
+    var tooltip = insight_ly[ref][dropdown].tooltip;
+    var label_text = '';
+
+    if (type === 'bbOpioid') {
+        var opFilterType = $('#select-in-' + type).find(':selected').data('filtertype');
+        if (opFilterType === 'trends') {
+            var selectedTrend = $('[name=bbOpioidTrendsFilter]:checked').val(); //decreasing, increasing, all
+
+            var labelRange = selectedTrend === 'decreasing' ? '<= 0%' : low + '% to ' + high + '%';
+            $('#label-bbOpTrendsRange').text(labelRange);
+        } else {
+            $('#label-bbOpRange').text(low + 'x(' + (low * nationAve).toFixed(1) + ') - ' + high + 'x(' + (high * nationAve).toFixed(1) +  ')');
+            low = (low * nationAve).toFixed(1);
+            high = (high * nationAve).toFixed(1);
+        }
     }
 
-    if (unit == 'st') {
+    // Update label
+    if (unit === 'st') { // broadband
         if (low !== high) {
             label_text = bb_speed_tiers[low].min + ' to ' + bb_speed_tiers[high].max + ' mbps';
         } else {
@@ -576,46 +548,29 @@ function setSliderMap(type, low, high, nationAve) {
         label_text = Number(low * multiple).toFixed(1).toLocaleString('en') + ' - ' + Number(high * multiple).toFixed(1).toLocaleString('en') + label;
     }
 
-    // Update slider range text
     $('#label-' + type).text(label_text);
-
-    if (type === 'bbOpioid') {
-        var opFilterType = $('#select-in-' + type).find(':selected').data('filtertype');
-        if (opFilterType === 'trends') {
-            var selectedTrend = $('[name=bbOpioidTrendsFilter]:checked').val(); //decreasing, increasing, all
-
-            labelRange = selectedTrend === 'decreasing' ? '<= 0%' : low + '% - ' + high + '%';
-            $('#label-bbOpTrendsRange').text(labelRange);
-        } else {
-            labelRange = low + 'x - ' + high + 'x ';
-            labelRangeVals = '(' + (low * nationAve).toFixed(1) + ' - ' + (high * nationAve).toFixed(1) + ')';
-
-            $('#label-bbOpRange').text(labelRange + labelRangeVals);
-            low = (low * nationAve).toFixed(1);
-            high = (high * nationAve).toFixed(1);
-        }
-    }
 
     // Update tooltip text
     $('#in-tooltip-' + type).attr('title', tooltip).tooltip('fixTitle');
 
     // Update CQL filter statement
-    filter = column + '>=' + low + ' AND ' + column + '<=' + high;
+    var filter = column + '>=' + low + ' AND ' + column + '<=' + high;
+    var demo_filter = '';
 
-    if (column === 'res_concxns_pct') {
-        filter = column + '>' + low + ' AND ' + column + '<=' + high;
+    if (cur_tab === 'broadband') {
+        if (column === 'res_concxns_pct') {
+            filter = column + '>' + low + ' AND ' + column + '<=' + high;
+        }
+        demo_filter = getDemoFilter('bb');
+    } else {
+        demo_filter = getDemoFilter('ov');
     }
 
-    demo_filter = getDemoFilter('ov');
-
-    if (demo_filter != '') {
+    if (demo_filter !== '') {
         filter = filter + ' AND ' + demo_filter;
     }
 
-    filter = filter + ';' + filter;    
-
     redoMap(type, filter, zindex);
-
 }
 
 function updateOpioidTrendsFilter() {
@@ -628,7 +583,7 @@ function updateOpioidTrendsFilter() {
         $('#slider-bbOpioid').closest('.row').show();
         $('#label-bbOpTrendsRange').show();
     } else if (opTrendsFilterType === 'allTrends') {
-        minLabel = formatStat(insight_ly['bbOpioid'][category][zoom_layer_type + 'Min'], 0);
+        minLabel = formatStat(insight_ly['opioid'][category][geo_type + 'Min'], 0);
         $('#slider-bbOpioid').closest('.row').show();
         $('#label-bbOpTrendsRange').text(minLabel + '% - 50%');
     } else {
@@ -647,7 +602,6 @@ function updateOpioidTrendsFilter() {
 }
 
 function getDemoFilter(demo_type) {
-
     var demo_filter = '';
 
     var demo_selection = $('#' + demo_type + '-select-demographics').val();
@@ -669,61 +623,57 @@ function getDemoFilter(demo_type) {
 }
 
 function redoMap(type, filter, zindex) {
-    
-    var in_layers = '' + geo_space + ':c2hgis_201812_' + type;
-    var in_styles = '';    
-    var opioidMeasure = $('#select-in-opioid').val();
+    var in_layers = '' + geo_space + ':c2hgis_201812_' + geo_type + '_2017opioid';
+    var in_styles = '';
 
-    in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
-    
-    map.eachLayer(function(layer) {
-        // Remove opioid broadband layer
-        if (curr_health_measure_type === 'opioid' && type === 'broadband') {
-            if (layer.options.styles && (layer.options.styles === 'opioid_broadband_auto' || layer.options.styles === 'broadband_auto')) {
-                map.removeLayer(layer);                
+    if (cur_tab === 'insights') {
+        map.eachLayer(function (layer) {
+            // Remove opioid broadband layer
+            if (curr_health_measure_type === 'opioid' && type === 'broadband') {
+                if (layer.options.styles && (layer.options.styles === 'opioid_broadband_auto' || layer.options.styles === 'broadband_auto')) {
+                    map.removeLayer(layer);
+                }
             }
-        }
 
-        // Remove opioid health layers
-        if (curr_health_measure_type === 'opioid' && type === 'health') {
-            if (layer.options.styles && (layer.options.styles === 'opioid_health_auto' || layer.options.styles === 'health_auto')) {
-                map.removeLayer(layer);                
+            // Remove opioid health layers
+            if (curr_health_measure_type === 'opioid' && type === 'health') {
+                if (layer.options.styles && (layer.options.styles === 'opioid_health_auto' || layer.options.styles === 'health_auto')) {
+                    map.removeLayer(layer);
+                }
             }
-        }
 
-        // Remove opioid layer
-        if (curr_health_measure_type === 'opioid' && type === 'opioid') {
-            if (layer.options.styles && (layer.options.styles.includes('opioid') && layer.options.styles !== 'opioid_broadband_auto')) {
-                map.removeLayer(layer);                
+            // Remove opioid layer
+            if (curr_health_measure_type === 'opioid' && type === 'opioid') {
+                if (layer.options.styles && (layer.options.styles.includes('opioid') && layer.options.styles !== 'opioid_broadband_auto')) {
+                    map.removeLayer(layer);
+                }
             }
-        }
 
-        // Remove health layer
-        if (curr_health_measure_type === 'health' && type === 'health') {
-            if (layer.options.styles && (layer.options.styles === 'health_auto' || layer.options.styles === 'opioid_health_auto')) {
-                map.removeLayer(layer);
+            // Remove health layer
+            if (curr_health_measure_type === 'health' && type === 'health') {
+                if (layer.options.styles && (layer.options.styles === 'health_auto' || layer.options.styles === 'opioid_health_auto')) {
+                    map.removeLayer(layer);
+                }
             }
-        }
 
-        // Remove health broadband layer
-        if (curr_health_measure_type === 'health' && type === 'broadband') {
-            if (layer.options.styles && (layer.options.styles === 'broadband_auto' || layer.options.styles === 'opioid_broadband_auto')) {
-                map.removeLayer(layer);
+            // Remove health broadband layer
+            if (curr_health_measure_type === 'health' && type === 'broadband') {
+                if (layer.options.styles && (layer.options.styles === 'broadband_auto' || layer.options.styles === 'opioid_broadband_auto')) {
+                    map.removeLayer(layer);
+                }
             }
-        }
 
-    });
+        });
 
-    if (zoom_layer_type !== 'auto') {
         // Add opioid health measure layer
         if (curr_health_measure_type === 'opioid' && type === 'opioid') {
-            in_styles = insight_ly['opioid'][opioidMeasure].style;            
+            in_styles = 'opioid_health_auto'
         }
 
         // Add opioid broadband layer
         if (curr_health_measure_type === 'opioid' && type === 'broadband') {
-            in_styles = 'opioid_broadband_auto';            
-        }        
+            in_styles = 'opioid_broadband_auto';
+        }
 
         // Add health layer
         if (curr_health_measure_type === 'health' && type === 'health') {
@@ -734,31 +684,42 @@ function redoMap(type, filter, zindex) {
         if (curr_health_measure_type === 'health' && type === 'broadband') {
             in_styles = 'broadband_auto';
         }
-    }
-    
-    wms_method = 'wms';
-    
-    if (in_styles !== '') {
-        map_overlays['in_' + type][map_overlays['in_' + type].length] = L.tileLayer.wms(geo_host + '/' + geo_space + '/' + wms_method + '?', {
+
+        wms_method = 'wms';
+
+        if (in_styles !== '') {
+            map_overlays['in_' + type][map_overlays['in_' + type].length] = L.tileLayer.wms(geo_host + '/' + geo_space + '/' + wms_method + '?', {
+                format: 'image/png',
+                transparent: true,
+                cql_filter: filter,
+                layers: in_layers,
+                styles: in_styles,
+            }).setZIndex(zindex).addTo(map);
+        }
+
+        if (healthMeasureChange) {
+            updateOpioidMap(curr_health_measure_type);
+        }
+    } else {
+        // remove all non base layers from map
+        map.eachLayer(function(layer) {
+            if (layer.options.styles && layer.options.styles !== 'state_border') map.removeLayer(layer);
+        });
+
+        var bbType = $('.broadband-type:checked').val();
+        in_styles = 'bb_combo_' + bbType + '_' + geo_type + '_all';
+
+        map_overlays['in_' + type][map_overlays['in_' + type].length] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
             format: 'image/png',
             transparent: true,
             cql_filter: filter,
             layers: in_layers,
             styles: in_styles,
         }).setZIndex(zindex).addTo(map);
-    }   
-
-    if (healthMeasureChange) {
-        updateOpioidMap(curr_health_measure_type);
     }
-
 }
 
-//**************************************************************************
-// section functions
-
 function removeCount() {
-
     $('#in-count-stat-name').text('Population : ');
     $('#in-count-stat-value').text(formatStat(geo_prop.pop_2016));
 
@@ -789,12 +750,12 @@ function setCount() {
             }
         }
 
-        var count_layers = ['' + geo_space + ':c2hgis_201812_state', '' + geo_space + ':c2hgis_201812_county'];
+        var count_layers = ['' + geo_space + ':c2hgis_201812_state_2017opioid', '' + geo_space + ':c2hgis_201812_county_2017opioid'];
         var count_styles = ['count_' + count_style + '_state', 'count_' + count_style + '_county'];
 
         if (zoom_layer_type != 'auto') {
-            count_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
-            count_styles = 'count_' + count_style + '_' + zoom_layer_type + '_all';
+            count_layers = '' + geo_space + ':c2hgis_201812_' + geo_type + '_2017opioid';
+            count_styles = 'count_' + count_style + '_' + geo_type + '_all';
         }
 
         if (count_layer != 'c2hgis') {
@@ -853,8 +814,6 @@ function setupHealthTab() {
     $('.advanced-health').selectpicker('refresh');
     $('.advanced-opioid').selectpicker('refresh');
 
-    //$('#adv-select-broadband-tooltip' ).attr( 'title', adv_tooltip).tooltip('fixTitle');  
-
     filter = adv_filter;
 
     if (demo_filter != '') {
@@ -863,10 +822,6 @@ function setupHealthTab() {
         } else {
             filter = demo_filter;
         }
-    }
-
-    if (filter != '') {
-        filter = filter + ';' + filter;
     }
 
     if (healthTabTheme == "health") {
@@ -881,12 +836,12 @@ function setupHealthTab() {
                 }
             }
 
-            var in_layers = ['' + geo_space + ':c2hgis_201812_state', '' + geo_space + ':c2hgis_201812_county'];
+            var in_layers = ['' + geo_space + ':c2hgis_201812_state_2017opioid', '' + geo_space + ':c2hgis_201812_county_2017opioid'];
             var in_styles = ['' + health_style + '_state', '' + health_style + '_county'];
 
             if (zoom_layer_type != 'auto') {
-                in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
-                in_styles = '' + health_style + '_' + zoom_layer_type + '_all';
+                in_layers = '' + geo_space + ':c2hgis_201812_' + geo_type + '_2017opioid';
+                in_styles = '' + health_style + '_' + geo_type + '_all';
             }
 
             if (filter != '') {
@@ -923,9 +878,8 @@ function setupHealthTab() {
                 }
             }
 
-            var in_layers = zoom_layer_type === 'auto' ? '' + geo_space + ':c2hgis_201812_' + new_geo_type : geo_space + ':c2hgis_201812_' + zoom_layer_type;
+            var in_layers = geo_space + ':c2hgis_201812_' + geo_type + '_2017opioid';
             var in_styles = opioid_style;
-
 
             if (filter != '') {
                 map_overlays['health_ov'][map_overlays['health_ov'].length] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
@@ -949,48 +903,39 @@ function setupHealthTab() {
 
             setHash();
         }
-    };
-
-
+    }
 }
 
 function setupBroadbandTab() {
+    // remove all non base layers from map
+    map.eachLayer(function(layer) {
+        if (layer.options.styles && layer.options.styles !== 'state_border') map.removeLayer(layer);
+    });
+
     var type = $('.broadband-type:checked').val();
-    var adv_selection = $('#adv-select-' + curr_health_measure_type).val();
-
-    var demo_filter = getDemoFilter('bb');
-
+    var demo_filter = getDemoFilter('bb');  // rural dropdown
+    var health_dropdown = $('#adv-select-health').val();  // health dropdown
     var filter = '';
-    var adv_filter = '';
-    var adv_tooltip = 'Select';
 
-    if (adv_selection) {
-        var selection = adv_selection.split('$');
+    $('.advanced-broadband').selectpicker('refresh');
+
+    if (curr_health_measure_type === 'health' && health_dropdown) {
+        var selection = health_dropdown.split('$');
         var layer = selection[0];
         var ranges = selection[1].split('_');
         var low = ranges[0];
         var high = ranges[1];
         var column = insight_ly[curr_health_measure_type][layer].column;
-        adv_filter = column + '>=' + low + ' AND ' + column + '<' + high;
-        adv_tooltip = $("#adv-select-" + curr_health_measure_type + " option[value='" + adv_selection + "']").text();
-    } else {
-        $('#adv-select-' + curr_health_measure_type).val("");
+        filter = column + '>=' + low + ' AND ' + column + '<' + high;
+        adv_tooltip = $("#adv-select-health" + " option[value='" + health_dropdown + "']").text();
     }
 
-    $('.advanced-broadband').selectpicker('refresh')
-
-    filter = adv_filter;
-
-    if (demo_filter != '') {
-        if (filter != '') {
+    if (demo_filter !== '') {
+        if (filter !== '') {
             filter = filter + ' AND ' + demo_filter;
         } else {
             filter = demo_filter;
         }
-    }
-
-    if (filter != '') {
-        filter = filter + ';' + filter;
     }
 
     for (var k in map_overlays['broadband_ov']) {
@@ -999,15 +944,10 @@ function setupBroadbandTab() {
         }
     }
 
-    var in_layers = ['' + geo_space + ':c2hgis_201812_state', '' + geo_space + ':c2hgis_201812_county'];
-    var in_styles = ['bb_combo_' + type + '_state', 'bb_combo_' + type + '_county'];
+    var in_layers = geo_space + ':c2hgis_201812_' + geo_type + '_2017opioid';
+    var in_styles = 'bb_combo_' + type + '_' + geo_type + '_all';
 
-    if (zoom_layer_type != 'auto') {
-        in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
-        in_styles = '' + 'bb_combo_' + type + '_' + zoom_layer_type + '_all';
-    }
-
-    if (filter != '') {
+    if (filter !== '') {
         map_overlays['broadband_ov'][map_overlays['broadband_ov'].length] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
             format: 'image/png',
             transparent: true,
@@ -1026,17 +966,25 @@ function setupBroadbandTab() {
 
     var broadband_tooltip = broadband_ly[type].tooltip;
 
+    if (type === 'in_adoption') {
+        $('.square-label-min').text('0');
+        $('.square-label-max').text('100');
+    } else {
+        $('.square-label-min').text('0%');
+        $('.square-label-max').text('100%');
+    }
+
     $('#bb-tooltip-broadband').attr('title', broadband_tooltip).tooltip('fixTitle');
 
-    updateSlider('bbOpioid');
+    if (curr_health_measure_type === 'opioid') {
+        updateSlider('bbOpioid');
+    }
     setHash();
 }
 
 //setVetPopFilter
 //RESOURCES: http://docs.geoserver.org/stable/en/user/tutorials/cql/cql_tutorial.html
 function setDemographicFilter() {
-
-
     var demo_filter = getDemoFilter('ov');
 
     // Redo of Broadband Filter STARTS
@@ -1044,24 +992,20 @@ function setDemographicFilter() {
     var low = $('#slider-' + type).slider("values", 0);
     var high = $('#slider-' + type).slider("values", 1);
 
-
     var dropdown = $('#select-in-' + type).val();
     var column = insight_ly[type][dropdown].column;
     var zindex = insight_ly[type][dropdown].zindex;
 
-
     var filter = column + '>=' + low + ' AND ' + column + '<=' + high;
     if (column == 'res_concxns_pct') {
         filter = column + '>' + low + ' AND ' + column + '<=' + high;
-
     }
 
     if (demo_filter != '') {
         filter = filter + ' AND ' + demo_filter;
     }
 
-    filter = filter + ';' + filter;
-
+    // filter = filter + ';' + filter;
 
     redoMap(type, filter, zindex);
     // Redo of Broadband Filter ENDS
@@ -1085,8 +1029,7 @@ function setDemographicFilter() {
         filter = filter + ' AND ' + demo_filter;
     }
 
-    filter = filter + ';' + filter;
-
+    // filter = filter + ';' + filter;
 
     redoMap(type, filter, zindex);
     // Redo of Health Filter ENDS
@@ -1094,14 +1037,10 @@ function setDemographicFilter() {
     setHash();
 }
 
-
 function setupPopTab() {
-
     var pop_type = $('#pop-sec-type').val();
 
-
     if (pop_ly[pop_type]) {
-
         var pop_style = pop_ly[pop_type].style;
 
         for (var k in map_overlays['pop_ov']) {
@@ -1110,12 +1049,12 @@ function setupPopTab() {
             }
         }
 
-        var in_layers = ['' + geo_space + ':c2hgis_201812_state', '' + geo_space + ':c2hgis_201812_county'];
+        var in_layers = ['' + geo_space + ':c2hgis_201812_state_2017opioid', '' + geo_space + ':c2hgis_201812_county_2017opioid'];
         var in_styles = [pop_style + '_state', pop_style + '_county'];
 
         if (zoom_layer_type != 'auto') {
-            in_layers = '' + geo_space + ':c2hgis_201812_' + zoom_layer_type;
-            in_styles = '' + pop_style + '_' + zoom_layer_type + '_all';
+            in_layers = '' + geo_space + ':c2hgis_201812_' + geo_type + '_2017opioid';
+            in_styles = '' + pop_style + '_' + geo_type + '_all';
         }
 
         map_overlays['pop_ov'][map_overlays['pop_ov'].length] = L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
@@ -1131,18 +1070,13 @@ function setupPopTab() {
     }
 }
 
-
-//**************************************************************************
-// legend functions
-
 function updateCountLegend() {
-
     var count_type = $('#select-in-count').val();
 
-    if ((count_type != '') && (count_type != 'none') && (insight_ly.count[count_type][zoom_type])) {
+    if ((count_type != '') && (count_type != 'none') && (insight_ly.count[count_type][geo_type])) {
 
-        var count_min = insight_ly.count[count_type][zoom_type].min;
-        var count_max = insight_ly.count[count_type][zoom_type].max;
+        var count_min = insight_ly.count[count_type][geo_type].min;
+        var count_max = insight_ly.count[count_type][geo_type].max;
         var count_color = insight_ly.count[count_type].color;
 
         $('.circle-label-min').html('<' + count_min);
@@ -1159,7 +1093,6 @@ function updateHealthLegend() {
     var health_type = $('#health-sec-type').val();
 
     if (health_ly[health_type]) {
-
         var health_min = health_ly[health_type].min;
         var health_max = health_ly[health_type].max;
         var health_ranges = health_ly[health_type].ranges;
@@ -1194,15 +1127,16 @@ function updateOpioidLegend() {
         var opioid_max = opioid_ranges_array.slice(-1)[0];
         var opioid_label = opioid_ly[opioid_type].label;
         var opioid_tooltip = insight_ly['opioid'][opioid_type].tooltip;
+        var opioid_tooltip_suffix = opioid_label ? '%' : '';
 
         $('.opioid-label-min').html(opioid_min);
         $('.opioid-label-max').html(opioid_max);
 
-        $('#opioid-sym-1').tooltip('hide').attr('data-original-title', opioid_ranges_array[0]);
-        $('#opioid-sym-2').tooltip('hide').attr('data-original-title', opioid_ranges_array[1]);
-        $('#opioid-sym-3').tooltip('hide').attr('data-original-title', opioid_ranges_array[2]);
-        $('#opioid-sym-4').tooltip('hide').attr('data-original-title', opioid_ranges_array[3]);
-        $('#opioid-sym-5').tooltip('hide').attr('data-original-title', opioid_ranges_array[4]);
+        $('#opioid-sym-1').tooltip('hide').attr('data-original-title', opioid_ranges_array[0] + opioid_tooltip_suffix);
+        $('#opioid-sym-2').tooltip('hide').attr('data-original-title', opioid_ranges_array[1] + opioid_tooltip_suffix);
+        $('#opioid-sym-3').tooltip('hide').attr('data-original-title', opioid_ranges_array[2] + opioid_tooltip_suffix);
+        $('#opioid-sym-4').tooltip('hide').attr('data-original-title', opioid_ranges_array[3] + opioid_tooltip_suffix);
+        $('#opioid-sym-5').tooltip('hide').attr('data-original-title', opioid_ranges_array[4] + opioid_tooltip_suffix);
         $('.in-cnt-legend-box').css('display', 'inline-block');
 
         $('#hh-tooltip-opioid').attr('title', opioid_tooltip).tooltip('fixTitle');
@@ -1212,7 +1146,6 @@ function updateOpioidLegend() {
 }
 
 function updatePopLegend() {
-
     var pop_type = $('#pop-sec-type').val();
 
     if (pop_ly[pop_type]) {
@@ -1245,15 +1178,13 @@ function updatePopLegend() {
 // data functions
 
 function getData(zoomCenter) {
-
     var data_type = geo_type;
     var jsonpCallbackVal = false;
     if (zoom_layer_type != 'auto') {
         data_type = zoom_layer_type;
     }
 
-
-    var data_url = geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=' + geo_space + ':c2hgis_201812_' + data_type + '&maxFeatures=1&outputFormat=' + geo_output + '&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))';
+    var data_url = geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=' + geo_space + ':c2hgis_201812_' + data_type + '_2017opioid&maxFeatures=1&outputFormat=' + geo_output + '&cql_filter=contains(geom,%20POINT(' + geo_lng + ' ' + geo_lat + '))';
 
     if (geo_request_type == 'jsonp') {
         data_url = data_url + '&format_options=callback:callbackData';
@@ -1272,15 +1203,10 @@ function getData(zoomCenter) {
 }
 
 function processData(data, zoomCenter) {
-
-
     if (data.features) {
-
-
         if (data.features.length == 1) {
 
             var geography_id = data.features[0].properties.geography_id;
-
 
             if (geo_id !== geography_id) {
 
@@ -1293,7 +1219,7 @@ function processData(data, zoomCenter) {
                 createCharts();
                 clearClickFeature();
 
-                // ***********************************      
+                // ***********************************
                 if (geo_type != 'national') {
                     if (zoomCenter) {
                         if (geo_type == 'county' || geo_type == 'state') {
@@ -1330,9 +1256,8 @@ function processData(data, zoomCenter) {
 }
 
 function setDownloadLinks() {
-
     var data_type = geo_prop.geography_type;
-    var download_layer = 'c2hgis_201812_' + data_type;
+    var download_layer = 'c2hgis_201812_' + data_type + '_2017opioid';
 
     var download_filter = '';
     if (data_type != 'national') {
@@ -1444,7 +1369,7 @@ function setHash() {
     }
 
     if (zoom_layer_type !== 'auto') {
-        hash += '&zlt=' + zoom_layer_type;
+        hash += '&zlt=' + geo_type;
     }
 
     hash = hash.substring(1);
@@ -1485,7 +1410,11 @@ function loadHash() {
 
         if (hash_obj.zlt) {
             zoom_layer_type = hash_obj.zlt;
+            geo_type = hash_obj.zlt;
             $('#leaflet-zoom-layers-' + zoom_layer_type).prop('checked', true);
+        } else {
+            zoom_layer_type = 'auto';
+            $('#leaflet-zoom-layers-auto').prop('checked', true);
         }
 
 
@@ -1517,14 +1446,15 @@ function loadHash() {
                 $('#opiodMetricsLabel').text(metricsLabel);
             }
 
-            if (hash_obj.dmf) { $('#ov-select-demographics').val(hash_obj.dmf); }
-            // if (hash_obj.dmf == 'none') {
-            //     $('#ov-select-demographics').val('');
-            // }
+            if (hash_obj.dmf && hash_obj.dmf !== 'none') {
+                $('#ov-select-demographics').val(hash_obj.dmf);
+            } else {
+                $('#ov-select-demographics').val('none');
+            }
 
             if (hash_obj.inc) { $('#select-in-count').val(hash_obj.inc); }
             if (hash_obj.inc == 'none') {
-                // $('#select-in-count').val('');
+                $('#select-in-count').val('none');
                 $('.in-cnt-legend-box').css('display', 'none');
             }
 
@@ -1552,7 +1482,7 @@ function loadHash() {
                 $('#adv-select-broadband').val(hash_obj.advbb);
             }
             if (hash_obj.dmf) { $('#hh-select-demographics').val(hash_obj.dmf); }
-            if (hash_obj.dmf === 'none') {
+            if (hash_obj.dmf === '') {
                 $('#hh-select-demographics').val('');
             }
 
@@ -1578,7 +1508,7 @@ function loadHash() {
                 curr_health_measure_type = hm_type;
                 $('#health-measure-type-' + hm_type).parent().addClass("active");
                 $('#health-measure-type-group').show();
-                
+
                 updateHealthMeasures(hm_type);
 
                 $('#broadband-type-' + hash_type).prop('checked', true);
@@ -1605,12 +1535,7 @@ function loadHash() {
     }
 }
 
-
-//**************************************************************************
-// stats functions
-
 function updateStats() {
-
     setHash();
 
     var geography_type = geo_prop.geography_type;
@@ -1619,12 +1544,12 @@ function updateStats() {
     var dsgteq25 = geo_prop.dsgteq25;
     var usgteq3 = geo_prop.usgteq3;
 
-    if (geography_type == 'county') {
+    if (geography_type === 'county') {
         var abbr = states_data[geography_id.substring(0, 2)].abbr;
         geography_desc += ', ' + abbr;
         dsgteq25 = geo_prop.dsgteq25 * 100;
         usgteq3 = geo_prop.usgteq3 * 100;
-    } else if (geography_type == 'national') {
+    } else if (geography_type === 'national') {
         geography_desc = 'Nationwide';
     }
 
@@ -1635,14 +1560,13 @@ function updateStats() {
     $('.geog-pop').text(formatStat(geo_prop.pop_2016));
     $('.geog-prov').text(formatStat(geo_prop.provcount_c));
 
-    // Insight Stats        
+    // Insight Stats
     var broadband_sel = $('#select-in-broadband').val();
     var health_sel = $('#select-in-health').val();
     var count_sel = $('#select-in-count').val();
     var opioid_sel = $('#select-in-opioid').val();
 
-
-    var broadband_stat_value, health_stat_value, count_stat_value;
+    var broadband_stat_value, health_stat_value, opioid_stat_value, count_stat_value;
 
     if ((broadband_sel == 'in_bb_dl_speed') || (broadband_sel == 'in_bb_ul_speed')) {
         broadband_stat_value = bb_speed_tiers[geo_prop[insight_ly.broadband[broadband_sel].column]].range + ' ' + insight_ly.broadband[broadband_sel].suffix;
@@ -1661,7 +1585,7 @@ function updateStats() {
 
     opioid_stat_value = formatStat((geo_prop[insight_ly.opioid[opioid_sel].column] * insight_ly.opioid[opioid_sel].multiple), 1);
     if (insight_ly.opioid[opioid_sel].suffix != '%') {
-        opioid_stat_value = opioid_stat_value + ' ' + insight_ly.opioid[opioid_sel].suffix;
+        opioid_stat_value = opioid_stat_value + ' ' + insight_ly.opioid[opioid_sel].suffix + ' per 100,000';
     } else {
         opioid_stat_value = opioid_stat_value + insight_ly.opioid[opioid_sel].suffix;
     }
@@ -1679,7 +1603,8 @@ function updateStats() {
     $('#in-health-stat-name').text(insight_ly.health[health_sel].name + ' : ');
     $('#in-health-stat-value').text(health_stat_value);
 
-    $('#in-opioid-stat-name').text(insight_ly.opioid[opioid_sel].name + ' : ');
+    var opioid_label = $('#select-in-opioid').find(':selected').text();
+    $('#in-opioid-stat-name').text(opioid_label + ' : ');
     $('#in-opioid-stat-value').text(opioid_stat_value);
 
     if ((count_sel != '') && (count_sel != 'none')) {
@@ -1691,56 +1616,37 @@ function updateStats() {
     }
 
     // Health Stats
-
     $('.geog-pcp').text(formatStat(geo_prop.pcp_total));
     $('.geog-dentists').text(formatStat(geo_prop.dentist_total));
     $('.geog-mental').text(formatStat(geo_prop.mhp_total));
     $('.geog-poorfair').text(formatStat(geo_prop.poor_fair_health_total));
-
     $('.geog-prematured').text(formatStatAppend(geo_prop.years_lost_per_100000, 1, ' per 100,000'));
     $('.geog-prevhosp').text(formatStatAppend(geo_prop.preventable_hospital_stays_per_1000, 1, ' per 1,000'));
     $('.geog-injuryd').text(formatStatAppend(geo_prop.injury_deaths_per_100000, 1, ' per 100,000'));
     $('.geog-sickdays').text(formatStatAppend(geo_prop.poor_physical_health_days_within_last_30_days, 1, ' days per month'));
-
     $('.geog-longcommute').text(formatStatAppend(geo_prop.long_commute_driving_alone, 1, '%'));
     $('.geog-drivealone').text(formatStatAppend(geo_prop.driving_alone_to_work, 1, '%'));
-
     $('.geog-obes').text(formatStatAppend(geo_prop.adult_obesity_pct, 1, '%'));
     $('.geog-diab').text(formatStatAppend(geo_prop.diabetes_pct, 1, '%'));
     $('.geog-smok').text(formatStatAppend(geo_prop.smoking_pct, 1, '%'));
     $('.geog-drin').text(formatStatAppend(geo_prop.drinking_pct, 1, '%'));
     $('.geog-inac').text(formatStatAppend(geo_prop.physical_inactivity, 1, '%'));
-    //$('.geog-inse').text(formatStatAppend(geo_prop.physical_inactivity, 3, '%')); 
     $('.geog-severehousing').text(formatStatAppend(geo_prop.severe_housing_problems, 1, '%'));
 
     // Broadband Stats
     $('.geog-provcount').text(formatStat(geo_prop.provcount_c));
     $('.geog-intaccess').text(formatStatAppend(geo_prop.pctpopwbbacc, 1, '%'));
-
-    //$('.geog-combdl').text(formatStat(geo_prop.advdl_gr25000k, 1, '%');
-    //$('.geog-combul').text(formatStat(geo_prop.advul_gr3000k, 1, '%');
     $('.geog-wldl').text(formatStatAppend(dsgteq25, 1, '%'));
     $('.geog-wlul').text(formatStatAppend(usgteq3, 1, '%'));
-    //$('.geog-wsdl').text(formatStat(geo_prop.wireless_advdl_gr25000k, 1, '%');
-    //$('.geog-wsul').text(formatStat(geo_prop.wireless_advul_gr3000k, 1, '%'); 
-
     $('.geog-commondl').text((bb_speed_tiers[geo_prop.dl_tiers].range) + ' mbps');
     $('.geog-commonul').text((bb_speed_tiers[geo_prop.ul_tiers].range) + ' mbps');
-
-
     $('.geog-adoptpct').text(geo_prop.res_concxns_pct + '%');
-
-
-    //$('.geog-greatdl').text((bb_speed_tiers[geo_prop.greatest_dl].range) + ' mbps');
-    //$('.geog-greatul').text((bb_speed_tiers[geo_prop.greatest_ul].range) + ' mbps');
 
     // Population Stats
     $('.geog-pop-total').text(formatStat(geo_prop.pop_2016));
     $('.geog-pop-density').text(formatStatAppend(geo_prop.pop_density, 2, ' per sq. mile'));
-
     $('.geog-pop-urban').text(formatStat(geo_prop.urban_total, 0));
     $('.geog-pop-rural').text(formatStat(geo_prop.rural_total, 0));
-
     $('.geog-pop-male').text(formatStat(geo_prop.male_total, 0));
     $('.geog-pop-female').text(formatStat(geo_prop.female_total, 0));
     $('.geog-pop-over65').text(formatStatAppend(geo_prop.age_over_65_pct, 2, '%'));
@@ -1766,7 +1672,6 @@ function formatStat(input, decimal) {
     var output = '';
 
     if ($.isNumeric(input)) {
-
         if (decimal || decimal == 0) {
             output = Number(input.toFixed(decimal)).toLocaleString('en');
         } else {
@@ -1775,7 +1680,6 @@ function formatStat(input, decimal) {
     } else {
         output = 'N/A';
     }
-
     return output;
 }
 
@@ -1784,12 +1688,19 @@ function formatStatAppend(input, decimal, append) {
     return (stat == 'N/A') ? stat : (stat + append);
 }
 
-
-//**************************************************************************
-// menu functions
+function setupHealthMeasures(healthMeasureType) {
+    //opioid and health measure menu showings
+    if (healthMeasureType == "health") {
+        $(".healthMetrics").show();
+        $(".opioidMetrics").hide();
+    } else if (healthMeasureType == "opioid") {
+        $(".opioidMetrics").show();
+        $(".healthMetrics").hide();
+    }
+    setHash();
+}
 
 function generateMenu() {
-
     clearMap();
 
     if (cur_tab === 'insights') {
@@ -1819,7 +1730,7 @@ function generateMenu() {
         $('.list-insight-panel').addClass('hide');
         $('.list-population-panel').addClass('hide');
         $('.list-broadband-panel').removeClass('hide');
-
+        curr_health_measure_type = 'opioid';
         setupBroadbandTab();
     } else if (cur_tab === 'population') {
         $('.list-health-panel').addClass('hide');
@@ -1839,7 +1750,6 @@ function generateMenu() {
 }
 
 function extLinks(e) {
-
     var alertText = 'You are about to leave the FCC website and visit a third-party, non-governmental website that the FCC does not maintain or control. The FCC does not endorse any product or service, and is not responsible for, nor can it guarantee the validity or timeliness of the content on the page you are about to visit. Additionally, the privacy policies of this third-party page may differ from those of the FCC.',
         confirm = window.confirm(alertText);
 
@@ -1849,13 +1759,53 @@ function extLinks(e) {
 
 }
 
-//**************************************************************************
-// load functions
+function updateOpioidMap(curr_health_measure_type) {
+    var opioid_type = $('#opioid-sec-type').val();
+    var opioidMeasure = $('#select-in-opioid').val();
+    var selectedDataOverlay = $('#select-in-count').val();
 
-$(document).ready(function() {
+    clearMap();
 
-    geo_prop = national_data.features[0].properties;
+    // Add Chronic Disease related layers
+    if (curr_health_measure_type === 'health') {
+        var healthLayerIndex =  map_overlays.in_health.length - 1;
+        var healthLayer = map_overlays.in_health[healthLayerIndex];
+        var bbLayerIndex =  map_overlays.in_broadband.length - 1;
+        var bbLayer = map_overlays.in_broadband[bbLayerIndex];
 
+        bbLayer.options.styles = 'broadband_auto';
+        bbLayer.wmsParams.styles = 'broadband_auto';
+
+        map.addLayer(healthLayer);
+        map.addLayer(bbLayer);
+    }
+
+    // Add Opioid related layers
+    if (curr_health_measure_type === 'opioid') {
+        var healthLayerIndex =  map_overlays.in_opioid.length - 1;
+        var healthLayer = map_overlays.in_opioid[healthLayerIndex];
+
+        var bbLayerIndex =  map_overlays.in_broadband.length - 1;
+        var bbOpioidLayer = map_overlays.in_broadband[bbLayerIndex];
+
+        bbOpioidLayer.options.styles = 'opioid_broadband_auto';
+        bbOpioidLayer.wmsParams.styles = 'opioid_broadband_auto';
+
+        map.addLayer(healthLayer);
+        map.addLayer(bbOpioidLayer);
+    }
+
+    // Add Data Overlay if selected
+    if (selectedDataOverlay !== 'none' && map_overlays.in_count.length > 0) {
+        var dataOverlayIndex = map_overlays.in_count.length - 1;
+        map.addLayer(map_overlays.in_count[dataOverlayIndex]);
+    }
+
+    //Reset health measure tab change flag
+    healthMeasureChange = false;
+}
+
+function init() {
     createMap();
 
     // initialize sliders
@@ -1919,13 +1869,13 @@ $(document).ready(function() {
     });
 
     // nationwide
-    $('#btn-nation').on('click', function() {
+    $('#btn-nation').on('click', function(e) {
+        e.stopPropagation();
         setNationwide();
     });
 
     // select count
     $('#select-in-count').on('change', function() {
-
         var count_sel = $('#select-in-count').val();
 
         if ((count_sel != '') && (count_sel != 'none')) {
@@ -1937,7 +1887,12 @@ $(document).ready(function() {
     });
 
     $('#ov-select-demographics').on('change', function() {
-        setDemographicFilter();
+        // setDemographicFilter();
+
+        updateSlider($('[name=health-measure-type]:checked').val());
+        updateSlider('broadband');
+        // updateStats();
+        setHash();
     });
 
     // select health
@@ -1962,6 +1917,7 @@ $(document).ready(function() {
     $('#adv-select-health').on('change', function() {
         setupBroadbandTab();
     });
+
     $('#adv-select-opioid').on('change', function() {
         setupBroadbandTab();
     });
@@ -1978,7 +1934,6 @@ $(document).ready(function() {
 
     // select health measure
     $('.health-measure-type').on('change', function() {
-
         curr_health_measure_type = $(this).val();
         setupHealthMeasures(curr_health_measure_type);
 
@@ -1987,23 +1942,11 @@ $(document).ready(function() {
         } else if (cur_tab == "insights") {
             healthMeasureChange = true;
             updateSlider(curr_health_measure_type);
-            
+
         } else if (cur_tab == "health") {
             setupHealthTab();
-        };
+        }
     });
-
-    function setupHealthMeasures(healthMeasureType) {
-        //opioid and health measure menu showings
-        if (healthMeasureType == "health") {
-            $(".healthMetrics").show();
-            $(".opioidMetrics").hide();
-        } else if (healthMeasureType == "opioid") {
-            $(".opioidMetrics").show();
-            $(".healthMetrics").hide();
-        };
-        setHash();
-    };
 
     // select population
     $('#pop-sec-type').on('change', function() {
@@ -2020,6 +1963,7 @@ $(document).ready(function() {
     $('#carousel-bb').bind('slid.bs.carousel', function(e) {
         createCharts();
     });
+
     $('#carousel-pop').bind('slid.bs.carousel', function(e) {
         createCharts();
     });
@@ -2070,7 +2014,6 @@ $(document).ready(function() {
 
             var data_url = 'https://api.mapbox.com/v4/geocode/mapbox.places/' + encodeURIComponent(search_input) + '.json?access_token=' + mb_accessToken;
 
-
             $.ajax({
                 type: 'GET',
                 url: data_url,
@@ -2100,11 +2043,9 @@ $(document).ready(function() {
             $("#input-location").val(ui.item.label);
 
             geo_type = 'county';
-            zoom_type = 'county';
 
-            if (ui.item.value[2] == 'state') {
+            if (ui.item.value[2] === 'state') {
                 geo_type = 'state';
-                zoom_type = 'state';
             }
 
             geo_lng = ui.item.value[0];
@@ -2118,14 +2059,10 @@ $(document).ready(function() {
             $("#input-location").val(ui.item.label);
 
             setTimeout(function() {
-
-
                 geo_type = 'county';
-                zoom_type = 'county';
 
-                if (ui.item.value[2] == 'state') {
+                if (ui.item.value[2] === 'state') {
                     geo_type = 'state';
-                    zoom_type = 'state';
                 }
 
                 geo_lng = ui.item.value[0];
@@ -2143,19 +2080,17 @@ $(document).ready(function() {
         }
     });
 
-
     $("#input-county").autocomplete({
         source: function(request, response) {
             var county = request.term;
             var jsonpCallbackVal = false;
 
-            var data_url = geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=' + geo_space + ':c2hgis_201812_county&maxFeatures=35&outputFormat=' + geo_output + '&cql_filter=geography_desc+ILIKE+%27' + county + '%25%27';
+            var data_url = geo_host + '/' + geo_space + '/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=' + geo_space + ':c2hgis_201812_county_2017opioid&maxFeatures=35&outputFormat=' + geo_output + '&cql_filter=geography_desc+ILIKE+%27' + county + '%25%27';
 
             if (geo_request_type == 'jsonp') {
                 data_url = data_url + '&format_options=callback:callbackData';
                 jsonpCallbackVal = 'callbackData';
             }
-
 
             $.ajax({
                 type: 'GET',
@@ -2172,7 +2107,6 @@ $(document).ready(function() {
                             'value': ft[i].properties.centroid.coordinates
                         });
                     }
-
                     response(autoresults);
                 }
             });
@@ -2183,33 +2117,23 @@ $(document).ready(function() {
             $("#input-county").val(ui.item.label);
 
             geo_type = 'county';
-            zoom_type = 'county';
-
 
             geo_lng = ui.item.value[0];
             geo_lat = ui.item.value[1];
 
             getData(true);
-
-
         },
         select: function(event, ui) {
             event.preventDefault();
             $("#input-county").val(ui.item.label);
 
             setTimeout(function() {
-
-
-
                 geo_type = 'county';
-                zoom_type = 'county';
-
 
                 geo_lng = ui.item.value[0];
                 geo_lat = ui.item.value[1];
 
                 getData(true);
-
 
             }, 200);
         },
@@ -2219,51 +2143,21 @@ $(document).ready(function() {
         close: function() {
             $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
         }
-    });    
+    });
 
-    // bb opioid trends slider
+    // bb opioid trends
     $('[name="bbOpioidTrendsFilter"]').on('change', function(){
-        var opTrendsFilterType = this.value;    // increasing decreasing all
-        var category = $('#select-in-bbOpioid').val();
-        var nationAve = national_data['features'][0]['properties'][category.slice(3)];
-        var min = opTrendsFilterType === 'increasing' ? 0 : insight_ly['bbOpioid'][category][zoom_layer_type + 'Min'];
-        var max = opTrendsFilterType === 'decreasing' ? insight_ly['bbOpioid'][category][zoom_layer_type + 'Max'] : 50;
-
-        if (opTrendsFilterType === 'increasing') minLabel = 0;
-        else if (opTrendsFilterType === 'allTrends') minLabel = formatStat(insight_ly['bbOpioid'][category][zoom_layer_type + 'Min'], 0);
-        else minLabel = '';
-        $('.slider-bbOpiod-label.min').text(minLabel + '%');
-
-
-        if (opTrendsFilterType === 'decreasing') {
-            $('#slider-bbOpioid').closest('.row').hide();
-            $('#label-bbOpTrendsRange').text('<= 0%');
-        } else {
-            $('#slider-bbOpioid').closest('.row').show();
-            $('#label-bbOpTrendsRange').text('0% - 50%')
-        }
-
-        if (opTrendsFilterType === 'decreasing' && zoom_layer_type === 'county') {
-            // add condition
-             $('#bbOpioid-decreasing').parent('label').addClass('disabled');
-        } else {
-            $('#bbOpioid-decreasing').parent('label').removeClass('disabled');
-        }
         updateSlider('bbOpioid');
     });
 
+    // main tabs
     $('.select-insight').on('change', function() {
         if ($(this).attr('id')) {
             var cur_type = $(this).attr('id').split('-')[2];
-
-            if (cur_type === 'opioid') {
-                var metricsLabel = $(this).find(':selected').text();
-                $('#opiodMetricsLabel').text(metricsLabel);
-            }
 
             updateSlider(cur_type);
             updateStats();
             setHash();
         }
     });
-});
+}

@@ -1586,7 +1586,7 @@ screen and (max-width: 767px) and (min-resolution: 2dppx) {
     top: 0;
     left: 57.2%;
     width: 42.8%;
-    background: url(../img/bg-pattern-gray.png);
+    /*background: url(../img/bg-pattern-gray.png);*/
     text-align: center;
 }
 
@@ -1601,7 +1601,7 @@ screen and (max-width: 767px) and (min-resolution: 2dppx) {
     left: 0;
     width: 120px;
     height: 274px;
-    background: url(../img/shadow-mask.png) 0 0 no-repeat;
+    /*background: url(../img/shadow-mask.png) 0 0 no-repeat;*/
 }
 
 @media screen and (max-width: 991px) {
@@ -1624,7 +1624,7 @@ screen and (max-width: 767px) and (min-resolution: 2dppx) {
 @media screen and (min-width: 992px) {
     /* line 761, ../scss/ui-components/_header.scss */
     .menu-secondary > .dropdown-toggle-for-consumers.open {
-        background: #f1f0ea url(../img/dropdown-consumer-toggle-bg.jpg) 0 0 no-repeat;
+        /*background: #f1f0ea url(../img/dropdown-consumer-toggle-bg.jpg) 0 0 no-repeat;*/
         background-size: cover;
     }
 }
@@ -1635,7 +1635,7 @@ screen and (max-width: 767px) and (min-resolution: 2dppx) {
         right: 0;
         margin-left: 0;
         margin-right: -62.5px;
-        background: #fff url(../img/dropdown-consumer-bg.jpg) 100% 100% no-repeat;
+        /*background: #fff url(../img/dropdown-consumer-bg.jpg) 100% 100% no-repeat;*/
         background-size: auto 100%;
     }
 }
@@ -1773,13 +1773,6 @@ footer,
     padding: 6px;
 }
 
-@media (min-width: @screen-sm-min) {
-    footer,
-    .docs-attribution {
-        padding: 0 40px;
-    }
-}
-
 @media print {
     footer,
     .docs-attribution {
@@ -1789,12 +1782,6 @@ footer,
 
 footer {
     margin-left: 0;
-}
-
-@media (min-width: @screen-sm-min) {
-    footer {
-        margin-left: 200px;
-    }
 }
 
 .footer {
@@ -1828,9 +1815,9 @@ footer {
     padding-bottom: 5px;
     padding-top: 10px;
     margin-bottom: 20px;
-    .h5 {
-        margin-bottom: 10px;
-    }
+}
+.docs-attribution .h5 {
+    margin-bottom: 10px;
 }
 
 @media all and (min-width: 46.8em) {
@@ -2314,13 +2301,6 @@ main {
     }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
-    /*.profile-search {
-        float: left;
-        margin: 0;
-    }*/
-}
-
 .hd-sections {
     display: none;
     visibility: hidden;
@@ -2405,14 +2385,6 @@ main {
         text-overflow: ellipsis;
         top: 3px;
     }
-    /*
-    .station-meta .frequency {
-        max-width: 38px;
-    }
-    .station-meta .channel {
-        max-width: 26px;
-    }
-    */
     .station-meta li {
         padding: 0 5px 0 0;
     }
@@ -2566,12 +2538,6 @@ main {
 
 table th {
     color: #000;
-    /*
-    border-bottom: 2px solid #d3d3d3;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 3px 0;
-    text-align: left;*/
 }
 
 .table > thead > tr > th {
@@ -2750,7 +2716,6 @@ table.floatThead-table {
    ========================================================================== */
 
 .icon {
-    background: url("../img/icons-sprite.png") no-repeat 0px -16px transparent;
     cursor: pointer;
     display: inline-block;
     height: 16px;
@@ -2961,7 +2926,6 @@ table.floatThead-table {
 .browser .folder.county .icon,
 .browser .folder.pac .icon,
 .browser .folder.office .icon {
-    background: url("../img/icons-sprite.png") no-repeat -208px -32px transparent;
     display: inline-block;
     height: 32px;
     width: 32px;
@@ -3002,7 +2966,6 @@ table.floatThead-table {
 }
 
 .browser-path .sepr {
-    background: url("../img/icons-sprite.png") no-repeat -110px -62px transparent;
     display: inline-block;
     height: 16px;
     width: 16px;
@@ -3785,7 +3748,6 @@ a.gen-passcode {
 .panel-sec-heading {
     border: 0;
     color: #266AD0;
-    /*#2c75d6;*/
     font-weight: bold;
     display: inline-block;    
     margin-top: 0px;
@@ -3829,9 +3791,8 @@ a.gen-passcode {
     margin-right: 0px;
 }
 
-#download-data-div {
+.download-data-div {
     font-size: 11px;
-    color: #99999;
     padding: 15px 0;
 }
 
@@ -3898,11 +3859,15 @@ a.gen-passcode {
 }
 
 .bbOpioid-slider {
-    font-size: 11px;
-    font-weight: normal;
-    line-height: normal;
+    font-size: 13px;
 }
-
+#label-bbOpRange {
+    color: #91357d;
+    font-weight: bold;
+}
+#label-opioid {
+    color: #91357d;
+}
 .bbOpioid-slider p {
     margin-bottom: 0;
 }
@@ -3923,6 +3888,26 @@ a.gen-passcode {
     right: 15px;
 }
 
+#slider-opioid .ui-slider-range {
+    background: #964c8c;
+    height: 1em;
+    margin-top: -0.01em;
+}
+
+#slider-opioid .ui-slider-horizontal .ui-slider-range {
+    top: 0;
+    height: 100%;
+}
+
+#slider-opioid .ui-slider .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: .7em;
+    display: block;
+    border: 0;
+    background-position: 0 0;
+}
+
 #bbOpioidTrendsFilter {
     margin-top: 10px;
 }
@@ -3934,7 +3919,6 @@ a.gen-passcode {
 .data-label {
     border: 0;
     color: #266AD0;
-    /*#2c75d6;*/
     font-weight: bold;
     display: inline-block;
     line-height: 25px;
@@ -3943,13 +3927,17 @@ a.gen-passcode {
     letter-spacing: 0.5px;
 }
 
-.select-insight {
+.dropdown-md {
     width: 200px !important;
     display: inline-block;
 }
 
+.dropdown-lg {
+    width: 100% !important;
+}
+
 .select-opioid {
-    width: 205px !important;
+    width: 365px !important;
     display: inline-block;
 }
 
@@ -3974,9 +3962,6 @@ a.gen-passcode {
     width: 160px !important;
     ;
 }
-
-
-/*#in-cnt-div { width: 100%; vertical-align: middle; height: 70px;} */
 
 #select-in-cnt-div {
     display: inline-block;
@@ -4227,13 +4212,6 @@ a.gen-passcode {
     font-weight: bold;
 }
 
-/*filter-select {
-    font-family: Arial, sans-serif;
-    box-shadow: none;
-    font-size: 12px;
-    border: none;
-}*/
-
 
 /* button */
 
@@ -4279,10 +4257,6 @@ a.gen-passcode {
 
 .layer-drop-sel {
     width: 100%;
-}
-
-.panel-data {
-    /*padding: 5px 0px;*/
 }
 
 .selection-row {
@@ -4381,8 +4355,6 @@ img.aligncenter {
 }
 
 img.timeline {
-    /*border: 2px solid gray;
-    border-radius: 10px;*/
     margin: 5px;
     padding: 10px;
 }
@@ -4458,7 +4430,9 @@ img.timeline {
 .row-space {
     padding-bottom: 5px;
 }
-
+.row-space-top {
+    padding-top: 5px;
+}
 .nav>li>a {
     padding: 10px !important;
 }
@@ -4541,4 +4515,19 @@ a.external {
 .bb-subtype {
     font-size: 12px !important;
     display: block;
+}
+
+.hiddenDD {
+    visibility: hidden;
+}
+
+.metrics {
+    display: none;
+}
+.space-bottom {
+    margin-bottom: 6px;
+}
+
+.dropdown-menu {
+    font-size: 13px !important;
 }

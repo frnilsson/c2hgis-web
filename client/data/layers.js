@@ -22,7 +22,8 @@ var insight_ly = {
 			label: '% Coverage',
 			tooltip: 'Percent of population with access to fixed broadband service at 25/3 mbps or higher advertised speeds.',
 			name: 'Broadband Access',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},	
 		in_bb_rural_access: {
 			column: 'bpr_ruralpctwaccess',
@@ -36,7 +37,8 @@ var insight_ly = {
 			label: '% Coverage',
 			tooltip: 'Percent of rural population with access to fixed broadband service at 25/3 mbps or higher advertised speeds.',
 			name: 'Rural Access',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_bb_in_adoption: {
 			column: 'res_concxns_pct',
@@ -50,7 +52,8 @@ var insight_ly = {
 			label: '% Coverage',
 			tooltip: 'Percent of households with fixed connections over 200 kbps.',
 			name: 'Internet Adoption',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},		
 		in_bb_wn_access: {
 			column: 'wireline_advdl_gr25000k',
@@ -64,7 +67,8 @@ var insight_ly = {
 			label: '% Coverage',
 			tooltip: 'Percent of population with access to 25 mbps advertised wireline download speeds.',
 			name: 'Wireline Access',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_bb_ws_access: {
 			column: 'wireless_advdl_gr25000k',
@@ -78,7 +82,8 @@ var insight_ly = {
 			label: '% Coverage',
 			tooltip: 'Percent of population with access to 25 mbps advertised wireless download speeds.',
 			name: 'Wireless Access',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_bb_dl_speed: {
 			column: 'dl_tiers',
@@ -92,7 +97,8 @@ var insight_ly = {
 			label: 'Download',
 			tooltip: 'Most commonly advertised maximum download speed.',
 			name: 'Download Speed',
-			suffix: 'mbps'
+			suffix: 'mbps',
+			currentVals: []
 		},
 		in_bb_ul_speed: {
 			column: 'ul_tiers',
@@ -106,7 +112,8 @@ var insight_ly = {
 			label: 'Upload',
 			tooltip: 'Most commonly advertised maximum upload speed.',
 			name: 'Upload Speed',
-			suffix: 'mbps'
+			suffix: 'mbps',
+			currentVals: []
 		}		
 	},
 	health: {
@@ -122,7 +129,8 @@ var insight_ly = {
 			label: ' Physicians',
 			tooltip: 'Primary Care Physicians per 100,000 people.',
 			name: 'Physician Access',
-			suffix: 'per 100,000'
+			suffix: 'per 100,000',
+			currentVals: []
 		},
 		in_prm_death: {
 			column: 'years_lost_per_100000',
@@ -136,7 +144,8 @@ var insight_ly = {
 			label: ' Years',
 			tooltip: 'Number of years lost due to premature death before age 75 per 100,000 people.',
 			name: 'Premature Death',
-			suffix: 'per 100,000'
+			suffix: 'per 100,000',
+			currentVals: []
 		},
 		in_prv_hosp: {
 			column: 'preventable_hospital_stays_per_1000',
@@ -150,7 +159,8 @@ var insight_ly = {
 			label: ' Hospital Stays',
 			tooltip: 'Number of preventable hospital stays per 1,000 people.',
 			name: 'Preventable Hospital',
-			suffix: 'per 1,000'
+			suffix: 'per 1,000',
+			currentVals: []
 		},
 		in_inj_death: {
 			column: 'injury_deaths_per_100000',
@@ -164,7 +174,8 @@ var insight_ly = {
 			label: ' Injury Deaths',
 			tooltip: 'Number of deaths due to injury per 100,000 population.',
 			name: 'Injury Deaths',
-			suffix: 'per 100,000'
+			suffix: 'per 100,000',
+			currentVals: []
 		},
 		in_sick_days: {
 			column: 'poor_physical_health_days_within_last_30_days',
@@ -178,7 +189,8 @@ var insight_ly = {
 			label: ' Sick Days',
 			tooltip: 'Average number of physically unhealthy days reported in past 30 days (age-adjusted).',
 			name: 'Sick Days',
-			suffix: 'days'
+			suffix: 'days',
+			currentVals: []
 		},
 		in_obs_rate: {
 			column: 'adult_obesity_pct',
@@ -192,7 +204,8 @@ var insight_ly = {
 			label: '% Obesity',
 			tooltip: 'Percentage of adults that report a BMI of 30 or more.',
 			name: 'Obesity Rate',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_long_commute: {
 			column: 'long_commute_driving_alone',
@@ -206,7 +219,8 @@ var insight_ly = {
 			label: '% Commuters',
 			tooltip: 'Among workers who commute in their car alone, the percentage that commute more than 30 minutes.',
 			name: 'Long Commute',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_driving_alone: {
 			column: 'driving_alone_to_work',
@@ -220,7 +234,8 @@ var insight_ly = {
 			label: '% Alone',
 			tooltip: 'Percentage of the workforce that drives alone to work.',
 			name: 'Driving Alone',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_diabetes_rate: {
 			column: 'diabetes_pct',
@@ -234,7 +249,8 @@ var insight_ly = {
 			label: '% Diabetes',
 			tooltip: 'Percentage of adults with diabetes.',
 			name: 'Diabetes Rate',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_smoking_rate: {
 			column: 'smoking_pct',
@@ -248,7 +264,8 @@ var insight_ly = {
 			label: '% Smoking',
 			tooltip: 'Percentage of adults who are current smokers.',
 			name: 'Smoking Rate',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_drinking_rate: {
 			column: 'drinking_pct',
@@ -262,7 +279,8 @@ var insight_ly = {
 			label: '% Drunk',
 			tooltip: 'Percentage of adults reporting binge or heavy drinking.',
 			name: 'Excessive Drinking',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_phys_inactivity: {
 			column: 'physical_inactivity',
@@ -276,7 +294,8 @@ var insight_ly = {
 			label: '% Inactive',
 			tooltip: 'Percentage of adults aged 20 and over reporting no leisure-time physical activity.',
 			name: 'Physical Inactivity',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_severe_housing: {
 			column: 'severe_housing_problems',
@@ -290,7 +309,8 @@ var insight_ly = {
 			label: '% Severe',
 			tooltip: 'Percentage of households with at least 1 of 4 housing problems: overcrowding, high housing costs, or lack of kitchen or plumbing facilities.',
 			name: 'Severe Housing',
-			suffix: '%'
+			suffix: '%',
+			currentVals: []
 		},
 		in_poorfair: {
 			column: 'poor_fair_health_pct',
@@ -304,7 +324,8 @@ var insight_ly = {
 			label: '% Poor/Fair',
 			tooltip: 'Percentage of adults reporting fair or poor health (age-adjusted).',
 			name: 'Poor/Fair Health',
-			suffix: '%'			
+			suffix: '%',
+			currentVals: []
 		}
 	},	
 	opioid: {
@@ -320,11 +341,9 @@ var insight_ly = {
 			suffix: '',
 			stateMin: 6.8,
 			stateMax: 41.7,
-			// stateValues: [8.1, 48.9],
 			countyMin: 3.5,
 			countyMax: 90.9,
-			// countyValues: [5, 135.4],
-			// style: 'opioid_alldrugs_mortality_all'
+			currentVals: []
 		},
 		in_alldrugs_age_adj_mortality_rate_pct_change: {
 			column: 'alldrugs_age_adj_mortality_rate',
@@ -338,11 +357,9 @@ var insight_ly = {
 			suffix: '%',
 			stateMin: -19.74,
 			stateMax: 225.93,
-			// stateValues: [-19.23, 187.21],
 			countyMin: -51.76,
 			countyMax: 654.17,
-			// countyValues: [-42.34, 415.23],
-			// style: 'opioid_alldrugs_pct_chg_all'
+			currentVals: []
 		},
 		in_anyopioids_age_adj_mortality_rate: {
 			column: 'anyopioids_age_adj_mortality_rate',
@@ -356,11 +373,9 @@ var insight_ly = {
 			suffix: '',
 			stateMin: 2.8,
 			stateMax: 35.8,
-			// stateValues: [3.5, 42.1],
 			countyMin: 1.2,
 			countyMax: 79,
-			// countyValues: [1.8, 125],
-			// style: 'opioid_anyopioids_mortality_all'
+			currentVals: []
 		},
 		in_anyopioids_age_adj_mortality_rate_pct_change: {
 			column: 'anyopioids_age_adj_mortality_rate_pct_change',
@@ -374,11 +389,9 @@ var insight_ly = {
 			suffix: '%',
 			stateMin: -47.06,
 			stateMax: 361.67,
-			// stateValues: [-39.53, 309.21],
 			countyMin: -49.48,
 			countyMax: 821.9,
-			// countyValues: [-51.15, 760.26],
-			// style: 'opioid_anyopioids_pct_chg_all'
+			currentVals: []
 		},
 		in_prescriptionopioids_age_adj_mortality_rate: {
 			column: 'prescriptionopioids_age_adj_mortality_rate',
@@ -392,11 +405,9 @@ var insight_ly = {
 			suffix: '',
 			stateMin: 2,
 			stateMax: 20.5,
-			// stateValues: [2.6, 26.8],
 			countyMin: 0.8,
 			countyMax: 67.6,
-			// countyValues: [1, 95.3],
-			// style: 'opioid_prescriptionopioids_mortality_all'
+			currentVals: []
 		},
 		in_prescriptionopioids_age_adj_mortality_rate_pct_change: {
 			column: 'prescriptionopioids_age_adj_mortality_rate_pct_change',
@@ -410,11 +421,9 @@ var insight_ly = {
 			suffix: '%',
 			stateMin: -57.41,
 			stateMax: 285,
-			// stateValues: [-49.55, 250],
 			countyMin: -66.41,
 			countyMax: 528.57,
-			// countyValues: [-61.8, 366.67],
-			// style: 'opioid_prescriptionopioids_pct_chg_all'
+			currentVals: []
 		},
 		in_syntheticopioids_age_adj_mortality_rate: {
 			column: 'syntheticopioids_age_adj_mortality_rate',
@@ -428,11 +437,9 @@ var insight_ly = {
 			suffix: '',
 			stateMin: 0.6,
 			stateMax: 16.8,
-			// stateValues: [0.7, 17.9],
 			countyMin: 0.3,
 			countyMax: 44.3,
-			// countyValues: [0.4, 36.8],
-			// style: 'opioid_syntheticopioids_mortality_all'
+			currentVals: []
 		},
 		in_syntheticopioids_age_adj_mortality_rate_pct_change: {
 			column: 'syntheticopioids_age_adj_mortality_rate_pct_change',
@@ -446,11 +453,9 @@ var insight_ly = {
 			suffix: '%',
 			stateMin: 18.18,
 			stateMax: 5066.67,
-			// stateValues: [-20, 2618.18],
 			countyMin: 3.57,
 			countyMax: 1564.29,
-			// countyValues: [5.26, 958.82],
-			// style: 'opioid_syntheticopioids_pct_chg_all'
+			currentVals: []
 		},
 		in_heroin_age_adj_mortality_rate: {
 			column: 'heroin_age_adj_mortality_rate',
@@ -464,11 +469,9 @@ var insight_ly = {
 			suffix: '',
 			stateMin: 0.2,
 			stateMax: 10.6,
-			// stateValues: [0.3, 13.6],
 			countyMin: 0.4,
 			countyMax: 45.9,
-			// countyValues: [0.5, 56.7],
-			// style: 'opioid_heroin_mortality_all'
+			currentVals: []
 		},
 		in_heroin_age_adj_mortality_rate_pct_change: {
 			column: 'heroin_age_adj_mortality_rate_pct_change',
@@ -482,11 +485,9 @@ var insight_ly = {
 			suffix: '%',
 			stateMin: -29.41,
 			stateMax: 800,
-			// stateValues: [-18.18, 800],
 			countyMin: -51.85,
 			countyMax: 587.5,
-			// countyValues: [-30.88, 575.93],
-			// style: 'opioid_heroin_pct_chg_all'
+			currentVals: []
 		},
 		in_opioid_prescribing_rate: {
 			column: 'opioid_prescribing_rate',
@@ -500,11 +501,9 @@ var insight_ly = {
 			suffix: '',
 			stateMin: 2.94,
 			stateMax: 7.47,
-			// stateValues: [2.94, 7.46],
 			countyMin: 0,
 			countyMax: 60.26,
-			// countyValues: [0, 60.26],
-			// style: 'opioid_prescribing_rate_all'
+			currentVals: []
 		},
 		in_opioid_prescribing_rate_pct_change: {
 			column: 'opioid_prescribing_rate_pct_change',
@@ -518,11 +517,9 @@ var insight_ly = {
 			suffix: '%',
 			stateMin: -19.42,
 			stateMax: -0.15,
-			// stateValues: [-19.42, -0.57],
 			countyMin: -100,
 			countyMax: 320.22,
-			// countyValues: [-100, 320.22],
-			// style: 'opioid_prescribing_rate_pct_chg_all'
+			currentVals: []
 		}
 	},
 	count: {
@@ -974,61 +971,6 @@ var pop_ly = {
 		label: '% Some College',
 		tooltip: 'Percentage of adults ages 25-44 with some post-secondary education.'
 	}
-};
-
-var in_units = {
-	perc: {
-		name: 'Percent',
-		desc: '%'
-	},
-	p1: {
-		name: 'Per Person',
-		desc: 'Per Capita'
-	},
-	p1000: {
-		name: 'Per 1,000 People',
-		desc: 'Per 1,000 People'
-	},
-	p100000: {
-		name: 'Per 100,000 People',
-		desc: 'Per 100,000 People'
-	},
-	y100000: {
-		name: 'Years Lost Per 100,000 People',
-		desc: 'Years'
-	},
-	st: {
-		name: 'Speed Tiers',
-		desc: 'Speed Tiers'
-	}
-};
-
-var states_in = {
-	FL: {
-		lat: 28.5953035358968,
-		lng: -82.4958094312413,
-		zoom: 7
-	},	
-	MI: {
-		lat: 44.3715397944714,
-		lng: -85.4376684832842,
-		zoom: 7
-	}, 
-	MS: {
-		lat: 32.7509547380987,
-		lng: -89.6621633573408,
-		zoom: 7
-	}, 
-	OH: {
-		lat: 40.1903624,
-		lng: -82.6692525,
-		zoom: 7
-	},
-	VA: {
-		lat: 37.5126006451781,
-		lng: -78.7878086547533,
-		zoom: 7
-	}	
 };
 
 var bb_speed_tiers = {

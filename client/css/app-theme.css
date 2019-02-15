@@ -3872,12 +3872,14 @@ a.gen-passcode {
     font-size: 13px;
     font-weight: bold;
     padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 #label-opioid-sub {
     font-weight: normal;
     font-size: 13px;
     padding-bottom: 10px;
+    display: none;
 }
 
 .bbOpioid-slider p {

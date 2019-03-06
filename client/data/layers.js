@@ -23,7 +23,7 @@ var insight_ly = {
 			tooltip: 'Percent of population with access to fixed broadband service at 25/3 mbps or higher advertised speeds.',
 			name: 'Broadband Access',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},	
 		in_bb_rural_access: {
 			column: 'bpr_ruralpctwaccess',
@@ -38,7 +38,7 @@ var insight_ly = {
 			tooltip: 'Percent of rural population with access to fixed broadband service at 25/3 mbps or higher advertised speeds.',
 			name: 'Rural Access',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},
 		in_bb_in_adoption: {
 			column: 'res_concxns_pct',
@@ -49,11 +49,11 @@ var insight_ly = {
 			zindex: 99,
 			step: 1,
 			values: [0, 100],
-			label: '% Coverage',
-			tooltip: 'Percent of households with fixed connections over 200 kbps.',
+			label: ' Connections',
+			tooltip: 'Subscribership ratio: number of fixed connections over 200kbps per 100 households.',
 			name: 'Internet Adoption',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},
 		in_bb_dl_speed: {
 			column: 'dl_tiers',
@@ -68,7 +68,7 @@ var insight_ly = {
 			tooltip: 'Most commonly advertised maximum download speed.',
 			name: 'Download Speed',
 			suffix: 'mbps',
-			currentVals: []
+            slider: []
 		},
 		in_bb_ul_speed: {
 			column: 'ul_tiers',
@@ -83,7 +83,7 @@ var insight_ly = {
 			tooltip: 'Most commonly advertised maximum upload speed.',
 			name: 'Upload Speed',
 			suffix: 'mbps',
-			currentVals: []
+            slider: []
 		}		
 	},
 	health: {
@@ -100,7 +100,7 @@ var insight_ly = {
 			tooltip: 'Primary Care Physicians per 100,000 people.',
 			name: 'Physician Access',
 			suffix: 'per 100,000',
-			currentVals: []
+            slider: []
 		},
 		in_prm_death: {
 			column: 'years_lost_per_100000',
@@ -115,7 +115,7 @@ var insight_ly = {
 			tooltip: 'Number of years lost due to premature death before age 75 per 100,000 people.',
 			name: 'Premature Death',
 			suffix: 'per 100,000',
-			currentVals: []
+            slider: []
 		},
 		in_prv_hosp: {
 			column: 'preventable_hospital_stays_per_1000',
@@ -130,7 +130,7 @@ var insight_ly = {
 			tooltip: 'Number of preventable hospital stays per 1,000 people.',
 			name: 'Preventable Hospital',
 			suffix: 'per 1,000',
-			currentVals: []
+            slider: []
 		},
 		in_inj_death: {
 			column: 'injury_deaths_per_100000',
@@ -145,7 +145,7 @@ var insight_ly = {
 			tooltip: 'Number of deaths due to injury per 100,000 population.',
 			name: 'Injury Deaths',
 			suffix: 'per 100,000',
-			currentVals: []
+            slider: []
 		},
 		in_sick_days: {
 			column: 'poor_physical_health_days_within_last_30_days',
@@ -160,7 +160,7 @@ var insight_ly = {
 			tooltip: 'Average number of physically unhealthy days reported in past 30 days (age-adjusted).',
 			name: 'Sick Days',
 			suffix: 'days',
-			currentVals: []
+            slider: []
 		},
 		in_obs_rate: {
 			column: 'adult_obesity_pct',
@@ -175,7 +175,7 @@ var insight_ly = {
 			tooltip: 'Percentage of adults that report a BMI of 30 or more.',
 			name: 'Obesity Rate',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},
 		in_long_commute: {
 			column: 'long_commute_driving_alone',
@@ -190,7 +190,7 @@ var insight_ly = {
 			tooltip: 'Among workers who commute in their car alone, the percentage that commute more than 30 minutes.',
 			name: 'Long Commute',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},
 		in_driving_alone: {
 			column: 'driving_alone_to_work',
@@ -205,7 +205,7 @@ var insight_ly = {
 			tooltip: 'Percentage of the workforce that drives alone to work.',
 			name: 'Driving Alone',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},
 		in_diabetes_rate: {
 			column: 'diabetes_pct',
@@ -220,7 +220,7 @@ var insight_ly = {
 			tooltip: 'Percentage of adults with diabetes.',
 			name: 'Diabetes Rate',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},
 		in_smoking_rate: {
 			column: 'smoking_pct',
@@ -235,7 +235,7 @@ var insight_ly = {
 			tooltip: 'Percentage of adults who are current smokers.',
 			name: 'Smoking Rate',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},
 		in_drinking_rate: {
 			column: 'drinking_pct',
@@ -250,7 +250,7 @@ var insight_ly = {
 			tooltip: 'Percentage of adults reporting binge or heavy drinking.',
 			name: 'Excessive Drinking',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},
 		in_phys_inactivity: {
 			column: 'physical_inactivity',
@@ -265,7 +265,7 @@ var insight_ly = {
 			tooltip: 'Percentage of adults aged 20 and over reporting no leisure-time physical activity.',
 			name: 'Physical Inactivity',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},
 		in_severe_housing: {
 			column: 'severe_housing_problems',
@@ -280,7 +280,7 @@ var insight_ly = {
 			tooltip: 'Percentage of households with at least 1 of 4 housing problems: overcrowding, high housing costs, or lack of kitchen or plumbing facilities.',
 			name: 'Severe Housing',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		},
 		in_poorfair: {
 			column: 'poor_fair_health_pct',
@@ -295,202 +295,348 @@ var insight_ly = {
 			tooltip: 'Percentage of adults reporting fair or poor health (age-adjusted).',
 			name: 'Poor/Fair Health',
 			suffix: '%',
-			currentVals: []
+            slider: []
 		}
-	},	
+	},
 	opioid: {
 		in_alldrugs_age_adj_mortality_rate: {
 			column: 'alldrugs_age_adj_mortality_rate',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: ' Deaths',
+			label: ' Deaths per 100,000',
 			tooltip: 'Mortality rate (deaths per 100,000 population) for all drug-related overdoses.',
-			name: 'All Drugs Mortality Rate',
+			name: 'All Drug Deaths',
 			suffix: '',
 			stateMin: 6.8,
 			stateMax: 41.7,
 			countyMin: 3.5,
 			countyMax: 90.9,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_alldrugs_age_adj_mortality_rate_pct_change: {
-			column: 'alldrugs_age_adj_mortality_rate',
+			column: 'alldrugs_age_adj_mortality_rate_pct_change',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: '% Deaths',
-			tooltip: 'Percent change in mortality rate (deaths per 100,000 population) from all drug-related overdoses over five years, 2012 to 2016.',
-			name: '% Change of All Drugs Mortality Rate',
+			label: ' in Death Rate',
+			tooltip: 'Percent change in mortality rate (deaths per 100,000 population) from all drug-related overdoses over 6 years, 2012-2017.',
+			name: 'All Drug Death Trends',
 			suffix: '%',
 			stateMin: -19.74,
 			stateMax: 225.93,
 			countyMin: -51.76,
 			countyMax: 654.17,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_anyopioids_age_adj_mortality_rate: {
 			column: 'anyopioids_age_adj_mortality_rate',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: ' Deaths',
+			label: ' Deaths per 100,000',
 			tooltip: 'Mortality rate (deaths per 100,000 population) for all opioid-related overdoses.',
-			name: 'Any Opioids Mortality Rate',
+			name: 'All Opioid Deaths',
 			suffix: '',
 			stateMin: 2.8,
 			stateMax: 35.8,
 			countyMin: 1.2,
 			countyMax: 79,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_anyopioids_age_adj_mortality_rate_pct_change: {
 			column: 'anyopioids_age_adj_mortality_rate_pct_change',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: '% Deaths',
-			tooltip: 'Percent change in mortality rate (deaths per 100,000 population) from all opioid-related overdoses over five years, 2012 to 2016.',
-			name: '% Change of Any Opioids Mortality Rate',
+			label: ' in Death Rate',
+			tooltip: 'Percent change in mortality rate (deaths per 100,000 population) from all opioid-related overdoses over 6 years, 2012-2017.',
+			name: 'All Opioid Death Trends',
 			suffix: '%',
 			stateMin: -47.06,
 			stateMax: 361.67,
 			countyMin: -49.48,
 			countyMax: 821.9,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_prescriptionopioids_age_adj_mortality_rate: {
 			column: 'prescriptionopioids_age_adj_mortality_rate',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: ' Deaths',
+			label: ' Deaths per 100,000',
 			tooltip: 'Mortality rate (deaths per 100,000 population) from prescription opioid overdoses.',
-			name: 'Prescription Opioids Mortality Rate',
+			name: 'Rx Opioid Deaths',
 			suffix: '',
 			stateMin: 2,
 			stateMax: 20.5,
 			countyMin: 0.8,
 			countyMax: 67.6,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_prescriptionopioids_age_adj_mortality_rate_pct_change: {
 			column: 'prescriptionopioids_age_adj_mortality_rate_pct_change',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: '% Deaths',
-			tooltip: 'Percent change in mortality rate (deaths per 100,000 population) from prescription opioid overdoses over five years, 2012 to 2016.',
-			name: '% Change of Prescription Opioids Mortality Rate',
+			label: ' in Death Rate',
+			tooltip: 'Percent change in mortality rate (deaths per 100,000 population) from prescription opioid overdoses over 6 years, 2012-2017.',
+			name: 'Rx Opioid Death Trends',
 			suffix: '%',
 			stateMin: -57.41,
 			stateMax: 285,
 			countyMin: -66.41,
 			countyMax: 528.57,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_syntheticopioids_age_adj_mortality_rate: {
 			column: 'syntheticopioids_age_adj_mortality_rate',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: ' Deaths',
+			label: ' Deaths per 100,000',
 			tooltip: 'Mortality rate (deaths per 100,000 population) for synthetic opioid overdoses.',
-			name: 'Synthetic Opioids Mortality Rate',
+			name: 'Synthetic Opioid Deaths',
 			suffix: '',
 			stateMin: 0.6,
 			stateMax: 16.8,
 			countyMin: 0.3,
 			countyMax: 44.3,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_syntheticopioids_age_adj_mortality_rate_pct_change: {
 			column: 'syntheticopioids_age_adj_mortality_rate_pct_change',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: '% Deaths',
-			tooltip: 'Percent change in mortality rate (deaths per 100,000 population) from synthetic opioid overdoses over five years, 2012 to 2016.',
-			name: '% Change of Synthetic Opioids Mortality Rate',
+			label: ' in Death Rate',
+			tooltip: 'Percent change in mortality rate (deaths per 100,000 population) from synthetic opioid overdoses over 6 years, 2012-2017.',
+			name: 'Synthetic Opioid Death Trends',
 			suffix: '%',
 			stateMin: 18.18,
 			stateMax: 5066.67,
 			countyMin: 3.57,
 			countyMax: 1564.29,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_heroin_age_adj_mortality_rate: {
 			column: 'heroin_age_adj_mortality_rate',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: ' Deaths',
+			label: ' Deaths per 100,000',
 			tooltip: 'Mortality rate (deaths per 100,000 population) for heroin overdoses.',
-			name: 'Heroin Mortality Rate',
+			name: 'Heroin Deaths',
 			suffix: '',
 			stateMin: 0.2,
 			stateMax: 10.6,
 			countyMin: 0.4,
 			countyMax: 45.9,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_heroin_age_adj_mortality_rate_pct_change: {
 			column: 'heroin_age_adj_mortality_rate_pct_change',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: '% Deaths',
-			tooltip: 'Percent change in mortality rate (deaths per 100,000 population) from heroin overdoses over five years, 2012 to 2016.',
-			name: '% Change of Heroin Mortality Rate',
+			label: ' in Death Rate',
+			tooltip: 'Percent change in mortality rate (deaths per 100,000 population) from heroin overdoses over 6 years, 2012-2017.',
+			name: 'Heroin Death Trends',
 			suffix: '%',
 			stateMin: -29.41,
 			stateMax: 800,
 			countyMin: -51.85,
 			countyMax: 587.5,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_opioid_prescribing_rate: {
 			column: 'opioid_prescribing_rate',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: ' Rx',
+			label: ' Rx per 100,000',
 			tooltip: 'Mortality Rate from Prescribing Opioids Overdoses per 100,000 people.',
-			name: 'Prescribing Mortality Rate',
+			name: 'Rx Rates',
 			suffix: '',
 			stateMin: 2.94,
 			stateMax: 7.47,
 			countyMin: 0,
 			countyMax: 60.26,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		},
 		in_opioid_prescribing_rate_pct_change: {
 			column: 'opioid_prescribing_rate_pct_change',
 			unit: 'perc',
 			multiple: 1,
 			zindex: 90,
-			step: 2,
-			label: ' Rx',
-			tooltip: '% Change of Mortality Rate from Prescribing Opioids Overdoses per 100,000 people.',
-			name: '% Change of Prescribing Mortality Rate',
+			label: ' in Rx Rate',
+			tooltip: 'Percent Change of Mortality Rate from Prescribing Opioids Overdoses per 100,000 people.',
+			name: 'Rx Trends',
 			suffix: '%',
 			stateMin: -19.42,
 			stateMax: -0.15,
 			countyMin: -100,
 			countyMax: 320.22,
-			currentVals: []
+            slider: {
+			    county: [],
+                state: []
+            }
 		}
+	},
+	bbOpioid: {
+		in_alldrugs_age_adj_mortality_rate: {
+            slider: {
+			    county: [],
+                state: []
+            }
+		},
+		in_alldrugs_age_adj_mortality_rate_pct_change: {
+            slider_allTrends: {
+			    county: [],
+                state: []
+            },
+            slider_decreasing: {
+                county: [],
+                state: []
+            },
+            slider_increasing: {
+                county: [],
+                state: []
+            }
+		},
+		in_anyopioids_age_adj_mortality_rate: {
+            slider: {
+			    county: [],
+                state: []
+            }
+		},
+		in_anyopioids_age_adj_mortality_rate_pct_change: {
+            slider_allTrends: {
+			    county: [],
+                state: []
+            },
+            slider_decreasing: {
+                county: [],
+                state: []
+            },
+            slider_increasing: {
+                county: [],
+                state: []
+            }
+		},
+		in_prescriptionopioids_age_adj_mortality_rate: {
+            slider: {
+			    county: [],
+                state: []
+            }
+		},
+		in_prescriptionopioids_age_adj_mortality_rate_pct_change: {
+            slider_allTrends: {
+			    county: [],
+                state: []
+            },
+            slider_decreasing: {
+                county: [],
+                state: []
+            },
+            slider_increasing: {
+                county: [],
+                state: []
+            }
+		},
+		in_syntheticopioids_age_adj_mortality_rate: {
+            slider: {
+			    county: [],
+                state: []
+            }
+		},
+		in_syntheticopioids_age_adj_mortality_rate_pct_change: {
+            slider_allTrends: {
+			    county: [],
+                state: []
+            },
+            slider_decreasing: {
+                county: [],
+                state: []
+            },
+            slider_increasing: {
+                county: [],
+                state: []
+            }
+		},
+		in_heroin_age_adj_mortality_rate: {
+            slider: {
+			    county: [],
+                state: []
+            }
+		},
+		in_heroin_age_adj_mortality_rate_pct_change: {
+            slider_allTrends: {
+			    county: [],
+                state: []
+            },
+            slider_decreasing: {
+                county: [],
+                state: []
+            },
+            slider_increasing: {
+                county: [],
+                state: []
+            }
+		},
+		in_opioid_prescribing_rate: {
+            slider: {
+			    county: [],
+                state: []
+            }
+		},
+		in_opioid_prescribing_rate_pct_change: {
+            slider_allTrends: {
+			    county: [],
+                state: []
+            },
+            slider_decreasing: {
+                county: [],
+                state: []
+            },
+            slider_increasing: {
+                county: [],
+                state: []
+            }
+		},
 	},
 	count: {
 		in_cnt_pcp: {

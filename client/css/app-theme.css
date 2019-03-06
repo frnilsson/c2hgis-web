@@ -2531,6 +2531,21 @@ main {
     margin-bottom: 10px;
 }
 
+.dl-nwStats {
+    font-size: 12px;
+}
+
+.dl-nwStats dt {
+    width: 275px;
+    white-space: nowrap;
+    font-weight: normal;
+}
+
+.dl-nwStats dd {
+    margin-left: 285px;
+    font-weight: bold;
+}
+
 
 /* =============================================================================
    Tables
@@ -3867,11 +3882,19 @@ a.gen-passcode {
     font-weight: bold;
 }
 
-#label-opioid {
+#label-bbOpTrendsRange {
+    color: #91357d;
+}
+
+#label-opioid,
+#label-health-opioid {
     color: #91357d;
     font-size: 13px;
     font-weight: bold;
     padding-top: 5px;
+}
+
+#label-health-opioid {
     padding-bottom: 5px;
 }
 
@@ -3879,7 +3902,6 @@ a.gen-passcode {
     font-weight: normal;
     font-size: 13px;
     padding-bottom: 10px;
-    display: none;
 }
 
 .bbOpioid-slider p {
@@ -4005,7 +4027,6 @@ a.gen-passcode {
 .in-tooltip,
 .hh-tooltip,
 .bb-tooltip {
-    color: #848484;
     display: inline-block;
     font-size: 16px !important;
 }
@@ -4038,6 +4059,13 @@ a.gen-passcode {
     min-width: 220px;
 }
 
+.long-tooltip > .tooltip-inner {
+    text-align: left !important;
+}
+
+.fa-info-circle {
+    color: #0050cc;
+}
 
 /* charts */
 

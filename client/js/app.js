@@ -354,8 +354,6 @@ function processData(data, zoomCenter) {
                 geo_data = data;
                 geo_prop = geo_data.features[0].properties;
 
-                console.log(geo_prop)
-
                 setDownloadLinks();
                 updateStats();
                 createCharts();
@@ -1986,18 +1984,18 @@ function updateStats() {
     $('.geog-pop-medianhhinc').text('$' + formatStat(geo_prop.medianhhinc, 0));
 
     // Opioid stats
-    $('.geog-all-drugs-deaths').text(formatStatAppend(geo_prop.alldrugs_age_adj_mortality_rate, 1, ' per 100,000'));
-    $('.geog-all-drugs-death-trends').text(formatStatAppend(geo_prop.alldrugs_age_adj_mortality_rate_pct_change, 1, '%'));
-    $('.geog-all-opioid-deaths').text(formatStatAppend(geo_prop.anyopioids_age_adj_mortality_rate, 1, ' per 100,000'));
-    $('.geog-all-opioid-death-trends').text(formatStatAppend(geo_prop.anyopioids_age_adj_mortality_rate_pct_change, 1, '%'));
-    $('.geog-rx-opioid-deaths').text(formatStatAppend(geo_prop.prescriptionopioids_age_adj_mortality_rate, 1, ' per 100,000'));
-    $('.geog-rx-opioid-death-trends').text(formatStatAppend(geo_prop.prescriptionopioids_age_adj_mortality_rate_pct_change, 1, '%'));
-    $('.geog-synthetic-opioid-deaths').text(formatStatAppend(geo_prop.syntheticopioids_age_adj_mortality_rate, 1, ' per 100,000'));
-    $('.geog-synthetic-opioid-death-trends').text(formatStatAppend(geo_prop.syntheticopioids_age_adj_mortality_rate_pct_change, 1, '%'));
-    $('.geog-heroin-deaths').text(formatStatAppend(geo_prop.heroin_age_adj_mortality_rate, 1, ' per 100,000'));
-    $('.geog-heroin-death-trends').text(formatStatAppend(geo_prop.heroin_age_adj_mortality_rate_pct_change, 1, '%'));
-    $('.geog-rx-rates').text(formatStatAppend(geo_prop.opioid_prescribing_rate, 1, ' per 100,000'));
-    $('.geog-rx-trends').text(formatStatAppend(geo_prop.opioid_prescribing_rate_pct_change, 1, '%'));
+    $('.geog-all-drugs-deaths').text(formatStatAppend(geo_prop.alldrugs_age_adj_mortality_rate, null, ' per 100,000'));
+    $('.geog-all-drugs-death-trends').text(formatStatAppend(geo_prop.alldrugs_age_adj_mortality_rate_pct_change, null, '%'));
+    $('.geog-all-opioid-deaths').text(formatStatAppend(geo_prop.anyopioids_age_adj_mortality_rate, null, ' per 100,000'));
+    $('.geog-all-opioid-death-trends').text(formatStatAppend(geo_prop.anyopioids_age_adj_mortality_rate_pct_change, null, '%'));
+    $('.geog-rx-opioid-deaths').text(formatStatAppend(geo_prop.prescriptionopioids_age_adj_mortality_rate, null, ' per 100,000'));
+    $('.geog-rx-opioid-death-trends').text(formatStatAppend(geo_prop.prescriptionopioids_age_adj_mortality_rate_pct_change, null, '%'));
+    $('.geog-synthetic-opioid-deaths').text(formatStatAppend(geo_prop.syntheticopioids_age_adj_mortality_rate, null, ' per 100,000'));
+    $('.geog-synthetic-opioid-death-trends').text(formatStatAppend(geo_prop.syntheticopioids_age_adj_mortality_rate_pct_change, null, '%'));
+    $('.geog-heroin-deaths').text(formatStatAppend(geo_prop.heroin_age_adj_mortality_rate, null, ' per 100,000'));
+    $('.geog-heroin-death-trends').text(formatStatAppend(geo_prop.heroin_age_adj_mortality_rate_pct_change, null, '%'));
+    $('.geog-rx-rates').text(formatStatAppend(geo_prop.opioid_prescribing_rate, null, ' per 100,000'));
+    $('.geog-rx-trends').text(formatStatAppend(geo_prop.opioid_prescribing_rate_pct_change, null, '%'));
 
     // bb tab- selected opioid measure
     if (curr_health_measure_type === 'opioid') {
@@ -2010,7 +2008,7 @@ function updateStats() {
             var append = filterType === 'trends' ? '%' : ' per 100,000';
 
             opioidStatName = insight_ly['opioid'][opioidSel]['name'] + ': ';
-            opioidStatVal = formatStatAppend(geo_prop[col], 1, append);
+            opioidStatVal = formatStatAppend(geo_prop[col], null, append);
 
             $('.geog-opioid-stat').show();
             $('.geog-opioid-stat-none').hide();

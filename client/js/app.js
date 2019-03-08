@@ -474,44 +474,44 @@ function init() {
         }
     });
 
-    // overview tab-> data overlays
+    // Overview tab "data overlays" dropdown
     $('#select-in-count').on('change', function() {
         setCount();
         setHash();
     });
 
-    // overview tab-> rural filter
+    // Overview tab "rural filter" dropdown
     $('#ov-select-demographics').on('change', function() {
         setSlider(curr_health_measure_type);
         setSlider('broadband');
     });
 
-    // health tab -> chronic disease -> health measures
+    // Health tab -> chronic disease tab -> "health measures" dropdown
     $('#health-sec-type').on('change', function() {
         setupHealthTab();
     });
 
-    // health tab-> opioid -> opioid
+    // Health tab -> opioid tab -> "opioid measures" dropdown
     $('#opioid-sec-type').on('change', function() {
         setupHealthTab();
     });
 
-    // health tab-> rural
+    // Health tab "rural filter" dropdown
     $('#hh-select-demographics').on('change', function() {
         setupHealthTab();
     });
 
-    // health tab-> broadband
+    // Health tab "broadband filter" dropdown
     $('#adv-select-broadband').on('change', function() {
         setupHealthTab();
     });
 
-    // broadband tab-> chronic disease -> health dropdown
+    // Broadband tab -> chronic disease tab -> "health measures" dropdown
     $('#adv-select-health').on('change', function() {
         setupBroadbandTab();
     });
 
-    // broadband tab-> rural dropdown
+    // Broadband tab "rural filter" dropdown
     $('#bb-select-demographics').on('change', function() {
         if (curr_health_measure_type === 'opioid' && $('#select-in-bbOpioid').val() !== 'none') {
             setSlider('bbOpioid');
@@ -520,17 +520,17 @@ function init() {
         }
     });
 
-    // broadband tab -> fixed bb availability type
+    // Broadband tab "fixed broadband availability" tabs
     $('.broadband-type').on('change', function() {
         setupBroadbandTab();
     });
 
-    // broadband tab-> trends
+    // Broadband tab trends tabs (increasing / decreasing / all)
     $('[name="bbOpioidTrendsFilter"]').on('change', function(){
         setSlider('bbOpioid');
     });
 
-    // demographics tab dropdown
+    // Demographics tab dropdown
     $('#pop-sec-type').on('change', function() {
         setupPopTab();
     });

@@ -19,8 +19,8 @@
     <title>Connect2HealthFCC - Mapping Broadband Health in America</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700%7CLato:500" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" integrity="sha384-MI32KR77SgI9QAPUs+6R7leEOwtop70UsjEtFEezfKnMjXWx15NENsZpfDgq8m8S" crossorigin="anonymous">
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css" integrity="sha384-o8tecBIfqi9yU5yYK2Ne/9A9hlOGFV9MBvCpmemvJH1XxqOe6h8Bl4mLxMi6PgjG" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" integrity="sha384-MI32KR77SgI9QAPUs+6R7leEOwtop70UsjEtFEezfKnMjXWx15NENsZpfDgq8m8S" crossorigin="anonymous">
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css" integrity="sha384-t17w2haSDwLp3KSAOHF7+VI9q2maRMLDhnIyU/JasjeWyxcN3YOcrD7T95CiJSWE" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css" integrity="sha384-/qLewTwqEHLrVTnUlbu3ATiIUIu0EIi9BGAu6pmzyrvSbDzsDjFnnT13e+oX6hG0" crossorigin="anonymous">
     <link rel="stylesheet" href="css/bootstrap-select.min.css" />
@@ -62,7 +62,6 @@
                         <ul aria-hidden="true" id="menu-primary" class="nav navbar-nav nav-offcanvas-right">
                             <li class="active">
                                 <a aria-controls="browse-by-category" href="index.html">
-                            <!--<div class="text-prefix">FCC Initiatives</div>-->
                                 <strong class="title-emphasis">Connect2Health<sup>FCC</sup></strong>
                             </a>
                             </li>
@@ -147,30 +146,25 @@
                     </div>
                     <div class="map-container">
                         <div id="custom-controls">
-                            <button id="btn-currentLoc" class="btn-geo btn st" type="button" id="btn-geo-current" data-toggle="tooltip" data-placement="right" title="Current Location"><i class="fa fa-location-arrow"></i><span class="sr-only">Current Location</span></button>
-                            <button id="btn-nation" class="btn-geo btn st" type="button" id="btn-geo-nation" data-toggle="tooltip" data-placement="right" title="Nationwide"><i class="fa fa-globe"></i><span class="sr-only">Nationwide</span></button>
+                            <button id="btn-currentLoc" class="btn-geo btn st" type="button" data-toggle="tooltip" data-placement="right" title="Current Location"><i class="fa fa-location-arrow"></i><span class="sr-only">Current Location</span></button>
+                            <button id="btn-nation" class="btn-geo btn st" type="button" data-toggle="tooltip" data-placement="right" title="Nationwide"><i class="fa fa-globe"></i><span class="sr-only">Nationwide</span></button>
                         </div>
                         <div id="map"></div>
                     </div>
                 </div>
                 <div class="col-md-4 panel-container">
-                    <!--
-                    <div class="top-row">
-                        <span id="geog-name">Nationwide</span>
-                    </div>
-                -->
                     <div class="panel panel-default panel-top">
                         <div id="tab-div-nav" class="tab-nav">
                             <ul class="layer-switch nav nav-pills" role="navigation">
-                                <li><a id="insights" href="#">Overview</a></li>
+                                <li class="active"><a id="insights" href="#">Overview</a></li>
                                 <li><a id="broadband" href="#">Broadband</a></li>
                                 <li><a id="health" href="#">Health</a></li>
                                 <li><a id="population" href="#">Demographics</a></li>
                             </ul>
                         </div>
-                        <div id="health-measure-type-group" class="tab-secondary btn-group" data-toggle="buttons" style="display: none">
-                            <label class="btn">
-                                <input type="radio" class="health-measure-type" name="health-measure-type" id="health-measure-type-opioid" value="opioid" autocomplete="off">Opioids
+                        <div id="health-measure-type-group" class="tab-secondary btn-group" data-toggle="buttons">
+                            <label class="btn active">
+                                <input type="radio" class="health-measure-type" name="health-measure-type" id="health-measure-type-opioid" value="opioid" autocomplete="off" checked="checked">Opioids
                             </label>
                             <label class="btn">
                                 <input type="radio" class="health-measure-type" name="health-measure-type" id="health-measure-type-health" value="health" autocomplete="off">Chronic Disease
@@ -189,7 +183,7 @@
                                         <div class="col-xs-6">
                                             <select id="select-in-broadband" class="selectpicker select-insight dropdown-md">
                                                 <option value="in_bb_access">Broadband Access</option>
-                                                <option value="in_bb_rural_access">Rural Access</option>
+                                                <option value="in_bb_rural_access" selected>Rural Access</option>
                                                 <option value="in_bb_in_adoption">Internet Adoption</option>
                                                 <option value="in_bb_dl_speed">Download Speed</option>
                                                 <option value="in_bb_ul_speed">Upload Speed</option>
@@ -199,7 +193,7 @@
                                             <div class="col-xs-10 no-padding slider-label" id="label-broadband" style="color: #0050cc;">
                                             </div>
                                             <div class="pull-right slider-tooltip-div">
-                                                <i class="fa fa-question in-tooltip" id="in-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                <i class="fa fa-info-circle in-tooltip" id="in-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -228,7 +222,7 @@
                                                 <div class="col-xs-10 no-padding slider-label" id="label-health" style="color: #ba0c0c;">
                                                 </div>
                                                 <div class="pull-right slider-tooltip-div">
-                                                    <i class="fa fa-question in-tooltip" id="in-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                    <i class="fa fa-info-circle in-tooltip" id="in-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -236,10 +230,10 @@
                                             <div id="slider-health" class="slider-bar"></div>
                                         </div>
                                     </div>
-                                    <div class="metrics opioidMetrics">
+                                    <div class=" opioidMetrics">
                                         <div class="row row-space">
                                             <div class="col-sm-12 data-label">
-                                                <label for="select-in-opioid">Opioid Measures:<!-- (<span id="opiodMetricsLabel">All Drugs | Overdose Deaths</span>):--></label>
+                                                <label for="select-in-opioid">Opioid Measures:</label>
                                             </div>
                                         </div>
                                         <div class="row row-space">
@@ -247,30 +241,33 @@
                                                 <select id="select-in-opioid" class="selectpicker select-insight dropdown-lg">
                                                     <optgroup label="Overdose Deaths">
                                                         <option value="in_alldrugs_age_adj_mortality_rate">All Drugs | Death Rate</option>
-                                                        <option value="in_alldrugs_age_adj_mortality_rate_pct_change" class="space-bottom">All Drugs | Change in Death Rate</option>
+                                                        <option value="in_alldrugs_age_adj_mortality_rate_pct_change" class="space-bottom" data-filtertype="trends">All Drugs | Change in Death Rate (Trends)</option>
                                                         <option value="in_anyopioids_age_adj_mortality_rate">All Opioids | Death Rate</option>
-                                                        <option value="in_anyopioids_age_adj_mortality_rate_pct_change" class="space-bottom">All Opioids | Change in Death Rate</option>
+                                                        <option value="in_anyopioids_age_adj_mortality_rate_pct_change" class="space-bottom" data-filtertype="trends">All Opioids | Change in Death Rate (Trends)</option>
                                                         <option value="in_prescriptionopioids_age_adj_mortality_rate">Rx Opioids | Death Rate</option>
-                                                        <option value="in_prescriptionopioids_age_adj_mortality_rate_pct_change" class="space-bottom">Rx Opioids | Change in Death Rate</option>
+                                                        <option value="in_prescriptionopioids_age_adj_mortality_rate_pct_change" class="space-bottom" data-filtertype="trends">Rx Opioids | Change in Death Rate (Trends)</option>
                                                         <option value="in_syntheticopioids_age_adj_mortality_rate">Synthetic Opioids | Death Rate</option>
-                                                        <option value="in_syntheticopioids_age_adj_mortality_rate_pct_change" class="space-bottom">Synthetic Opioids | Change in Death Rate</option>
+                                                        <option value="in_syntheticopioids_age_adj_mortality_rate_pct_change" class="space-bottom" data-filtertype="trends">Synthetic Opioids | Change in Death Rate (Trends)</option>
                                                         <option value="in_heroin_age_adj_mortality_rate">Heroin | Death Rate</option>
-                                                        <option value="in_heroin_age_adj_mortality_rate_pct_change">Heroin | Change in Death Rate</option>
+                                                        <option value="in_heroin_age_adj_mortality_rate_pct_change" data-filtertype="trends">Heroin | Change in Death Rate (Trends)</option>
                                                     </optgroup>
                                                     <optgroup label="Prescription Rates">
                                                         <option value="in_opioid_prescribing_rate">Opioids | Prescription Rate</option>
-                                                        <option value="in_opioid_prescribing_rate_pct_change">Opioids | Change in Rx Rate</option>
+                                                        <option value="in_opioid_prescribing_rate_pct_change" data-filtertype="trends">Opioids | Change in Rx Rate (Trends)</option>
                                                     </optgroup>
                                                 </select>
                                             </div>
                                             <div class="col-xs-1">
                                                 <div class="pull-right slider-tooltip-div">
-                                                    <i class="fa fa-question in-tooltip" id="in-tooltip-opioid" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                    <i class="fa fa-info-circle in-tooltip long-tooltip" id="in-tooltip-opioid" data-toggle="tooltip" title="" tabindex="0"></i>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row row-space-top">
-                                            <div class="col-xs-12 slider-label text-center" id="label-opioid"></div>
+                                            <div class="col-xs-12 text-center">
+                                                <div id="label-opioid"></div>
+                                                <div id="label-opioid-sub">National Avg. = <span class="national-avg"></span></div>
+                                            </div>
                                         </div>
                                         <div class="row row-space">
                                             <div id="slider-opioid" class="slider-bar"></div>
@@ -302,7 +299,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row row-space metrics opioidMetrics" style="margin-top:10px;">
+                                    <div class="row row-space  opioidMetrics" style="margin-top:10px;">
                                         <div class="col-sm-3 legend-label">
                                             <div class="text-center">
                                                 <span class="legend-sym" style="background-color: #b2caf0; "></span>
@@ -395,33 +392,19 @@
                                     </div>
                                     <hr class="panel-hr" />
                                     <h4 class="geog-name panel-sec-heading"></h4>
-                                    <div class="row">
+                                    <div class="row stats-panel">
                                         <div class="row">
-                                            <div class="col-xs-7 text-right" id="in-broadband-stat-name">
-                                                Broadband Access:
-                                            </div>
-                                            <div class="col-xs-5" id="in-broadband-stat-value">
-                                            </div>
-                                        </div>
-                                        <div class="row metrics opioidMetrics">
-                                            <div class="col-xs-7 text-right" id="in-opioid-stat-name">
-                                                Physician Access:
-                                            </div>
-                                            <div class="col-xs-5" id="in-opioid-stat-value">
-                                            </div>
-                                        </div>
-                                        <div class="row  metrics healthMetrics">
-                                            <div class="col-xs-7 text-right" id="in-health-stat-name">
-                                                Physician Access:
-                                            </div>
-                                            <div class="col-xs-5" id="in-health-stat-value">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-7 text-right" id="in-count-stat-name">
-                                                Population:
-                                            </div>
-                                            <div class="col-xs-5" id="in-count-stat-value">
+                                            <div class="col-sm-12">
+                                                <dl class="dl-horizontal dl-nwStats">
+                                                    <dt id="in-broadband-stat-name">Broadband Access:</dt>
+                                                    <dd id="in-broadband-stat-value"></dd>
+                                                    <dt id="in-opioid-stat-name"></dt>
+                                                    <dd id="in-opioid-stat-value"></dd>
+                                                    <dt id="in-health-stat-name"></dt>
+                                                    <dd id="in-health-stat-value"></dd>
+                                                    <dt id="in-count-stat-name"></dt>
+                                                    <dd id="in-count-stat-value"></dd>
+                                                </dl>
                                             </div>
                                         </div>
                                     </div>
@@ -457,7 +440,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="pull-right slider-tooltip-div">
-                                                    <i class="fa fa-question hh-tooltip" id="hh-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                    <i class="fa fa-info-circle hh-tooltip" id="hh-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -474,26 +457,26 @@
                                             <div class="col-xs-11">
                                                 <select id="opioid-sec-type" class="selectpicker select-opioid dropdown-lg">
                                                     <optgroup label="Overdose Deaths">
-                                                        <option value="in_alldrugs_age_adj_mortality_rate">All Drugs | Overdose Deaths</option>
-                                                        <option value="in_alldrugs_age_adj_mortality_rate_pct_change" class="space-bottom">All Drugs | Change in Death Rate (2011-2017)</option>
-                                                        <option value="in_anyopioids_age_adj_mortality_rate">All Opioids | Overdose Deaths</option>
-                                                        <option value="in_anyopioids_age_adj_mortality_rate_pct_change" class="space-bottom">All Opioids | Change in Death Rate (2011-2017)</option>
-                                                        <option value="in_prescriptionopioids_age_adj_mortality_rate">Rx Opioids | Overdose Deaths</option>
-                                                        <option value="in_prescriptionopioids_age_adj_mortality_rate_pct_change" class="space-bottom">Rx Opioids | Change in Death Rate (2011-2017)</option>
-                                                        <option value="in_syntheticopioids_age_adj_mortality_rate">Synthetic Opioids | Overdose Deaths</option>
-                                                        <option value="in_syntheticopioids_age_adj_mortality_rate_pct_change" class="space-bottom">Synthetic Opioids | Change in Death Rate (2011-2017)</option>
-                                                        <option value="in_heroin_age_adj_mortality_rate">Heroin | Overdose Deaths</option>
-                                                        <option value="in_heroin_age_adj_mortality_rate_pct_change">Heroin | Change in Death Rate (2011-2017)</option>
+                                                        <option value="in_alldrugs_age_adj_mortality_rate">All Drugs | Death Rate</option>
+                                                        <option value="in_alldrugs_age_adj_mortality_rate_pct_change" class="space-bottom">All Drugs | Change in Death Rate (Trends)</option>
+                                                        <option value="in_anyopioids_age_adj_mortality_rate">All Opioids | Death Rate</option>
+                                                        <option value="in_anyopioids_age_adj_mortality_rate_pct_change" class="space-bottom">All Opioids | Change in Death Rate (Trends)</option>
+                                                        <option value="in_prescriptionopioids_age_adj_mortality_rate">Rx Opioids | Death Rate</option>
+                                                        <option value="in_prescriptionopioids_age_adj_mortality_rate_pct_change" class="space-bottom">Rx Opioids | Change in Death Rate (Trends)</option>
+                                                        <option value="in_syntheticopioids_age_adj_mortality_rate">Synthetic Opioids | Death Rate</option>
+                                                        <option value="in_syntheticopioids_age_adj_mortality_rate_pct_change" class="space-bottom">Synthetic Opioids | Change in Death Rate (Trends)</option>
+                                                        <option value="in_heroin_age_adj_mortality_rate">Heroin | Death Rate</option>
+                                                        <option value="in_heroin_age_adj_mortality_rate_pct_change">Heroin | Change in Death Rate (Trends)</option>
                                                     </optgroup>
                                                     <optgroup label="Prescription Rates">
                                                         <option value="in_opioid_prescribing_rate">Opioids | Prescription Rate</option>
-                                                        <option value="in_opioid_prescribing_rate_pct_change">Opioids | Change in Rx Rate (2011-2016)</option>
+                                                        <option value="in_opioid_prescribing_rate_pct_change">Opioids | Change in Rx Rate (Trends)</option>
                                                     </optgroup>
                                                 </select>
                                             </div>
                                             <div class="col-xs-1">
                                                 <div class="pull-right slider-tooltip-div">
-                                                    <i id="hh-tooltip-opioid" class="fa fa-question hh-tooltip" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                    <i id="hh-tooltip-opioid" class="fa fa-info-circle hh-tooltip" data-toggle="tooltip" title="" tabindex="0"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -530,6 +513,11 @@
                                             </tr>
                                         </table>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 text-center" id="label-health-opioid">
+                                            National Avg. = <span id="health-national-avg"></span>
+                                        </div>
+                                    </div>
                                     <hr class="panel-hr" />
                                     <div id="adv-select-broadband-section" class="row">
                                         <div class="col-sm-5">
@@ -539,7 +527,7 @@
                                         </div>
                                         <div class="col-sm-7 no-left">
                                             <select id="adv-select-broadband" class="selectpicker select-advanced advanced-broadband">
-                                                <option value="">None</option>
+                                                <option value="none">None</option>
                                                 <option value="in_bb_access$0_30" data-content="Broadband Access &lt; 30%"></option>
                                                 <option value="in_bb_access$30_60" data-content="Broadband Access 30-60%"></option>
                                                 <option value="in_bb_access$60_80" data-content="Broadband Access 60-80%"></option>
@@ -571,7 +559,7 @@
                                         </div>
                                         <div class="col-sm-7 no-left">
                                             <select id="hh-select-demographics" class="selectpicker select-advanced advanced-demographics">
-                                                <option value="" selected="selected">None</option>
+                                                <option value="none" selected="selected">None</option>
                                                 <optgroup label="Majority/Minority rural pop">
                                                     <option value="pop_urbanrural$0_50">Less than 50% rural pop.</option>
                                                     <option value="pop_urbanrural$50_100.1">Greater than 50% rural pop.</option>
@@ -589,7 +577,7 @@
                                     <hr class="panel-hr" />
                                     <h4 class="geog-name panel-sec-heading"></h4>
                                     <div class="row" id="health-stats-div">
-                                        <div class="metrics healthMetrics">
+                                        <div class="metrics healthMetrics stats-panel">
                                             <div class="col-md-12">
                                                 <h5 class="text-center panel-sec-sub">Health Measures</h5>
                                             </div>
@@ -629,7 +617,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="metrics opioidMetrics">
+                                        <div class="metrics opioidMetrics stats-panel">
                                             <div class="col-md-12">
                                                 <h5 class="text-center panel-sec-sub">Opioid Measures</h5>
                                             </div>
@@ -642,9 +630,23 @@
                                             </div>
                                             <div class="row col-sm-12">
                                                 <div class="col-xs-7 text-right">
+                                                    All Drug Death Trends:
+                                                </div>
+                                                <div class="col-xs-5 geog-all-drugs-death-trends">
+                                                </div>
+                                            </div>
+                                            <div class="row col-sm-12">
+                                                <div class="col-xs-7 text-right">
                                                     All Opioid Deaths:
                                                 </div>
                                                 <div class="col-xs-5 geog-all-opioid-deaths">
+                                                </div>
+                                            </div>
+                                            <div class="row col-sm-12">
+                                                <div class="col-xs-7 text-right">
+                                                    All Opioid Death Trends:
+                                                </div>
+                                                <div class="col-xs-5 geog-all-opioid-death-trends">
                                                 </div>
                                             </div>
                                             <div class="row col-sm-12">
@@ -707,72 +709,37 @@
                                         <div class="col-md-12">
                                             <h5 class="text-center panel-sec-sub">Health Care Access</h5>
                                         </div>
-                                        <div class="row col-sm-12">
+                                        <div class="row col-sm-12 stats-panel">
                                             <div class="col-xs-7 text-right">
-                                                Number of Mental Health Providers:
+                                                Mental Health Providers:
                                             </div>
                                             <div class="col-xs-5 geog-mental">
                                             </div>
                                         </div>
-                                        <div class="row col-sm-12">
+                                        <div class="row col-sm-12 stats-panel">
                                             <div class="col-xs-7 text-right">
-                                                Number of Primary Care Physicians:
+                                                Primary Care Physicians:
                                             </div>
                                             <div class="col-xs-5 geog-pcp">
                                             </div>
                                         </div>
-                                        <!--<div class="row col-sm-12">-->
-                                            <!--<div class="col-xs-7 text-right">-->
-                                                <!--Dental Providers:-->
-                                            <!--</div>-->
-                                            <!--<div class="col-xs-5 geog-dentists">-->
-                                            <!--</div>-->
-                                        <!--</div>-->
                                         <div class="col-md-12">
                                             <h5 class="text-center panel-sec-sub">Health Care Behaviors</h5>
                                         </div>
-                                        <!--<div class="row col-sm-12">-->
-                                            <!--<div class="col-xs-7 text-right">-->
-                                                <!--Obesity:-->
-                                            <!--</div>-->
-                                            <!--<div class="col-xs-5 geog-obes">-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="row col-sm-12">-->
-                                            <!--<div class="col-xs-7 text-right">-->
-                                                <!--Diabetes:-->
-                                            <!--</div>-->
-                                            <!--<div class="col-xs-5 geog-diab">-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <div class="row col-sm-12">
+                                        <div class="row col-sm-12 stats-panel">
                                             <div class="col-xs-7 text-right">
                                                 Smoking:
                                             </div>
                                             <div class="col-xs-5 geog-smok">
                                             </div>
                                         </div>
-                                        <div class="row col-sm-12">
+                                        <div class="row col-sm-12 stats-panel">
                                             <div class="col-xs-7 text-right">
                                                 Excessive Drinking:
                                             </div>
                                             <div class="col-xs-5 geog-drin">
                                             </div>
                                         </div>
-                                        <!--<div class="row col-sm-12">-->
-                                            <!--<div class="col-xs-7 text-right">-->
-                                                <!--Physical Inactivity:-->
-                                            <!--</div>-->
-                                            <!--<div class="col-xs-5 geog-inac">-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="row col-sm-12">-->
-                                            <!--<div class="col-xs-7 text-right">-->
-                                                <!--Severe Housing:-->
-                                            <!--</div>-->
-                                            <!--<div class="col-xs-5 geog-severehousing">-->
-                                            <!--</div>-->
-                                        <!--</div>-->
                                     </div>
                                     <br />
                                     <div class="row">
@@ -788,7 +755,7 @@
                                         <div class="col-xs-10 data-label">Fixed Broadband Availability:</div>
                                         <div class="col-xs-2 slider-tooltip-div">
                                             <div class="pull-right">
-                                                <i class="fa fa-question bb-tooltip" id="bb-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                <i class="fa fa-info-circle bb-tooltip" id="bb-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -834,7 +801,7 @@
                                             </div>
                                             <div class="col-sm-8">
                                                 <select id="adv-select-health" class="selectpicker select-advanced-3 advanced-health">
-                                                    <option value="">None</option>
+                                                    <option value="none">None</option>
                                                     <option value="in_pcp_access$0_0.0007" data-content="Physician Access &lt; 70"></option>
                                                     <option value="in_pcp_access$0.0007_0.001" data-content="Physician Access 70 - 100"></option>
                                                     <option value="in_pcp_access$0.001_0.002" data-content="Physician Access &gt; 100"></option>
@@ -866,28 +833,28 @@
                                         <div class="row row-space">
                                             <div class="col-xs-11">
                                                 <select id="select-in-bbOpioid" class="selectpicker select-insight dropdown-lg" tabindex="-98">
-                                                    <!--<option value="none">None</option>-->
+                                                    <option value="none">None</option>
                                                     <optgroup label="Overdose Deaths">
                                                         <option value="in_alldrugs_age_adj_mortality_rate">All Drugs | Death Rate</option>
-                                                        <option value="in_alldrugs_age_adj_mortality_rate_pct_change" data-filtertype="trends" class="space-bottom">All Drugs | Change in Death Rate</option>
+                                                        <option value="in_alldrugs_age_adj_mortality_rate_pct_change" data-filtertype="trends" class="space-bottom">All Drugs | Change in Death Rate (Trends)</option>
                                                         <option value="in_anyopioids_age_adj_mortality_rate">All Opioids | Death Rate</option>
-                                                        <option value="in_anyopioids_age_adj_mortality_rate_pct_change" data-filtertype="trends" class="space-bottom">All Opioids | Change in Death Rate</option>
+                                                        <option value="in_anyopioids_age_adj_mortality_rate_pct_change" data-filtertype="trends" class="space-bottom">All Opioids | Change in Death Rate (Trends)</option>
                                                         <option value="in_prescriptionopioids_age_adj_mortality_rate">Rx Opioids | Death Rate</option>
-                                                        <option value="in_prescriptionopioids_age_adj_mortality_rate_pct_change" data-filtertype="trends" class="space-bottom">Rx Opioids | Change in Death Rate</option>
+                                                        <option value="in_prescriptionopioids_age_adj_mortality_rate_pct_change" data-filtertype="trends" class="space-bottom">Rx Opioids | Change in Death Rate (Trends)</option>
                                                         <option value="in_syntheticopioids_age_adj_mortality_rate">Synthetic Opioids | Death Rate</option>
-                                                        <option value="in_syntheticopioids_age_adj_mortality_rate_pct_change" data-filtertype="trends" class="space-bottom">Synthetic Opioids | Change in Death Rate</option>
+                                                        <option value="in_syntheticopioids_age_adj_mortality_rate_pct_change" data-filtertype="trends" class="space-bottom">Synthetic Opioids | Change in Death Rate (Trends)</option>
                                                         <option value="in_heroin_age_adj_mortality_rate">Heroin | Death Rate</option>
-                                                        <option value="in_heroin_age_adj_mortality_rate_pct_change" data-filtertype="trends">Heroin | Change in Death Rate</option>
+                                                        <option value="in_heroin_age_adj_mortality_rate_pct_change" data-filtertype="trends">Heroin | Change in Death Rate (Trends)</option>
                                                     </optgroup>
                                                     <optgroup label="Prescription Rates">
                                                         <option value="in_opioid_prescribing_rate">Opioids | Prescription Rate</option>
-                                                        <option value="in_opioid_prescribing_rate_pct_change" data-filtertype="trends">Opioids | Change in Rx Rate</option>
+                                                        <option value="in_opioid_prescribing_rate_pct_change" data-filtertype="trends">Opioids | Change in Rx Rate (Trends)</option>
                                                     </optgroup>
                                                 </select>
                                             </div>
                                             <div class="col-xs-1">
                                                 <div class="pull-right slider-tooltip-div">
-                                                    <i class="fa fa-question in-tooltip" id="in-tooltip-bbOpioid" data-toggle="tooltip" title="" tabindex="0" data-original-title="Mortality Rate from All Drug Overdoses per 100,000 people."></i>
+                                                    <i class="fa fa-info-circle in-tooltip" id="in-tooltip-bbOpioid" data-toggle="tooltip" title="" tabindex="0" data-original-title="Mortality Rate from All Drug Overdoses per 100,000 people."></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -908,7 +875,7 @@
                                             <div class="col-xs-12 bbOpioid-slider text-center">
                                                 <!-- non trend label -->
                                                 <p id="label-bbOpRange" class="row-space-top"></p>
-                                                <p>National Avg. (1x=<span id="label-nationalAverage"></span>)</p>
+                                                <p><span id="label-nationalAverage"></span></p>
 
                                                 <!-- trend label -->
                                                 <span id="label-bbOpTrendsRange" class="slider-label" style="display: none">50% - 100%</span>
@@ -931,7 +898,7 @@
                                         </div>
                                         <div class="col-sm-7 no-left">
                                             <select id="bb-select-demographics" class="selectpicker select-advanced advanced-demographics">
-                                                <option value="" selected="selected">None</option>
+                                                <option value="none" selected="selected">None</option>
                                                 <optgroup label="Majority/Minority rural pop">
                                                     <option value="pop_urbanrural$0_50">Less than 50% rural pop.</option>
                                                     <option value="pop_urbanrural$50_100.1">Greater than 50% rural pop.</option>
@@ -949,47 +916,57 @@
                                     <hr class="panel-hr" />
                                     <h4 class="geog-name panel-sec-heading"></h4>
                                     <div class="stats-panel row" id="broadband-stats-div">
+                                        <div class="col-md-12 geog-opioid-stat-title">
+                                            <h5 class="text-center panel-sec-sub">Opioid Measure</h5>
+                                        </div>
+                                        <div class="col-md-12 text-center geog-opioid-stat-none">
+                                            No filter selected.
+                                        </div>
+                                        <div class="row col-sm-12 geog-opioid-stat" style="display:none">
+                                            <div class="col-xs-7 text-right geog-opioid-stat-name"></div>
+                                            <div class="col-xs-5 geog-opioid-stat-val"></div>
+                                        </div>
                                         <div class="col-md-12">
                                             <h5 class="text-center panel-sec-sub">Broadband Access</h5>
                                         </div>
                                         <div class="row col-sm-12">
                                             <div class="col-xs-7 text-right">
-                                                Number of Providers :
+                                                Number of Providers:
                                             </div>
                                             <div class="col-xs-5 geog-provcount">
                                             </div>
                                         </div>
                                         <div class="row col-sm-12">
                                             <div class="col-xs-7 text-right">
-                                                Fixed Broadband :
+                                                Fixed Broadband:
                                             </div>
                                             <div class="col-xs-5 geog-intaccess">
                                             </div>
                                         </div>
                                         <div class="row col-sm-12">
                                             <div class="col-xs-7 text-right">
-                                                Fixed Download :
+                                                Fixed Download:
                                             </div>
                                             <div class="col-xs-5 geog-wldl">
                                             </div>
                                         </div>
                                         <div class="row col-sm-12">
                                             <div class="col-xs-7 text-right">
-                                                Fixed Upload :
+                                                Fixed Upload:
                                             </div>
                                             <div class="col-xs-5 geog-wlul">
                                             </div>
                                         </div>
                                         <div class="row col-sm-12">
                                             <div class="col-xs-7 text-right">
-                                                Most Common Download :
+                                                Most Common Download:
                                             </div>
                                             <div class="col-xs-5 geog-commondl">
                                             </div>
                                         </div>
                                         <div class="row col-sm-12">
                                             <div class="col-xs-7 text-right">
-                                                Most Common Upload :
+                                                Most Common Upload:
                                             </div>
                                             <div class="col-xs-5 geog-commonul">
                                             </div>
@@ -999,7 +976,7 @@
                                         </div>
                                         <div class="row col-sm-12">
                                             <div class="col-xs-7 text-right">
-                                                Adoption :
+                                                Adoption:
                                             </div>
                                             <div class="col-xs-5 geog-adoptpct">
                                             </div>
@@ -1065,7 +1042,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-xs-2 slider-tooltip-div">
-                                                    <i class="fa fa-question hh-tooltip" id="hh-tooltip-pop" data-toggle="tooltip" title="" tabindex="0"></i>
+                                                    <i class="fa fa-info-circle hh-tooltip" id="hh-tooltip-pop" data-toggle="tooltip" title="" tabindex="0"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -1163,12 +1140,6 @@
                                         </div>
                                     </div>
                                     <br />
-                                    <!--                            
-                                    <div align="center">
-                                        <canvas id="ch-canvas-population-1" style="width: 300px; height: 220px;"></canvas>
-                                        <div id="ch-legend-population-1" style="width: 300px; height: 30px; text-align: center;"></div>                     
-                                    </div>
-                                    -->
                                     <br />
                                     <div id="carousel-pop" class="carousel slide" data-wrap="true" data-interval="false">
                                         <!-- Wrapper for slides -->
@@ -1200,28 +1171,28 @@
                         <div class="download-data-div" style="padding-top: 0">
                             Download All States:
                             <br>
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=json&typeName=fcc:c2hgis_state" target="_blank">JSON</a>
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=json&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">JSON</a>
                             |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=GML3&typeName=fcc:c2hgis_state" target="_blank">XML</a>
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=GML3&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">XML</a>
                             |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=shape-zip&typeName=fcc:c2hgis_state" target="_blank">SHP</a>
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=shape-zip&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">SHP</a>
                             |
-                            <a href="https://geo.fcc.gov/fcc/wms/kml?mode=download&layers=fcc:c2hgis_state" target="_blank">KML</a>
+                            <a href="https://geo.fcc.gov/fcc/wms/kml?mode=download&layers=fcc:c2hgis_201812_state_2017opioid" target="_blank">KML</a>
                             |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=csv&typeName=fcc:c2hgis_state" target="_blank">CSV</a>
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=csv&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">CSV</a>
                         </div>
                         <div class="download-data-div" style="padding-top: 0">
                             Download All Counties:
                             <br>
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=json&typeName=fcc:c2hgis_county" target="_blank">JSON</a>
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=json&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">JSON</a>
                             |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=GML3&typeName=fcc:c2hgis_county" target="_blank">XML</a>
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=GML3&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">XML</a>
                             |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=shape-zip&typeName=fcc:c2hgis_county" target="_blank">SHP</a>
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=shape-zip&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">SHP</a>
                             |
-                            <a href="https://geo.fcc.gov/fcc/wms/kml?mode=download&layers=fcc:c2hgis_county" target="_blank">KML</a>
+                            <a href="https://geo.fcc.gov/fcc/wms/kml?mode=download&layers=fcc:c2hgis_201812_county_2017opioid" target="_blank">KML</a>
                             |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=csv&typeName=fcc:c2hgis_county" target="_blank">CSV</a>
+                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=csv&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">CSV</a>
                         </div>
                     </div>
                 </div>
@@ -1302,8 +1273,8 @@
     <script src="data/states.js"></script>
     <script src="data/states_abbr.js"></script>
     <script src="data/layers.js"></script>
-    <script src="js/jquery-1.11.3.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha384-Dziy8F2VlJQLMShA6FHWNul/veM9bCkRUaLqr199K94ntO5QUrLJBEbYegdSkkqX" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="js/bootstrap-toolkit.min.js"></script>
     <script src="https://api.mapbox.com/mapbox.js/v3.1.0/mapbox.js" integrity="sha384-PlYsP5pOkc/DxRQ0UHMojCAvlI35dNRMQu9FhBwtOpJl2sY4BN2+FU13RIE/qagI" crossorigin="anonymous"></script>

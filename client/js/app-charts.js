@@ -94,16 +94,6 @@ function createCharts() {
                 callbacks: {
                     title: function() {},
                     label: function(tooltipItem, data) {
-                        /*
-                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
-
-                        if (label) {
-                            label += ': ';
-                        }
-                        // label += Math.round(tooltipItem.yLabel * 100) / 100;
-                        label += tooltipItem.yLabel || tooltipItem.yLabel === 0 ? tooltipItem.yLabel.toFixed(2) + '': 'N/A';
-                        return label;
-                        */
                         var label = data['labels'][tooltipItem['index']];
                         return tooltipItem.yLabel || tooltipItem.yLabel === 0 ? label + ': ' + tooltipItem.yLabel.toFixed(2) : label + ': N/A';
                     }
@@ -126,7 +116,6 @@ function createCharts() {
         if (chart_obj.health.measurements.chart) {
             chart_obj.health.measurements.chart.destroy();
         }
-        // chart_obj.health.measurements.chart = new Chart(document.getElementById('ch-canvas-health-1').getContext('2d')).Radar(chart_obj.health.measurements.data, chart_obj.health.measurements.options);	
 
         chart_obj.health.measurements.chart = new Chart(document.getElementById('ch-canvas-health-1'), {
             type: 'radar',
@@ -164,16 +153,6 @@ function createCharts() {
                 callbacks: {
                     title: function() {},
                     label: function(tooltipItem, data) {
-                        /*
-                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
-
-                        if (label) {
-                            label += ': ';
-                        }
-                        // label += Math.round(tooltipItem.yLabel * 100) / 100;
-                        label += tooltipItem.yLabel.toFixed(1) + '%';
-                        return label; */
-
                         var label = data['labels'][tooltipItem['index']];
 
                         return tooltipItem.yLabel ? label + ': ' + tooltipItem.yLabel.toFixed(1) + '%' : label + ': N/A';
@@ -196,7 +175,6 @@ function createCharts() {
         if (chart_obj.health.measurements.chart) {
             chart_obj.health.measurements.chart.destroy();
         }
-        // chart_obj.health.measurements.chart = new Chart(document.getElementById('ch-canvas-health-1').getContext('2d')).Radar(chart_obj.health.measurements.data, chart_obj.health.measurements.options);
         chart_obj.health.measurements.chart = new Chart(document.getElementById('ch-canvas-health-1'), {
             type: 'radar',
             data: chart_obj.health.measurements.data,
@@ -208,8 +186,6 @@ function createCharts() {
     } else if (cur_tab == 'broadband') {
 
         var current_slide = $('#carousel-bb .carousel-inner div.active').index() + 1;
-
-        //console.log(' current_slide : ' + current_slide );	
 
         if (chart_obj.broadband.dl_tiers.chart) {
             chart_obj.broadband.dl_tiers.chart.destroy();
@@ -293,8 +269,6 @@ function createCharts() {
             if (chart_obj.broadband.num_providers.chart) {
                 chart_obj.broadband.num_providers.chart.destroy();
             }
-
-            // chart_obj.broadband.num_providers.chart = new Chart(document.getElementById('ch-canvas-broadband-1').getContext('2d')).Line(chart_obj.broadband.num_providers.data, chart_obj.broadband.num_providers.options);
 
             chart_obj.broadband.num_providers.chart = new Chart(document.getElementById('ch-canvas-broadband-1'), {
                 type: 'line',
@@ -416,7 +390,6 @@ function createCharts() {
 
         var current_slide = $('#carousel-pop .carousel-inner div.active').index() + 1;
 
-        //console.log(' current_slide : ' + current_slide );	
         if (chart_obj.broadband.dl_tiers.chart) {
             chart_obj.broadband.dl_tiers.chart.destroy();
         }

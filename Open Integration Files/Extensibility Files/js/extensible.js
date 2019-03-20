@@ -9,58 +9,90 @@
 */
 
 
-function applyNewFilter(filter,type,in_layers,in_styles,geo_host,geo_space,wms_method,zindex){
-var extsfilter=getExtPopFilter();
+function applyExtFilter(slider, filter, extFilter) {
+	var in_styles;
 
-var incrementer=0;
+	map.eachLayer(function (layer) {
+		// Remove opioid broadband layer
+		if (curr_health_measure_type === 'opioid' && slider === 'broadband') {
+			if (layer.options.styles && (layer.options.styles === 'opioid_broadband_auto' || layer.options.styles === 'broadband_auto')) {
+				map.removeLayer(layer);
+			}
+		}
 
-function applyFilter(filter_n){
-	console.log("filter_n: "+filter_n);	
-	console.log("map_overlays['in_'+ type].length: "+map_overlays['in_'+ type].length);
-	map_overlays['in_'+ type][map_overlays['in_'+ type].length] = L.tileLayer.wms( geo_host + '/' + geo_space + '/' + wms_method +'?', {
-		 format: 'image/png',
-		 transparent: true,
-		 cql_filter: filter_n,
-		 layers: in_layers,
-		 styles: in_styles,
-	 }).setZIndex(zindex).addTo(map);
-	 this.map.whenReady(function(){
-		if(incrementer<extsfilter.length){
-			incrementer=incrementer+100;
-			applyFilter(filter.split(";")[0]+" AND " +"geography_id"+" IN "+ "("+extsfilter.slice(incrementer,incrementer+100)+")"+";"+filter.split(";")[1]+" AND " +"geography_id"+" IN "+ "("+extsfilter.slice(incrementer,incrementer+100)+")");
-		};	 
-	 });	 
-}
+		// Remove opioid health layers
+		if (curr_health_measure_type === 'opioid' && slider === 'health') {
+			if (layer.options.styles && (layer.options.styles === 'opioid_health_auto' || layer.options.styles === 'health_auto')) {
+				map.removeLayer(layer);
+			}
+		}
 
-function makeFilterString(filterarray){
-	var thisFilterString;
-	console.log("filterarray: "+filterarray);
-	for(i=0;i<filterarray.length;i++){
-		if(i != 0){
-			thisFilterString=thisFilterString+","+"'"+filterarray[i]+"'";
-		}else{
-			thisFilterString="'"+filterarray[i]+"'";
-		};
-	};
-	return thisFilterString;
-}
+		// Remove opioid layer
+		if (curr_health_measure_type === 'opioid' && slider === 'opioid') {
+			if (layer.options.styles && (layer.options.styles.includes('opioid') && layer.options.styles !== 'opioid_broadband_auto')) {
+				map.removeLayer(layer);
+			}
+		}
 
-if(extsfilter != null){
-	applyFilter(filter.split(";")[0]+" AND " +"geography_id"+" IN "+ "("+extsfilter.slice(incrementer,incrementer+100)+")"+";"+filter.split(";")[1]+" AND " +"geography_id"+" IN "+ "("+extsfilter.slice(incrementer,incrementer+100)+")");
-}else{
-	map_overlays['in_'+ type][map_overlays['in_'+ type].length] = L.tileLayer.wms( geo_host + '/' + geo_space + '/' + wms_method +'?', {
-		 format: 'image/png',
-		 transparent: true,
-		 cql_filter: filter,
-		 layers: in_layers,
-		 styles: in_styles,
-	 }).setZIndex(zindex).addTo(map);
-};
+		// Remove health layer
+		if (curr_health_measure_type === 'health' && slider === 'health') {
+			if (layer.options.styles && (layer.options.styles === 'health_auto' || layer.options.styles === 'opioid_health_auto')) {
+				map.removeLayer(layer);
+			}
+		}
+
+		// Remove health broadband layer
+		if (curr_health_measure_type === 'health' && slider === 'broadband') {
+			if (layer.options.styles && (layer.options.styles === 'broadband_auto' || layer.options.styles === 'opioid_broadband_auto')) {
+				map.removeLayer(layer);
+			}
+		}
+	});
+
+	// Add opioid health measure layer
+	if (curr_health_measure_type === 'opioid' && slider === 'opioid') {
+		in_styles = 'opioid_health_auto'
+	}
+
+	// Add opioid broadband layer
+	if (curr_health_measure_type === 'opioid' && slider === 'broadband') {
+		in_styles = 'opioid_broadband_auto';
+	}
+
+	// Add health layer
+	if (curr_health_measure_type === 'health' && slider === 'health') {
+		in_styles = 'health_auto';
+	}
+
+	// Add health broadband layer
+	if (curr_health_measure_type === 'health' && slider === 'broadband') {
+		in_styles = 'broadband_auto';
+	}
+
+	// Paginate filters if necessary (character limit)
+	var incrementer = 0;
+
+	while (incrementer < extFilter.length) {
+		var vals = extFilter.slice(incrementer, incrementer + 100);
+		incrementer = incrementer + 100;
+
+		var f = filter + " AND " + "geography_id" + " IN " + "(" + vals + ")";
+
+		L.tileLayer.wms(geo_host + '/' + geo_space + '/wms?', {
+			format: 'image/png',
+			transparent: true,
+			cql_filter: f,
+			layers: geo_space + ':c2hgis_201812_' + geo_type + '_2017opioid',
+			styles: in_styles
+		}).setZIndex(99999).addTo(map);
+	}
+
+	setHash();
 }
 
 function getExtPopFilter(){
+	// Get filtered open integration data from dropdown selection
 	var thisExtPop_sel=$("#ov-select-extend").val();
-	console.log("thisExtPop_sel: "+thisExtPop_sel);
 
 	if(thisExtPop_sel) {
 		var _extsFilter=[];
@@ -70,7 +102,7 @@ function getExtPopFilter(){
 		var thisExtPopRange = selection[1].split('_');
 		var low = thisExtPopRange[0];
 		var high = thisExtPopRange[1];
-		console.log("thisExtPopRange: "+thisExtPopRange);
+
 		var extsFilter;
 		var started=0;
 		for (var key in extsdata ) {
@@ -85,11 +117,11 @@ function getExtPopFilter(){
 						started=1;
 					}
 				}
-			};
-		};
-		console.log("_extsFilter: "+_extsFilter);	
-		return _extsFilter;			
+			}
+		}
+
+		return _extsFilter;
 	}else{
 		return null;
 	}
-};
+}

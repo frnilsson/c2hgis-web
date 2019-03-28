@@ -197,6 +197,8 @@ function getCurrentLocation(load) {
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
 
+            //map.setView([lat, lng], 10);
+
             geo_lat = lat;
             geo_lng = lng;
 

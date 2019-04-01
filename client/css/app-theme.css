@@ -288,6 +288,10 @@ blockquote {
     display: block;
 }
 
+.navbar-logo:focus {
+	outline: 2px dotted #FFF;
+}
+
 @media (-webkit-min-device-pixel-ratio: 1.5),
 (min--moz-device-pixel-ratio: 1.5),
 (-o-min-device-pixel-ratio: 3 / 2),
@@ -4577,4 +4581,26 @@ a.external {
 .dropdown-menu {
     font-size: 13px !important;
     z-index: 99999 !important;
+}
+
+#input-county:focus {
+	border-color: #6699cc;
+}
+
+#map:focus, #btn-nation:focus, #btn-currentLoc:focus {
+	border: 1px dotted #000;
+}
+
+.leaflet-control-layers-separator {
+	border-width: 3px;
+}
+
+.download-data-div {
+	padding: 0;
+	margin-top: 15px;
+}
+.download-data-div legend {
+	border-bottom: none;
+	font-size: inherit;
+	margin: 0;
 }

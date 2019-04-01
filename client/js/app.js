@@ -138,6 +138,8 @@ function createMap() {
         generateMenu();
     });
 
+    $(".leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-control-fullscreen-button, .leaflet-control-layers-toggle").attr("data-placement","right").tooltip();
+
     $('.leaflet-control-layers-toggle, .leaflet-control-layers').on('mouseover', function() {
         $('.leaflet-control-layers-separator').css('display', 'block');
         $('form.leaflet-control-layers-list-zoom').show();
@@ -417,6 +419,9 @@ function init() {
     $('#slider-opioid').slider();
     $('#slider-health').slider();
 
+    // initialize bootstrap-select
+    $(".selectpicker").selectpicker({});
+
     // If hash exists then load hash variables; otherwise set the hash in the URL then load it.
     if (window.location.hash) {
         loadHash();
@@ -566,8 +571,6 @@ function init() {
 
     updateStats();
     setDownloadLinks();
-
-    $(".selectpicker").selectpicker({});
 
     $('.in-tooltip, .hh-tooltip, .bb-tooltip').tooltip();
 
@@ -765,6 +768,24 @@ function init() {
     $('.btn-group').on("click", ".disabled", function(event) {
         event.preventDefault();
         return false;
+    });
+
+    // Keyboard accessible legend scales
+    $(".legend-table-square").find("tr:first td").on('focusin', function(){
+        $(this).find('span').tooltip('show');
+        var titleTxt = $(this).find('span').attr('data-original-title');
+        $(this).find('span').html('<span class="sr-only">'+titleTxt+'</span>');
+    }).on('focusout', function(){
+        $(this).find('span').tooltip('hide');
+        $(this).find('.sr-only').remove();
+    });
+
+    // Tooltip is screenreader
+    $('.fa-info-circle').on('focusin', function(){
+        var titleTxt = $(this).attr('data-original-title');
+        $(this).html('<span class="sr-only">'+titleTxt+'</span>');
+    }).on('focusout', function(){
+        $(this).html('');
     });
 }
 
@@ -1478,6 +1499,8 @@ function setupPopTab() {
 
         setHash();
     }
+
+    $('#pop-sec-type').selectpicker('refresh');
 }
 
 function updateHealthLegend() {

@@ -54,7 +54,7 @@
                     <div class="container">
                         <div class="navbar-header">
                             <h1 class="navbar-brand">
-                          <a title="Home" href="http://fcc.gov" class="navbar-logo">
+                            <a title="Go to the Federal Communications Commission homepage at www.fcc.gov" href="http://fcc.gov" class="navbar-logo">
                             <span class="sr-only">Federal Communications Commission</span>
                           </a>
                         </h1>
@@ -68,7 +68,7 @@
                         </ul>
                         <div id="app-title">
                             <h2>Mapping Broadband Health in America</h2>
-                            <h3>Everyone connected... to the people, services and information they need to get well and stay healthy.</h3>
+                            <h3>Everyone connected&hellip; to the people, services and information they need to get well and stay healthy.</h3>
                         </div>
                         <div class="navbar-controls">
                             <a data-toggle-direction="right" data-toggle="offcanvas" class="btn navbar-btn btn-toggle-menu" type="button">
@@ -77,12 +77,12 @@
                         </div>
                     </div>
                 </div>
-                <div aria-hidden="true" class="navbar-secondary navbar-default yamm nav-offcanvas nav-offcanvas-right">
+                <div class="navbar-secondary navbar-default yamm nav-offcanvas nav-offcanvas-right">
                     <div id="menu-secondary" class="tab-content">
                         <div class="container tab-pane active" id="browse-by-category">
                             <ul class="nav nav-tabs menu-secondary" role="navigation">
                                 <li class="dropdown dropdown-left yamm-fw">
-                                    <a href="index.html" class="dropdown-toggle active">
+                                    <a href="index.html" class="dropdown-toggle active" aria-current="true">
                                     <span class="link-title dropdown-link-title">Map</span>
                                 </a>
                                 </li>
@@ -94,6 +94,11 @@
                                 <li class="dropdown dropdown-left yamm-fw">
                                     <a href="getting-started.html" class="dropdown-toggle">
                                     <span class="link-title dropdown-link-title">Getting Started</span>
+                                </a>
+                                </li>
+                                <li class="dropdown dropdown-left yamm-fw">
+                                    <a href="focus-on-opioids.html" class="dropdown-toggle">
+                                    <span class="link-title dropdown-link-title">Focus on Opioids</span>
                                 </a>
                                 </li>
                                 <li class="dropdown dropdown-left yamm-fw">
@@ -149,27 +154,29 @@
                             <button id="btn-currentLoc" class="btn-geo btn st" type="button" data-toggle="tooltip" data-placement="right" title="Current Location"><i class="fa fa-location-arrow"></i><span class="sr-only">Current Location</span></button>
                             <button id="btn-nation" class="btn-geo btn st" type="button" data-toggle="tooltip" data-placement="right" title="Nationwide"><i class="fa fa-globe"></i><span class="sr-only">Nationwide</span></button>
                         </div>
+                        <span class="sr-only">Due to the visual nature of the map component, the relationships between broadband and health data are not calculated as numerical values and cannot be announced using current screen reader technology. The FCC has provided links at the end of the Introduction section to download the complete dataset from which the relationship calculations have been derived. The dataset files are in the following formats; JavaScript Object Notation (JSON), Extensible Markup Language (XML), shapefile (SHP), Keyhole Markup Language (KML), and as comma separated values (CSV).</span>
                         <div id="map"></div>
                     </div>
                 </div>
                 <div class="col-md-4 panel-container">
                     <div class="panel panel-default panel-top">
-                        <div id="tab-div-nav" class="tab-nav">
+                        <div id="tab-div-nav" class="tab-nav" role="tablist">
                             <ul class="layer-switch nav nav-pills" role="navigation">
-                                <li class="active"><a id="insights" href="#">Overview</a></li>
-                                <li><a id="broadband" href="#">Broadband</a></li>
-                                <li><a id="health" href="#">Health</a></li>
-                                <li><a id="population" href="#">Demographics</a></li>
+                                <li role="presentation" class="active"><a role="tab" id="insights" href="#">Overview</a></li>
+                                <li role="presentation"><a role="tab" id="broadband" href="#">Broadband</a></li>
+                                <li role="presentation"><a role="tab" id="health" href="#">Health</a></li>
+                                <li role="presentation"><a role="tab" id="population" href="#">Demographics</a></li>
                             </ul>
                         </div>
-                        <div id="health-measure-type-group" class="tab-secondary btn-group" data-toggle="buttons">
+                        <fieldset id="health-measure-type-group" class="tab-secondary btn-group" data-toggle="buttons">
+                            <legend class="sr-only">Select which health issue to load. Page content and map will dynamically change immediately upon selection.</legend>
                             <label class="btn active">
                                 <input type="radio" class="health-measure-type" name="health-measure-type" id="health-measure-type-opioid" value="opioid" autocomplete="off" checked="checked">Opioids
                             </label>
                             <label class="btn">
                                 <input type="radio" class="health-measure-type" name="health-measure-type" id="health-measure-type-health" value="health" autocomplete="off">Chronic Disease
                             </label>
-                        </div>
+                        </fieldset>
                         <div>
                             <div id="controlButtons" style="margin-top:10px;">
                                 <!-- Insights Tab  **************************************************************** -->
@@ -190,7 +197,7 @@
                                             </select>
                                         </div>
                                         <div class="col-xs-6">
-                                            <div class="col-xs-10 no-padding slider-label" id="label-broadband" style="color: #0050cc;">
+                                            <div aria-live="polite" class="col-xs-10 no-padding slider-label" id="label-broadband" style="color: #0050cc;">
                                             </div>
                                             <div class="pull-right slider-tooltip-div">
                                                 <i class="fa fa-info-circle in-tooltip" id="in-tooltip-broadband" data-toggle="tooltip" title="" tabindex="0"></i>
@@ -198,7 +205,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div id="slider-broadband" class="slider-bar"></div>
+                                        <span class="sr-only">Use the slider to adjust the minimum and maximum percentage of values. The changes are dynamically updated in the map. Due to the visual nature of the map component, this information can not be announced using a screen reader. Please refer to the Download Data section near the bottom of the page to access the source data.</span>
+                                        <div role="slider" id="slider-broadband" class="slider-bar"></div>
                                     </div>
                                     <hr class="panel-hr" />
                                     <div class="metrics healthMetrics">
@@ -219,7 +227,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-xs-6">
-                                                <div class="col-xs-10 no-padding slider-label" id="label-health" style="color: #ba0c0c;">
+                                                <div aria-live="polite" class="col-xs-10 no-padding slider-label" id="label-health" style="color: #ba0c0c;">
                                                 </div>
                                                 <div class="pull-right slider-tooltip-div">
                                                     <i class="fa fa-info-circle in-tooltip" id="in-tooltip-health" data-toggle="tooltip" title="" tabindex="0"></i>
@@ -227,7 +235,8 @@
                                             </div>
                                         </div>
                                         <div class="row row-space">
-                                            <div id="slider-health" class="slider-bar"></div>
+                                            <span class="sr-only">Use the slider to adjust the minimum and maximum percentage of values. The changes are dynamically updated in the map. Due to the visual nature of the map component, this information can not be announced using a screen reader. Please refer to the Download Data section near the bottom of the page to access the source data.</span>
+                                            <div role="slider" id="slider-health" class="slider-bar"></div>
                                         </div>
                                     </div>
                                     <div class=" opioidMetrics">
@@ -265,12 +274,13 @@
                                         </div>
                                         <div class="row row-space-top">
                                             <div class="col-xs-12 text-center">
-                                                <div id="label-opioid"></div>
+                                                <div aria-live="polite" id="label-opioid"></div>
                                                 <div id="label-opioid-sub">National Avg. = <span class="national-avg"></span></div>
                                             </div>
                                         </div>
                                         <div class="row row-space">
-                                            <div id="slider-opioid" class="slider-bar"></div>
+                                            <span class="sr-only">Use the slider to adjust the minimum and maximum values. The changes are dynamically updated in the map. Due to the visual nature of the map component, this information can not be announced using a screen reader. Please refer to the Download Data section near the bottom of the page to access the source data.</span>
+                                            <div role="slider" id="slider-opioid" class="slider-bar"></div>
                                         </div>
                                     </div>
                                     <div class="row row-space metrics healthMetrics" style="margin-top:10px;">
@@ -484,11 +494,11 @@
                                     <div class="metrics healthMetrics">
                                         <table class="legend-table-square row-space">
                                             <tr>
-                                                <td><span id="health-sym-1" class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title=""></span></td>
-                                                <td><span id="health-sym-2" class="square-sym" style="background-color: #f1cd1a; " data-toggle="tooltip" title=""></span></td>
-                                                <td><span id="health-sym-3" class="square-sym" style="background-color: #dd8515; " data-toggle="tooltip" title=""></span></td>
-                                                <td><span id="health-sym-4" class="square-sym" style="background-color: #c83e10; " data-toggle="tooltip" title=""></span></td>
-                                                <td><span id="health-sym-5" class="square-sym" style="background-color: #ba0c0c; " data-toggle="tooltip" title=""></span></td>
+                                                <td tabindex="0"><span id="health-sym-1" class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title=""></span></td>
+                                                <td tabindex="0"><span id="health-sym-2" class="square-sym" style="background-color: #f1cd1a; " data-toggle="tooltip" title=""></span></td>
+                                                <td tabindex="0"><span id="health-sym-3" class="square-sym" style="background-color: #dd8515; " data-toggle="tooltip" title=""></span></td>
+                                                <td tabindex="0"><span id="health-sym-4" class="square-sym" style="background-color: #c83e10; " data-toggle="tooltip" title=""></span></td>
+                                                <td tabindex="0"><span id="health-sym-5" class="square-sym" style="background-color: #ba0c0c; " data-toggle="tooltip" title=""></span></td>
                                             </tr>
                                             <tr>
                                                 <td class="square-label health-label-min">&lt; 1,000</td>
@@ -500,11 +510,11 @@
                                     <div class="metrics opioidMetrics">
                                         <table class="legend-table-square row-space">
                                             <tr>
-                                                <td><span id="opioid-sym-1" class="square-sym" style="background-color: #eaa9bd; " data-toggle="tooltip" title=""></span></td>
-                                                <td><span id="opioid-sym-2" class="square-sym" style="background-color: #dd88ac; " data-toggle="tooltip" title=""></span></td>
-                                                <td><span id="opioid-sym-3" class="square-sym" style="background-color: #ca699d; " data-toggle="tooltip" title=""></span></td>
-                                                <td><span id="opioid-sym-4" class="square-sym" style="background-color: #b14d8e; " data-toggle="tooltip" title=""></span></td>
-                                                <td><span id="opioid-sym-5" class="square-sym" style="background-color: #91357d; " data-toggle="tooltip" title=""></span></td>
+                                                <td tabindex="0"><span id="opioid-sym-1" class="square-sym" style="background-color: #eaa9bd; " data-toggle="tooltip" title=""></span></td>
+                                                <td tabindex="0"><span id="opioid-sym-2" class="square-sym" style="background-color: #dd88ac; " data-toggle="tooltip" title=""></span></td>
+                                                <td tabindex="0"><span id="opioid-sym-3" class="square-sym" style="background-color: #ca699d; " data-toggle="tooltip" title=""></span></td>
+                                                <td tabindex="0"><span id="opioid-sym-4" class="square-sym" style="background-color: #b14d8e; " data-toggle="tooltip" title=""></span></td>
+                                                <td tabindex="0"><span id="opioid-sym-5" class="square-sym" style="background-color: #91357d; " data-toggle="tooltip" title=""></span></td>
                                             </tr>
                                             <tr>
                                                 <td class="square-label opioid-label-min">&lt; 1,000</td>
@@ -777,11 +787,11 @@
                                     </div>
                                     <table class="legend-table-square row-space">
                                         <tr>
-                                            <td><span class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title="<20" ></span></td>
-                                            <td><span class="square-sym" style="background-color: #cad942; " data-toggle="tooltip" title="20-40"></span></td>
-                                            <td><span class="square-sym" style="background-color: #7ea576; " data-toggle="tooltip" title="40-60"></span></td>
-                                            <td><span class="square-sym" style="background-color: #3372a9; " data-toggle="tooltip" title="60-80"></span></td>
-                                            <td><span class="square-sym" style="background-color: #0050cc; " data-toggle="tooltip" title=">80"></span></td>
+                                            <td tabindex="0"><span class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title="<20" ></span></td>
+                                            <td tabindex="0"><span class="square-sym" style="background-color: #cad942; " data-toggle="tooltip" title="20-40"></span></td>
+                                            <td tabindex="0"><span class="square-sym" style="background-color: #7ea576; " data-toggle="tooltip" title="40-60"></span></td>
+                                            <td tabindex="0"><span class="square-sym" style="background-color: #3372a9; " data-toggle="tooltip" title="60-80"></span></td>
+                                            <td tabindex="0"><span class="square-sym" style="background-color: #0050cc; " data-toggle="tooltip" title=">80"></span></td>
                                         </tr>
                                         <tr>
                                             <td class="square-label square-label-min">0%</td>
@@ -874,18 +884,19 @@
                                         <div class="row row-space-top">
                                             <div class="col-xs-12 bbOpioid-slider text-center">
                                                 <!-- non trend label -->
-                                                <p id="label-bbOpRange" class="row-space-top"></p>
+                                                <p id="label-bbOpRange" class="row-space-top" aria-live="polite"></p>
                                                 <p><span id="label-nationalAverage"></span></p>
 
                                                 <!-- trend label -->
-                                                <span id="label-bbOpTrendsRange" class="slider-label" style="display: none">50% - 100%</span>
+                                                <span aria-live="polite" id="label-bbOpTrendsRange" class="slider-label" style="display: none">50% - 100%</span>
                                             </div>
                                         </div>
                                         <div class="row row-space">
                                             <div class="col-xs-12">
                                                 <div class="slider-bbOpiod-label min">0x</div>
                                                 <div class="slider-bbOpiod-label max">10x</div>
-                                                <div id="slider-bbOpioid" class="slider-bbOpioid"></div>
+                                                <span class="sr-only">Use the slider to adjust the minimum and maximum percentage of values. The changes are dynamically updated in the map. Due to the visual nature of the map component, this information can not be announced using a screen reader. Please refer to the Download Data section near the bottom of the page to access the source data.</span>
+                                                <div role="slider" id="slider-bbOpioid" class="slider-bbOpioid"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1049,11 +1060,11 @@
                                     </div>
                                     <table class="legend-table-square row-space">
                                         <tr>
-                                            <td><span id="pop-sym-1" class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title=""></span></td>
-                                            <td><span id="pop-sym-2" class="square-sym" style="background-color: #cdec20; " data-toggle="tooltip" title=""></span></td>
-                                            <td><span id="pop-sym-3" class="square-sym" style="background-color: #83d523; " data-toggle="tooltip" title=""></span></td>
-                                            <td><span id="pop-sym-4" class="square-sym" style="background-color: #38bd26; " data-toggle="tooltip" title=""></span></td>
-                                            <td><span id="pop-sym-5" class="square-sym" style="background-color: #05ad28; " data-toggle="tooltip" title=""></span></td>
+                                            <td tabindex="0"><span id="pop-sym-1" class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title=""></span></td>
+                                            <td tabindex="0"><span id="pop-sym-2" class="square-sym" style="background-color: #cdec20; " data-toggle="tooltip" title=""></span></td>
+                                            <td tabindex="0"><span id="pop-sym-3" class="square-sym" style="background-color: #83d523; " data-toggle="tooltip" title=""></span></td>
+                                            <td tabindex="0"><span id="pop-sym-4" class="square-sym" style="background-color: #38bd26; " data-toggle="tooltip" title=""></span></td>
+                                            <td tabindex="0"><span id="pop-sym-5" class="square-sym" style="background-color: #05ad28; " data-toggle="tooltip" title=""></span></td>
                                         </tr>
                                         <tr>
                                             <td class="square-label pop-label-min">
@@ -1155,45 +1166,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="download-data-div">
-                            Download <span class="geog-nameData"></span> Data:
-                            <br>
-                            <a id="download-data-json" href="" target="_blank">JSON</a>
-                            |
-                            <a id="download-data-xml" href="" target="_blank">XML</a>
-                            |
-                            <a id="download-data-shp" href="" target="_blank">SHP</a>
-                            |
-                            <a id="download-data-kml" href="" target="_blank">KML</a>
-                            |
-                            <a id="download-data-csv" href="" target="_blank">CSV</a>
-                        </div>
-                        <div class="download-data-div" style="padding-top: 0">
-                            Download All States:
-                            <br>
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=json&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">JSON</a>
-                            |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=GML3&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">XML</a>
-                            |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=shape-zip&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">SHP</a>
-                            |
-                            <a href="https://geo.fcc.gov/fcc/wms/kml?mode=download&layers=fcc:c2hgis_201812_state_2017opioid" target="_blank">KML</a>
-                            |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=csv&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">CSV</a>
-                        </div>
-                        <div class="download-data-div" style="padding-top: 0">
-                            Download All Counties:
-                            <br>
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=json&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">JSON</a>
-                            |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=GML3&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">XML</a>
-                            |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=shape-zip&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">SHP</a>
-                            |
-                            <a href="https://geo.fcc.gov/fcc/wms/kml?mode=download&layers=fcc:c2hgis_201812_county_2017opioid" target="_blank">KML</a>
-                            |
-                            <a href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=csv&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">CSV</a>
-                        </div>
+
+              <fieldset id="skiptarget2" class="download-data-div">
+            <legend>Download <span class="geog-nameData"></span> Data: <span class="sr-only">Links open new window</span></legend>
+            <a aria-label="Download JSON file for Nationwide Data" id="download-data-json" href="" target="_blank">JSON</a> | <a aria-label="Download XML  file for Nationwide Data" id="download-data-xml" href="" target="_blank">XML</a> | <a aria-label="Download SHP  file for Nationwide Data" id="download-data-shp" href="" target="_blank">SHP</a> | <a aria-label="Download KML  file for Nationwide Data" id="download-data-kml" href="" target="_blank">KML</a> | <a aria-label="Download CSV  file for Nationwide Data" id="download-data-csv" href="" target="_blank">CSV</a>
+          </fieldset>
+              <fieldset class="download-data-div">
+            <legend>Download All States: <span class="sr-only">Links open new window</span></legend>
+            <a aria-label="Download JSON file for All States" href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=json&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">JSON</a> | <a aria-label="Download XML file for All States"  href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=GML3&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">XML</a> | <a aria-label="Download SHP file for All States" href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=shape-zip&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">SHP</a> | <a aria-label="Download KML file for All States" href="https://geo.fcc.gov/fcc/wms/kml?mode=download&layers=fcc:c2hgis_201812_state_2017opioid" target="_blank">KML</a> | <a aria-label="Download CSV file for All States" href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=55&outputFormat=csv&typeName=fcc:c2hgis_201812_state_2017opioid" target="_blank">CSV</a>
+          </fieldset>
+              <fieldset class="download-data-div">
+            <legend>Download All Counties: <span class="sr-only">Links open new window</span></legend>
+            <a aria-label="Download JSON file for All Countries" href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=json&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">JSON</a> | <a aria-label="Download XML file for All Countries" href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=GML3&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">XML</a> | <a aria-label="Download SHP file for All Countries" href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=shape-zip&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">SHP</a> | <a aria-label="Download KML file for All Countries" href="https://geo.fcc.gov/fcc/wms/kml?mode=download&layers=fcc:c2hgis_201812_county_2017opioid" target="_blank">KML</a> | <a aria-label="Download CSV file for All Countries" href="https://geo.fcc.gov/fcc/wfs?service=WFS&version=1.0.0&request=GetFeature&maxFeatures=3300&outputFormat=csv&typeName=fcc:c2hgis_201812_county_2017opioid" target="_blank">CSV</a>
+          </fieldset>
                     </div>
                 </div>
             </div>

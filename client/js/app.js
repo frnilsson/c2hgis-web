@@ -67,6 +67,7 @@ function createMap() {
     L.mapbox.accessToken = mb_accessToken;
 
     map = L.mapbox.map('map', 'fcc.k74ed5ge', {
+        zoomControl: false,
         attributionControl: true,
         maxZoom: 19,
         minZoom: 3
@@ -77,6 +78,11 @@ function createMap() {
     var baseStreet = L.mapbox.tileLayer('fcc.k74ed5ge').addTo(map);
     var baseSatellite = L.mapbox.tileLayer('fcc.k74d7n0g');
     var baseTerrain = L.mapbox.tileLayer('fcc.k74cm3ol');
+
+    L.control.zoom({
+		'zoomInText': 'Zoom In',
+		'zoomOutText': 'Zoom Out'
+	}).addTo(map);
 
     L.control.scale({
         position: 'bottomleft'
@@ -139,6 +145,8 @@ function createMap() {
     });
 
     $(".leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-control-fullscreen-button, .leaflet-control-layers-toggle").attr("data-placement","right").tooltip();
+
+    $('.leaflet-control-layers-toggle').html('<span class="sr-only">Layers</span>');
 
     $('.leaflet-control-layers-toggle, .leaflet-control-layers').on('mouseover', function() {
         $('.leaflet-control-layers-separator').css('display', 'block');

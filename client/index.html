@@ -49,7 +49,7 @@
     <div class="page row-offcanvas row-offcanvas-right">
         <header class="site-header">
             <div class="jumpLinks"> <a href="#skiptarget1" class="sr-only focusable">Skip to main content</a> <a href="#skiptarget3" class="sr-only focusable">Skip to footer and contact information</a> </div>
-            <nav role="navigation">
+            <nav role="navigation" aria-label="Main">
                 <div class="navbar navbar-default navbar-primary">
                     <div class="container">
                         <div class="navbar-header">
@@ -80,7 +80,7 @@
                 <div class="navbar-secondary navbar-default yamm nav-offcanvas nav-offcanvas-right">
                     <div id="menu-secondary" class="tab-content">
                         <div class="container tab-pane active" id="browse-by-category">
-                            <ul class="nav nav-tabs menu-secondary" role="navigation">
+                            <ul class="nav nav-tabs menu-secondary" role="navigation" aria-label="Secondary">
                                 <li class="dropdown dropdown-left yamm-fw">
                                     <a href="index.html" class="dropdown-toggle active" aria-current="true">
                                     <span class="link-title dropdown-link-title">Map</span>
@@ -286,25 +286,33 @@
                                     <div class="row row-space metrics healthMetrics" style="margin-top:10px;">
                                         <div class="col-sm-3 legend-label">
                                             <div class="text-center">
-                                                <span class="legend-sym" style="background-color: #b2caf0; "></span>
+                                                <span class="legend-sym" style="background-color: #b2caf0; ">
+                                                    <span class="sr-only">Image of a light blue box</span>
+                                                </span>
                                                 <br />Broadband
                                             </div>
                                         </div>
                                         <div class="col-sm-3 legend-label">
                                             <div class="text-center">
-                                                <span class="legend-sym" style="background-color: #eab6b6; "></span>
+                                                <span class="legend-sym" style="background-color: #eab6b6; ">
+                                                    <span class="sr-only">Image of a pink box</span>
+                                                </span>
                                                 <br />Health
                                             </div>
                                         </div>
                                         <div class="col-sm-3 legend-label">
                                             <div class="text-center">
-                                                <span class="legend-sym" style="background-color: #9D90B5; "></span>
+                                                <span class="legend-sym" style="background-color: #9D90B5; ">
+                                                    <span class="sr-only">Image of a purple box</span>
+                                                </span>
                                                 <br />Broadband & Health
                                             </div>
                                         </div>
                                         <div class="col-sm-3 legend-label">
                                             <div class="text-center">
-                                                <span class="legend-sym" style="background-color: #FFF; border:1px solid gray;"></span>
+                                                <span class="legend-sym" style="background-color: #FFF; border:1px solid gray;">
+                                                    <span class="sr-only">Image of a white box</span>
+                                                </span>
                                                 <br />Neither
                                             </div>
                                         </div>
@@ -312,25 +320,33 @@
                                     <div class="row row-space  opioidMetrics" style="margin-top:10px;">
                                         <div class="col-sm-3 legend-label">
                                             <div class="text-center">
-                                                <span class="legend-sym" style="background-color: #b2caf0; "></span>
+                                                <span class="legend-sym" style="background-color: #b2caf0; ">
+                                                    <span class="sr-only">Image of a light blue box</span>
+                                                </span>
                                                 <br />Broadband
                                             </div>
                                         </div>
                                         <div class="col-sm-3 legend-label">
                                             <div class="text-center">
-                                                <span class="legend-sym" style="background-color: #964c8c; "></span>
+                                                <span class="legend-sym" style="background-color: #964c8c; ">
+                                                    <span class="sr-only">Image of a plum-colored box</span>
+                                                </span>
                                                 <br />Opioids
                                             </div>
                                         </div>
                                         <div class="col-sm-3 legend-label">
                                             <div class="text-center">
-                                                <span class="legend-sym" style="background-color: #694d9f; "></span>
+                                                <span class="legend-sym" style="background-color: #694d9f; ">
+                                                    <span class="sr-only">Image of a purple box</span>
+                                                </span>
                                                 <br />Broadband & Opioids
                                             </div>
                                         </div>
                                         <div class="col-sm-3 legend-label">
                                             <div class="text-center">
-                                                <span class="legend-sym" style="background-color: #FFF; border:1px solid gray;"></span>
+                                                <span class="legend-sym" style="background-color: #FFF; border:1px solid gray;">
+                                                    <span class="sr-only">Image of a white box</span>
+                                                </span>
                                                 <br />Neither
                                             </div>
                                         </div>
@@ -376,6 +392,7 @@
                                             </div>
                                             <div class="col-xs-6 in-cnt-legend-box" style="display:none;">
                                                 <div class="in-cnt-legend-table row">
+                                                    <span class="sr-only">The value selected in the "Data Overlays" drop down menu is represented by various sized circles from small to larger which dynamically appear in the map to display the quantity and location of the selection in the U.S. The range of this display is from: </span>
                                                     <div class="col-xs-2"></div>
                                                     <div class="col-xs-2">
                                                         <span class="circle-sym" style="background-color: #05ad28; height: 5px; width: 5px"></span>
@@ -395,6 +412,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-6 circle-label circle-label-min"></div>
+                                                    <span class="sr-only">to</span>
                                                     <div class="col-xs-6 circle-label circle-label-max"></div>
                                                 </div>
                                             </div>
@@ -422,10 +440,10 @@
                                     <h4 class="panel-sec-heading">Introduction:</h4>
                                     <div class="row">
                                         <div class="col-md-12 state-insights-text">
-                                            Mapping Broadband Health in America is an interactive mapping platform created by the Connect2Health<sup>FCC</sup> Task Force. It allows users to visualize, intersect and analyze broadband and health data at the national, state and county levels. New for 2019, the platform now includes opioid and drug abuse data along with chronic disease and access to care data.  By using the mapping platform as a starting point for looking at the broadband and health sectors, you can see the path to a more connected and healthier country. <a href="background.html">More.</a>
+                                            Mapping Broadband Health in America is an interactive mapping platform created by the Connect2Health<sup>FCC</sup> Task Force. It allows users to visualize, intersect and analyze broadband and health data at the national, state and county levels. New for 2019, the platform now includes opioid and drug abuse data along with chronic disease and access to care data.  By using the mapping platform as a starting point for looking at the broadband and health sectors, you can see the path to a more connected and healthier country. <a href="background.html"><span class="sr-only">Read </span>More<span class="sr-only"> about the Connect2Health FCC mapping platform</span>.</a>
                                         </div>
                                         <div class="col-md-12" id="">
-                                            Learn <a href='getting-started.html' class="full-insights-link">how to use</a> the map. Explore broadband and opioids. Read the <a class="external" href="https://www.fcc.gov/health/maps/faq" target="_blank">FAQs</a>.
+                                            Learn <a href='getting-started.html' class="full-insights-link">how to use the map</a>. Explore broadband and opioids. Read the <a class="external" href="https://www.fcc.gov/health/maps/faq" target="_blank"><abbr title="Frequently Asked Questions" class="faqs">F&zwnj;A&zwnj;Qs</abbr></a>.
                                         </div>
                                     </div>
                                 </div>
@@ -492,7 +510,7 @@
                                         </div>
                                     </div>
                                     <div class="metrics healthMetrics">
-                                        <table class="legend-table-square row-space">
+                                        <table class="legend-table-square row-space" role="presentation">
                                             <tr>
                                                 <td tabindex="0"><span id="health-sym-1" class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title=""></span></td>
                                                 <td tabindex="0"><span id="health-sym-2" class="square-sym" style="background-color: #f1cd1a; " data-toggle="tooltip" title=""></span></td>
@@ -508,7 +526,7 @@
                                         </table>
                                     </div>
                                     <div class="metrics opioidMetrics">
-                                        <table class="legend-table-square row-space">
+                                        <table class="legend-table-square row-space" role="presentation">
                                             <tr>
                                                 <td tabindex="0"><span id="opioid-sym-1" class="square-sym" style="background-color: #eaa9bd; " data-toggle="tooltip" title=""></span></td>
                                                 <td tabindex="0"><span id="opioid-sym-2" class="square-sym" style="background-color: #dd88ac; " data-toggle="tooltip" title=""></span></td>
@@ -752,6 +770,8 @@
                                         </div>
                                     </div>
                                     <br />
+
+                                    <span class="sr-only">The following section displays a dynamically generated spider web chart with several plot points comparing Nationwide Statistics that were previously selected.</span>
                                     <div class="row">
                                         <div align="center">
                                             <canvas id="ch-canvas-health-1" style="width: 300px; height: 220px;"></canvas>
@@ -772,20 +792,20 @@
                                     <div class="row row-space">
                                         <div id="broadband-type-group" class="btn-group col-sm-12" data-toggle="buttons">
                                             <label class="col-sm-3 btn btn-primary active">
-                                                <input class="show-layer broadband-type" type="radio" checked="checked" name="broadband-type" id="broadband-type-fixed_access" value="fixed_access" autocomplete="off">Access<span class="bb-subtype">(All)</span>
+                                                <input class="show-layer broadband-type" type="radio" checked="checked" name="broadband-type" id="broadband-type-fixed_access" value="fixed_access" autocomplete="off">Access <span class="bb-subtype">(All)</span>
                                             </label>
                                             <label class="col-sm-3 btn btn-primary">
-                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-wn_dl" value="wn_dl" autocomplete="off">Access<span class="bb-subtype">(Download)</span>
+                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-wn_dl" value="wn_dl" autocomplete="off">Access <span class="bb-subtype">(Download)</span>
                                             </label>
                                             <label class="col-sm-3 btn btn-primary">
-                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-wn_ul" value="wn_ul" autocomplete="off">Access<span class="bb-subtype">(Upload)</span>
+                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-wn_ul" value="wn_ul" autocomplete="off">Access <span class="bb-subtype">(Upload)</span>
                                             </label>
                                             <label class="col-sm-3 btn btn-primary">
-                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-in_adoption" value="in_adoption" autocomplete="off">Adoption<span class="bb-subtype">(Internet)</span>
+                                                <input class="show-layer broadband-type" type="radio" name="broadband-type" id="broadband-type-in_adoption" value="in_adoption" autocomplete="off">Adoption <span class="bb-subtype">(Internet)</span>
                                             </label>
                                         </div>
                                     </div>
-                                    <table class="legend-table-square row-space">
+                                    <table class="legend-table-square row-space" role="presentation">
                                         <tr>
                                             <td tabindex="0"><span class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title="<20" ></span></td>
                                             <td tabindex="0"><span class="square-sym" style="background-color: #cad942; " data-toggle="tooltip" title="20-40"></span></td>
@@ -994,12 +1014,20 @@
                                         </div>
                                     </div>
                                     <br />
+
+                                    <span class="sr-only">Contained in this section are three dynamically created graphic charts. The first graphic shows a line graph for the Number of Providers.  The second graphic shows a pie chart for the Download Speed Tiers.  The third graphic shows a pie chart for the Upload Speed Tiers.</span>
                                     <div id="carousel-bb" class="carousel slide" data-wrap="true" data-interval="false">
                                         <!-- Indicators -->
                                         <ol class="carousel-indicators">
-                                            <li data-target="#carousel-bb" data-slide-to="0" class="active"></li>
-                                            <li data-target="#carousel-bb" data-slide-to="1"></li>
-                                            <li data-target="#carousel-bb" data-slide-to="2"></li>
+                                            <li data-target="#carousel-bb" data-slide-to="0" class="active">
+                                                <a class="sr-only">First chart</a>
+                                            </li>
+                                            <li data-target="#carousel-bb" data-slide-to="1">
+                                                <a class="sr-only">Second chart</a>
+                                            </li>
+                                            <li data-target="#carousel-bb" data-slide-to="2">
+                                                <a class="sr-only">Third chart</a>
+                                            </li>
                                         </ol>
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner" role="listbox">
@@ -1058,7 +1086,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <table class="legend-table-square row-space">
+                                    <table class="legend-table-square row-space" role="presentation">
                                         <tr>
                                             <td tabindex="0"><span id="pop-sym-1" class="square-sym" style="background-color: #fffc1e; " data-toggle="tooltip" title=""></span></td>
                                             <td tabindex="0"><span id="pop-sym-2" class="square-sym" style="background-color: #cdec20; " data-toggle="tooltip" title=""></span></td>
@@ -1152,6 +1180,7 @@
                                     </div>
                                     <br />
                                     <br />
+                                    <span class="sr-only">Contained in this section is a pie chart image comparing the Urban and rural percentages.</span>
                                     <div id="carousel-pop" class="carousel slide" data-wrap="true" data-interval="false">
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner" role="listbox">
@@ -1169,7 +1198,7 @@
 
               <fieldset id="skiptarget2" class="download-data-div">
             <legend>Download <span class="geog-nameData"></span> Data: <span class="sr-only">Links open new window</span></legend>
-            <a aria-label="Download JSON file for Nationwide Data" id="download-data-json" href="" target="_blank">JSON</a> | <a aria-label="Download XML  file for Nationwide Data" id="download-data-xml" href="" target="_blank">XML</a> | <a aria-label="Download SHP  file for Nationwide Data" id="download-data-shp" href="" target="_blank">SHP</a> | <a aria-label="Download KML  file for Nationwide Data" id="download-data-kml" href="" target="_blank">KML</a> | <a aria-label="Download CSV  file for Nationwide Data" id="download-data-csv" href="" target="_blank">CSV</a>
+            <a aria-label="Download JSON file for selected data" id="download-data-json" href="" target="_blank">JSON</a> | <a aria-label="Download XML file for selected data" id="download-data-xml" href="" target="_blank">XML</a> | <a aria-label="Download SHP file for selected data" id="download-data-shp" href="" target="_blank">SHP</a> | <a aria-label="Download KML file for selected data" id="download-data-kml" href="" target="_blank">KML</a> | <a aria-label="Download CSV file for selected data" id="download-data-csv" href="" target="_blank">CSV</a>
           </fieldset>
               <fieldset class="download-data-div">
             <legend>Download All States: <span class="sr-only">Links open new window</span></legend>

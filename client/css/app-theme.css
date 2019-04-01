@@ -4604,3 +4604,46 @@ a.external {
 	font-size: inherit;
 	margin: 0;
 }
+
+.dropdown-menu .divider {
+	height: 3px;
+}
+
+.dropdown-menu .dropdown-header {
+	color: #000;
+	font-weight: bold;
+}
+
+#input-county::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #767676;
+    opacity: 1; /* Firefox */
+}
+
+#input-county:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #767676;
+}
+
+#input-county::-ms-input-placeholder { /* Microsoft Edge */
+    color: #767676;
+}
+
+abbr[title].faqs {
+    border-bottom: none;
+    text-decoration: none;
+}
+
+.carousel-control {
+	text-shadow: 0 1px 2px rgba(0,0,0,1);
+}
+
+.ui-widget-content .ui-state-default {
+	border: 1px solid #999999;
+// lightest gray safe to use on white Level AA is 767676
+}
+html .ui-widget-content .ui-state-default.ui-state-hover {
+	border: 1px solid #000;
+}
+.slider-bar.ui-slider, .slider-bbOpioid.ui-slider {
+	border-bottom: 1px solid #999999;
+// lightest gray safe to use on white Level AA is 767676
+}

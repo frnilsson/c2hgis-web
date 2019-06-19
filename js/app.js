@@ -17,7 +17,8 @@ var geo_space = 'fcc';
 var geo_output = 'application/json';
 
 
-var wms_method = 'gwc/service/wms';
+// var wms_method = 'gwc/service/wms';
+var wms_method = 'wms';
 
 var geo_type = 'state';
 //var geo_type = 'national';
@@ -539,8 +540,8 @@ function redoMap(type, filter, zindex) {
 	//console.log('map in_layers : ' + in_layers );
 	//console.log('map in_styles : ' + in_styles );	
 	
-	var wms_method = 'gwc/service/wms';
-	//var wms_method = 'wms';
+	// var wms_method = 'gwc/service/wms';
+	var wms_method = 'wms';
 
 	//console.log('map link : ' + geo_host + '/' + geo_space + '/' + wms_method );
 	map_overlays['in_'+ type] = L.tileLayer.wms( geo_host + '/' + geo_space + '/' + wms_method +'?', {
